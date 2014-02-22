@@ -1,6 +1,7 @@
 % Szglab4
 % ===========================================================================
 %
+
 \chapter{Követelmény, projekt, funkcionalitás}
 
 \thispagestyle{fancy}
@@ -146,13 +147,71 @@
 
 \section{Lényeges use-case-ek}
 \comment{A 2.3.1-ben felsorolt követelmények közül az alapvető és fontos követelményekhez tartozó használati esetek megadása az alábbi táblázatos formában.}
+
 \subsection{Use-case leírások}
 
-\comment{Minden use-case-hez külön}
+\usecase
+{Új játék indítása}
+{Új játék indul el}
+{Játékos}
+{1. A játékos kiválasztja a menüben az "Új játék" feliratú gombot, és megnyomja. \newline
+2. Ezután kiválaszthatja  a nehézséget és a pályát. \newline
+3. Elindul a játék a kiválasztott pályával és nehézséggel.}
 
-\usecase{...}{...}{...}{...}
+\usecase
+{Pálya kiválasztása}
+{Ki kell választani a pályát amelyen játszani kíván.}
+{Játékos}
+{Új játék indítása után egy listából ki kell választani a pályát amelyen játszani kíván.}
 
-\usecase{...}{...}{...}{...}
+\usecase
+{Nehézségi szint kiválasztása}
+{Ki kell választani, hogy milyen nehézségen kíván játszani.}
+{Játékos}
+{Új játék indítása, és a pálya kiválasztása után, ki kell választani három opció közül,
+ hogy mennyire legyen a játék nehéz.}
+
+\usecase
+{Torony építése}
+{Új tornyot épít}
+{Játékos}
+{Olyan mezőre kattintva, ahol nincsen út vagy torony, ott új torony épül, 
+ha van elég varázserő hozzá.}
+
+\usecase
+{Akadály építése}
+{Új akadályt épít}
+{Játékos}
+{Olyan mezőre kattintva ahol út van, és még nincsen akadály, ott akadály épül,
+ha van elég varázserő hozzá.}
+
+\usecase
+{Torony/akadály enchant-olás}
+{Már létező tornyot vagy akadályt enchant-olunk}
+{Játékos}
+{Toronyra vagy akadályra kattintva ki kell választani, hogy milyen drágakővel szeretné enchant-olni, 
+és ha van elég varázserő hozzá akkor megtörténik az enchant.}
+
+\usecase
+{Feladás}
+{Feladjuk a jelenlegi játékot}
+{Játékos}
+{A feladás gombra kattintva a játék végetér, és megnyílik a főmenü.}
+
+\usecase
+{Kilépés}
+{Kilép az alkalmazásból}
+{Játékos}
+{Az ablak jobb felső sarkában, a bezárásra kattintva az alkalmazás kilép.}
+
+\subsection{Use-case diagram}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=170mm]{images/UseCase.png}
+\caption{Use-case diagram}
+\label{overflow}
+\end{figure}
 
 \section{Szótár}
 \comment{A szótár a követelmények alapján készítendő fejezet. Egy szótári bejegyzés definiálásához csak más szótári bejegyzések és köznapi – a feladattól független – fogalmak használhatók fel. A szótár mérete kb. 1-2 oldal legyen.}
