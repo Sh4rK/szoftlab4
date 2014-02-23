@@ -70,7 +70,7 @@
 \hline
 1.09 & Az ellenfelek az utakról nem térnek le & bemutatás & alapvető & megrendelő &  &  \tabularnewline
 \hline
-1.10 & Tornyot nem lehet út mellé építeni & bemutatás & fontos & megrendelő &  &  \tabularnewline
+1.10 & Tornyot nem lehet útra építeni & bemutatás & fontos & megrendelő &  &  \tabularnewline
 \hline
 1.11 & Akadályokat lehet építeni & bemutatás & alapvető & megrendelő & Akadály építése &  \tabularnewline
 \hline
@@ -123,7 +123,7 @@
 \hline
 2.06 & HSZK-ban találhatókkal azonos vagy jobb teljesítményű PC &  & alapvető & megrendelő &  \tabularnewline
 \hline
-2.07 & Enterprise Architecht &  & opcionális & csapat & UML modellező \tabularnewline
+2.07 & Enterprise Architect &  & opcionális & csapat & UML modellező \tabularnewline
 \hline
 2.08 & TeXworks &  & opcionális & csapat & LaTeX editor \tabularnewline
 \hline
@@ -235,6 +235,80 @@ ha van elég varázserő hozzá.}
 \comment{A szótár a követelmények alapján készítendő fejezet. Egy szótári bejegyzés definiálásához csak más szótári bejegyzések és köznapi – a feladattól független – fogalmak használhatók fel. A szótár mérete kb. 1-2 oldal legyen.}
 
 \section{Projekt terv}
-\comment{Tartalmaznia kell a projekt végrehajtásának lépéseit, a lépések, eredmények határidejét, az egyes feladatok elvégzéséért felelős személyek nevét és beosztását, a szükséges erőforrásokat, stb. Meg kell adni a csoportmunkát támogató eszközöket, a választott technikákat! Definiálni kell, hogy hogyan történik a dokumentumok és a forráskód megosztása!}
+% \comment{Tartalmaznia kell a projekt végrehajtásának lépéseit, a lépések, eredmények határidejét, az egyes feladatok elvégzéséért felelős személyek nevét és beosztását, a szükséges erőforrásokat, stb. Meg kell adni a csoportmunkát támogató eszközöket, a választott technikákat! Definiálni kell, hogy hogyan történik a dokumentumok és a forráskód megosztása!}
+
+\subsection{Csapat}
+A csapat 4 főből áll. A feladatokat úgy próbáljuk kiosztani, hogy lehetőleg mindenkinek azonos nehézségű feladatokat jusson, miközben a személyes preferenciáit is betartjuk.
+
+\begin{longtable}{| l | p{7cm} | l | l | l | l |}
+\hline
+\textbf{Név} & \textbf{Feladatok} \tabularnewline
+\hline\hline
+\adam & Dokumentáció, UML, kód \tabularnewline
+\hline
+\antal & Dokumentáció, UML, kód \tabularnewline
+\hline
+\bator (csapatvezető) & Dokumentáció, UML, kód \tabularnewline
+\hline
+\torok & Dokumentáció, UML, kód \tabularnewline
+\hline
+
+\end{longtable}
+
+\subsection{Kommunikáció}
+
+\textbf{Verziókezelés} Mivel többen dolgozunk a projekten, ezért fontos, hogy mindig mindenkinek elérhető legyen a legfrissebb forráskód, illetve dokumentáció. Ezért valamilyen módon meg kell osztanunk egymással az elkészített dokumentumokat, programkódokat. Erre a Git elosztott verziókezelő szoftvert választottuk. Ehhez a központi tárhelyet a Github biztosítja. \\ 
+Azért esett erre a megoldásra a választás, mert így könnyen tudjuk követni ki mit csinált, egyszerűen tudunk visszaállni egy korábbi verzióra és közösen meg tudjuk vitatni, hogy mely változások kerüljenek be a végleges projektbe. 
+Mind a programkódot, mind a dokumentációt verziózzuk, az utóbbi azért tehető meg, mert TeX-et használunk a dokumentáció készítéséhez, aminek a forrásfájlai sima szöveges dokumentumok.
+\\ \\
+\textbf{Wiki}
+A Githubnak van egy wiki szolgáltatása, ahová a feladatkiosztásokat és az egyéb fontos tudnivalókat rakunk fel. \\ \\
+\textbf{Facebook}
+A csapatnak létrehoztunk egy privát Facebook csoportot, ahová a csapat bármely tagja írhat bejegyzéseket, illetve hozzászólást írhat bejegyzésekhez. \\ \\
+\textbf{Megbeszélések}
+Továbbá hetente (ha szükség van rá) tartunk egy konferenciabeszélgetést, ahol megbeszéljük ki hol tart a munkájában, milyen problémák és kérdések merültek fel. \\
+Ezeken kívül minden héten találkozunk a kijelölt konzultáció időpontban, szerdánként 8:15-kor.
+
+\subsection{Használt programok}
+\textbf{Verziókezelés} 
+A verziókezeléshez a feljebb bővebben kifejtett Git-et használjuk. \\ \\ 
+\textbf{Dokumentáció}
+A dokumentációhoz a TeXworks szoftvert használjuk, mert ezzel lehet .tex fájlokat szerkeszteni és gyorsan lehet ezekből dokumentumot generálni. \\
+UML diagrammok készítéséhez pedig az Enterprise Architect nevű szoftvert használjuk. \\ \\
+\textbf{Fejlesztőkörnyezet}
+A forráskódot Eclipse, illetve IntelliJ IDEA nevű fejlesztőkörnyezetekben készítjük.
+
+\subsection{Mérföldkövek, határidők}
+\begin{longtable}{| l | p{7cm} | l | l | l | l |}
+\hline
+\textbf{Dátum} & \textbf{Leírás} & \textbf{Ellenőrzés} \tabularnewline
+\hline\hline
+2014.02.24. & Követelmény, projekt, funkcionalitás & beadás \tabularnewline
+\hline
+2014.03.03. & Analízis modell kidolgozása 1. & beadás \tabularnewline
+\hline
+2014.03.10. & Analízis modell kidolgozása 2. & beadás \tabularnewline
+\hline
+2014.03.17. & Szkeleton tervezése & beadás \tabularnewline
+\hline
+2014.03.24. & Szkeleton & beadás \tabularnewline
+\hline
+2014.03.26. & Szkeleton & bemutatás \tabularnewline
+\hline
+2014.03.31. & Prototípus koncepciója & beadás \tabularnewline
+\hline
+2014.04.07. & Részletes tervek & beadás \tabularnewline
+\hline
+2014.04.22. & Prototípus & beadás \tabularnewline
+\hline
+2014.04.23. & Prototípus & bemutatás \tabularnewline
+\hline
+2014.05.12. & Grafikus változat & beadás \tabularnewline
+\hline
+2014.05.14. & Grafikus bemutató & bemutatás \tabularnewline
+\hline
+2014.05.16. & Összefoglalás & beadás \tabularnewline
+\hline
+\end{longtable}
 
 
