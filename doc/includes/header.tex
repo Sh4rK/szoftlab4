@@ -24,6 +24,13 @@
 
 \usepackage{epstopdf}
 
+\newenvironment{nopb}
+  {\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd}
+
+
 \usepackage{includes/szglab4}
 
 \usepackage[%
@@ -51,11 +58,6 @@
 	bookmarksnumbered=true
 }
 
-\newenvironment{nopb}
-  {\par\nobreak\vfil\penalty0\vfilneg
-   \vtop\bgroup}
-  {\par\xdef\tpd{\the\prevdepth}\egroup
-   \prevdepth=\tpd}
 
 %
 % ===========================================================================
