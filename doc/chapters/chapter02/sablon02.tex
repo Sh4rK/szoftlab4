@@ -17,7 +17,7 @@ A projekt követelményeinek, alapvető felépítésének és funkcionalitásán
 Az elkészítendő szoftver egy számítógépes játék, így nem egy kifejezett szakterület részére készül, hanem általános felhasználásra, szórakoztatásra. A játék az úgynevezett ``tower defense'' kategóriába sorolható, ezért azoknak ajánlott, akik szeretik az ilyen típusú játékokat.
 
 \subsection{Definíciók, rövidítések}
-\define{architecturális kép}{A szoftver belső felépítését szemléltető ábra.}
+\define{architekturális kép}{A szoftver belső felépítését szemléltető ábra.}
 \define{archívum}{Olyan számítógépes fájl, amely több másik fájlt foglal magában.}
 \define{BME}{Budapest Műszaki Egyetem rövidítése.}
 \define{Eclipse}{Fejlesztőkörnyezet főként a Java programozási nyelvhez.}
@@ -69,30 +69,43 @@ A szoftver legmagasabb szintű architekturális képe:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.7]{images/arch.eps}
-\caption{Architekturalis kep}
+\caption{Architekturális kep}
 \label{overflow}
 \end{figure}
 \end{nopb}
-
+A szoftver legfontosabb alrendszere a Játékmotor. Ebben zajlik a tulajdonképpeni játék, ez futtatja a logikát, ami által az egységek belépnek, és haladnak végig az utakon a Végzet Hegye felé, ez tartja számon a tornyokat, azok fejlesztéseit, ez gondoskodik arról, hogy minden torony a megfelelő egységet sebezze, a megfelelő módon és mértékben. A pályát (az utak elrendezését) a Pályák alrendszertől kéri le, és a forgatókönyvet, ami szerint belépnek az egységek, pedig a Missziók alrendszertől. A pillanatnyi állapotot, amely a kirajzoláshoz szükséges, szolgáltatja a Grafikus felület felé, valamint végrehajtandó parancsokat, vezérlést fogad attól. \\ \\
+A Pályák alrendszer egyszerűen betölti a Pályafájlokból a pályákat, nyilván tartja, és a Játékmotor rendelkezésére bocsátja őket. \\ \\
+A Missziók alrendszer a Pályák-hoz nagyon hasonlóan a Missziófájlokból betölti a missziókat, nyilván tartja, és a Játékmotor rendelkezésére bocsátja őket. \\ \\
+A Grafikus felület egyrészt a játék megjelenítését szolgálja a Felhasználó felé, másrészt ezen keresztül irányítható a Játékmotor. \\ \\
 Hálózatot a szoftver egyáltalán nem használ. Háttértáron pedig a program saját fájljai - .jar archivum(ok), a kirajzoláshoz szükséges képek, és az egyes pályákat, valamint missziókat tároló fájlok - számára kell helyet biztosítani. Ezeken kívül nincs további futási idejű tárhelyigénye.
 
 \subsection{Funkciók}
-\comment{A feladat kb. 4000 karakteres (kb 1,5 oldal) részletezettségű magyar nyelvű leírása. Nem szerepelhetnek informatikai kifejezések.}
+% \comment{A feladat kb. 4000 karakteres (kb 1,5 oldal) részletezettségű magyar nyelvű leírása. Nem szerepelhetnek informatikai kifejezések.}
 
-
+A szoftver egy úgynevezett tower defense játék. Az ilyen játékok lényege általában az, hogy a pályán lévő, kijelölt úton különböző ellenséges egységek indulnak el a belépési pontból a céljuk felé. A játékos feladata pedig az, hogy ezt megakadályozza azzal, hogy az út mentén valamilyen erőforrásokat felhasználva tornyokat épít, amelyek a hozzájuk elég közel kerülő egységeket bizonyos mértékben és időközönként sebzik, ezzel életerejüket folyamatosan csökkentik. Ha egy egység életereje elfogy, megáll, elpusztul, eltűnik, és további fenyegetést nem jelent. \\ \\
+A játék akkor ér véget, ha minden ellenséget elpusztítottunk, ezzel megvédtük a célt, vagy ha legalább egy ellenség célba ér. Előbbi esetben a játékos nyer, utóbbi esetben a játékos veszít, az ellenség pedig fényes győzelmet arat és örökké uralja a világot. \\ \\
+Ebben a konkrét esetben a játéktér a Középföldén elfekvő Mordorban található, az ellenségek az ádáz Gyűrű Szövetségének tagjai, akik lehetnek emberek, tündék, törpök vagy hobbitok, és céljuk a Végzet Hegye, amelyben az Egy Gyűrűt szándékoznak elpusztítani. Minden ellenségtípus eltérő tulajdonságokkal (sebesség, életerő, stb.) rendelkezik. Például egy törp lassabb, mint egy tünde, de több az életereje. Egy ember pedig gyorsabb egy törpnél, de szívósabb, mint egy tünde. A hobbitok pedig általában népes csoportokban érkeznek, így lassúságuk és kevés életerejük ellenére komoly kihívást jelenthetnek. \\ \\
+A játékos, aki a jóságos Szarumánt személyesíti meg, ezt nem hagyhatja, hiszen így felettese, Szauron is odaveszne. A védekező tornyok felépítéséhez varázserejét tudja felhasználni, amely minden ellenséges egység elpusztításakor bizonyos mértékben megnő. \\ \\
+Ezen kívül lehetősége van - szintén varázserejét elköltve - a tornyait különböző mágikus kövekkel ellátni, így azok bizonyos típusú ellenség esetén nagyobbat sebeznek. Más kövek növelik a tornyok tüzelési gyakoriságát vagy hatótávolságát. \\ \\
+Az utakra építhet akadályokat, amelyekre érve az egységek lelassulnak, így esetleg tovább tartózkodnak a tornyok hatókörében, azoknak több esélyük van megsebezni őket. \\ \\
+A tornyokon kívül a játékosnak lehetősége van akadályokat is felruházni varázskövekkel. A varázskövekkel felruházott akadályok jobban lelassítják a beléjük érkező ellenségeket. A lassítás mértéke függ az ellenség típusától. \\ \\
+Egyes pályákon több belépési pont és több, a célba vezető kijárat is szerepelhet, és azokat összetett úthálózat is összekötheti, amelyen az egységek véletlenszerű útvonalakat választanak ki.
+A támadás több hullámban történik, minden hullámban egy bizonyos időben minden típusú ellenségből meghatározott létszámú csoport jön, adott késleltetéssel egymáshoz képest. A hullámok leírását minden pályához missziók tartalmazzák, amelyek így lehetnek eltérő nehézségűek vagy hangulatúak. \\ \\
 
 \subsection{Felhasználók}
-\comment{A felhasználók jellemzői, tulajdonságai}
+% \comment{A felhasználók jellemzői, tulajdonságai}
+A szoftver felhasználói számára nincs szükség különösebb előképzettségre, a használata rövid időn belül elsajátítható, és a játék élvezhető bárki számára, aki a szótárban felsorolt definiciókat képes értelmezni.
 
 \subsection{Korlátozások}
-\comment{Az elkészítendő szoftverre vonatkozó – általában nem funkcionális - előírások, korlátozások.}
+% \comment{Az elkészítendő szoftverre vonatkozó – általában nem funkcionális - előírások, korlátozások.}
+A szoftverre vonatkozó előírás és korlátozás is egyben egyedül az, hogy a standard Java könyvtárkészletet kell használnia, és semmilyen más csomagot nem vehet igénybe.
 
 \subsection{Feltételezések, kapcsolatok}
-\comment{A dokumentumban használt anyagok, web-oldalak felsorolása}
+% \comment{A dokumentumban használt anyagok, web-oldalak felsorolása}
+Szoftver labor 4 feladatkiírás - \url{https://www.iit.bme.hu/~szoftlab4/feladat.shtml}
 
 \section{Követelmények}
 \subsection{Funkcionális követelmények}
-
 
 % \comment{Az alábbi táblázat kitöltésével készítendő. Dolgozzon ki követelmény azonosító rendszert! Az ellenőrzés módja szokásosan bemutatás és/vagy kiértékelés. Prioritás lehet alapvető, fontos, opcionális. Az alapvető követelmények nem teljesítése végzetes. Forrás alatt a követelményt előíró anyagot, szervezetet kell érteni. Esetünkben forrás lehet maga a csapat is, mikor ő talál ki követelményt. Use-case-ek alatt az adott követelményt megvalósító használati esete(ke)t kell megadni.}
 
@@ -103,21 +116,21 @@ Hálózatot a szoftver egyáltalán nem használ. Háttértáron pedig a program
 \hline\hline
 1.01 & Tornyokat lehet építeni & bemutatás & alapvető & megrendelő & Torony építése &  \tabularnewline
 \hline
-1.02 & Az ellenfelek igyekszenek eljutni a célig & bemutatás & alapvető & megrendelő &  & \tabularnewline
+1.02 & Az ellenségek igyekszenek eljutni a célig & bemutatás & alapvető & megrendelő &  & \tabularnewline
 \hline
 1.03 & A tornyok képesek lőni & bemutatás & alapvető & megrendelő &  &  \tabularnewline
 \hline
-1.04 & Az ellenfelek sebződnek a tornyok lövedékétől & kiértékelés & alapvető & megrendelő &  &  \tabularnewline
+1.04 & Az ellenségek sebződnek a tornyok lövedékétől & kiértékelés & alapvető & megrendelő &  &  \tabularnewline
 \hline
-1.05 & Az ellenfelek bizonyos mértékű sebződés után meghalnak & bemutatás & alapvető & megrendelő &  & \tabularnewline
+1.05 & Az ellenségek bizonyos mértékű sebződés után meghalnak & bemutatás & alapvető & megrendelő &  & \tabularnewline
 \hline
-1.06 & Az elpusztított ellenfelek után varázserőt kap a játékos & bemutatás & alapvető & megrendelő &  &  \tabularnewline
+1.06 & Az elpusztított ellenségek után varázserőt kap a játékos & bemutatás & alapvető & megrendelő &  &  \tabularnewline
 \hline
-1.07 & A különböző ellenfelek, különböző tulajdonságokkal rendelkezeknek & bemutatás & opcionális & csapat &  & Különböző életerő, sebesség \tabularnewline
+1.07 & A különböző ellenségek, különböző tulajdonságokkal rendelkezeknek & bemutatás & opcionális & csapat &  & Különböző életerő, sebesség \tabularnewline
 \hline
 1.08 & Vannak utak & bemutatás & alapvető & megrendelő &  &  \tabularnewline
 \hline
-1.09 & Az ellenfelek az utakról nem térnek le & bemutatás & alapvető & megrendelő &  &  \tabularnewline
+1.09 & Az ellenségek az utakról nem térnek le & bemutatás & alapvető & megrendelő &  &  \tabularnewline
 \hline
 1.10 & Tornyot nem lehet útra építeni & bemutatás & fontos & megrendelő & Torony építése &  \tabularnewline
 \hline
@@ -125,7 +138,7 @@ Hálózatot a szoftver egyáltalán nem használ. Háttértáron pedig a program
 \hline
 1.12 & Akadályt csak útra lehet rakni & bemutatás & fontos & megrendelő & Akadály építése &  \tabularnewline
 \hline
-1.13 & Az akadályok lassítják az ellenfeleket & bemutatás & fontos & megrendelő &  &  \tabularnewline
+1.13 & Az akadályok lassítják az ellenségeket & bemutatás & fontos & megrendelő &  &  \tabularnewline
 \hline
 1.14 & A tornyoknak van tüzelési gyakorisága, hatótávolsága & bemutatás & alapvető & megrendelő &  &  \tabularnewline
 \hline
@@ -133,7 +146,7 @@ Hálózatot a szoftver egyáltalán nem használ. Háttértáron pedig a program
 \hline
 1.16 & Különböző varázskövek vannak & bemutatás & opcionális & megrendelő &  &  \tabularnewline
 \hline
-1.17 & Idővel egyre gyakrabban érkeznek ellenfelek, egyre nagyobb csoportban & bemutatás & fontos & megrendelő &  &  \tabularnewline
+1.17 & Idővel egyre gyakrabban érkeznek ellenségek, egyre nagyobb csoportban & bemutatás & fontos & megrendelő &  &  \tabularnewline
 \hline
 1.18 & A játékot el lehet indítani & bemutatás & alapvető & megrendelő & Új játék indítása &  \tabularnewline
 \hline
@@ -143,11 +156,11 @@ Hálózatot a szoftver egyáltalán nem használ. Háttértáron pedig a program
 \hline
 1.21 & A játékból ki lehet lépni & bemutatás & alapvető & csapat & Kilépés &  \tabularnewline
 \hline
-1.22 & Ha az összes ellenfél meghalt, a játékos nyer & bemutatás & alapvető & csapat &  &  \tabularnewline
+1.22 & Ha az összes ellenség meghalt, a játékos nyer & bemutatás & alapvető & csapat &  &  \tabularnewline
 \hline
 1.23 & Több útvonal vezet a célig & bemutatás & alapvető & csapat &  &  \tabularnewline
 \hline
-1.24 & Ha egy ellenfél eljut a célig, a játékos veszít & bemutatás & alapvető & csapat &  &  \tabularnewline
+1.24 & Ha egy ellenség eljut a célig, a játékos veszít & bemutatás & alapvető & csapat &  &  \tabularnewline
 \hline
 \end{longtable}
 
@@ -265,6 +278,8 @@ ha van elég varázserő hozzá.}
 {Toronyra vagy akadályra kattintva ki kell választani, hogy milyen drágakővel szeretné enchant-olni,
 és ha van elég varázserő hozzá akkor megtörténik az enchant.}
 
+\pagebreak
+
 \usecase
 {Feladás}
 {Feladjuk a jelenlegi játékot}
@@ -289,25 +304,28 @@ ha van elég varázserő hozzá.}
 \section{Szótár}
 % \comment{A szótár a követelmények alapján készítendő fejezet. Egy szótári bejegyzés definiálásához csak más szótári bejegyzések és köznapi – a feladattól független – fogalmak használhatók fel. A szótár mérete kb. 1-2 oldal legyen.}\newline
 
-\define{akadály}{A játékos készítheti, az utakra lehet építeni. A rajta áthaladó ellenfeleket lelassítja. Lehet enchantolni.}
-\define{cél}{A pályán kijelölt hely; ha ide eljutnak az ellenfelek, akkor vége a játéknak és a játékos vesztett.}
-\define{életerő}{Egy szám, ami minden ellenfélhez rendelve van. Ha ez a szám eléri a 0-t vagy kisebb lesz, az ellenfél meghal.}
-\define{ellenfél}{A pályán az utakon haladnak, van egy életerő tulajdonságuk, ami lövés hatására csökken, majd ha eléri a 0-t, akkor az ellenfél meghal.}
+\define{akadály}{A játékos készítheti, az utakra lehet építeni. A rajta áthaladó ellenségeket lelassítja. Lehet enchantolni.}
+\define{cél}{A pályán kijelölt hely; ha ide eljutnak az ellenségek, akkor vége a játéknak és a játékos vesztett.}
+\define{életerő}{Egy szám, ami minden ellenséghez rendelve van. Ha ez a szám eléri a 0-t vagy kisebb lesz, az ellenség meghal.}
+\define{ellenség}{A pályán az utakon haladnak, van egy életerő tulajdonságuk, ami lövés hatására csökken, majd ha eléri a 0-t, akkor az ellenség meghal.}
 \define{enchantolás}{Torony vagy akadály varázskővel való felruházása.}
 \define{építés}{A játékos által egy torony vagy akadály elhelyezése a játéktérre.}
 \define{hatótávolság}{A tornyok tulajdonsága, azt határozza meg, hogy a torony milyen messzire tud lőni.}
-\define{játék elvesztése}{A játék egy lehetséges végződése, akkor következik be, ha egy ellenfél elér a célhoz.}
-\define{játék megnyerése}{A játék egy lehetséges végződése, akkor következik be, az összes ellenfél meghal anélkül, hogy elérnének a célhoz.}
-\define{lövés}{Az az esemény, amikor a torony egy a hatótávolságán belül lévő ellenfél életerejét csökkenti.}
-\define{meghal}{Az az esemény, amikor egy ellenfél életereje eléri a 0-t.}
+\define{játék elvesztése}{A játék egy lehetséges végződése, akkor következik be, ha egy ellenség elér a célhoz.}
+\define{játék megnyerése}{A játék egy lehetséges végződése, akkor következik be, az összes ellenség meghal anélkül, hogy elérnének a célhoz.}
+\define{lövés}{Az az esemény, amikor a torony egy a hatótávolságán belül lévő ellenség életerejét csökkenti.}
+\define{meghal}{Az az esemény, amikor egy ellenség életereje eléri a 0-t.}
 \define{nehézség}{A játék különböző tulajdonságainak egy adott beállítása, ezzel változtatható, hogy milyen nehéz teljesíteni a játékot.}
-\define{út}{A pályán kijelölt rész, amin az ellenfelek eljuthatnak a célig. Az ellenfelek csak ezen haladhatnak, az akadályokat csak erre szabad építeni, a tornyokat viszont az utakra nem lehet építeni.}
+\define{út}{A pályán kijelölt rész, amin az ellenségek eljuthatnak a célig. Az ellenségek csak ezen haladhatnak, az akadályokat csak erre szabad építeni, a tornyokat viszont az utakra nem lehet építeni.}
 \define{pálya}{Az a tér, amin a játék zajlik; ezen vannak az utak, és erre lehet építeni a tornyokat és akadályokat.}
-\define{sebződés}{Ha egy ellenfél sebződést kap, akkor lemegy az életereje.}
-\define{torony}{A játékos által készíthető dolgok közül a fontosabb; ezzel lehet megakadályozni az ellenfelek célhoz jutását. Lőni tud, és lehet enchantolni.}
+\define{sebződés}{Ha egy ellenség sebződést kap, akkor lemegy az életereje.}
+\define{torony}{A játékos által készíthető dolgok közül a fontosabb; ezzel lehet megakadályozni az ellenségek célhoz jutását. Lőni tud, és lehet enchantolni.}
+\define{tower defense}{Egy játékműfaj, amelyben a játék célja, hogy a pályán áthaladni próbáló ellenségeket megakadályozzuk abban, hogy elérjék a célt. Ezt tornyok és akadályok segítségével érhetjük el.}
 \define{tüzelési gyakoriság}{A tornyok tulajdonsága, azt határozza meg, hogy egy adott idő alatt mennyi lövést tud leadni egy torony.}
-\define{varázserő}{A játékos tulajdonsága; egy mennyiség, az ellenfelek elpusztulásakor növekszik, torony és akadály építésekor és enchantoláskor pedig csökken. A játékos csak akkor tud építeni és enchantolni, ha a jelenlegi varázserő több, mint amennyi az építéshez vagy enchantoláshoz szükséges.}
+\define{varázserő}{A játékos tulajdonsága; egy mennyiség, az ellenségek elpusztulásakor növekszik, torony és akadály építésekor és enchantoláskor pedig csökken. A játékos csak akkor tud építeni és enchantolni, ha a jelenlegi varázserő több, mint amennyi az építéshez vagy enchantoláshoz szükséges.}
 \define{varázskő}{Olyan játékelem, amit hozzá lehet rendelni tornyokhoz és akadályokhoz (enchantolás), ami ettől valamilyen szempontból jobb lesz, pl. tüzelési gyakoriság növekedése. Készítéséhez varázserő szükséges, ha nincsen elég, akkor nem készíthető.}
+
+\pagebreak
 
 \section{Projekt terv}
 % \comment{Tartalmaznia kell a projekt végrehajtásának lépéseit, a lépések, eredmények határidejét, az egyes feladatok elvégzéséért felelős személyek nevét és beosztását, a szükséges erőforrásokat, stb. Meg kell adni a csoportmunkát támogató eszközöket, a választott technikákat! Definiálni kell, hogy hogyan történik a dokumentumok és a forráskód megosztása!}
@@ -332,12 +350,12 @@ A csapat 4 főből áll. A feladatokat úgy próbáljuk kiosztani, hogy lehetől
 
 \subsection{Kommunikáció}
 
-\textbf{Verziókezelés} Mivel többen dolgozunk a projekten, ezért fontos, hogy mindig mindenkinek elérhető legyen a legfrissebb forráskód, illetve dokumentáció. Ezért valamilyen módon meg kell osztanunk egymással az elkészített dokumentumokat, programkódokat. Erre a Git elosztott verziókezelő szoftvert választottuk. Ehhez a központi tárhelyet a Github biztosítja. \\
+\textbf{Verziókezelés} Mivel többen dolgozunk a projekten, ezért fontos, hogy mindig mindenkinek elérhető legyen a legfrissebb forráskód, illetve dokumentáció. Ezért valamilyen módon meg kell osztanunk egymással az elkészített dokumentumokat, programkódokat. Erre a Git elosztott verziókezelő szoftvert választottuk. Ehhez a központi tárhelyet a GitHub biztosítja. \\
 Azért esett erre a megoldásra a választás, mert így könnyen tudjuk követni ki mit csinált, egyszerűen tudunk visszaállni egy korábbi verzióra és közösen meg tudjuk vitatni, hogy mely változások kerüljenek be a végleges projektbe.
 Mind a programkódot, mind a dokumentációt verziózzuk, az utóbbi azért tehető meg, mert TeX-et használunk a dokumentáció készítéséhez, aminek a forrásfájlai sima szöveges dokumentumok.
 \\ \\
 \textbf{Wiki}
-A Githubnak van egy wiki szolgáltatása, ahová feladatkiosztásokat és egyéb fontos tudnivalókat rakunk fel. \\ \\
+A GitHubnak van egy wiki szolgáltatása, ahová feladatkiosztásokat és egyéb fontos tudnivalókat rakunk fel. \\ \\
 \textbf{Facebook}
 A csapatnak létrehoztunk egy privát Facebook csoportot, ahová a csapat bármely tagja írhat bejegyzéseket, illetve hozzászólhat bejegyzésekhez. \\ \\
 \textbf{Megbeszélések}
@@ -352,6 +370,8 @@ A dokumentációhoz a TeXworks szoftvert használjuk. Ezzel könnyen lehet .tex 
 A dokumentációban található UML diagrammok készítéséhez az Enterprise Architect nevű szoftvert használjuk. \\ \\
 \textbf{Fejlesztőkörnyezet}
 A forráskódot Eclipse, illetve IntelliJ IDEA nevű fejlesztőkörnyezetekben készítjük.
+
+\pagebreak
 
 \subsection{Mérföldkövek, határidők}
 \begin{longtable}{| l | p{7cm} | l | l | l | l |}
