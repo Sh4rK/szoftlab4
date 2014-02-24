@@ -58,11 +58,12 @@ A dokumentum további részeiben található:
 \item Projekt napló
 \end{itemize}
 
+\begin{nopb}
 \section{Áttekintés}
 \subsection{Általános áttekintés}
-\comment{A kialakítandó szoftver legmagasabb szintű architekturális képe. A fontosabb alrendszerek felsorolása, a közöttük kialakítandó interfészek lényege, a felhasználói kapcsolatok alapja. Esetleges hálózati és adattárolási elvárások.}
+% \comment{A kialakítandó szoftver legmagasabb szintű architekturális képe. A fontosabb alrendszerek felsorolása, a közöttük kialakítandó interfészek lényege, a felhasználói kapcsolatok alapja. Esetleges hálózati és adattárolási elvárások.}
 
-\begin{nopb}
+
 A szoftver legmagasabb szintű architekturális képe:
 \newline
 \begin{figure}[H]
@@ -203,7 +204,7 @@ Hálózatot a szoftver egyáltalán nem használ. Háttértáron pedig a program
 \end{longtable}
 
 \subsection{Egyéb nem funkcionális követelmények}
-\comment{A biztonsággal, hordozhatósággal, megbízhatósággal, tesztelhetőséggel, a felhasználóval kapcsolatos követelmények}
+% \comment{A biztonsággal, hordozhatósággal, megbízhatósággal, tesztelhetőséggel, a felhasználóval kapcsolatos követelmények}
 
 Nincs egyéb nem funkcionális követelmény.
 
@@ -286,10 +287,11 @@ ha van elég varázserő hozzá.}
 \end{figure}
 
 \section{Szótár}
-\comment{A szótár a követelmények alapján készítendő fejezet. Egy szótári bejegyzés definiálásához csak más szótári bejegyzések és köznapi – a feladattól független – fogalmak használhatók fel. A szótár mérete kb. 1-2 oldal legyen.}\newline
+% \comment{A szótár a követelmények alapján készítendő fejezet. Egy szótári bejegyzés definiálásához csak más szótári bejegyzések és köznapi – a feladattól független – fogalmak használhatók fel. A szótár mérete kb. 1-2 oldal legyen.}\newline
 
 \define{akadály}{A játékos készítheti, az utakra lehet építeni. A rajta áthaladó ellenfeleket lelassítja. Lehet enchantolni.}
 \define{cél}{A pályán kijelölt hely; ha ide eljutnak az ellenfelek, akkor vége a játéknak és a játékos vesztett.}
+\define{életerő}{Egy szám, ami minden ellenfélhez rendelve van. Ha ez a szám eléri a 0-t vagy kisebb lesz, az ellenfél meghal.}
 \define{ellenfél}{A pályán az utakon haladnak, van egy életerő tulajdonságuk, ami lövés hatására csökken, majd ha eléri a 0-t, akkor az ellenfél meghal.}
 \define{enchantolás}{Torony vagy akadály varázskővel való felruházása.}
 \define{építés}{A játékos által egy torony vagy akadály elhelyezése a játéktérre.}
@@ -301,7 +303,7 @@ ha van elég varázserő hozzá.}
 \define{nehézség}{A játék különböző tulajdonságainak egy adott beállítása, ezzel változtatható, hogy milyen nehéz teljesíteni a játékot.}
 \define{út}{A pályán kijelölt rész, amin az ellenfelek eljuthatnak a célig. Az ellenfelek csak ezen haladhatnak, az akadályokat csak erre szabad építeni, a tornyokat viszont az utakra nem lehet építeni.}
 \define{pálya}{Az a tér, amin a játék zajlik; ezen vannak az utak, és erre lehet építeni a tornyokat és akadályokat.}
-\define{sebződés}{}
+\define{sebződés}{Ha egy ellenfél sebződést kap, akkor lemegy az életereje.}
 \define{torony}{A játékos által készíthető dolgok közül a fontosabb; ezzel lehet megakadályozni az ellenfelek célhoz jutását. Lőni tud, és lehet enchantolni.}
 \define{tüzelési gyakoriság}{A tornyok tulajdonsága, azt határozza meg, hogy egy adott idő alatt mennyi lövést tud leadni egy torony.}
 \define{varázserő}{A játékos tulajdonsága; egy mennyiség, az ellenfelek elpusztulásakor növekszik, torony és akadály építésekor és enchantoláskor pedig csökken. A játékos csak akkor tud építeni és enchantolni, ha a jelenlegi varázserő több, mint amennyi az építéshez vagy enchantoláshoz szükséges.}
@@ -366,7 +368,7 @@ A forráskódot Eclipse, illetve IntelliJ IDEA nevű fejlesztőkörnyezetekben k
 \hline
 2014.03.24. & Szkeleton & beadás \tabularnewline
 \hline
-2014.03.26. & Szkeleton & bemutatás \tabularnewline
+2014.03.26. & \textbf{Szkeleton} & bemutatás \tabularnewline
 \hline
 2014.03.31. & Prototípus koncepciója & beadás \tabularnewline
 \hline
@@ -374,14 +376,20 @@ A forráskódot Eclipse, illetve IntelliJ IDEA nevű fejlesztőkörnyezetekben k
 \hline
 2014.04.22. & Prototípus & beadás \tabularnewline
 \hline
-2014.04.23. & Prototípus & bemutatás \tabularnewline
+2014.04.23. & \textbf{Prototípus} & bemutatás \tabularnewline
 \hline
 2014.05.12. & Grafikus változat & beadás \tabularnewline
 \hline
-2014.05.14. & Grafikus bemutató & bemutatás \tabularnewline
+2014.05.14. & \textbf{Grafikus bemutató} & bemutatás \tabularnewline
 \hline
 2014.05.16. & Összefoglalás & beadás \tabularnewline
 \hline
 \end{longtable}
+
+A feladatot 3 lépcsőben oldjuk meg, a lépcsőket vastagon szedve jelöltük. Ezek bővebben kifejtve: \\ \\
+A \textbf{szkeleton} változat célja annak bizonyítása, hogy az objektum és dinamikus modellek a definiált feladat egy modelljét alkotják. A szkeleton egy program, amelyben már valamennyi, a végső rendszerben is szereplő business objektum szerepel. Az objektumoknak csak az interfésze definiált. Valamennyi metódus az indulás pillanatában az ernyőre szöveges változatban kiírja a saját nevét, majd meghívja azon metódusokat, amelyeket a szolgáltatás végrehajtása érdekében meg kell hívnia. Amennyiben a metódusból valamely feltétel fennállása esetén hívunk meg más metódusokat, akkor a feltételre vonatkozó kérdést interaktívan az ernyőn fel kell tenni és a kapott válasz alapján kell a továbbiakban eljárni. A szkeletonnak alkalmasnak kell lenni arra, hogy a különböző forgatókönyvek és szekvencia diagramok ellenőrizhetők legyenek. Csak karakteres ernyőkezelés fogadható el, mert ez biztosítja a rendszer egyszerűségét. \\ \\
+A \textbf{prototípus} program célja annak demonstrálása, hogy a program elkészült, helyesen működik, valamennyi feladatát teljesíti. A prototípus változat egy elkészült program kivéve a kifejlett grafikus interfészt. A változat tervezési szempontból elkészült, az ütemezés, az aktív objektumok kezelése megoldott. A business objektumok - a megjelenítésre vonatkozó részeket kivéve - valamennyi metódusa a végleges algoritmusokat tartalmazza. A megjelenítés és működtetés egy alfanumerikus ernyőn követhető, ugyanakkor a megjelenítés fájlban is logolható, ezzel megteremtve a rendszer tesztelésének lehetőségét. Különös figyelmet kell fordítani az interfész logikájára, felépítésére, valamint arra, hogy az mennyiben tükrözi és teszi láthatóvá a program működését, a beavatkozások hatásait. \\ \\
+A \textbf{grafikus} (teljes) változat a prototípustól elvileg csak a kezelői felület minőségében különbözhet. Ennek változatnak az értékelésekor a hangsúlyt sokkal inkább a megvalósítás belső szerkezetére, semmint a külalakra kell helyezni. \\ \\
+
 
 
