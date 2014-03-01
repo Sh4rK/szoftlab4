@@ -20,7 +20,6 @@ Ha egy ellenség belelép egy olyan mezőbe, amin van egy \textbf{Obstacle}, akk
 A Map a pályát képviseli, melyben NxM darab cella van. A pálya egy külső fájlból betölthető, ami új játék indulásakor fog megtörténni, miután kiválasztja a játékos a pályát. A pálya különböző tulajdonságai is lekérdezhetőek, amelyek majd a kirajzoláshoz kellenek.
 
 \subsection{Tile}
-%\comment{Felelősség informális leírása}
 A Tile objektumból egy NxM -es tömböt fog tárolni a Map objektum. Ezek a pálya egyes celláit fogják képviselni. Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület.
 
  Ha egy cellán van út, akkor lekérdezhető, hogy az a cella milyen távol van a céltól (az utat követve, cellákban mérve). Továbbá azt is tárolva van, és lekérdezhető, hogy az út merre folytatódik (és az ellenségeknek merre kell majd menniük). Ha elágazás van, akkor véletlenszerűen választ irányt és arra küldi az ellenséget (ez minden egyes ellenségre véletlenszerű).
@@ -29,17 +28,14 @@ A Tile objektumból egy NxM -es tömböt fog tárolni a Map objektum. Ezek a pá
 Egy Mission objektumban lesz eltárolva, hogy milyen ellenségek, mikor és honnan jönnek be a pályára. Ez a három adat majd egy segéd osztályban lesz összefogva, és egy tárolóban lesz tárolva. A játék főciklusa le tudja majd kérdezni a következő ellenséget, melyet az objektum visszaad, ha már elég idő eltelt az előző egység óta (ha nem akkor nem ad vissza egységet).
 
 \subsection{Game}
-\comment{Felelősség informális leírása}
 
 Ez a játék logikáját magába foglaló osztály. Számon tartja a pályán lévő ellenfeleket, akadályokat és tornyokat, valamint végrehajtja a kiválasztott misszió által leírt forgatókönyvet, ami alapján az ellenségek érkeznek.
 
 \subsection{EnemyType}
-\comment{Felelősség informális leírása}
 
 Leírja egy ellenségtípus (jelen esetben a négy faj: ember, tünde, törp vagy hobbit) tulajdonságait, mint például az alapsebessége és a kezdeti életereje. Minden ellenségnek van egy referenciája egy példányára, amely meghatározza a viselkedését.
 
 \subsection{Enemy}
-\comment{Felelősség informális leírása}
 
 Az Enemy osztály példányai egy-egy ellenséget tárolnak. Rendelkeznek típussal (fajjal), pillanatnyi pozícióval, hátralévő életerővel. Az idő haladtával próbálnak végighaladni egy véletlenszerűen választott lehetséges útvonalon.
 
@@ -138,7 +134,7 @@ Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasn
 \item Metódusok\\
 %\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
-		\item Tile getTileAt(int n, int m): Visszaadja az n-edik sor m-edik oszloban talalható cellát.
+		\item Tile getTileAt(Vektor vektor): Visszaadja az n-edik sor m-edik oszloban talalható cellát.
 		\item void readMapFile(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
 	\end{itemize}
 \end{itemize}
@@ -175,7 +171,7 @@ Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és idő
 \begin{itemize}
 \item Felelősség\\
 %\comment{Mi az osztály felelőssége. Kb 1 bekezdés.}
-Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület. Felelős még az egyes ellenségek következő irányának a meghatározására, és vissza kell tudnia adni, hogy van-e rajta út, valamint ha van akkor milyen távol van a céltól.
+Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület. Felelős még az egyes ellenségek következő irányának a meghatározására, és vissza kell tudnia adni, hogy van-e rajta út, valamint ha van akkor milyen távol van a céltól. 
 \item Ősosztályok\\
 %\comment{Mely osztályokból származik (öröklési hierarchia)\newline
 %Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
@@ -197,8 +193,8 @@ Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy ak
 \item Metódusok\\
 %\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
-		\item void build(): a cellára történő egérnyomás hatására meghívódik, és létrehoz ezen a cellán egy tornyot ha nincsen út és egy akadályt, ha van. Ezután, ha tornyot épített, akkor meghívja a Game ... metódusát.
-		%\item void enchant:
+		\item void buildTower(): a cellán egy tornyot épít.
+		\item void buildObstacle(): a cellán egy akadályt épít.
 		\item int getDistance(): vissza adja a distance értékét.
 		\item bool isRoad(): vissza adja a road értékét.
 		\item direction nextDirection(): visszad egy irány enum-ot, amely megadja az ellenség irányát.
