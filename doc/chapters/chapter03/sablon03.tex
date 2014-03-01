@@ -43,6 +43,10 @@ Leírja egy ellenségtípus (jelen esetben a négy faj: ember, tünde, törp vag
 
 Az Enemy osztály példányai egy-egy ellenséget tárolnak. Rendelkeznek típussal (fajjal), pillanatnyi pozícióval, hátralévő életerővel. Az idő haladtával próbálnak végighaladni egy véletlenszerűen választott lehetséges útvonalon.
 
+\subsection{Projectile}
+Ez a class egy lövedék leírása. Amikor egy torony lő, akkor példányosítja ezt az osztályt a cél ellenség átadásával, így egy lövedék mindig a torony által meghatározott ellenség után megy, amit ha megfelelően megközelít (eltalálja az ellenséget), akkor levesz az életerejéből és megsemmisíti magát.
+
+
 \section{Statikus struktúra diagramok}
 \comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
 
@@ -265,6 +269,27 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 		\item void move(): Az egységet annyival mozgatja az útján tovább, amennyit egy időegység alatt halad.
 		\item Vector<Double> getPosition(): A position attribútum értékével tér vissza.
 		\comment{\textbf{TODO}: Kell ide még más?}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Projectile}
+\begin{itemize}
+\item Felelősség\\
+Követni a cél ellenséget, majd sebezni ha eléri.
+\item Attribútumok
+	\begin{itemize}
+		\item int damage: a lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja
+		\item double posX: a lövedék x koordinátája
+		\item double posY: a lövedék y koordinátája
+		\item double speed: a lövedék sebessége
+		\item Enemy enemy: a lövedék cél Enemy-je
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item Projectile(Enemy enemy, double posX, double posY, double speed): Konstruktor, átveszi a cél Enemy-t, a kezdő pozíciót és sebességet.
+		\item bool step(): Egy egységyit (amit a sebesség határoz meg) mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
+		\item double getPosX(): Visszaadja a lövedék x koordinátáját.
+		\item double getPosY(): Visszaadja a lövedék y koordinátáját.
 	\end{itemize}
 \end{itemize}
 
