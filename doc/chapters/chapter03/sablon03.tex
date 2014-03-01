@@ -28,6 +28,21 @@ A Tile objektumból egy NxM -es tömböt fog tárolni a Map objektum. Ezek a pá
 \subsection{Mission}
 Egy Mission objektumban lesz eltárolva, hogy milyen ellenségek, mikor és honnan jönnek be a pályára. Ez a három adat majd egy segéd osztályban lesz összefogva, és egy tárolóban lesz tárolva. A játék főciklusa le tudja majd kérdezni a következő ellenséget, melyet az objektum visszaad, ha már elég idő eltelt az előző egység óta (ha nem akkor nem ad vissza egységet).
 
+\subsection{Game}
+\comment{Felelősség informális leírása}
+
+Ez a játék logikáját magába foglaló osztály. Számon tartja a pályán lévő ellenfeleket, akadályokat és tornyokat, valamint végrehajtja a kiválasztott misszió által leírt forgatókönyvet, ami alapján az ellenségek érkeznek.
+
+\subsection{EnemyType}
+\comment{Felelősség informális leírása}
+
+Leírja egy ellenségtípus (jelen esetben a négy faj: ember, tünde, törp vagy hobbit) tulajdonságait, mint például az alapsebessége és a kezdeti életereje. Minden ellenségnek van egy referenciája egy példányára, amely meghatározza a viselkedését.
+
+\subsection{Enemy}
+\comment{Felelősség informális leírása}
+
+Az Enemy osztály példányai egy-egy ellenséget tárolnak. Rendelkeznek típussal (fajjal), pillanatnyi pozícióval, hátralévő életerővel. Az idő haladtával próbálnak végighaladni egy véletlenszerűen választott lehetséges útvonalon.
+
 \section{Statikus struktúra diagramok}
 \comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
 
@@ -184,6 +199,72 @@ Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy ak
 		\item bool isRoad(): vissza adja a road értékét.
 		\item direction nextDirection(): visszad egy irány enum-ot, amely megadja az ellenség irányát.
 		\item getBuilding(): visszatér a building referenciájával.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Game}
+\begin{itemize}
+\item Felelősség\\
+A többi osztály nyilván tartása és összekötése, a játékbeli események vezérlése. A felhasználói felülettől érkező parancsok végrehajtása, és a játék állapotának rendelkezésre bocsájtása a kijelzéshez.
+
+\item Attribútumok\\
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item ArrayList<Projectile> projectiles: Eltárolja a jelenleg játékban lévő lövedékeket.
+		\item Map map: Referencia a kiválasztott pályára, amin a játék folyik.
+		\item Mission mission: Referencia a kiválasztott misszióra, amely alapján zajlik a játék.
+		\item ArrayList<Building> buildings: Eltárolja a játékos megépített tornyait.
+		\item ArrayList<Gem> gems: Az összes lehetséges, toronyra illetve akadályra rakható varázskő nyilvántartása.
+		\item ArrayList<EnemyType> types: Ez a lehetséges ellenségtípusok listája.
+		\item ArrayList<Enemy> enemies: Az összes éppen látható ellenség található meg benne.
+	\end{itemize}
+\item Metódusok\\
+%\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+	\begin{itemize}
+		\item void run(): Ez a metódus futtatja a főciklust, amelyben maga a játék működik.
+		\item void buildTower(Tile tile): Épít egy tornyot a paraméterül kapott mezőre. \comment{Esetleg koordinátákkal adjuk meg?}
+		\item void buildObstacle(Tile tile): Épít egy akadályt a paraméterül kapott mezőre. \comment{Esetleg koordinátákkal adjuk meg?}
+		\item \comment{\textbf{TODO}, ez még hiányos.}
+	\end{itemize}
+\end{itemize}
+
+\subsection{EnemyType}
+\begin{itemize}
+\item Felelősség\\
+Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-egy példányára hivatkozik az összes ellenség, amelyeknek ezáltal meghatározza a viselkedését.
+
+\item Attribútumok\\
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item int initialHealth: Az ilyen fajtájú ellenségek kezdeti életereje.
+		\item double normalSpeed: Az ilyen fajtájú ellenségek akadályoztatás nélküli haladási sebessége.
+		\item \comment{\textbf{TODO}, meg akkor az enum típus, hogy miféle?}
+	\end{itemize}
+\item Metódusok\\
+%\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+	\begin{itemize}
+		\item int getInitialHealth(): Visszaadja az initialHealth attribútum értékét.
+		\item double getNormalSpeed(): Visszaadja a normalSpeed attribútum értékét.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Enemy}
+\begin{itemize}
+\item Felelősség\\
+
+\item Attribútumok\\
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item EnemyType type: Az egység típusa.
+		\item int health: Az ellenség fennmaradó életereje.
+		\item Vector<Double> position: Pillanatnyi pozíció a pályán.
+	\end{itemize}
+\item Metódusok\\
+%\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+	\begin{itemize}
+		\item void move(): Az egységet annyival mozgatja az útján tovább, amennyit egy időegység alatt halad.
+		\item Vector<Double> getPosition(): A position attribútum értékével tér vissza.
+		\comment{\textbf{TODO}: Kell ide még más?}
 	\end{itemize}
 \end{itemize}
 
