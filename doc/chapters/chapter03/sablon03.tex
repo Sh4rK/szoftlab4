@@ -15,6 +15,19 @@ Ha egy ellenség a hatókörébe ér, akkor elindít egy \textbf{Projectile}-t a
 \subsection{Obstacle}
 Ha egy ellenség belelép egy olyan mezőbe, amin van egy \textbf{Obstacle}, akkor azt egy bizonyos mértékben lelassítja, az ellenség fajától függően.
 
+\subsection{Map}
+%\comment{Felelősség informális leírása}
+A Map a pályát képviseli, melyben NxM darab cella van. A pálya egy külső fájlból betölthető, ami új játék indulásakor fog megtörténni, miután kiválasztja a játékos a pályát. A pálya különböző tulajdonságai is lekérdezhetőek, amelyek majd a kirajzoláshoz kellenek.
+
+\subsection{Tile}
+%\comment{Felelősség informális leírása}
+A Tile objektumból egy NxM -es tömböt fog tárolni a Map objektum. Ezek a pálya egyes celláit fogják képviselni. Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület.
+
+ Ha egy cellán van út, akkor lekérdezhető, hogy az a cella milyen távol van a céltól (az utat követve, cellákban mérve). Továbbá azt is tárolva van, és lekérdezhető, hogy az út merre folytatódik (és az ellenségeknek merre kell majd menniük). Ha elágazás van, akkor véletlenszerűen választ irányt és arra küldi az ellenséget (ez minden egyes ellenségre véletlenszerű).
+
+\subsection{Mission}
+Egy Mission objektumban lesz eltárolva, hogy milyen ellenségek, mikor és honnan jönnek be a pályára. Ez a három adat majd egy segéd osztályban lesz összefogva, és egy tárolóban lesz tárolva. A játék főciklusa le tudja majd kérdezni a következő ellenséget, melyet az objektum visszaad, ha már elég idő eltelt az előző egység óta (ha nem akkor nem ad vissza egységet).
+
 \section{Statikus struktúra diagramok}
 \comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
 
@@ -83,6 +96,94 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 \item Metódusok
 	\begin{itemize}
 		\item int getSlowingFactor(\textbf{Enemy} enemy): visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Map}
+\begin{itemize}
+\item Felelősség\\
+%\comment{Mi az osztály felelőssége. Kb 1 bekezdés.}
+Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasni a pályát, és felépíteni azt.
+\item Ősosztályok\\
+%\comment{Mely osztályokból származik (öröklési hierarchia)\newline
+%Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
+-
+\item Interfészek\\
+%\comment{Mely interfészeket valósítja meg.}
+-
+\item Attribútumok\\
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item Tile[][]: A pályán található cellák tömbje, a pálya kirajzolásához használható.
+	\end{itemize}
+\item Metódusok\\
+%\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+	\begin{itemize}
+		\item Tile getTileAt(int n, int m): Visszaadja az n-edik sor m-edik oszloban talalható cellát.
+		\item void readMapFile(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Mission}
+\begin{itemize}
+\item Felelősség\\
+%\comment{Mi az osztály felelőssége. Kb 1 bekezdés.}
+Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és időzítésüket tartalmazza. Majd a megfelelő időközönként ki kell adja ezeket az egységeket a Game osztálynak.
+\item Ősosztályok\\
+%\comment{Mely osztályokból származik (öröklési hierarchia)\newline
+%Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
+-
+\item Interfészek\\
+%\comment{Mely interfészeket valósítja meg.}
+-
+\item Attribútumok\\
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item List<Spawn> spawnList: a Spawn segédosztályban tárolt ellenség-idő-belépési pont, adatokat tárolja.
+		\item int counter: méri az előző ellenség megjelenése óta eltelt ciklusokat.
+	\end{itemize}
+\item Metódusok\\
+%\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+	\begin{itemize}
+		\item Enemy getNextEnemy(): a spawnList listaból a következő elemet megvizsgaálja, és ha elegendő ciklus eltelt az előző ellenség megjelenése óta, akkor visszatér a kivett Spawn ellenségével.
+		\item void readMissionFile(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a listát (spawnList).
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Tile}
+\begin{itemize}
+\item Felelősség\\
+%\comment{Mi az osztály felelőssége. Kb 1 bekezdés.}
+Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület. Felelős még az egyes ellenségek következő irányának a meghatározására, és vissza kell tudnia adni, hogy van-e rajta út, valamint ha van akkor milyen távol van a céltól.
+\item Ősosztályok\\
+%\comment{Mely osztályokból származik (öröklési hierarchia)\newline
+%Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
+-
+\item Interfészek\\
+%\comment{Mely interfészeket valósítja meg.}
+-
+\item Attribútumok\\
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item Building building: a cellában levő epület.
+		\item int distance: hányadik cella az utat követve a céltól.
+		\item bool road: van-e út a cellában.
+		\item double up: annak a valószinűsége, hogy a cellából felfelé fog menni az ellenség.
+		\item double down: annak a valószinűsége, hogy a cellából lefelé fog menni az ellenség.
+		\item double left: annak a valószinűsége, hogy a cellából balra fog menni az ellenség.
+		\item double right: annak a valószinűsége, hogy a cellából jobbra fog menni az ellenség.
+	\end{itemize}
+\item Metódusok\\
+%\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+	\begin{itemize}
+		\item void build(): a cellára történő egérnyomás hatására meghívódik, és létrehoz ezen a cellán egy tornyot ha nincsen út és egy akadályt, ha van. Ezután, ha tornyot épített, akkor meghívja a Game ... metódusát.
+		%\item void enchant:
+		\item int getDistance(): vissza adja a distance értékét.
+		\item bool isRoad(): vissza adja a road értékét.
+		\item direction nextDirection(): visszad egy irány enum-ot, amely megadja az ellenség irányát.
+		\item getBuilding(): visszatér a building referenciájával.
 	\end{itemize}
 \end{itemize}
 
