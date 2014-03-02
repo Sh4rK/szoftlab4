@@ -7,8 +7,6 @@
 
 \section{Objektum katalógus}
 
-\comment{Minden, a feladatban szereplő objektum rövid, egy-két bekezdés hosszú ismertetése. Meg kell jelenjen minden objektumhoz, hogy mi a felelőssége. Informális leírás, ezért nem kell foglalkozni az örökléssel, az interfészekkel, az absztrakt osztályokkal, a segédosztályokkal.}
-
 \subsection{Tower}
 Egy tornyot valósít meg. Ha egy ellenség a hatókörébe ér, akkor elindít egy \textbf{Projectile}-t az irányába, a tüzelési gyakoriságának megfelelő időközönként. Ha több ellenfél van a hatókörében, akkor arra lő, aki a legközelebb van a célhoz.
 
@@ -61,6 +59,7 @@ Egy épületekre rakható varázskő tulajdonságait tárolja. A Game class fog 
 Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméterezésével. Továbbá felelős azért, hogy \textbf{Projectile}-okat csak a megadott időközönként lőjjön ki.
 \item Attribútumok
 	\begin{itemize}
+		\item \underline{int cost}: A torony ára varázserőben.
 		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
 		\item Map<EnemyType, double>: megadja mekkora az adott típusú ellenfélre kifejtett hatása a toronynak
 		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
@@ -81,6 +80,7 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 \item Felelősség\\
 Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméterezésével. Továbbá felelős azért, hogy \textbf{Projectile}-okat csak a megadott időközönként lőjjön ki.
 \item Attribútumok
+		\item \underline{int cost}: Az akadály ára varázserőben.
 		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
 		\item Map<EnemyType, double>: megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak
 		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
@@ -167,15 +167,18 @@ A többi osztály nyilván tartása és összekötése, a játékbeli események
 		\item ArrayList<Gem> gems: Az összes lehetséges, toronyra illetve akadályra rakható varázskő nyilvántartása.
 		\item ArrayList<EnemyType> types: Ez a lehetséges ellenségtípusok listája.
 		\item ArrayList<Enemy> enemies: Az összes éppen látható ellenség található meg benne.
+		\item int magic: A játékos jelenlegi varázsereje.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
 		\item void run(): Ez a metódus futtatja a főciklust, amelyben maga a játék működik.
-		\item void buildTower(Tile tile): Épít egy tornyot a paraméterül kapott mezőre. \comment{Esetleg koordinátákkal adjuk meg?}
-		\item void buildObstacle(Tile tile): Épít egy akadályt a paraméterül kapott mezőre. \comment{Esetleg koordinátákkal adjuk meg?}
+		\item void buildTower(Vector position): Épít egy tornyot a paraméterül kapott helyen évő mezőre.
+		\item void buildObstacle(Vector position): Épít egy akadályt a paraméterül kapott helyen lévő mezőre.
+		\item void addGem(Vector position, Gem gem): A paraméterként kapott helyen lévő toronyra vagy akadályra rárakja a paraméterként kapott varázskövet.
 		\item \comment{\textbf{TODO}, ez még hiányos.}
 	\end{itemize}
 \end{itemize}
+
 
 \subsection{EnemyType}
 \begin{itemize}
@@ -183,9 +186,9 @@ A többi osztály nyilván tartása és összekötése, a játékbeli események
 Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-egy példányára hivatkozik az összes ellenség, amelyeknek ezáltal meghatározza a viselkedését.
 \item Attribútumok
 	\begin{itemize}
+		\item int cost: Az ilyen fajtájú ellenségek ára varázserőben.
 		\item int initialHealth: Az ilyen fajtájú ellenségek kezdeti életereje.
 		\item double normalSpeed: Az ilyen fajtájú ellenségek akadályoztatás nélküli haladási sebessége.
-		\item \comment{\textbf{TODO}, meg akkor az enum típus, hogy miféle?}
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
@@ -240,6 +243,7 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 Egy fajta varázskő tulajdonságainak tárolása.
 \item Attribútumok
 	\begin{itemize}
+		\item int cost: A varázskő ára varázserőben.
 		\item double rangeMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a hatótávolsága.
 		\item double rateMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a tüzelési sebessége.
 		\item HashMap<EnemyType, Double> damageMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a sebzése egy adott típusú ellenséggel szemben.
