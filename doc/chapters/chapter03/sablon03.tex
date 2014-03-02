@@ -10,10 +10,10 @@
 \comment{Minden, a feladatban szereplő objektum rövid, egy-két bekezdés hosszú ismertetése. Meg kell jelenjen minden objektumhoz, hogy mi a felelőssége. Informális leírás, ezért nem kell foglalkozni az örökléssel, az interfészekkel, az absztrakt osztályokkal, a segédosztályokkal.}
 
 \subsection{Tower}
-Ha egy ellenség a hatókörébe ér, akkor elindít egy \textbf{Projectile}-t az irányába, a tüzelési gyakoriságának megfelelő időközönként. Ha több ellenfél van a hatókörében, akkor arra lő, aki a legközelebb van a célhoz.
+Egy tornyot valósít meg. Ha egy ellenség a hatókörébe ér, akkor elindít egy \textbf{Projectile}-t az irányába, a tüzelési gyakoriságának megfelelő időközönként. Ha több ellenfél van a hatókörében, akkor arra lő, aki a legközelebb van a célhoz.
 
 \subsection{Obstacle}
-Ha egy ellenség belelép egy olyan mezőbe, amin van egy \textbf{Obstacle}, akkor azt egy bizonyos mértékben lelassítja, az ellenség fajától függően.
+Egy akadályt valósít meg. Ha egy ellenség belelép egy olyan mezőbe, amin van egy \textbf{Obstacle}, akkor azt egy bizonyos mértékben lelassítja, az ellenség fajától függően.
 
 \subsection{Map}
 A Map a pályát képviseli, melyben NxM darab cella van. A pálya egy külső fájlból betölthető, ami új játék indulásakor fog megtörténni, miután kiválasztja a játékos a pályát. A pálya különböző tulajdonságai is lekérdezhetőek, amelyek majd a kirajzoláshoz kellenek.
@@ -83,16 +83,19 @@ Biztosít egy interfészt az épületek számára. Eltárolja az épülethez tar
 \begin{itemize}
 \item Felelősség\\
 Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméterezésével. Továbbá felelős azért, hogy \textbf{Projectile}-okat csak a megadott időközönként lőjjön ki.
-\item Ősosztályok\\
-\textbf{Building}
 \item Attribútumok
 	\begin{itemize}
-		\item interval: milyen időközönként tud a torony lőni.
-		\item timeSinceLastFire: mennyi idő telt el az utolsó lövés óta.
+		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
+		\item Map<EnemyType, double>: megadja mekkora az adott típusú ellenfélre kifejtett hatása a toronynak
+		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
 		\item \textbf{Projectile} attack(\textbf{Enemy} enemy): kilő egy \textbf{Projectile}-t a paraméterként megkapott ellenségre, majd a visszatérési értékében visszaadja azt. A \textbf{Projectile}-t felparaméterezi az ellenséghez megfelelő sebzési adatokkal.
+		\item \textbf{Gem} getGem(): visszaadja az épületen található varázskövet
+		\item void setGem(\textbf{Gem} gem): beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
+		\item void setTile(\textbf{Tile} tile)
+		\item \textbf{Tile} getTile()
 	\end{itemize}
 \end{itemize}
 
@@ -103,10 +106,16 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 \item Ősosztályok\\
 \textbf{Building}
 \item Attribútumok\\
-		Nincsenek attribútumai.
+		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
+		\item Map<EnemyType, double>: megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak
+		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
 \item Metódusok
 	\begin{itemize}
-		\item int getSlowingFactor(\textbf{Enemy} enemy): visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
+		\item double getSlowingFactor(\textbf{Enemy} enemy): visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
+		\item \textbf{Gem} getGem(): visszaadja az épületen található varázskövet
+		\item void setGem(\textbf{Gem} gem): beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
+		\item void setTile(\textbf{Tile} tile)
+		\item \textbf{Tile} getTile()
 	\end{itemize}
 \end{itemize}
 
