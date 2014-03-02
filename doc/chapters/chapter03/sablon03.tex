@@ -54,30 +54,6 @@ Egy épületekre rakható varázskő tulajdonságait tárolja. A Game class fog 
 
 
 \section{Osztályok leírása}
-\comment{Az előző alfejezetben tárgyalt objektumok felelősségének formalizálása attribútumokká, metódusokká. Csak publikus metódusok szerepelhetnek. Ebben az alfejezetben megjelennek az interfészek, az öröklés, az absztrakt osztályok. Segédosztályokra még mindig nincs szükség. Az osztályok ABC sorrendben kövessék egymást. Interfészek esetén az Interfészek, Attribútumok pontok kimaradnak.}
-
-\subsection{Building}
-\begin{itemize}
-\item Felelősség\\
-Biztosít egy interfészt az épületek számára. Eltárolja az épülethez tartozó varázskövet.
-\item Attribútumok
-	\begin{itemize}
-		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
-		\item int human: megadja mekkora a human típusú ellenfelekre kifejtett hatása az épületnek.
-		\item int elf: megadja mekkora az elf típusú ellenfelekre kifejtett hatása az épületnek.
-		\item int dwarf: megadja mekkora a dwarf típusú ellenfelekre kifejtett hatása az épületnek.
-		\item int hobbit: megadja mekkora a hobbit típusú ellenfelekre kifejtett hatása az épületnek.
-		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
-	\end{itemize}
-\item Metódusok\\
-	\begin{itemize}
-		\item \textbf{Gem} getGem(): visszaadja az épületen található varázskövet
-		\item void setGem(\textbf{Gem} gem): beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
-		\item void setTile(\textbf{Tile} tile)
-		\item \textbf{Tile} getTile()
-	\end{itemize}
-\end{itemize}
-
 
 \subsection{Tower}
 \begin{itemize}
@@ -104,9 +80,7 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 \begin{itemize}
 \item Felelősség\\
 Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméterezésével. Továbbá felelős azért, hogy \textbf{Projectile}-okat csak a megadott időközönként lőjjön ki.
-\item Ősosztályok\\
-\textbf{Building}
-\item Attribútumok\\
+\item Attribútumok
 		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
 		\item Map<EnemyType, double>: megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak
 		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
@@ -125,11 +99,11 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 \begin{itemize}
 \item Felelősség\\
 Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasni a pályát, és felépíteni azt.
-\item Attribútumok\\
+\item Attribútumok
 	\begin{itemize}
 		\item Tile[][]: A pályán található cellák tömbje, a pálya kirajzolásához használható.
 	\end{itemize}
-\item Metódusok\\
+\item Metódusok
 	\begin{itemize}
 		\item Tile getTileAt(Vector position): Visszaadja a position helyen talalható cellát.
 		\item void readMapFile(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
@@ -141,12 +115,12 @@ Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasn
 \begin{itemize}
 \item Felelősség\\
 Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és időzítésüket tartalmazza. Majd a megfelelő időközönként ki kell adja ezeket az egységeket a Game osztálynak.
-\item Attribútumok\\
+\item Attribútumok
 	\begin{itemize}
 		\item List<Spawn> spawnList: a Spawn segédosztályban tárolt ellenség-idő-belépési pont, adatokat tárolja.
 		\item int counter: méri az előző ellenség megjelenése óta eltelt ciklusokat.
 	\end{itemize}
-\item Metódusok\\
+\item Metódusok
 	\begin{itemize}
 		\item Enemy getNextEnemy(): a spawnList listaból a következő elemet megvizsgaálja, és ha elegendő ciklus eltelt az előző ellenség megjelenése óta, akkor visszatér a kivett Spawn ellenségével.
 		\item void readMissionFile(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a listát (spawnList).
@@ -158,7 +132,7 @@ Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és idő
 \begin{itemize}
 \item Felelősség\\
 Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület. Felelős még az egyes ellenségek következő irányának a meghatározására, és vissza kell tudnia adni, hogy van-e rajta út, valamint ha van akkor milyen távol van a céltól.
-\item Attribútumok\\
+\item Attribútumok
 	\begin{itemize}
 		\item Building building: a cellában levő epület.
 		\item int distance: hányadik cella az utat követve a céltól.
@@ -168,7 +142,7 @@ Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy ak
 		\item double left: annak a valószinűsége, hogy a cellából balra fog menni az ellenség.
 		\item double right: annak a valószinűsége, hogy a cellából jobbra fog menni az ellenség.
 	\end{itemize}
-\item Metódusok\\
+\item Metódusok
 	\begin{itemize}
 		\item void buildTower(): a cellán egy tornyot épít.
 		\item void buildObstacle(): a cellán egy akadályt épít.
@@ -184,7 +158,7 @@ Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy ak
 \begin{itemize}
 \item Felelősség\\
 A többi osztály nyilván tartása és összekötése, a játékbeli események vezérlése. A felhasználói felülettől érkező parancsok végrehajtása, és a játék állapotának rendelkezésre bocsájtása a kijelzéshez.
-\item Attribútumok\\
+\item Attribútumok
 	\begin{itemize}
 		\item ArrayList<Projectile> projectiles: Eltárolja a jelenleg játékban lévő lövedékeket.
 		\item Map map: Referencia a kiválasztott pályára, amin a játék folyik.
@@ -194,7 +168,7 @@ A többi osztály nyilván tartása és összekötése, a játékbeli események
 		\item ArrayList<EnemyType> types: Ez a lehetséges ellenségtípusok listája.
 		\item ArrayList<Enemy> enemies: Az összes éppen látható ellenség található meg benne.
 	\end{itemize}
-\item Metódusok\\
+\item Metódusok
 	\begin{itemize}
 		\item void run(): Ez a metódus futtatja a főciklust, amelyben maga a játék működik.
 		\item void buildTower(Tile tile): Épít egy tornyot a paraméterül kapott mezőre. \comment{Esetleg koordinátákkal adjuk meg?}
@@ -207,13 +181,13 @@ A többi osztály nyilván tartása és összekötése, a játékbeli események
 \begin{itemize}
 \item Felelősség\\
 Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-egy példányára hivatkozik az összes ellenség, amelyeknek ezáltal meghatározza a viselkedését.
-\item Attribútumok\\
+\item Attribútumok
 	\begin{itemize}
 		\item int initialHealth: Az ilyen fajtájú ellenségek kezdeti életereje.
 		\item double normalSpeed: Az ilyen fajtájú ellenségek akadályoztatás nélküli haladási sebessége.
 		\item \comment{\textbf{TODO}, meg akkor az enum típus, hogy miféle?}
 	\end{itemize}
-\item Metódusok\\
+\item Metódusok
 	\begin{itemize}
 		\item int getInitialHealth(): Visszaadja az initialHealth attribútum értékét.
 		\item double getNormalSpeed(): Visszaadja a normalSpeed attribútum értékét.
@@ -225,13 +199,13 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 \begin{itemize}
 \item Felelősség\\
 Az ellenségek pozíciójának, sebességének és életerejének nyilvántartása.
-\item Attribútumok\\
+\item Attribútumok
 	\begin{itemize}
 		\item EnemyType type: Az egység típusa.
 		\item int health: Az ellenség fennmaradó életereje.
 		\item Vector position: Pillanatnyi pozíció a pályán.
 	\end{itemize}
-\item Metódusok\\
+\item Metódusok
 	\begin{itemize}
 		\item boolean move(double dt): Az egységet annyival mozgatja az útján tovább, amennyit dt idő alatt halad. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
 		\item Vector getPosition(): A position attribútum értékével tér vissza.
@@ -264,16 +238,14 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 \begin{itemize}
 \item Felelősség\\
 Egy fajta varázskő tulajdonságainak tárolása.
-\item Attribútumok\\
-\comment{Milyen attribútumai vannak}
+\item Attribútumok
 	\begin{itemize}
 		\item double rangeMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a hatótávolsága.
 		\item double rateMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a tüzelési sebessége.
 		\item HashMap<EnemyType, Double> damageMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a sebzése egy adott típusú ellenséggel szemben.
 		\item HashMap<EnemyType, Double> speedMultiplier: Megadja, hogy a varázskővel elátott akadályon áthaladó adott típusú ellenség sebessége hányadára csökken.
 	\end{itemize}
-\item Metódusok\\
-\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+\item Metódusok
 	\begin{itemize}
 		\item Gem(double rangeMultiplier, double rateMultiplier, HashMap<EnemyType, Double> damageMultiplier, HashMap<EnemyType, Double> speedMzltiplier): Létrehoz egy Gem objektumot a paraméterként kapott tulajdonságokkal.
 		\item double getRangeMultiplier(): Visszaadja a varázskő hatótávolság szorzóját.
@@ -284,6 +256,7 @@ Egy fajta varázskő tulajdonságainak tárolása.
 		\item boolean canPutOnObstacle() Ha a varázskő használható akadályokra, igazat ad vissza, különben hamisat.
 	\end{itemize}
 \end{itemize}
+
 
 \section{Szekvencia diagramok}
 \comment{Inicializálásra, use-case-ekre, belső működésre. Konzisztens kell legyen az előző alfejezettel. Minden metódus, ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában szerepel, szereplnie kell a valamelyik osztálydiagramon.}
