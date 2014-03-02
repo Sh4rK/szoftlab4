@@ -60,17 +60,17 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 \item Attribútumok
 	\begin{itemize}
 		\item \underline{int cost}: A torony ára varázserőben.
-		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
-		\item Map<EnemyType, double>: megadja mekkora az adott típusú ellenfélre kifejtett hatása a toronynak
-		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
+		\item gem: Eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
+		\item Map<EnemyType, double> damage: Megadja mekkora az adott típusú ellenfélre kifejtett hatása a toronynak.
+		\item \textbf{Tile} tile: Egy referencia arra a mezőre, ahol az épület található.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item \textbf{Projectile} attack(\textbf{Enemy} enemy): kilő egy \textbf{Projectile}-t a paraméterként megkapott ellenségre, majd a visszatérési értékében visszaadja azt. A \textbf{Projectile}-t felparaméterezi az ellenséghez megfelelő sebzési adatokkal.
-		\item \textbf{Gem} getGem(): visszaadja az épületen található varázskövet
-		\item void setGem(\textbf{Gem} gem): beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
-		\item void setTile(\textbf{Tile} tile)
-		\item \textbf{Tile} getTile()
+		\item \textbf{Projectile} attack(\textbf{Enemy} enemy): Kilő egy \textbf{Projectile}-t a paraméterként megkapott ellenségre, majd a visszatérési értékében visszaadja azt. A \textbf{Projectile}-t felparaméterezi az ellenséghez megfelelő sebzési adatokkal.
+		\item \textbf{Gem} getGem(): Visszaadja az épületen található varázskövet.
+		\item void setGem(\textbf{Gem} gem): Beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
+		\item void setTile(\textbf{Tile} tile): Beállítja, hogy a torony melyik \textbf{Tile}-on van.
+		\item \textbf{Tile} getTile(): Visszaadja, hogy a torony melyik \textbf{Tile}-on van.
 	\end{itemize}
 \end{itemize}
 
@@ -81,16 +81,16 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméterezésével. Továbbá felelős azért, hogy \textbf{Projectile}-okat csak a megadott időközönként lőjjön ki.
 \item Attribútumok
 		\item \underline{int cost}: Az akadály ára varázserőben.
-		\item gem: eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
-		\item Map<EnemyType, double>: megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak
-		\item \textbf{Tile} tile: egy referencia arra a mezőre, ahol az épület található.
+		\item Gem gem: Eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
+		\item Map<EnemyType, double> speedMultiplier: Megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak.
+		\item \textbf{Tile} tile: Egy referencia arra a mezőre, ahol az épület található.
 \item Metódusok
 	\begin{itemize}
-		\item double getSlowingFactor(\textbf{Enemy} enemy): visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
-		\item \textbf{Gem} getGem(): visszaadja az épületen található varázskövet
-		\item void setGem(\textbf{Gem} gem): beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
-		\item void setTile(\textbf{Tile} tile)
-		\item \textbf{Tile} getTile()
+		\item double getSlowingFactor(\textbf{Enemy} enemy): Visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
+		\item \textbf{Gem} getGem(): Visszaadja az épületen található varázskövet.
+		\item void setGem(\textbf{Gem} gem): Beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
+		\item void setTile(\textbf{Tile} tile): Beállítja, hogy az akadály melyik \textbf{Tile}-on van.
+		\item \textbf{Tile} getTile(): Visszaadja, hogy az akadály melyik \textbf{Tile}-on van.
 	\end{itemize}
 \end{itemize}
 
@@ -117,12 +117,12 @@ Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasn
 Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és időzítésüket tartalmazza. Majd a megfelelő időközönként ki kell adja ezeket az egységeket a Game osztálynak.
 \item Attribútumok
 	\begin{itemize}
-		\item List<Spawn> spawnList: a Spawn segédosztályban tárolt ellenség-idő-belépési pont, adatokat tárolja.
-		\item double lastSpawn: tárolja az előző spawn idejét.
+		\item List<Spawn> spawnList: A Spawn segédosztályban tárolt ellenség-idő-belépési pont, adatokat tárolja.
+		\item double lastSpawn: Tárolja az előző spawn idejét.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item Enemy getNextEnemy(double time): a spawnList listaból a következő elemet megvizsgaálja, és ha spawnolni kell a következő ellenséget, akkor visszaadja azt.
+		\item Enemy getNextEnemy(double time): A spawnList listaból a következő elemet megvizsgaálja, és ha spawnolni kell a következő ellenséget, akkor visszaadja azt.
 		\item loadMission(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a listát (spawnList).
 	\end{itemize}
 \end{itemize}
@@ -134,23 +134,23 @@ Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és idő
 Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület. Felelős még az egyes ellenségek következő irányának a meghatározására, és vissza kell tudnia adni, hogy van-e rajta út, valamint ha van akkor milyen távol van a céltól.
 \item Attribútumok
 	\begin{itemize}
-		\item Building building: a cellában levő epület.
-		\item int distance: hányadik cella az utat követve a céltól.
-		\item bool road: van-e út a cellában.
-		\item double up: annak a valószinűsége, hogy a cellából felfelé fog menni az ellenség.
-		\item double down: annak a valószinűsége, hogy a cellából lefelé fog menni az ellenség.
-		\item double left: annak a valószinűsége, hogy a cellából balra fog menni az ellenség.
-		\item double right: annak a valószinűsége, hogy a cellából jobbra fog menni az ellenség.
+		\item Building building: A cellában levő epület.
+		\item int distance: Hányadik cella az utat követve a céltól.
+		\item bool road: Van-e út a cellában.
+		\item double up: Annak a valószinűsége, hogy a cellából felfelé fog menni az ellenség.
+		\item double down: Annak a valószinűsége, hogy a cellából lefelé fog menni az ellenség.
+		\item double left: Annak a valószinűsége, hogy a cellából balra fog menni az ellenség.
+		\item double right: Annak a valószinűsége, hogy a cellából jobbra fog menni az ellenség.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item void buildTower(): a cellán egy tornyot épít.
-		\item void buildObstacle(): a cellán egy akadályt épít.
-		\item Tower getTower(): visszaadaja a cellán lévő tornyot.
-		\item Obstacle getObstacle(): visszaadaja a cellán lévő akadályt.
-		\item int getDistance(): vissza adja a distance értékét.
-		\item bool isRoad(): vissza adja a road értékét.
-		\item direction nextDirection(): visszad egy irány enum-ot, amely megadja az ellenség irányát.
+		\item void buildTower(): A cellán egy tornyot épít.
+		\item void buildObstacle(): A cellán egy akadályt épít.
+		\item Tower getTower(): Visszaadja a cellán lévő tornyot.
+		\item Obstacle getObstacle(): Visszaadja a cellán lévő akadályt.
+		\item int getDistance(): Visszaadja a distance értékét.
+		\item bool isRoad(): Visszaadja a road értékét.
+		\item Direction nextDirection(): Visszad egy irány enum-ot, amely megadja az ellenség irányát.
 	\end{itemize}
 \end{itemize}
 
@@ -225,10 +225,10 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 Követni a cél ellenséget, majd sebezni ha eléri.
 \item Attribútumok
 	\begin{itemize}
-		\item double damage: a lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja
-		\item Vector position: a lövedék pozíciója
-		\item double speed: a lövedék sebessége
-		\item Enemy enemy: a lövedék cél Enemy-je
+		\item double damage: A lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja.
+		\item Vector position: A lövedék pozíciója.
+		\item double speed: A lövedék sebessége.
+		\item Enemy enemy: A lövedék cél Enemy-je.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
