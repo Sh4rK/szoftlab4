@@ -188,12 +188,12 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 \item Attribútumok
 	\begin{itemize}
 		\item int cost: Az ilyen fajtájú ellenségek ára varázserőben.
-		\item int initialHealth: Az ilyen fajtájú ellenségek kezdeti életereje.
+		\item double initialHealth: Az ilyen fajtájú ellenségek kezdeti életereje.
 		\item double normalSpeed: Az ilyen fajtájú ellenségek akadályoztatás nélküli haladási sebessége.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item int getInitialHealth(): Visszaadja az initialHealth attribútum értékét.
+		\item double getInitialHealth(): Visszaadja az initialHealth attribútum értékét.
 		\item double getNormalSpeed(): Visszaadja a normalSpeed attribútum értékét.
 	\end{itemize}
 \end{itemize}
@@ -206,14 +206,14 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 \item Attribútumok
 	\begin{itemize}
 		\item EnemyType type: Az egység típusa.
-		\item int health: Az ellenség fennmaradó életereje.
+		\item double health: Az ellenség fennmaradó életereje.
 		\item Vector position: Pillanatnyi pozíció a pályán.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
 		\item boolean move(double dt): Az egységet annyival mozgatja az útján tovább, amennyit dt idő alatt halad. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
 		\item Vector getPosition(): A position attribútum értékével tér vissza.
-		\item bool damage(int amount): Csökkenti az ellenség életerejét amount-al, igazzal tér vissza ha az ellenség meghalt.
+		\item bool damage(double amount): Csökkenti az ellenség életerejét amount-al, igazzal tér vissza ha az ellenség meghalt.
 		\item EnemyType getEnemyType(): Visszaadja az ellenség típusát.
 	\end{itemize}
 \end{itemize}
@@ -225,7 +225,7 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 Követni a cél ellenséget, majd sebezni ha eléri.
 \item Attribútumok
 	\begin{itemize}
-		\item int damage: a lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja
+		\item double damage: a lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja
 		\item Vector position: a lövedék pozíciója
 		\item double speed: a lövedék sebessége
 		\item Enemy enemy: a lövedék cél Enemy-je
