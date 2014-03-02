@@ -38,6 +38,9 @@ Az Enemy osztály példányai egy-egy ellenséget tárolnak. Rendelkeznek típus
 \subsection{Projectile}
 Ez a class egy lövedék leírása. Amikor egy torony lő, akkor példányosítja ezt az osztályt a cél ellenség átadásával, így egy lövedék mindig a torony által meghatározott ellenség után megy, amit ha megfelelően megközelít (eltalálja az ellenséget), akkor levesz az életerejéből és megsemmisíti magát.
 
+\subection{Gem}
+Egy épületekre rakható varázskő tulajdonságait tárolja. A Game class fog példányokat létrehozni belőle, különböző tulajdonságokkal. Ha egy épületre rá van rakva egy fajta varázskő, akkor az épület egy referenciát tárol a példányára.
+
 
 \section{Statikus struktúra diagramok}
 \comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
@@ -139,7 +142,7 @@ Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasn
 \item Metódusok\\
 %\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
-		\item Tile getTileAt(Vector vector): Visszaadja az n-edik sor m-edik oszloban talalható cellát.
+		\item Tile getTileAt(Vector position): Visszaadja a position helyen talalható cellát.
 		\item void readMapFile(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
 	\end{itemize}
 \end{itemize}
@@ -262,14 +265,14 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 	\begin{itemize}
 		\item EnemyType type: Az egység típusa.
 		\item int health: Az ellenség fennmaradó életereje.
-		\item Vector<Double> position: Pillanatnyi pozíció a pályán.
+		\item Vector position: Pillanatnyi pozíció a pályán.
 	\end{itemize}
 \item Metódusok\\
 %\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
-		\item void move(): Az egységet annyival mozgatja az útján tovább, amennyit egy időegység alatt halad.
-		\item Vector<Double> getPosition(): A position attribútum értékével tér vissza.
-		\comment{\textbf{TODO}: Kell ide még más?}
+		\item boolean move(double dt): Az egységet annyival mozgatja az útján tovább, amennyit dt idő alatt halad. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
+		\item Vector getPosition(): A position attribútum értékével tér vissza.
+		\item void damage(int amount): Csökkenti az ellenség életerejét amount-al.
 	\end{itemize}
 \end{itemize}
 
@@ -280,17 +283,40 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 \item Attribútumok
 	\begin{itemize}
 		\item int damage: a lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja
-		\item double posX: a lövedék x koordinátája
-		\item double posY: a lövedék y koordinátája
+		\item Vector position: a lövedék pozíciója
 		\item double speed: a lövedék sebessége
 		\item Enemy enemy: a lövedék cél Enemy-je
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item Projectile(Enemy enemy, double posX, double posY, double speed): Konstruktor, átveszi a cél Enemy-t, a kezdő pozíciót és sebességet.
-		\item bool step(): Egy egységyit (amit a sebesség határoz meg) mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
-		\item double getPosX(): Visszaadja a lövedék x koordinátáját.
-		\item double getPosY(): Visszaadja a lövedék y koordinátáját.
+		\item Projectile(Enemy enemy, Vector position, double speed): Konstruktor, átveszi a cél Enemy-t, a kezdő pozíciót és sebességet.
+		\item boolean move(double dt): dt * speed-el mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
+		\item Vector getPosition(): Visszaadja a lövedék pozícióját.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Gem}
+\begin{itemize}
+\item Felelősség\\
+Egy fajta varázskő tulajdonságainak tárolása.
+\item Attribútumok\\
+\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item double rangeMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a hatótávolsága.
+		\item double rateMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a tüzelési sebessége.
+		\item HashMap<EnemyType, Double> damageMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a sebzése egy adott típusú ellenséggel szemben.
+		\item HashMap<EnemyType, Double> speedMultiplier: Megadja, hogy a varázskővel elátott akadályon áthaladó adott típusú ellenség sebessége hányadára csökken.
+	\end{itemize}
+\item Metódusok\\
+\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+	\begin{itemize}
+		\item Gem(double rangeMultiplier, double rateMultiplier, HashMap<EnemyType, Double> damageMultiplier, HashMap<EnemyType, Double> speedMzltiplier): Létrehoz egy Gem objektumot a paraméterként kapott tulajdonságokkal.
+		\item double getRangeMultiplier(): Visszaadja a varázskő hatótávolság szorzóját.
+		\item double getRateMultiplier(): Visszaadja a varázskő tüzelési sebesség szorzójáz.
+		\item double getDamageMultiplier(EnemyType enemyType): Visszaadja varázskő sebzés szorzóját egy adott típusú ellenséghez.
+		\item double getSpeedMultiplier(EnemyType enemyType): Visszaadja varázskő sebesség szorzóját egy adott típusú ellenséghez.
+		\item boolean canPutOnTower(): Ha a varázskő használható tornyokra, igazat ad vissza, különben hamisat.
+		\item boolean canPutOnObstacle() Ha a varázskő használható akadályokra, igazat ad vissza, különben hamisat.
 	\end{itemize}
 \end{itemize}
 
