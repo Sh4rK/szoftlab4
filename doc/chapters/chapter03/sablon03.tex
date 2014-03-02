@@ -133,7 +133,7 @@ Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasn
 \item Metódusok\\
 %\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
-		\item Tile getTileAt(Vector vector): Visszaadja az n-edik sor m-edik oszloban talalható cellát.
+		\item Tile getTileAt(Vector position): Visszaadja a position helyen talalható cellát.
 		\item void readMapFile(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
 	\end{itemize}
 \end{itemize}
@@ -256,13 +256,13 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 	\begin{itemize}
 		\item EnemyType type: Az egység típusa.
 		\item int health: Az ellenség fennmaradó életereje.
-		\item Vector<Double> position: Pillanatnyi pozíció a pályán.
+		\item Vector position: Pillanatnyi pozíció a pályán.
 	\end{itemize}
 \item Metódusok\\
 %\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
 		\item void move(): Az egységet annyival mozgatja az útján tovább, amennyit egy időegység alatt halad.
-		\item Vector<Double> getPosition(): A position attribútum értékével tér vissza.
+		\item Vector getPosition(): A position attribútum értékével tér vissza.
 		\comment{\textbf{TODO}: Kell ide még más?}
 	\end{itemize}
 \end{itemize}
@@ -274,17 +274,15 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 \item Attribútumok
 	\begin{itemize}
 		\item int damage: a lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja
-		\item double posX: a lövedék x koordinátája
-		\item double posY: a lövedék y koordinátája
+		\item Vector position: a lövedék pozíciója
 		\item double speed: a lövedék sebessége
 		\item Enemy enemy: a lövedék cél Enemy-je
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item Projectile(Enemy enemy, double posX, double posY, double speed): Konstruktor, átveszi a cél Enemy-t, a kezdő pozíciót és sebességet.
+		\item Projectile(Enemy enemy, Vector position, double speed): Konstruktor, átveszi a cél Enemy-t, a kezdő pozíciót és sebességet.
 		\item bool step(): Egy egységyit (amit a sebesség határoz meg) mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
-		\item double getPosX(): Visszaadja a lövedék x koordinátáját.
-		\item double getPosY(): Visszaadja a lövedék y koordinátáját.
+		\item Vector getPosition(): Visszaadja a lövedék pozícióját.
 	\end{itemize}
 \end{itemize}
 
