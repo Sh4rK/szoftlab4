@@ -323,7 +323,7 @@ Egy fajta varázskő tulajdonságainak tárolása.
 \section{Statikus struktúra diagramok}
 \comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
 %\includegraphics[width=17cm]{chapters/chapter03/example.pdf}
 \caption{x}
@@ -334,14 +334,39 @@ Egy fajta varázskő tulajdonságainak tárolása.
 \section{Szekvencia diagramok}
 \comment{Inicializálásra, use-case-ekre, belső működésre. Konzisztens kell legyen az előző alfejezettel. Minden metódus, ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában szerepel, szereplnie kell a valamelyik osztálydiagramon.}
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
-%\includegraphics[width=17cm]{chapters/chapter03/example.pdf}
-\caption{x}
-\label{fig:example2}
+\includegraphics[width=13cm]{images/move_enemy.png}
+\caption{Ellenség mozgatása}
+\label{fig:move_enemy}
 \end{center}
 \end{figure}
 
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=15cm]{images/build_tower.png}
+\caption{Torony építése}
+\label{fig:build_tower}
+\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=15cm]{images/build_obstacle.png}
+\caption{Akadály építése}
+\label{fig:build_tower}
+\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[width=15cm]{images/jatekInditasa.png}
+\caption{Játék Indítása}
+\label{fig:game_start}
+\end{center}
+\end{figure}
+
+\pagebreak
 \section{State-chartok}
 \comment{Csak azokhoz az osztályokhoz, ahol van értelme. Egyetlen állapotból álló state-chartok ne szerepeljenek. A játék működését bemutató state-chart-ot készíteni tilos.}
 
