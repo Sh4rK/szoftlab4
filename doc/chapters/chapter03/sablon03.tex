@@ -261,9 +261,9 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 \item Metódusok\\
 %\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
-		\item void move(): Az egységet annyival mozgatja az útján tovább, amennyit egy időegység alatt halad.
+		\item boolean move(double dt): Az egységet annyival mozgatja az útján tovább, amennyit dt idő alatt halad. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
 		\item Vector getPosition(): A position attribútum értékével tér vissza.
-		\comment{\textbf{TODO}: Kell ide még más?}
+		\item void damage(int amount):
 	\end{itemize}
 \end{itemize}
 
@@ -281,7 +281,7 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 \item Metódusok
 	\begin{itemize}
 		\item Projectile(Enemy enemy, Vector position, double speed): Konstruktor, átveszi a cél Enemy-t, a kezdő pozíciót és sebességet.
-		\item bool step(): Egy egységyit (amit a sebesség határoz meg) mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
+		\item boolean move(double dt): dt * speed-el mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
 		\item Vector getPosition(): Visszaadja a lövedék pozícióját.
 	\end{itemize}
 \end{itemize}
