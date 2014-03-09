@@ -217,29 +217,22 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 \end{itemize}
 
 
-\subsection{Tile}
+\subsection{Waypoint}
 \begin{itemize}
 \item Felelősség\\
-Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület. Felelős még az egyes ellenségek következő irányának a meghatározására, és vissza kell tudnia adni, hogy van-e rajta út, valamint ha van akkor milyen távol van a céltól.
+Útvonalat kijelölni az ellenségeknek, úgy, hogy megadja a pozícióját, amely felé az ellenségek mehetnek, valamint a következő  \textbf{Waypoint}-ot ami felé menniük kell, ha egyszer elérték ezt a  \textbf{Waypoint}-ot.
 \item Attribútumok
 	\begin{itemize}
-		\item \textbf{Building} building: A cellában levő epület.
-		\item int distance: Hányadik cella az utat követve a céltól.
-		\item boolean road: Van-e út a cellában.
-		\item double up: Annak a valószinűsége, hogy a cellából felfelé fog menni az ellenség.
-		\item double down: Annak a valószinűsége, hogy a cellából lefelé fog menni az ellenség.
-		\item double left: Annak a valószinűsége, hogy a cellából balra fog menni az ellenség.
-		\item double right: Annak a valószinűsége, hogy a cellából jobbra fog menni az ellenség.
+		\item double distance: A  \textbf{Waypoint} távolságát a céltól tárolja.
+		\item List <Waypoint, double> nextWaypoints: A következő  \textbf{Waypoint}-okat és a hozzájuk tartozó valószínűségeket tárolja el.
+		\item \textbf{Vector} position: A  \textbf{Waypoint} helyét tárolja.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item void buildTower(): A cellán egy tornyot épít.
-		\item void buildObstacle(): A cellán egy akadályt épít.
-		\item \textbf{Tower} getTower(): Visszaadja a cellán lévő tornyot.
-		\item \textbf{Obstacle} getObstacle(): Visszaadja a cellán lévő akadályt.
-		\item int getDistance(): Visszaadja a distance értékét.
-		\item boolean isRoad(): Visszaadja a road értékét.
-		\item \textbf{Direction} nextDirection(): Visszad egy irány enum-ot, amely megadja az ellenség irányát.
+		\item double getDistance(): Visszaadja a distance attribútumot.
+		\item \textbf{Waypoint} getNextWaypoint(): Visszatér a nextWaypoints listából véletlenszerűen kiválasztott \textbf{Waypoint}-al
+		\item\textbf{Vector} getPosition(): visszatér a position attribútummal.
+		
 	\end{itemize}
 \end{itemize}
 
