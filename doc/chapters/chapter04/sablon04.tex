@@ -183,19 +183,19 @@ Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és idő
 \subsection{Obstacle}
 \begin{itemize}
 \item Felelősség\\
-Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméterezésével. Továbbá felelős azért, hogy \textbf{Projectile}-okat csak a megadott időközönként lőjjön ki.
+Felelős, az ellenfelek lassításáért, úgy, hogy meg kell tudnia mondani a pozícióját, valamint, hogy az adott ellenséget mennyire lassítja.
 \item Attribútumok
 		\item \underline{int cost}: Az akadály ára varázserőben.
 		\item \textbf{Gem} gem: Eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
-		\item \textbf{Map}<\textbf{EnemyType}, double> speedMultiplier: Megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak.
-		\item \textbf{Tile} tile: Egy referencia arra a mezőre, ahol az épület található.
+		\item \textbf{Map}<\textbf{EnemyType}, double> slowingFactor: Megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak.
+		\item \textbf{Vector} position: Az akadály koordinátáit tárolja.
 \item Metódusok
 	\begin{itemize}
+		\item int getCost(): Visszatér a cost attribútummal.
 		\item double getSlowingFactor(\textbf{Enemy} enemy): Visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
 		\item \textbf{Gem} getGem(): Visszaadja az épületen található varázskövet.
 		\item void setGem(\textbf{Gem} gem): Beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
-		\item void setTile(\textbf{Tile} tile): Beállítja, hogy az akadály melyik \textbf{Tile}-on van.
-		\item \textbf{Tile} getTile(): Visszaadja, hogy az akadály melyik \textbf{Tile}-on van.
+		\item \textbf{Vector} getPosition(): Visszaadja a position attribútumot.
 	\end{itemize}
 \end{itemize}
 
