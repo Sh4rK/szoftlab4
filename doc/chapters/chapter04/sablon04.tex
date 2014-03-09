@@ -185,10 +185,12 @@ Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és idő
 \item Felelősség\\
 Felelős, az ellenfelek lassításáért, úgy, hogy meg kell tudnia mondani a pozícióját, valamint, hogy az adott ellenséget mennyire lassítja.
 \item Attribútumok
+	\begin{itemize}
 		\item \underline{int cost}: Az akadály ára varázserőben.
 		\item \textbf{Gem} gem: Eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
 		\item \textbf{Map}<\textbf{EnemyType}, double> slowingFactor: Megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak.
 		\item \textbf{Vector} position: Az akadály koordinátáit tárolja.
+	\end{itemize}
 \item Metódusok
 	\begin{itemize}
 		\item int getCost(): Visszatér a cost attribútummal.
