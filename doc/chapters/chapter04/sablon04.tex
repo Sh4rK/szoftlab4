@@ -61,13 +61,18 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 		\item \textbf{EnemyType} type: Az egység típusa.
 		\item double health: Az ellenség fennmaradó életereje.
 		\item \textbf{Vector} position: Pillanatnyi pozíció a pályán.
+		\item \textbf{Waypoint} targetWaypoint: Az a \textbf{Waypoint}, ami felé az ellenség jelenleg tart.
+		\item double slowingFactor: Az \textbf{EnemyType} sebességét ezzel kell beszorozni, hogy megkapjuk az ellenség tényleges jelenlegi sebességét.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item boolean move(double dt): Az egységet annyival mozgatja az útján tovább, amennyit dt idő alatt halad. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
-		\item \textbf{Vector} getPosition(): A position attribútum értékével tér vissza.
+		\item Enemy(EnemyType et, Waypoint start): Létrehoz egy et typusú \textbf{Enemy}-t a start \textbf{Waypoint}-helyén.
+		\item boolean move(): Az ellenséget a sebességének megfelelő mértékben mozgatja a célja irányába. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
 		\item boolean damage(double amount): Csökkenti az ellenség életerejét amount-al, igazzal tér vissza ha az ellenség meghalt.
+		\item \textbf{Vector} getPosition(): A position attribútum értékével tér vissza.
 		\item \textbf{EnemyType} getEnemyType(): Visszaadja az ellenség típusát.
+		\item double getDistance(): Visszaadja az ellenség céltól való távolságát a legrövidebb úton haladva.
+		\item void setSlowingFactor(double sf): Beállítja a slowingFactor-t sf-re.
 	\end{itemize}
 \end{itemize}
 
@@ -255,7 +260,7 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 		\item double getDistance(): Visszaadja a distance attribútumot.
 		\item \textbf{Waypoint} getNextWaypoint(): Visszatér a nextWaypoints listából véletlenszerűen kiválasztott \textbf{Waypoint}-al
 		\item\textbf{Vector} getPosition(): visszatér a position attribútummal.
-		
+
 	\end{itemize}
 \end{itemize}
 
