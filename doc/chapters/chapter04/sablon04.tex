@@ -229,7 +229,7 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 \item Metódusok
 	\begin{itemize}
 		\item Projectile(\textbf{Enemy} enemy, \textbf{Vector} position, double speed): Konstruktor, átveszi a cél \textbf{Enemy}-t, a kezdő pozíciót és sebességet.
-		\item boolean move(double dt): dt * speed-el mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
+		\item boolean step():  speed-el mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
 		\item \textbf{Vector} getPosition(): Visszaadja a lövedék pozícióját.
 	\end{itemize}
 \end{itemize}
