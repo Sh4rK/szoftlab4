@@ -156,7 +156,7 @@ Tartlamaz az összes \textbf{Waypoint} referenciát, felelős a kapott fájlból
 	\begin{itemize}
 		\item bool canBuildObstacle(\textbf{Vector}): A \textbf{Waypoint}-ok alapján visszaadja, hogy lehet-e akadályt építeni a megadott helyen.
 		\item bool canBuildTower(\textbf{Vector}): A \textbf{Waypoint}-ok alapján visszaadja, hogy lehet-e tornyot építeni a megadott helyen.
-		\item loadGame(\textbf{String} file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
+		\item Map(\textbf{String} file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
 	\end{itemize}
 \end{itemize}
 
@@ -173,7 +173,7 @@ Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és idő
 \item Metódusok
 	\begin{itemize}
 		\item \textbf{Enemy} getNextEnemy(double time): A spawnList listaból a következő elemet megvizsgaálja, és ha spawnolni kell a következő ellenséget, akkor visszaadja azt.
-		\item loadMission(\textbf{String} file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a listát (spawnList).
+		\item Mission(\textbf{String} file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a listát (spawnList).
 	\end{itemize}
 \end{itemize}
 
