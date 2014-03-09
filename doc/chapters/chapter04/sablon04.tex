@@ -147,14 +147,15 @@ Egy fajta varázskő tulajdonságainak tárolása.
 \subsection{Map}
 \begin{itemize}
 \item Felelősség\\
-Tartlamaz az összes cellára referenciát, felelős a kapott fájlból beolvasni a pályát, és felépíteni azt.
+Tartlamaz az összes \textbf{Waypoint} referenciát, felelős a kapott fájlból beolvasni a pályát, és felépíteni azt, valamint meg kell mondja, hogy van-e út a megadott \textbf{Vector}-nál.
 \item Attribútumok
 	\begin{itemize}
-		\item \textbf{Tile}[][] tiles: A pályán található cellák tömbje, a pálya kirajzolásához használható.
+		\item List <\textbf{Waypoint}> waypoints: A pályán található \textbf{Waypoint}-ok listája.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item \textbf{Tile} getTileAt(\textbf{Vector} position): Visszaadja a position helyen talalható cellát.
+		\item bool canBuildObstacle(\textbf{Vector}): A \textbf{Waypoint}-ok alapján visszaadja, hogy lehet-e akadályt építeni a megadott helyen.
+		\item bool canBuildTower(\textbf{Vector}): A \textbf{Waypoint}-ok alapján visszaadja, hogy lehet-e tornyot építeni a megadott helyen.
 		\item loadGame(\textbf{String} file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
 	\end{itemize}
 \end{itemize}
@@ -217,26 +218,6 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 \end{itemize}
 
 
-\subsection{Waypoint}
-\begin{itemize}
-\item Felelősség\\
-Útvonalat kijelölni az ellenségeknek, úgy, hogy megadja a pozícióját, amely felé az ellenségek mehetnek, valamint a következő  \textbf{Waypoint}-ot ami felé menniük kell, ha egyszer elérték ezt a  \textbf{Waypoint}-ot.
-\item Attribútumok
-	\begin{itemize}
-		\item double distance: A  \textbf{Waypoint} távolságát a céltól tárolja.
-		\item List <Waypoint, double> nextWaypoints: A következő  \textbf{Waypoint}-okat és a hozzájuk tartozó valószínűségeket tárolja el.
-		\item \textbf{Vector} position: A  \textbf{Waypoint} helyét tárolja.
-	\end{itemize}
-\item Metódusok
-	\begin{itemize}
-		\item double getDistance(): Visszaadja a distance attribútumot.
-		\item \textbf{Waypoint} getNextWaypoint(): Visszatér a nextWaypoints listából véletlenszerűen kiválasztott \textbf{Waypoint}-al
-		\item\textbf{Vector} getPosition(): visszatér a position attribútummal.
-		
-	\end{itemize}
-\end{itemize}
-
-
 \subsection{Tower}
 \begin{itemize}
 \item Felelősség\\
@@ -257,6 +238,27 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 		\item \textbf{Tile} getTile(): Visszaadja, hogy a torony melyik \textbf{Tile}-on van.
 	\end{itemize}
 \end{itemize}
+
+
+\subsection{Waypoint}
+\begin{itemize}
+\item Felelősség\\
+Útvonalat kijelölni az ellenségeknek, úgy, hogy megadja a pozícióját, amely felé az ellenségek mehetnek, valamint a következő  \textbf{Waypoint}-ot ami felé menniük kell, ha egyszer elérték ezt a  \textbf{Waypoint}-ot.
+\item Attribútumok
+	\begin{itemize}
+		\item double distance: A  \textbf{Waypoint} távolságát a céltól tárolja.
+		\item List <Waypoint, double> nextWaypoints: A következő  \textbf{Waypoint}-okat és a hozzájuk tartozó valószínűségeket tárolja el.
+		\item \textbf{Vector} position: A  \textbf{Waypoint} helyét tárolja.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item double getDistance(): Visszaadja a distance attribútumot.
+		\item \textbf{Waypoint} getNextWaypoint(): Visszatér a nextWaypoints listából véletlenszerűen kiválasztott \textbf{Waypoint}-al
+		\item\textbf{Vector} getPosition(): visszatér a position attribútummal.
+		
+	\end{itemize}
+\end{itemize}
+
 
 
 \section{Szekvencia diagramok}
