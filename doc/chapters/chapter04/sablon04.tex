@@ -20,7 +20,7 @@ Ez a játék logikáját magába foglaló osztály. Számon tartja a pályán l�
 Egy épületekre rakható varázskő tulajdonságait tárolja. A \textbf{Game} osztály fog példányokat létrehozni belőle, különböző tulajdonságokkal. Ha egy épületre rá van rakva egy fajta varázskő, akkor az épület egy referenciát tárol a példányára.
 
 \subsection{Map}
-A \textbf{Map} a pályát képviseli, melyben NxM darab cella van. A pálya egy külső fájlból betölthető, ami új játék indulásakor fog megtörténni, miután kiválasztja a játékos a pályát. A pálya különböző tulajdonságai is lekérdezhetőek, amelyek majd a kirajzoláshoz kellenek.
+A \textbf{Map} a pályát képviseli, melyben N darab \textbf{Waypoint} van. A pálya egy külső fájlból betölthető, ami új játék indulásakor fog megtörténni, miután kiválasztja a játékos a pályát. A pálya különböző tulajdonságai is lekérdezhetőek, amelyek ahhoz kellenek, hogy meg lehessen allapítani, hogy lehet-e oda új tornyot/akadályt építeni.
 
 \subsection{Mission}
 Egy \textbf{Mission} objektumban lesz eltárolva, hogy milyen ellenségek, mikor és honnan jönnek be a pályára. Ez a három adat majd egy segéd osztályban lesz összefogva, és egy tárolóban lesz tárolva. A játék főciklusa le tudja majd kérdezni a következő ellenséget, melyet az objektum visszaad, ha már elég idő eltelt az előző egység óta (ha nem akkor nem ad vissza egységet).
@@ -31,9 +31,8 @@ Egy akadályt valósít meg. Ha egy ellenség belelép egy olyan mezőbe, amin v
 \subsection{Projectile}
 Ez az osztály egy lövedék leírása. Amikor egy torony lő, akkor példányosítja ezt az osztályt a cél ellenség átadásával, így egy lövedék mindig a torony által meghatározott ellenség után megy, amit ha megfelelően megközelít (eltalálja az ellenséget), akkor levesz az életerejéből és megsemmisíti magát.
 
-\subsection{Tile}
-A \textbf{Tile} objektumból egy NxM-es tömböt fog tárolni a \textbf{Map} objektum. Ezek a pálya egyes celláit fogják képviselni. Egy cellán lehet maximum egy darab épület, amely vagy egy torony, vagy egy akadály, attól függően, hogy van-e a cellán út, vagy nincsen. A cellán levő épület referenciája lekérhető, vagy ha még nincsen rajta, és a cellára kattintás történik, akkor épül egy megfelelő épület.\\
-Ha egy cellán van út, akkor lekérdezhető, hogy az a cella milyen távol van a céltól (az utat követve, cellákban mérve). Továbbá az is tárolva van, és lekérdezhető, hogy az út merre folytatódik (és az ellenségeknek merre kell majd menniük). Ha elágazás van, akkor véletlenszerűen választ irányt és arra küldi az ellenséget (ez minden egyes ellenségre véletlenszerű).
+\subsection{Waypoint}
+A \textbf{Waypoint}-ok kitűznek egy útvonalat, amelyen az ellenségek menni fognak. El van tárolva bennük a pozíciójuk, a távolságuk a céltól, valamint a következő \textbf{Waypoint} ahova az út folytatódik. Ezek mind le is kérdezhetőek.
 
 \subsection{Tower}
 Egy tornyot valósít meg. Ha egy ellenség a hatókörébe ér, akkor elindít egy \textbf{Projectile}-t az irányába, a tüzelési gyakoriságának megfelelő időközönként. Ha több ellenfél van a hatókörében, akkor arra lő, aki a legközelebb van a célhoz.
