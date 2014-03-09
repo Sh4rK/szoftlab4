@@ -109,13 +109,11 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 A többi osztály nyilván tartása és összekötése, a játékbeli események vezérlése. A felhasználói felülettől érkező parancsok végrehajtása, és a játék állapotának rendelkezésre bocsájtása a kijelzéshez.
 \item Attribútumok
 	\begin{itemize}
-		\item \textbf{ArrayList}<\textbf{Projectile}> projectiles: Eltárolja a jelenleg játékban lévő lövedékeket.
+		\item List<\textbf{Projectile}> projectiles: Eltárolja a jelenleg játékban lévő lövedékeket.
 		\item \textbf{Map} map: Referencia a kiválasztott pályára, amin a játék folyik.
 		\item \textbf{Mission} mission: Referencia a kiválasztott misszióra, amely alapján zajlik a játék.
-		\item \textbf{ArrayList}<\textbf{Building}> buildings: Eltárolja a játékos megépített tornyait.
-		\item \textbf{ArrayList}<\textbf{Gem}> gems: Az összes lehetséges, toronyra illetve akadályra rakható varázskő nyilvántartása.
-		\item \textbf{ArrayList}<\textbf{EnemyType}> types: Ez a lehetséges ellenségtípusok listája.
-		\item \textbf{ArrayList}<\textbf{Enemy}> enemies: Az összes éppen látható ellenség található meg benne.
+		\item List<\textbf{Tower}> towers: Eltárolja a játékos megépített tornyait.
+		\item List<\textbf{Enemy}> enemies: Az összes jelenleg élő ellenség található meg benne.
 		\item int magic: A játékos jelenlegi varázsereje.
 	\end{itemize}
 \item Metódusok
@@ -123,7 +121,10 @@ A többi osztály nyilván tartása és összekötése, a játékbeli események
 		\item void run(): Ez a metódus futtatja a főciklust, amelyben maga a játék működik.
 		\item void buildTower(\textbf{Vector} position): Épít egy tornyot a paraméterül kapott helyen évő mezőre.
 		\item void buildObstacle(\textbf{Vector} position): Épít egy akadályt a paraméterül kapott helyen lévő mezőre.
-		\item void addGem(\textbf{Vector} position, \textbf{Gem} gem): A paraméterként kapott helyen lévő toronyra vagy akadályra rárakja a paraméterként kapott varázskövet.
+		\item void addGem(\textbf{Vector} position, \textbf{TowerGem} gem): A paraméterként kapott helyen lévő toronyra rárakja a paraméterként kapott varázskövet.
+		\item void addGem(\textbf{Vector} position, \textbf{ObstacleGem} gem): A paraméterként kapott helyen lévő akadályra rárakja a paraméterként kapott varázskövet.
+		\item boolean collidesWithTower(Vector p): megadja, hogy ha p helyre építenénk tornyot, az belelógna-e egy már megépített toronyba.
+		\item boolean collidesWithObstacle(Vector p): megadja, hogy ha p helyre építenénk akadályt, az belelógna-e egy már megépített akadályba.
 	\end{itemize}
 \end{itemize}
 
