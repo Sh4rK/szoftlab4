@@ -64,13 +64,13 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 		\item double health: Az ellenség fennmaradó életereje.
 		\item Vector position: Pillanatnyi pozíció a pályán.
 		\item \textbf{Waypoint} targetWaypoint: Az a \textbf{Waypoint}, ami felé az ellenség jelenleg tart.
-		\item double slowingFactor: Az \textbf{EnemyType} sebességét ezzel kell beszorozni, hogy megkapjuk az ellenség tényleges jelenlegi sebességét.
+		\item double slowingFactor: Ha az ellenség belelép egy akadályba, akkor beállítja ennek az értékét. Az \textbf{EnemyType} sebességét ezzel kell beszorozni, hogy megkapjuk az ellenség tényleges jelenlegi sebességét.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item Enemy(EnemyType et, Waypoint start): Létrehoz egy et typusú \textbf{Enemy}-t a start \textbf{Waypoint}-helyén.
-		\item boolean move(): Az ellenséget a sebességének megfelelő mértékben mozgatja a célja irányába. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
-		\item boolean damage(double amount): Csökkenti az ellenség életerejét amount-al, igazzal tér vissza ha az ellenség meghalt.
+		\item Enemy(EnemyType et, Waypoint start): Létrehoz egy \textbf{EnemyType} típusú \textbf{Enemy}-t a start \textbf{Waypoint}-helyén.
+		\item bool move(): Az ellenséget a sebességének megfelelő mértékben mozgatja a célja irányába. Ha az ellenség életereje 0 vagy kisebb, akkor igazzal tér visza, egyébként hamissal.
+		\item bool damage(double amount): Csökkenti az ellenség életerejét amount-al, igazzal tér vissza ha az ellenség meghalt.
 		\item Vector getPosition(): A position attribútum értékével tér vissza.
 		\item \textbf{EnemyType} getEnemyType(): Visszaadja az ellenség típusát.
 		\item double getDistance(): Visszaadja az ellenség céltól való távolságát a legrövidebb úton haladva.
@@ -99,7 +99,7 @@ Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-e
 		\item double getNormalSpeed(): Visszaadja a normalSpeed attribútum értékét.
 	\end{itemize}
 \item Megjegyzés \\
-Tervezésnél úgy láttuk, hogy leszármazás felesleges a különböző ellenségtípusok megkülönböztetésére, mert minden ellenségtípus ugyanúgy viselkedik, egyedül a paramétereik különböznek. Ezért hoztunk létre egy EnemyType osztályt. Az osztály statikus tagként tartalmazza a lehetséges ellenségtípusokat. Minden más osztály, ami az ellenségekkel foglalkozik vagy lekéri az EnemyType-on keresztül a szükséges adatokat, vagy egy HashMap-ben tároljuk az adatokat, ahol a kulcsok a lehetséges EnemyType-ok. Így egy újabb ellenség bevétele sem okoz különösebb nehézségeket.
+Tervezésnél úgy láttuk, hogy leszármazás felesleges a különböző ellenségtípusok megkülönböztetésére, mert minden ellenségtípus ugyanúgy viselkedik, egyedül a paramétereik különböznek. Ezért hoztunk létre egy \textbf{EnemyType} osztályt. Minden \textbf{Enemy}-nek van pontosan egy hozzá tartozó\textbf{ EnemyType}-ja. Az osztály statikus tagként tartalmazza a lehetséges ellenségtípusokat. Minden más osztály, ami az ellenségekkel foglalkozik vagy lekéri az \textbf{EnemyType}-on keresztül a szükséges adatokat, vagy egy HashMap-ben tárolja az adatokat, ahol a kulcsok a lehetséges \textbf{EnemyType}-ok. Így egy újabb ellenség bevétele sem okoz különösebb nehézségeket.
 \end{itemize}
 
 
@@ -111,11 +111,11 @@ Tervezésnél úgy láttuk, hogy leszármazás felesleges a különböző ellens
 A többi osztály nyilván tartása és összekötése, a játékbeli események vezérlése. A felhasználói felülettől érkező parancsok végrehajtása, és a játék állapotának rendelkezésre bocsájtása a kijelzéshez.
 \item Attribútumok
 	\begin{itemize}
-		\item List<\textbf{Projectile}> projectiles: Eltárolja a jelenleg játékban lévő lövedékeket.
 		\item \textbf{Map} map: Referencia a kiválasztott pályára, amin a játék folyik.
 		\item \textbf{Mission} mission: Referencia a kiválasztott misszióra, amely alapján zajlik a játék.
-		\item List<\textbf{Tower}> towers: Eltárolja a játékos megépített tornyait.
 		\item List<\textbf{Enemy}> enemies: Az összes jelenleg élő ellenség található meg benne.
+		\item List<\textbf{Projectile}> projectiles: Eltárolja a jelenleg játékban lévő lövedékeket.
+		\item List<\textbf{Tower}> towers: Eltárolja a játékos megépített tornyait.
 		\item int magic: A játékos jelenlegi varázsereje.
 	\end{itemize}
 \item Metódusok
@@ -152,14 +152,14 @@ Egy általános varázskő tulajdonságainak tárolása. Absztrakt osztály.
 \subsection{Map}
 \begin{itemize}
 \item Felelősség\\
-Tartlamaz az összes \textbf{Waypoint} referenciát, felelős a kapott fájlból beolvasni a pályát, és felépíteni azt, valamint meg kell mondja, hogy van-e út a megadott \textbf{Vector}-nál.
+Tartlamaz az összes \textbf{Waypoint} referenciát, felelős a kapott fájlból beolvasni a pályát, és felépíteni azt, valamint meg kell mondja, hogy van-e út a megadott Vector-nál.
 \item Attribútumok
 	\begin{itemize}
 		\item List <\textbf{Waypoint}> waypoints: A pályán található \textbf{Waypoint}-ok listája.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item Map(\textbf{String} file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
+		\item Map(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a pályát.
 		\item bool canBuildObstacle(\textbf{Vector}): A \textbf{Waypoint}-ok alapján visszaadja, hogy lehet-e akadályt építeni a megadott helyen.
 		\item bool canBuildTower(\textbf{Vector}): A \textbf{Waypoint}-ok alapján visszaadja, hogy lehet-e tornyot építeni a megadott helyen.
 	\end{itemize}
@@ -172,12 +172,12 @@ Tartlamaz az összes \textbf{Waypoint} referenciát, felelős a kapott fájlból
 Felelőssége, felépíteni a listát, amely a beérkező ellenségeket és időzítésüket tartalmazza. Majd a megfelelő időközönként ki kell adja ezeket az egységeket a \textbf{Game} osztálynak.
 \item Attribútumok
 	\begin{itemize}
-		\item \textbf{List}<\textbf{Spawn}> spawnList: A Spawn segédosztályban tárolt ellenség-idő-belépési pont, adatokat tárolja.
+		\item List<Spawn> spawnList: A Spawn segédosztályban tárolt ellenség-idő-belépési pont, adatokat tárolja.
 		\item double lastSpawn: Tárolja az előző spawn idejét.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item Mission(\textbf{String} file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a listát (spawnList).
+		\item Mission(String file): Betölti a kapott elérési útvonalon a fájlt, és felépíti az alapján a listát (spawnList).
 		\item \textbf{Enemy} getNextEnemy(): A spawnList listaból a következő elemet megvizsgaálja, és ha spawnolni kell a következő ellenséget, akkor visszaadja azt.
 	\end{itemize}
 \end{itemize}
@@ -197,11 +197,11 @@ Felelős, az ellenfelek lassításáért, úgy, hogy meg kell tudnia mondani a p
 \item Metódusok
 	\begin{itemize}
 		\item Obstacle(Vector pos): Létrehoz egy \textbf{Obstacle} objektumot, a pozícióját pos-ra állítva.
-		\item int getCost(): Visszatér a cost attribútummal.
+		\item int getCost(): Visszatér a torony árával.
 		\item double getSlowingFactor(\textbf{Enemy} enemy): Visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
 		\item \textbf{Gem} getGem(): Visszaadja az épületen található varázskövet.
 		\item void setGem(\textbf{Gem} gem): Beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
-		\item \textbf{Vector} getPosition(): Visszaadja a position attribútumot.
+		\item Vector getPosition(): Visszaadja a position attribútumot.
 	\end{itemize}
 \end{itemize}
 
@@ -238,9 +238,9 @@ Követni a cél ellenséget, majd sebezni ha eléri.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item Projectile(\textbf{Enemy} enemy, \textbf{Vector} position, double speed): Konstruktor, átveszi a cél \textbf{Enemy}-t, a kezdő pozíciót és sebességet.
+		\item Projectile(\textbf{Enemy} enemy, Vector position, double speed): Konstruktor, átveszi a cél \textbf{Enemy}-t, a kezdő pozíciót és sebességet.
 		\item boolean step():  speed-el mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
-		\item \textbf{Vector} getPosition(): Visszaadja a lövedék pozícióját.
+		\item Vector getPosition(): Visszaadja a lövedék pozícióját.
 	\end{itemize}
 \end{itemize}
 
@@ -254,15 +254,15 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 		\item \underline{int cost}: A torony ára varázserőben.
 		\item \textbf{Gem} gem: Eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
 		\item \textbf{HashMap}<\textbf{EnemyType}, double> damage: Megadja mekkora az adott típusú ellenfélre kifejtett hatása a toronynak.
-		\item \textbf{Vector} position: Visszatér az épület koordinátáival.
+		\item Vector position: Visszatér az épület koordinátáival.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item \textbf{Projectile} attack(List <\textbf{Enemy}>): Először megnézi, hogy lőhet-e, ha nem akkor NULL-t ad vissza. Ha igen akkor végignézi a kapott listában az ellenségeket, és amelyik a hatótávolságán belül van, és a legközelebb a célhoz, arra kilő egy \textbf{Projectile}-t, majd a visszatérési értékében visszaadja azt. A \textbf{Projectile}-t felparaméterezi az ellenséghez megfelelő sebzési adatokkal.
+		\item \textbf{Projectile} attack(List <\textbf{Enemy}>): Először megnézi, hogy lőhet-e, ha nem akkor semmivel se tér vissza. Ha igen akkor végignézi a kapott listában az ellenségeket, és amelyik a hatótávolságán belül van, és a legközelebb a célhoz, arra kilő egy \textbf{Projectile}-t, majd a visszatérési értékében visszaadja azt. A \textbf{Projectile}-t felparaméterezi az ellenséghez megfelelő sebzési adatokkal.
 		\item int getCost(): Visszatér a cost attribútummal.
 		\item \textbf{Gem} getGem(): Visszaadja az épületen található varázskövet.
 		\item void setGem(\textbf{TowerGem} gem): Beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
-		\item \textbf{Vector} getPosition(): Visszaadja a position attribútumot.
+		\item Vector getPosition(): Visszaadja a position attribútumot.
 	\end{itemize}
 \end{itemize}
 
@@ -278,7 +278,7 @@ Egy toronyra rakható varázskő tulajdonságainak tárolása.
 \item Attribútumok
 	\begin{itemize}
 		\item double rateMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a tüzelési sebessége.
-		\item \textbf{HashMap}<\textbf{EnemyType}, \textbf{Double}> damageMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a sebzése egy adott típusú ellenséggel szemben.
+		\item HashMap<\textbf{EnemyType}, double> damageMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a sebzése egy adott típusú ellenséggel szemben.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
@@ -296,7 +296,7 @@ Egy toronyra rakható varázskő tulajdonságainak tárolása.
 	\begin{itemize}
 		\item double distance: A  \textbf{Waypoint} távolságát a céltól tárolja.
 		\item List <Waypoint, double> nextWaypoints: A következő  \textbf{Waypoint}-okat és a hozzájuk tartozó valószínűségeket tárolja el.
-		\item \textbf{Vector} position: A  \textbf{Waypoint} helyét tárolja.
+		\item Vector position: A  \textbf{Waypoint} helyét tárolja.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
