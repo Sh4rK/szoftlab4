@@ -136,7 +136,7 @@ A többi osztály nyilván tartása és összekötése, a játékbeli események
 \subsection{Gem}
 \begin{itemize}
 \item Felelősség\\
-Egy általános varázskő tulajdonságainak tárolása.
+Egy általános varázskő tulajdonságainak tárolása. Absztrakt osztály.
 \item Attribútumok
 	\begin{itemize}
 		\item int cost: A varázskő ára varázserőben.
@@ -196,6 +196,7 @@ Felelős, az ellenfelek lassításáért, úgy, hogy meg kell tudnia mondani a p
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
+		\item Obstacle(Vector pos): Létrehoz egy \textbf{Obstacle} objektumot, a pozícióját pos-ra állítva.
 		\item int getCost(): Visszatér a cost attribútummal.
 		\item double getSlowingFactor(\textbf{Enemy} enemy): Visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
 		\item \textbf{Gem} getGem(): Visszaadja az épületen található varázskövet.
@@ -209,6 +210,10 @@ Felelős, az ellenfelek lassításáért, úgy, hogy meg kell tudnia mondani a p
 \begin{itemize}
 \item Felelősség\\
 Egy akadályra rakható varázskő tulajdonságainak tárolása.
+\item Ősosztályok
+	\begin{itemize}
+		\item Gem
+	\end{itemize}
 \item Attribútumok
 	\begin{itemize}
 		\item HashMap<\textbf{EnemyType}, Double> speedMultiplier: Megadja, hogy a varázskővel elátott akadályon áthaladó adott típusú ellenség sebessége hányadára csökken.
@@ -266,6 +271,10 @@ Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméter
 \begin{itemize}
 \item Felelősség\\
 Egy toronyra rakható varázskő tulajdonságainak tárolása.
+\item Ősosztályok
+	\begin{itemize}
+		\item Gem
+	\end{itemize}
 \item Attribútumok
 	\begin{itemize}
 		\item double rateMultiplier: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a tüzelési sebessége.
@@ -293,8 +302,8 @@ Egy toronyra rakható varázskő tulajdonságainak tárolása.
 	\begin{itemize}
 		\item double getDistance(): Visszaadja a distance attribútumot.
 		\item \textbf{Waypoint} getNextWaypoint(): Visszatér a nextWaypoints listából véletlenszerűen kiválasztott \textbf{Waypoint}-al
-		\item\textbf{Vector} getPosition(): visszatér a position attribútummal.
-
+		\item Vector getPosition(): visszatér a position attribútummal.
+		\item \textbf{Waypoint}(Vector v): Konstruktor, beállítja a position attribútumot. 
 	\end{itemize}
 \end{itemize}
 
