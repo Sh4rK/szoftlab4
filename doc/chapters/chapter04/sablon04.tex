@@ -16,9 +16,6 @@ Leírja egy ellenségtípus (jelen esetben a négy faj: ember, tünde, törp vag
 \subsection{Game}
 Ez a játék logikáját magába foglaló osztály. Számon tartja a pályán lévő ellenfeleket, akadályokat és tornyokat, valamint végrehajtja a kiválasztott misszió által leírt forgatókönyvet, ami alapján az ellenségek érkeznek.
 
-\subsection{Gem}
-Egy épületekre rakható varázskő tulajdonságait tárolja. A \textbf{Game} osztály fog példányokat létrehozni belőle, különböző tulajdonságokkal. Ha egy épületre rá van rakva egy fajta varázskő, akkor az épület egy referenciát tárol a példányára.
-
 \subsection{Map}
 A \textbf{Map} a pályát képviseli, melyben N darab \textbf{Waypoint} van. A pálya egy külső fájlból betölthető, ami új játék indulásakor fog megtörténni, miután kiválasztja a játékos a pályát. A pálya különböző tulajdonságai is lekérdezhetőek, amelyek ahhoz kellenek, hogy meg lehessen allapítani, hogy lehet-e oda új tornyot/akadályt építeni.
 
@@ -29,7 +26,7 @@ Egy \textbf{Mission} objektumban lesz eltárolva, hogy milyen ellenségek, mikor
 Egy akadályt valósít meg. Ha egy ellenség belelép egy olyan mezőbe, amin van egy \textbf{Obstacle}, akkor azt egy bizonyos mértékben lelassítja, az ellenség fajától függően.
 
 \subsection{ObstacleGem}
-Egy akadályokra rakható varázskő tulajdonságait tárolja, a \textbf{Gem} leszármazottja. A \textbf{Gem} tulajdonságain kívül olyan tulajdonságokat is módosíthat, ami csak az akadályoknak van.
+Egy akadályokra rakható varázskő tulajdonságait tárolja, a \textbf{Gem} leszármazottja. Képes az akadályok alaptulajdonságait módosítani.
 
 \subsection{Projectile}
 Ez az osztály egy lövedék leírása. Amikor egy torony lő, akkor példányosítja ezt az osztályt a cél ellenség átadásával, így egy lövedék mindig a torony által meghatározott ellenség után megy, amit ha megfelelően megközelít (eltalálja az ellenséget), akkor levesz az életerejéből és megsemmisíti magát.
@@ -41,8 +38,7 @@ A \textbf{Waypoint}-ok kitűznek egy útvonalat, amelyen az ellenségek menni fo
 Egy tornyot valósít meg. Ha egy ellenség a hatókörébe ér, akkor elindít egy \textbf{Projectile}-t az irányába, a tüzelési gyakoriságának megfelelő időközönként. Ha több ellenfél van a hatókörében, akkor arra lő, aki a legközelebb van a célhoz.
 
 \subsection{TowerGem}
-Egy tornyokra rakható varázskő tulajdonságait tárolja, a \textbf{Gem} leszármazottja. A \textbf{Gem} tulajdonságain kívül olyan tulajdonságokat is módosíthat, ami csak a tornyoknak van.
-
+Egy tornyokra rakható varázskő tulajdonságait tárolja, a \textbf{Gem} leszármazottja. Képes módosítani a tornyok alaptulajdonságait.
 
 \section{Statikus struktúra diagramok}
 
@@ -66,7 +62,7 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 	\begin{itemize}
 		\item \textbf{EnemyType} type: Az egység típusa.
 		\item double health: Az ellenség fennmaradó életereje.
-		\item \textbf{Vector} position: Pillanatnyi pozíció a pályán.
+		\item Vector position: Pillanatnyi pozíció a pályán.
 		\item \textbf{Waypoint} targetWaypoint: Az a \textbf{Waypoint}, ami felé az ellenség jelenleg tart.
 		\item double slowingFactor: Az \textbf{EnemyType} sebességét ezzel kell beszorozni, hogy megkapjuk az ellenség tényleges jelenlegi sebességét.
 	\end{itemize}
@@ -75,7 +71,7 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 		\item Enemy(EnemyType et, Waypoint start): Létrehoz egy et typusú \textbf{Enemy}-t a start \textbf{Waypoint}-helyén.
 		\item boolean move(): Az ellenséget a sebességének megfelelő mértékben mozgatja a célja irányába. Ha az ellenség életereje 0 vagy kisebb, akkor true-val tér visza, egyébként false-al.
 		\item boolean damage(double amount): Csökkenti az ellenség életerejét amount-al, igazzal tér vissza ha az ellenség meghalt.
-		\item \textbf{Vector} getPosition(): A position attribútum értékével tér vissza.
+		\item Vector getPosition(): A position attribútum értékével tér vissza.
 		\item \textbf{EnemyType} getEnemyType(): Visszaadja az ellenség típusát.
 		\item double getDistance(): Visszaadja az ellenség céltól való távolságát a legrövidebb úton haladva.
 		\item void setSlowingFactor(double sf): Beállítja a slowingFactor-t sf-re.
@@ -86,18 +82,24 @@ Az ellenségek pozíciójának, sebességének és életerejének nyilvántartá
 \subsection{EnemyType}
 \begin{itemize}
 \item Felelősség\\
-Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-egy példányára hivatkozik az összes ellenség, amelyeknek ezáltal meghatározza a viselkedését.
+Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-egy példányára hivatkozik az összes ellenség, amelyeknek ezáltal meghatározza a viselkedését. Az osztályból nem lehet példányosítani, csakis a statikus tagként szereplő objektumokat lehet felhasználni.
 \item Attribútumok
 	\begin{itemize}
 		\item int cost: Az ilyen fajtájú ellenségek ára varázserőben.
 		\item double initialHealth: Az ilyen fajtájú ellenségek kezdeti életereje.
 		\item double normalSpeed: Az ilyen fajtájú ellenségek akadályoztatás nélküli haladási sebessége.
+		\item \underline{EnemyType dwarf}: törp típus.
+		\item \underline{EnemyType elf}: tünde típus.
+		\item \underline{EnemyType hobbit}: hobbit típus.
+		\item \underline{EnemyType human}: ember típus.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
 		\item double getInitialHealth(): Visszaadja az initialHealth attribútum értékét.
 		\item double getNormalSpeed(): Visszaadja a normalSpeed attribútum értékét.
 	\end{itemize}
+\item Megjegyzés \\
+Tervezésnél úgy láttuk, hogy leszármazás felesleges a különböző ellenségtípusok megkülönböztetésére, mert minden ellenségtípus ugyanúgy viselkedik, egyedül a paramétereik különböznek. Ezért hoztunk létre egy EnemyType osztályt. Az osztály statikus tagként tartalmazza a lehetséges ellenségtípusokat. Minden más osztály, ami az ellenségekkel foglalkozik vagy lekéri az EnemyType-on keresztül a szükséges adatokat, vagy egy HashMap-ben tároljuk az adatokat, ahol a kulcsok a lehetséges EnemyType-ok. Így egy újabb ellenség bevétele sem okoz különösebb nehézségeket.
 \end{itemize}
 
 
