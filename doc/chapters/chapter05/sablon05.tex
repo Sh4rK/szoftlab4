@@ -23,8 +23,66 @@
 
 \usecase{...}{...}{...}{...}
 
+\pagebreak
+\setlength\parindent{15mm}
 \section{A szkeleton kezelői felületének terve, dialógusok}
-\comment{A szkeleton által elfogadott bemenetek , valamint a szöveges konzolon megjelenő kimenetek. A kiemenet formátuma olyan kell legyen, ami alapján a működés összevethető a korábbi szekvencia-diagramokkal.}
+A szkeleton menüvezérelt módon fog működni. A felhasználónak meg kell adnia a kívánt parancsnak a kódját, majd a program lefuttatja azt. A menü felépítése itt látható: \\
+\begingroup 
+\fontsize{10pt}{10pt}\selectfont
+\texttt{
+1. Torony építés \\
+\indent *1.1 Érvényes helyre akarunk építeni? I\textbackslash N \\
+\indent *1.2 Ütközik másik toronnyal? I\textbackslash N \\
+2. Akadály építés \\
+\indent *2.1 Érvényes helyre akarunk építeni? I\textbackslash N \\
+\indent *2.2 Ütközik másik akadállyal? I\textbackslash N \\
+3. Következő ellenség lekérése \\
+\indent *3.1 Van következő ellenség? I\textbackslash N \\
+4. Ellenség mozgatás \\
+\indent *4.1 Elérte az ellenség a Waypointot? I\textbackslash N \\
+\indent *4.2 Hatósugarában van egy akadálynak? I\textbackslash N \\
+\indent \indent *4.2.1 Az akadályok van varázskő? I\textbackslash N \\
+5. Torony tüzelés \\
+\indent *5.1 Van a torony hatósugarán belül ellenség? I\textbackslash N \\
+\indent \indent *5.1.1 Van a tornyon varázskő? I\textbackslash N \\
+6. Lövedék mozgatása \\
+\indent *6.1 Elérte az ellenséget? I\textbackslash N \\
+7. Varázskő felrakása \\
+\indent *7.1 Toronyra vagy akadályra? T\textbackslash A \\
+8. Kilépés \\
+} \\
+\endgroup
+A *-gal jelölt menüpontokat nem lehet kiválasztani, ezt a program automatikusan megteszi, ha a felhasználó a parancs szülőjét meghívta. Ezek (1 kivétellel) igen/nem típusú kérdések. A kérdések végén láthatóak a lehetséges válaszok.
+\\
+Az alábbi példa egy olyan interakciót mutat be, ahol a felhasználó építeni akar egy tornyot, ami érvényes helyen van, de ütközne egy másik toronnyal: \\
+\begingroup
+\fontsize{10pt}{10pt}\selectfont
+\texttt{
+? Adja meg a parancs kódját: 1 \\
+- 1. Torony építése \\
+>\indent ->[:Game].buildTower(pos): \\
+>\indent \indent ->[:Map].canBuildTower(pos): \\
+>\indent \indent \indent ->[:Waypoint].getPosition(): \\
+?\indent \indent \indent 2.1. Érvényes a hely? I\textbackslash N: I \\
+<\indent \indent \indent <-[:Waypoint].getPosition() \\
+<\indent \indent <-[:Map].canBuildTower(): \\
+>\indent \indent ->[:Game].collidesWithTower(pos): \\
+>\indent \indent \indent ->[:Tower].getPosition(): \\
+?\indent \indent \indent 2.2. Ütközik másik toronnyal? I\textbackslash N: I \\
+<\indent \indent \indent <-[:Tower].getPosition() \\
+>\indent \indent <-[:Game].collidesWithTower(pos) \\
+>\indent <-[:Game].buildTower() \\
+? Adja meg a parancs kódját:
+} \\
+\endgroup
+Minden sor elején van 1 karakter, ami a sor típusát jelöli.
+\begin{itemize}
+\item '?': kérdés, felhasználói interakcióra vár
+\item '-': megjegyzés
+\item '>': metódusba lépés
+\item '<': metódusból visszatérés
+\end{itemize}
+A metódusba lépéskor és visszatérésnél, egy nyíl jelöli, hogy hívásról vagy visszatérésról van-e szó majd szögletes zárójelek között található az objektumtípusa, ezután pedig a metódus neve. Például: ->[:Osztály].metódus():
 
 \section{Szekvencia diagramok a belső működésre}
 \comment{A szkeletonban implementált szekvenciadiagramok. Tipikusan egy use-case egy diagram. Ezek megegyezhetnek a korábban specifikált diagramokkal, de az egyes életvonalakat (lifeline) egyértelműen a szkeletonban példányosított objektumokhoz kell tudni kötni. Azt kell megjeleníteni, hogy a szkeletonban létrehozott objektumok egymással hogyan fognak kommunikálni.}
