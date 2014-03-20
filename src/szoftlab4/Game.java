@@ -112,11 +112,12 @@ public class Game {
 			if (r.equals("i") || r.equals("I"))
 				printMenu();
 
-			int sel = Integer.parseInt(sc.next());
-			if (sel >= 1 && sel <= 8)
-				return sel;
-			else
-				printMessage("Ilyen menüpont nincs!");
+			if (sc.hasNextInt()) {
+				int sel = sc.nextInt();
+				if (sel >= 1 && sel <= 8)
+					return sel;
+			}
+			printMessage("Ilyen menüpont nincs!");
 		}
 	}
 
