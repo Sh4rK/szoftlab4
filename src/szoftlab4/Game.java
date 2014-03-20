@@ -62,12 +62,12 @@ public class Game {
 	public void run(){
 		printEnter(this);
 		
-		run2();
+		run2(5);
 		
 		printExit(this);
 	}
-	public void run2(){
-		printEnter(this);
+	public void run2(int some_param){
+		printEnter(this, "some_param");
 		
 		printExit(this);
 	}
