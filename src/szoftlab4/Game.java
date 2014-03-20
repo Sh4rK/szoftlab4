@@ -2,8 +2,9 @@ package szoftlab4;
 
 public class Game {
 	
-	/** Ez számolja milyen mélyen vagyunk a metódushívásokban
-	 *  A printEnter és a printExit metódusok ez alapján indentálnak
+	/** 
+	 * Ez számolja milyen mélyen vagyunk a metódushívásokban
+	 * A printEnter és a printExit metódusok ez alapján indentálnak
 	 **/
 	private static int tabs = 0;
 	public static void main(String[] args) {
@@ -66,6 +67,7 @@ public class Game {
 		
 		printExit(this);
 	}
+
 	public void run2(int some_param){
 		printEnter(this, "some_param");
 		
