@@ -10,8 +10,10 @@ public class Mission {
 	public Enemy getNextEnemy() {
 		printEnter(this);
 
+		Enemy ret = new Enemy();
+
 		printExit(this);
-		return null;
+		return ret;
 	}
 
 }

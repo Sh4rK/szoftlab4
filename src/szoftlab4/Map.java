@@ -5,17 +5,15 @@ import static szoftlab4.Game.*;
 public class Map {
 
 	/**
-	 * @return Lehet-e a vector helyére Obstacle-t építeni.
+	 * @return Lehet-e az adott helyre Obstacle-t építeni.
 	 */
-	public boolean canBuildObstacle(Vector v) {
+	public boolean canBuildObstacle(Vector position) {
+		printEnter(this, "position");
 
-		boolean b;
-
-		printEnter(this, "vector");
 		Waypoint wp = new Waypoint();
 		wp.getPosition();
 
-		b = printYesNoQuestion("Lehet építeni akadályt?");
+		boolean b = printYesNoQuestion("Lehet építeni akadályt?");
 
 		printExit(this);
 		return b;
@@ -23,17 +21,15 @@ public class Map {
 	}
 
 	/**
-	 * @return Lehet-e a vector helyére Tower-t építeni.
+	 * @return Lehet-e az adott helyre Tower-t építeni.
 	 */
-	public boolean canBuildTower(Vector v) {
+	public boolean canBuildTower(Vector position) {
+		printEnter(this, "position");
 
-		boolean b;
-
-		printEnter(this, "vector");
 		Waypoint wp = new Waypoint();
 		wp.getPosition();
 
-		b = printYesNoQuestion("Lehet építeni akadályt?");
+		boolean b = printYesNoQuestion("Lehet építeni tornyot?");
 
 		printExit(this);
 		return b;

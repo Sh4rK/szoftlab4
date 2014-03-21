@@ -3,8 +3,9 @@ package szoftlab4;
 import static szoftlab4.Game.*;
 
 public class TowerGem extends Gem {
+
 	/**
-	 * @return Visszatér a támadás szorzójával.
+	 * @return Visszatér a sebzés szorzójával.
 	 */
 	public double getDamageMultiplier() {
 		printEnter(this);
@@ -14,7 +15,7 @@ public class TowerGem extends Gem {
 	}
 
 	/**
-	 * @return Visszatér a támadási távolság szorzójával.
+	 * @return Visszatér a tüzelési sebesség szorzójával.
 	 */
 	public double getRateMultiplier() {
 		printEnter(this);
