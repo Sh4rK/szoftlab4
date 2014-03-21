@@ -1,6 +1,5 @@
 package szoftlab4;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,6 +29,11 @@ public class Game {
 		game.run();
 	}
 
+	public static void printIndent() {
+		for (int i = 0; i < tabs; ++i)
+			System.out.print("    ");
+	}
+
 	/**
 	 * Minden metódus hívás legelején ezt a metódust hívjuk meg.
 	 * A következőt írja ki a kimenetre: ->[:Osztály].metódus(param):
@@ -39,14 +43,12 @@ public class Game {
 	 */
 	public static void printEnter(Object sender, String... params) {
 		++tabs;
-		String methodEnter = "";
-
-		for (int i = 0; i < tabs; ++i)
-			methodEnter += "\t";
+		printIndent();
 
 		Exception e = new Exception();
 		e.fillInStackTrace();
-		methodEnter += "->[:" + sender.getClass().getSimpleName() + "]";//->[:Game].buildTower(pos):
+
+		String methodEnter = "->[:" + sender.getClass().getSimpleName() + "]";//->[:Game].buildTower(pos):
 		String methodName = e.getStackTrace()[1].getMethodName();
 		methodEnter += "." + methodName + "(";
 		if (params.length != 0) {
@@ -66,13 +68,12 @@ public class Game {
 	 * @param sender az objektum, amiből meg lett hívva a metódus
 	 */
 	public static void printExit(Object sender) {
-		String methodExit = "";
+		printIndent();
 
-		for (int i = 0; i < tabs; ++i)
-			methodExit += "\t";
 		Exception e = new Exception();
 		e.fillInStackTrace();
-		methodExit += "<-[:" + sender.getClass().getSimpleName() + "]";//->[:Game].buildTower(pos):
+
+		String methodExit = "<-[:" + sender.getClass().getSimpleName() + "]";//->[:Game].buildTower(pos):
 		String methodName = e.getStackTrace()[1].getMethodName();
 		methodExit += "." + methodName + "(" + ")";
 
@@ -81,17 +82,56 @@ public class Game {
 	}
 
 	public static void printMessage(String msg) {
-		String tab = "";
-
-		for (int i = 0; i < tabs; ++i)
-			tab += "\t";
-		System.out.println(tab + "  " + msg);
+		printIndent();
+		System.out.println(msg);
 	}
 
 	public static String printQuestion(String msg) {
-		printMessage(msg);
-		String rtn = sc.next();
-		return rtn;
+		printIndent();
+		System.out.printf("%s ", msg);
+		return sc.next();
+	}
+
+	public static boolean printYesNoQuestion(String msg) {
+		while (true) {
+			printIndent();
+			System.out.printf("%s (I/N): ", msg);
+			String answer = sc.next();
+			if (answer.equalsIgnoreCase("i"))
+				return true;
+			if (answer.equalsIgnoreCase("n"))
+				return false;
+		}
+	}
+
+	public static int printIntQuestion(String msg) {
+		while (true) {
+			printIndent();
+			System.out.printf("%s ", msg);
+			if (sc.hasNextInt()) {
+				return sc.nextInt();
+			}
+			sc.next();
+		}
+	}
+
+	public static int printIntQuestion(String msg, int min, int max) {
+		while (true) {
+			int answer = printIntQuestion(String.format("%s (%d-%d):", msg, min, max));
+			if (min <= answer && answer <= max)
+				return answer;
+		}
+	}
+
+	public static double printDoubleQuestion(String msg) {
+		while (true) {
+			printIndent();
+			System.out.printf("%s ", msg);
+			if (sc.hasNextDouble()) {
+				return sc.nextDouble();
+			}
+			sc.next();
+		}
 	}
 
 	private void printMenu() {
@@ -105,56 +145,43 @@ public class Game {
 		printMessage("8. Kilépés");
 	}
 
-	private int menu() throws IOException {
-		while (true) {
-			String r = printQuestion("Kiírjam a menüt? I/N");
+	private int menu() {
+		if (printYesNoQuestion("Kiírjam a menüt?"))
+			printMenu();
 
-			if (r.equals("i") || r.equals("I"))
-				printMenu();
-
-			if (sc.hasNextInt()) {
-				int sel = sc.nextInt();
-				if (sel >= 1 && sel <= 8)
-					return sel;
-			}
-			printMessage("Ilyen menüpont nincs!");
-		}
+		return printIntQuestion("Mit akarsz csinálni?", 1, 8);
 	}
 
 	public void run() {
 		printEnter(this);
 		boolean exit = false;
 		while (!exit) {
-			try {
-				int sel = menu();
-				switch (sel) {
-					case 1:
-						buildTower(new Vector());
-						break;
-					case 2:
-						buildObstacle(new Vector());
-						break;
-					case 3:
-						mission.getNextEnemy();
-						break;
-					case 4:
-						enemies.get(0).move();
-						break;
-					case 5:
-						towers.get(0).attack(enemies);
-						break;
-					case 6:
-						projectiles.get(0).step();
-						break;
-					case 7:
-						addGem(new Vector(), new ObstacleGem());
-						break;
-					case 8:
-						exit = true;
-						break;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			int sel = menu();
+			switch (sel) {
+				case 1:
+					buildTower(new Vector());
+					break;
+				case 2:
+					buildObstacle(new Vector());
+					break;
+				case 3:
+					mission.getNextEnemy();
+					break;
+				case 4:
+					enemies.get(0).move();
+					break;
+				case 5:
+					towers.get(0).attack(enemies);
+					break;
+				case 6:
+					projectiles.get(0).step();
+					break;
+				case 7:
+					addGem(new Vector(), new ObstacleGem());
+					break;
+				case 8:
+					exit = true;
+					break;
 			}
 
 		}
