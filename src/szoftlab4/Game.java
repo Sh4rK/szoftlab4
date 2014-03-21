@@ -205,8 +205,8 @@ public class Game {
 		printExit(this);
 	}
 
-	public void addGem(Vector v, TowerGem gem) {
-		printEnter(this, "vector", "gem");
+	public void addGem(Vector pos, TowerGem gem) {
+		printEnter(this, "position", "gem");
 		
 		if(!printYesNoQuestion("Érvényes helyet adtunk meg?")){ //Változás a dokumentációban
 			printExit(this);
@@ -219,8 +219,8 @@ public class Game {
 		printExit(this);
 	}
 
-	public void addGem(Vector v, ObstacleGem gem) {
-		printEnter(this, "vector", "gem");
+	public void addGem(Vector pos, ObstacleGem gem) {
+		printEnter(this, "position", "gem");
 
 		if(!printYesNoQuestion("Érvényes helyet adtunk meg?")){ //Változás a dokumentációban
 			printExit(this);
@@ -233,16 +233,16 @@ public class Game {
 		printExit(this);
 	}
 
-	public void buildObstacle(Vector v) {
-		printEnter(this, "vector");
+	public void buildObstacle(Vector pos) {
+		printEnter(this, "position");
 
-		boolean build = map.canBuildObstacle(v);
+		boolean build = map.canBuildObstacle(pos);
 		if (!build){
 			printExit(this);
 			return;
 		}
 		
-		build &= collidesWithObstacle(v);
+		build &= collidesWithObstacle(pos);
 		
 		if (build)
 			new Obstacle();
@@ -250,15 +250,15 @@ public class Game {
 		printExit(this);
 	}
 
-	public void buildTower(Vector v) {
-		printEnter(this, "vector");
+	public void buildTower(Vector pos) {
+		printEnter(this, "position");
 		
-		boolean build = map.canBuildTower(v);
+		boolean build = map.canBuildTower(pos);
 		if (!build){
 			printExit(this);
 			return;
 		}
-		build &= collidesWithTower(v);
+		build &= collidesWithTower(pos);
 		
 		if (build)
 			new Tower();
@@ -266,8 +266,8 @@ public class Game {
 		printExit(this);
 	}
 
-	public boolean collidesWithObstacle(Vector v) {
-		printEnter(this, "vector");
+	public boolean collidesWithObstacle(Vector pos) {
+		printEnter(this, "position");
 		
 		boolean rtn = printYesNoQuestion("Ütközik másik akadállyal?");
 		obstacles.get(0).getPosition();
@@ -276,8 +276,8 @@ public class Game {
 		return rtn;
 	}
 
-	public boolean collidesWithTower(Vector v) {
-		printEnter(this, "vector");
+	public boolean collidesWithTower(Vector pos) {
+		printEnter(this, "position");
 
 		boolean rtn = printYesNoQuestion("Ütközik másik toronnyal?");
 		towers.get(0).getPosition();
