@@ -10,6 +10,9 @@ public class Map {
 		boolean b;
 		
 		printEnter(this, "vector");
+		Waypoint wp = new Waypoint();
+		wp.getPosition();
+		
 		b = printYesNoQuestion("Lehet építeni akadályt?");
 		
 		printExit(this);
@@ -24,6 +27,9 @@ public class Map {
 		boolean b;
 		
 		printEnter(this, "vector");
+		Waypoint wp = new Waypoint();
+		wp.getPosition();
+		
 		b = printYesNoQuestion("Lehet építeni akadályt?");
 		
 		printExit(this);
