@@ -156,14 +156,8 @@ public class Game {
 							"8. Kilépés"};
 	
 	private void printMenu() {
-		printMessage(menuStrings[0]);
-		printMessage(menuStrings[1]);
-		printMessage(menuStrings[2]);
-		printMessage(menuStrings[3]);
-		printMessage(menuStrings[4]);
-		printMessage(menuStrings[5]);
-		printMessage(menuStrings[6]);
-		printMessage(menuStrings[7]);
+		for (String s : menuStrings)
+			printMessage(s);
 	}
 
 	public void run() {
