@@ -1,5 +1,5 @@
 package szoftlab4;
 
-public class ObstacleGem {
+public class ObstacleGem extends Gem {
 
 }

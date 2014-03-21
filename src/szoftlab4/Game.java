@@ -16,12 +16,18 @@ public class Game {
 	private Mission mission = new Mission();
 	private List<Enemy> enemies = new ArrayList<Enemy>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
+	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
 
 	public Game() {
+		printEnter(this);
+
 		enemies.add(new Enemy());
 		projectiles.add(new Projectile());
 		towers.add(new Tower());
+		obstacles.add(new Obstacle());
+		
+		printExit(this);
 	}
 
 	public static void main(String[] args) {
@@ -42,6 +48,7 @@ public class Game {
 	 * @param params ha hívó metódusnak voltak paraméterei, akkor string formátumban meg kell adni a neveiket
 	 */
 	public static void printEnter(Object sender, String... params) {
+		System.out.print(">");
 		++tabs;
 		printIndent();
 
@@ -68,6 +75,7 @@ public class Game {
 	 * @param sender az objektum, amiből meg lett hívva a metódus
 	 */
 	public static void printExit(Object sender) {
+		System.out.print("<");
 		printIndent();
 
 		Exception e = new Exception();
@@ -82,20 +90,23 @@ public class Game {
 	}
 
 	public static void printMessage(String msg) {
+		System.out.print("-");
 		printIndent();
-		System.out.println(msg);
+		System.out.println("  " + msg);
 	}
 
 	public static String printQuestion(String msg) {
+		System.out.print("?");
 		printIndent();
-		System.out.printf("%s ", msg);
+		System.out.printf("  %s ", msg);
 		return sc.next();
 	}
 
 	public static boolean printYesNoQuestion(String msg) {
 		while (true) {
+			System.out.print("?");
 			printIndent();
-			System.out.printf("%s (I/N): ", msg);
+			System.out.printf("  %s (I/N): ", msg);
 			String answer = sc.next();
 			if (answer.equalsIgnoreCase("i"))
 				return true;
@@ -106,8 +117,9 @@ public class Game {
 
 	public static int printIntQuestion(String msg) {
 		while (true) {
+			System.out.print("?");
 			printIndent();
-			System.out.printf("%s ", msg);
+			System.out.printf("  %s ", msg);
 			if (sc.hasNextInt()) {
 				return sc.nextInt();
 			}
@@ -133,30 +145,34 @@ public class Game {
 			sc.next();
 		}
 	}
-
+	
+	String[] menuStrings = {"1. Torony építés",
+							"2. Akadály építés",
+							"3. Következő ellenség lekérése",
+							"4. Ellenség mozgatás",
+							"5. Torony tüzelés",
+							"6. Lövedék mozgatása",
+							"7. Varázskő felrakása",
+							"8. Kilépés"};
+	
 	private void printMenu() {
-		printMessage("1. Torony építés");
-		printMessage("2. Akadály építés");
-		printMessage("3. Következő ellenség lekérése");
-		printMessage("4. Ellenség mozgatás");
-		printMessage("5. Torony tüzelés");
-		printMessage("6. Lövedék mozgatása");
-		printMessage("7. Varázskő felrakása");
-		printMessage("8. Kilépés");
-	}
-
-	private int menu() {
-		if (printYesNoQuestion("Kiírjam a menüt?"))
-			printMenu();
-
-		return printIntQuestion("Mit akarsz csinálni?", 1, 8);
+		printMessage(menuStrings[0]);
+		printMessage(menuStrings[1]);
+		printMessage(menuStrings[2]);
+		printMessage(menuStrings[3]);
+		printMessage(menuStrings[4]);
+		printMessage(menuStrings[5]);
+		printMessage(menuStrings[6]);
+		printMessage(menuStrings[7]);
 	}
 
 	public void run() {
 		printEnter(this);
 		boolean exit = false;
 		while (!exit) {
-			int sel = menu();
+			printMenu();
+			int sel = printIntQuestion("Mit akarsz csinálni?", 1, 8);
+			printMessage(menuStrings[sel - 1]);
 			switch (sel) {
 				case 1:
 					buildTower(new Vector());
@@ -177,13 +193,19 @@ public class Game {
 					projectiles.get(0).step();
 					break;
 				case 7:
-					addGem(new Vector(), new ObstacleGem());
+					if (printQuestion("Toronyra vagy akadályra? T/A").equalsIgnoreCase("T"))
+						addGem(new Vector(), new TowerGem());
+					else
+						addGem(new Vector(), new ObstacleGem());
 					break;
 				case 8:
-					exit = true;
+					String ex = printQuestion("Nyerés, vesztés, feladás vagy kilépés a programból? N/V/F/K");
+					if (ex.equalsIgnoreCase("K"))
+						exit = true;
+					else
+						new Game();
 					break;
 			}
-
 		}
 
 		printExit(this);
@@ -191,6 +213,14 @@ public class Game {
 
 	public void addGem(Vector v, TowerGem gem) {
 		printEnter(this, "vector", "gem");
+		
+		if(!printYesNoQuestion("Érvényes helyet adtunk meg?")){ //Változás a dokumentációban
+			printExit(this);
+			return;
+		}
+		
+		towers.get(0).getPosition();
+		towers.get(0).setGem(gem);
 
 		printExit(this);
 	}
@@ -198,34 +228,67 @@ public class Game {
 	public void addGem(Vector v, ObstacleGem gem) {
 		printEnter(this, "vector", "gem");
 
+		if(!printYesNoQuestion("Érvényes helyet adtunk meg?")){ //Változás a dokumentációban
+			printExit(this);
+			return;
+		}
+		
+		obstacles.get(0).getPosition();
+		obstacles.get(0).setGem(gem);
+		
 		printExit(this);
 	}
 
 	public void buildObstacle(Vector v) {
 		printEnter(this, "vector");
 
+		boolean build = map.canBuildObstacle(v);
+		if (!build){
+			printExit(this);
+			return;
+		}
+		
+		build &= collidesWithObstacle(v);
+		
+		if (build)
+			new Obstacle();
+		
 		printExit(this);
 	}
 
 	public void buildTower(Vector v) {
 		printEnter(this, "vector");
-
+		
+		boolean build = map.canBuildTower(v);
+		if (!build){
+			printExit(this);
+			return;
+		}
+		build &= collidesWithTower(v);
+		
+		if (build)
+			new Tower();
+		
 		printExit(this);
 	}
 
 	public boolean collidesWithObstacle(Vector v) {
 		printEnter(this, "vector");
-
+		
+		boolean rtn = printYesNoQuestion("Ütközik másik akadállyal?");
+		obstacles.get(0).getPosition();
+		
 		printExit(this);
-		return true;
+		return rtn;
 	}
 
 	public boolean collidesWithTower(Vector v) {
 		printEnter(this, "vector");
 
+		boolean rtn = printYesNoQuestion("Ütközik másik toronnyal?");
+		towers.get(0).getPosition();
+		
 		printExit(this);
-		return true;
+		return rtn;
 	}
-
-
 }
