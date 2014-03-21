@@ -1,10 +1,11 @@
 package szoftlab4;
 
+import static szoftlab4.Game.*;
+
 public class Mission {
-	
+
 	/**
-	 * 
-	 * @return Visszatér a listában tárolt következõ ellenséggel.
+	 * @return VisszatÃ©r a listÃ¡ban tÃ¡rolt kÃ¶vetkezÅ‘ ellensÃ©ggel.
 	 */
 	public Enemy getNextEnemy() {
 		printEnter(this);

@@ -1,21 +1,22 @@
 package szoftlab4;
 
-public class TowerGem extends Gem{
+import static szoftlab4.Game.*;
+
+public class TowerGem extends Gem {
 	/**
-	 * 
-	 * @return Visszatér a támadás szorzójával.
+	 * @return VisszatÃ©r a tÃ¡madÃ¡s szorzÃ³jÃ¡val.
 	 */
-	public double getDamageMultiplier(){
+	public double getDamageMultiplier() {
 		printEnter(this);
 
 		printExit(this);
 		return 0;
 	}
+
 	/**
-	 * 
-	 * @return Visszatér a támadási távolság szorzójával.
+	 * @return VisszatÃ©r a tÃ¡madÃ¡si tÃ¡volsÃ¡g szorzÃ³jÃ¡val.
 	 */
-	public double getRateMultiplier(){
+	public double getRateMultiplier() {
 		printEnter(this);
 
 		printExit(this);

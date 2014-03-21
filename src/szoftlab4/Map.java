@@ -1,37 +1,40 @@
 package szoftlab4;
 
+import static szoftlab4.Game.*;
+
 public class Map {
-	
+
 	/**
-	 * @return Lehet-e a vector helyÈre Obstacle-t ÈpÌteni.
+	 * @return Lehet-e a vector hely√©re Obstacle-t √©p√≠teni.
 	 */
-	public boolean canBuildObstacle(Vector v){
-		
+	public boolean canBuildObstacle(Vector v) {
+
 		boolean b;
-		
+
 		printEnter(this, "vector");
 		Waypoint wp = new Waypoint();
 		wp.getPosition();
-		
-		b = printYesNoQuestion("Lehet ÈpÌteni akad·lyt?");
-		
+
+		b = printYesNoQuestion("Lehet √©p√≠teni akad√°lyt?");
+
 		printExit(this);
 		return b;
-		
+
 	}
+
 	/**
-	 * @return Lehet-e a vector helyÈre Tower-t ÈpÌteni.
+	 * @return Lehet-e a vector hely√©re Tower-t √©p√≠teni.
 	 */
-	public boolean canBuildTower(Vector v){
-		
+	public boolean canBuildTower(Vector v) {
+
 		boolean b;
-		
+
 		printEnter(this, "vector");
 		Waypoint wp = new Waypoint();
 		wp.getPosition();
-		
-		b = printYesNoQuestion("Lehet ÈpÌteni akad·lyt?");
-		
+
+		b = printYesNoQuestion("Lehet √©p√≠teni akad√°lyt?");
+
 		printExit(this);
 		return b;
 	}
