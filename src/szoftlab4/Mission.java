@@ -10,7 +10,7 @@ public class Mission {
 	public Enemy getNextEnemy() {
 		printEnter(this);
 
-		Enemy ret = new Enemy();
+		Enemy ret = new Enemy(EnemyType.fooType, new Waypoint());
 
 		printExit(this);
 		return ret;

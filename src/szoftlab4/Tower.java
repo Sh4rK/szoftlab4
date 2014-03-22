@@ -27,7 +27,7 @@ public class Tower {
 		
 		if (printYesNoQuestion("Van a torony hatósugarán belül ellenség?"))
 		{
-			ret = new Projectile();
+			ret = new Projectile(enemies.get(0), new Vector(), 0);
 		}
 		
 		printExit(this);
