@@ -34,8 +34,7 @@ public class Game {
 		enemies.add(new Enemy(EnemyType.fooType, new Waypoint()));
 		projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
 		towers.add(new Tower());
-		obstacles.add(new Obstacle());
-
+		obstacles.add(new Obstacle(new Vector()));
 		printExit(this);
 	}
 
@@ -283,7 +282,7 @@ public class Game {
 		build &= collidesWithObstacle(pos);
 		
 		if (build)
-			new Obstacle();
+			new Obstacle(pos);
 		
 		printExit(this);
 	}
