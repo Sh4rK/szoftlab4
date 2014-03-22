@@ -31,11 +31,11 @@ public class Game {
 	public Game() {
 		printEnter(this);
 
-		enemies.add(new Enemy());
-		projectiles.add(new Projectile());
+		enemies.add(new Enemy(EnemyType.fooType, new Waypoint()));
+		projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
 		towers.add(new Tower());
 		obstacles.add(new Obstacle());
-		
+
 		printExit(this);
 	}
 

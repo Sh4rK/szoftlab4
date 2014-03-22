@@ -5,8 +5,29 @@ import static szoftlab4.Game.*;
 
 /**
  * Egy ellenség megvalósítása.
+ *
+ * @author Szabó Antal
  */
 public class Enemy {
+
+	private EnemyType type;
+	private Waypoint waypoint;
+
+	/**
+	 * Létrehoz egy új ellenséget.
+	 *
+	 * @param type  az ellenség típusa
+	 * @param start a kezdő waypoint
+	 */
+	public Enemy(EnemyType type, Waypoint start) {
+		printEnter(this, "type", "start");
+
+		this.type = type;
+		this.waypoint = start;
+		type.getInitialHealth();
+
+		printExit(this);
+	}
 
 	/**
 	 * Mozgatja az ellenséget a célja felé.
@@ -16,13 +37,15 @@ public class Enemy {
 	public boolean move() {
 		printEnter(this);
 
-		Waypoint waypoint = new Waypoint();
-		waypoint.getPosition();
-		if (printYesNoQuestion("Elérte az ellenség a jelenlegi célját?")) {
-			waypoint.getNextWaypoint();
-		}
-
 		boolean ret = printYesNoQuestion("Meghalt az ellenség?");
+		if (!ret) {
+			type.getNormalSpeed();
+
+			waypoint.getPosition();
+			if (printYesNoQuestion("Elérte az ellenség a jelenlegi célját?")) {
+				waypoint = waypoint.getNextWaypoint();
+			}
+		}
 
 		printExit(this);
 		return ret;
@@ -44,13 +67,11 @@ public class Enemy {
 	public double getDistance() {
 		printEnter(this);
 
-		Waypoint waypoint = new Waypoint();
 		waypoint.getPosition();
 		waypoint.getDistance();
-		double ret = 0;
 
 		printExit(this);
-		return ret;
+		return 0;
 	}
 
 	/**
@@ -58,11 +79,8 @@ public class Enemy {
 	 */
 	public EnemyType getEnemyType() {
 		printEnter(this);
-
-		EnemyType ret = new EnemyType();
-
 		printExit(this);
-		return ret;
+		return type;
 	}
 
 	/**

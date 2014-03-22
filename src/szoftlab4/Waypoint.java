@@ -1,13 +1,15 @@
 package szoftlab4;
 
 public class Waypoint {
-	public void getPosition() {
+	public Vector getPosition() {
+		return new Vector();
 	}
 
-	public void getNextWaypoint() {
+	public Waypoint getNextWaypoint() {
+		return this;
 	}
 
-	public void getDistance() {
-
+	public double getDistance() {
+		return 0;
 	}
 }

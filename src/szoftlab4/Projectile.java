@@ -4,8 +4,27 @@ import static szoftlab4.Game.*;
 
 /**
  * Egy lövedék viselkedését megvalósító osztály.
+ *
+ * @author Szabó Antal
  */
 public class Projectile {
+
+	private Enemy target;
+
+	/**
+	 * Létrehot egy lövedéket.
+	 *
+	 * @param target a lövedék cél ellensége
+	 * @param start  a lövedék kezdeti pozíciója
+	 * @param damage a lövedék által kifejtett sebzés
+	 */
+	public Projectile(Enemy target, Vector start, double damage) {
+		printEnter(this, "target", "start", "damage");
+
+		this.target = target;
+
+		printExit(this);
+	}
 
 	/**
 	 * Mozgatja a lövedéket a célja felé. Ha elérte, megsebzi.
@@ -15,11 +34,10 @@ public class Projectile {
 	public boolean step() {
 		printEnter(this);
 
-		Enemy enemy = new Enemy();
-		enemy.getPosition();
+		target.getPosition();
 		boolean ret = false;
 		if (printYesNoQuestion("Elérte a lövedék az ellenséget?")) {
-			enemy.damage(0);
+			target.damage(0);
 			ret = true;
 		}
 

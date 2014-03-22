@@ -4,8 +4,12 @@ import static szoftlab4.Game.*;
 
 /**
  * Az ellenségek típusát leíró osztály.
+ *
+ * @author Szabó Antal
  */
 public class EnemyType {
+
+	static EnemyType fooType = new EnemyType();
 
 	/**
 	 * @return az ellenség típus kezdeti életereje
