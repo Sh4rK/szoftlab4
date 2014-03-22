@@ -18,7 +18,14 @@ public class Tower {
 	public Projectile attack(List<Enemy> enemies) {
 		printEnter(this, "enemies");
 		
-		Projectile ret = new Projectile();
+		Projectile ret = null;
+		
+		if (printYesNoQuestion("Van a torony hatósugarán belül ellenség?"))
+		{
+			ret = new Projectile();
+			printYesNoQuestion("Van a tornyon varázskő?");
+		}
+		
 		
 		printExit(this);
 		return ret;
