@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Ez az osztály fogja össze a többi osztályt.
+ * A felhasználótól érkező parancsokat, eseményeket kezeli.
+ * Tárolja a játék különböző elemeit:
+ * Ellenségeket, tornyokat, akadályokat, lövedékeket.
+ * 
+ * @author Tallér Bátor
+ * @author Szabó Antal
+ */
 public class Game {
 
 	/**
@@ -89,19 +98,30 @@ public class Game {
 		--tabs;
 	}
 
+	/**
+	 * Kiír egy üzenetet a megfelelő jelzéssel, indentálással
+	 */
 	public static void printMessage(String msg) {
 		System.out.print("-");
 		printIndent();
 		System.out.println("  " + msg);
 	}
 
+	/**
+	 * Kiír egy kérdést a megfelelő formátumban
+	 * @return stringként a megadott válasz
+	 */
 	public static String printQuestion(String msg) {
 		System.out.print("?");
 		printIndent();
 		System.out.printf("  %s ", msg);
 		return sc.next();
 	}
-
+	
+	/**
+	 * Kiír egy igen/nem kérdést a megfelelő formátumban
+	 * @return igen/nem
+	 */
 	public static boolean printYesNoQuestion(String msg) {
 		while (true) {
 			System.out.print("?");
@@ -114,7 +134,10 @@ public class Game {
 				return false;
 		}
 	}
-
+	
+	/**
+	 * Kiír egy kérdést, amire a válasz egész szám lehet
+	 */
 	public static int printIntQuestion(String msg) {
 		while (true) {
 			System.out.print("?");
@@ -127,6 +150,11 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Kiír egy kérdést, amire a válasz egész szám lehet
+	 * @param min lehetséges válasz alsó korlátja
+	 * @param max lehetséges válasz felső korlátja
+	 */
 	public static int printIntQuestion(String msg, int min, int max) {
 		while (true) {
 			int answer = printIntQuestion(String.format("%s (%d-%d):", msg, min, max));
@@ -160,6 +188,10 @@ public class Game {
 			printMessage(s);
 	}
 
+	/**
+	 * Egy ciklusban kérdézi a felhasználót, mit akar csinálni,
+	 * majd a válasznal megfelelő metódust hívja meg
+	 */
 	public void run() {
 		printEnter(this);
 		boolean exit = false;
@@ -233,6 +265,12 @@ public class Game {
 		printExit(this);
 	}
 
+	/**
+	 * A megadott helyre épít egy akadályt
+	 * Ellenőrzi, hogy a megadott helyre a pályán lehet-e akadályt építeni,
+	 * illetve hogy nem ütközik-e már meglévő akadállyal.
+	 * @param pos az akadály koordinátái
+	 */
 	public void buildObstacle(Vector pos) {
 		printEnter(this, "position");
 
@@ -250,6 +288,12 @@ public class Game {
 		printExit(this);
 	}
 
+	/**
+	 * A megadott helyre épít egy tornyot
+	 * Ellenőrzi, hogy a megadott helyre a pályán lehet-e tornyot építeni,
+	 * illetve hogy nem ütközik-e már meglévő toronnyal.
+	 * @param pos a torony koordinátái
+	 */
 	public void buildTower(Vector pos) {
 		printEnter(this, "position");
 		
@@ -266,6 +310,9 @@ public class Game {
 		printExit(this);
 	}
 
+	/**
+	 * @return visszadja, hogy az adott pont ütközik-e egy akadállyal
+	 */
 	public boolean collidesWithObstacle(Vector pos) {
 		printEnter(this, "position");
 		
@@ -276,6 +323,9 @@ public class Game {
 		return rtn;
 	}
 
+	/**
+	 * @return visszaadja, hogy az adott pont ütközik-e egy toronnyal
+	 */
 	public boolean collidesWithTower(Vector pos) {
 		printEnter(this, "position");
 
