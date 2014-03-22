@@ -8,6 +8,7 @@ import java.util.List;
  * Egy tornyot megvalósító osztály.
  */
 public class Tower {
+	TowerGem gem = new TowerGem();
 	
 	/**
 	 * A torony egy, a kapott listából kiválasztott ellenségre kilő egy lövedéket.
@@ -19,13 +20,15 @@ public class Tower {
 		printEnter(this, "enemies");
 		
 		Projectile ret = null;
+		if (printYesNoQuestion("Van a tornyon varázskő?")) {
+			gem.getRangeMultiplier();
+			gem.getDamageMultiplier();
+		}
 		
 		if (printYesNoQuestion("Van a torony hatósugarán belül ellenség?"))
 		{
 			ret = new Projectile();
-			printYesNoQuestion("Van a tornyon varázskő?");
 		}
-		
 		
 		printExit(this);
 		return ret;
