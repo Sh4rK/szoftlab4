@@ -37,12 +37,12 @@ public class Enemy {
 	public boolean move() {
 		printEnter(this);
 
-		boolean ret = printYesNoQuestion("Meghalt az ellenség?");
+		boolean ret = printYesNoQuestion("Meghalt az ellenseg?");
 		if (!ret) {
 			type.getNormalSpeed();
 
 			waypoint.getPosition();
-			if (printYesNoQuestion("Elérte az ellenség a jelenlegi célját?")) {
+			if (printYesNoQuestion("Elerte az ellenseg a jelenlegi celjat?")) {
 				waypoint = waypoint.getNextWaypoint();
 			}
 		}

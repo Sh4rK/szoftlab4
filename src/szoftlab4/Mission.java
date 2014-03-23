@@ -31,7 +31,7 @@ public class Mission {
 		printEnter(this);
 
 		Enemy ret = null;
-		if (printYesNoQuestion("Legyen következő ellenség?")) {
+		if (printYesNoQuestion("Legyen kovetkezo ellenseg?")) {
 			ret = new Enemy(EnemyType.fooType, wp);
 		}
 

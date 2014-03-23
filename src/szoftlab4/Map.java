@@ -29,7 +29,7 @@ public class Map {
 		printEnter(this, "position");
 
 		wp.getPosition();
-		boolean b = printYesNoQuestion("Lehet építeni akadályt?");
+		boolean b = printYesNoQuestion("Lehet epiteni akadalyt?");
 
 		printExit(this);
 		return b;
@@ -42,7 +42,7 @@ public class Map {
 		printEnter(this, "position");
 
 		wp.getPosition();
-		boolean b = printYesNoQuestion("Lehet építeni tornyot?");
+		boolean b = printYesNoQuestion("Lehet epiteni tornyot?");
 
 		printExit(this);
 		return b;

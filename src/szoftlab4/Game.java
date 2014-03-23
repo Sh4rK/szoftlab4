@@ -1,5 +1,7 @@
 package szoftlab4;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,14 +33,14 @@ public class Game {
 	public Game() {
 		printEnter(this);
 		
-		printMessage("1. pálya");
-		printMessage("2. pálya");
-		printIntQuestion("Melyik pályát töltsem be?", 1, 2);
+		printMessage("1. palya");
+		printMessage("2. palya");
+		printIntQuestion("Melyik palyat toltsem be?", 1, 2);
 		map = new Map("map.map");
 		
-		printMessage("1. küldetés");
-		printMessage("2. küldetés");
-		printIntQuestion("Melyik küldetést töltsem be?", 1, 2);
+		printMessage("1. kuldetes");
+		printMessage("2. kuldetes");
+		printIntQuestion("Melyik kuldetest toltsem be?", 1, 2);
 		mission = new Mission("mission.mission");
 
 		enemies.add(new Enemy(EnemyType.fooType, Mission.wp));
@@ -49,6 +51,7 @@ public class Game {
 	}
 
 	public static void main(String[] args) {
+
 		boolean run = true;
 		while (run){
 			Game game = new Game();
@@ -178,15 +181,15 @@ public class Game {
 		}
 	}
 
-	String[] menuStrings = {"1. Torony építés",
-							"2. Akadály építés",
-							"3. Következő ellenség lekérése",
-							"4. Ellenség mozgatás",
-							"5. Torony tüzelés",
-							"6. Lövedék mozgatása",
-							"7. Varázskő felrakása",
-							"8. Ellenségek lassítása",
-							"9. Kilépés"};
+	String[] menuStrings = {"1. Torony epites",
+							"2. Akadaly epites",
+							"3. Kovetkezo ellenseg lekerese",
+							"4. Ellenseg mozgatas",
+							"5. Torony tuzeles",
+							"6. Lovedek mozgatasa",
+							"7. Varazsko felrakasa",
+							"8. Ellensegek lassitasa",
+							"9. Kilepes"};
 
 	private void printMenu() {
 		for (String s : menuStrings)
@@ -204,7 +207,7 @@ public class Game {
 		boolean exit = false;
 		while (!exit) {
 			printMenu();
-			int sel = printIntQuestion("Mit akarsz csinálni?", 1, 9);
+			int sel = printIntQuestion("Mit akarsz csinalni?", 1, 9);
 			printMessage(menuStrings[sel - 1]);
 			switch (sel) {
 				case 1:
@@ -226,7 +229,7 @@ public class Game {
 					projectiles.get(0).step();
 					break;
 				case 7:
-					if (printQuestion("Toronyra vagy akadályra? T/A").equalsIgnoreCase("T"))
+					if (printQuestion("Toronyra vagy akadalyra? T/A").equalsIgnoreCase("T"))
 						addGem(new Vector(), new TowerGem());
 					else
 						addGem(new Vector(), new ObstacleGem());
@@ -237,21 +240,21 @@ public class Game {
 					obstacles.get(0).getRange();
 					obstacles.get(0).getSlowingFactor(enemies.get(0));
 					enemies.get(0).getPosition();
-					if (printYesNoQuestion("Van ellenség az akadály hatókörében?"))
+					if (printYesNoQuestion("Van ellenseg az akadaly hatokoreben?"))
 						enemies.get(0).setSlowingFactor(1);
 					break;
 				case 9:
-					String ex = printQuestion("Nyerés, vesztés, feladás vagy kilépés a programból? N/V/F/K");
+					String ex = printQuestion("Nyeres, vesztes, feladas vagy kilepes a programbol? N/V/F/K");
 					if (ex.equalsIgnoreCase("K")){
 						printExit(this);
 						return false;
 					}
 					else if (ex.equalsIgnoreCase("N"))
-						printMessage("Gratulálok, nyertél");
+						printMessage("Gratulalok, nyertel");
 					else if (ex.equalsIgnoreCase("V"))
-						printMessage("Sajnos vesztettél");
+						printMessage("Sajnos vesztettel");
 					else if (ex.equalsIgnoreCase("F"))
-						printMessage("Feladtad a játékot");
+						printMessage("Feladtad a jatekot");
 					else
 						break;
 					
@@ -267,7 +270,7 @@ public class Game {
 	public void addGem(Vector pos, TowerGem gem) {
 		printEnter(this, "position", "gem");
 
-		if (!printYesNoQuestion("Érvényes helyet adtunk meg?")) { //Változás a dokumentációban
+		if (!printYesNoQuestion("Ervenyes helyet adtunk meg?")) { //Változás a dokumentációban
 			printExit(this);
 			return;
 		}
@@ -281,7 +284,7 @@ public class Game {
 	public void addGem(Vector pos, ObstacleGem gem) {
 		printEnter(this, "position", "gem");
 
-		if (!printYesNoQuestion("Érvényes helyet adtunk meg?")) { //Változás a dokumentációban
+		if (!printYesNoQuestion("Ervenyes helyet adtunk meg?")) { //Változás a dokumentációban
 			printExit(this);
 			return;
 		}
@@ -341,7 +344,7 @@ public class Game {
 		printEnter(this, "position");
 
 		obstacles.get(0).getPosition();
-		boolean rtn = printYesNoQuestion("Ütközik másik akadállyal?");
+		boolean rtn = printYesNoQuestion("Utkozik masik akadallyal?");
 
 		printExit(this);
 		return rtn;
@@ -354,7 +357,7 @@ public class Game {
 		printEnter(this, "position");
 
 		towers.get(0).getPosition();
-		boolean rtn = printYesNoQuestion("Ütközik másik toronnyal?");
+		boolean rtn = printYesNoQuestion("Utkozik masik toronnyal?");
 
 		printExit(this);
 		return rtn;
