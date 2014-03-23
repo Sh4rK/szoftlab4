@@ -1,5 +1,7 @@
 package szoftlab4;
 
+import static szoftlab4.Game.*;
+
 /**
  * Az ellenséget ütemezését megvalósító osztály.
  * @author Adam
@@ -25,7 +27,7 @@ public class Mission {
 		
 		if(printYesNoQuestion("Legyen következő ellenség?")){
 			printExit(this);
-			return new Enemy();
+			return new Enemy(EnemyType.fooType, new Waypoint(new Vector())); // TODO
 		}
 		else{
 			printExit(this);

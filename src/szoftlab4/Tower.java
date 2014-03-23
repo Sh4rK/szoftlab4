@@ -22,7 +22,7 @@ public class Tower {
 		Projectile ret = null;
 		if (printYesNoQuestion("Van a tornyon varázskő?")) {
 			gem.getRangeMultiplier();
-			gem.getDamageMultiplier();
+			gem.getDamageMultiplier(enemies.get(0).getEnemyType());
 		}
 		
 		if (printYesNoQuestion("Van a torony hatósugarán belül ellenség?"))

@@ -1,5 +1,7 @@
 package szoftlab4;
 
+import static szoftlab4.Game.*;
+
 /**
  * A toronyba rakható varázskövet megvalósító osztály.
  * @author Nusser Adam

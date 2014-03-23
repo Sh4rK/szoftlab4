@@ -21,8 +21,8 @@ public class Game {
 	 */
 	private static int tabs = 0;
 	private static Scanner sc = new Scanner(System.in);
-	private Map map = new Map();
-	private Mission mission = new Mission();
+	private Map map = new Map("map.map");
+	private Mission mission = new Mission("mission.mission");
 	private List<Enemy> enemies = new ArrayList<Enemy>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -31,7 +31,7 @@ public class Game {
 	public Game() {
 		printEnter(this);
 
-		enemies.add(new Enemy(EnemyType.fooType, new Waypoint()));
+		enemies.add(new Enemy(EnemyType.fooType, new Waypoint(new Vector()))); // TODO
 		projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
 		towers.add(new Tower());
 		obstacles.add(new Obstacle(new Vector()));

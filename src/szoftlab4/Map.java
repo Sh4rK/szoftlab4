@@ -1,5 +1,7 @@
 package szoftlab4;
 
+import static szoftlab4.Game.*;
+
 /**
  * A pályát megvalósíto / leíró osztály.
  * @author Nusser Adam
