@@ -33,7 +33,7 @@ public class Game {
 
 		enemies.add(new Enemy(EnemyType.fooType, Mission.wp));
 		projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
-		towers.add(new Tower());
+		towers.add(new Tower(new Vector()));
 		obstacles.add(new Obstacle(new Vector()));
 		printExit(this);
 	}
@@ -288,7 +288,7 @@ public class Game {
 		}
 		
 		if (!collidesWithTower(pos))
-			new Tower();
+			new Tower(new Vector());
 		
 		printExit(this);
 	}

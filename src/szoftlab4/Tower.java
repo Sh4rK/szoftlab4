@@ -9,6 +9,17 @@ import java.util.List;
  */
 public class Tower {
 	TowerGem gem = new TowerGem();
+
+	/**
+	 * Létrehoz egy tornyot a megadott pozícióval.
+	 *
+	 * @param position A létrejövő torony kívánt helye.
+	 */
+	public Tower(Vector position) {
+		printEnter(this, "position");
+
+		printExit(this);
+	}
 	
 	/**
 	 * A torony egy, a kapott listából kiválasztott ellenségre kilő egy lövedéket.
