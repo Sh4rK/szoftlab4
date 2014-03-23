@@ -36,9 +36,13 @@ public class Projectile {
 
 		target.getPosition();
 		boolean ret = false;
-		if (printYesNoQuestion("Elérte a lövedék az ellenséget?")) {
+		if (!printYesNoQuestion("Él még a cél ellenség?")) {
+			ret = true;
+		} else if (printYesNoQuestion("Elérte a lövedék az ellenséget?")) {
 			target.damage(0);
 			ret = true;
+		} else {
+			target.getPosition();
 		}
 
 		printExit(this);
