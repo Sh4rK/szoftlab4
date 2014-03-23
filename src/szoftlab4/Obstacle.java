@@ -54,7 +54,7 @@ public class Obstacle {
 		printEnter(this, "enemy");
 
 		if (printYesNoQuestion("Van az akadalyon varazsko?"))
-			gem.getSpeedMultiplier(EnemyType.fooType);
+			gem.getSpeedMultiplier(enemy.getEnemyType());
 
 		printExit(this);
 		return 0;
