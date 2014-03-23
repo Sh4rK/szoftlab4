@@ -298,9 +298,9 @@ public class Game {
 	 */
 	public boolean collidesWithObstacle(Vector pos) {
 		printEnter(this, "position");
-		
-		boolean rtn = printYesNoQuestion("Ütközik másik akadállyal?");
+
 		obstacles.get(0).getPosition();
+		boolean rtn = printYesNoQuestion("Ütközik másik akadállyal?");
 		
 		printExit(this);
 		return rtn;
@@ -312,8 +312,8 @@ public class Game {
 	public boolean collidesWithTower(Vector pos) {
 		printEnter(this, "position");
 
-		boolean rtn = printYesNoQuestion("Ütközik másik toronnyal?");
 		towers.get(0).getPosition();
+		boolean rtn = printYesNoQuestion("Ütközik másik toronnyal?");
 		
 		printExit(this);
 		return rtn;
