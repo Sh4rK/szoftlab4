@@ -1,14 +1,14 @@
 package szoftlab4;
 
 /**
- * Az ellenséget ütemezését megvalósító osztály.
+ * Az ellensÃ©get Ã¼temezÃ©sÃ©t megvalÃ³sÃ­tÃ³ osztÃ¡ly.
  * @author Adam
  *
  */
 public class Mission {
 	
 	/**
-	 * A kapott útvonalról betölti a Mission-t.
+	 * A kapott ÃºtvonalrÃ³l betÃ¶lti a Mission-t.
 	 * @param str
 	 */
 	public Mission(String str){
@@ -17,13 +17,13 @@ public class Mission {
 		printExit(this);
 	}
 	/**
-	 * MegKérdezi, hogy legyen-e következõ ellenség.
-	 * @return Visszatér a listában tárolt következõ ellenséggel,vagy null értékkel.
+	 * MegKÃ©rdezi, hogy legyen-e kÃ¶vetkezÅ‘ ellensÃ©g.
+	 * @return VisszatÃ©r a listÃ¡ban tÃ¡rolt kÃ¶vetkezÅ‘ ellensÃ©ggel,vagy null Ã©rtÃ©kkel.
 	 */
 	public Enemy getNextEnemy() {
 		printEnter(this);
 		
-		if(printYesNoQuestion("Legyen következõ ellenség?")){
+		if(printYesNoQuestion("Legyen kÃ¶vetkezÅ‘ ellensÃ©g?")){
 			printExit(this);
 			return new Enemy();
 		}

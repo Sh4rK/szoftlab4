@@ -1,7 +1,7 @@
 package szoftlab4;
 
 /**
- * A pályát megvalósíto / leíró osztály.
+ * A pÃ¡lyÃ¡t megvalÃ³sÃ­to / leÃ­rÃ³ osztÃ¡ly.
  * @author Nusser Adam
  *
  */
@@ -10,7 +10,7 @@ public class Map {
 	Waypoint wp;
 	
 	/**
-	 * A kapott útvonalról betölti a Map-et;
+	 * A kapott ÃºtvonalrÃ³l betÃ¶lti a Map-et;
 	 */
 	public Map(String str){
 		printEnter(this);
@@ -19,7 +19,7 @@ public class Map {
 	}
 	
 	/**
-	 * @return Lehet-e a vector helyére Obstacle-t építeni.
+	 * @return Lehet-e a vector helyÃ©re Obstacle-t Ã©pÃ­teni.
 	 */
 	public boolean canBuildObstacle(Vector v){
 		
@@ -28,14 +28,14 @@ public class Map {
 		printEnter(this, "vector");
 		wp.getPosition();
 		
-		b = printYesNoQuestion("Lehet építeni akadályt?");
+		b = printYesNoQuestion("Lehet Ã©pÃ­teni akadÃ¡lyt?");
 		
 		printExit(this);
 		return b;
 		
 	}
 	/**
-	 * @return Lehet-e a vector helyére Tower-t építeni.
+	 * @return Lehet-e a vector helyÃ©re Tower-t Ã©pÃ­teni.
 	 */
 	public boolean canBuildTower(Vector v){
 		
@@ -44,7 +44,7 @@ public class Map {
 		printEnter(this, "vector");
 		wp.getPosition();
 		
-		b = printYesNoQuestion("Lehet építeni akadályt?");
+		b = printYesNoQuestion("Lehet Ã©pÃ­teni akadÃ¡lyt?");
 		
 		printExit(this);
 		return b;

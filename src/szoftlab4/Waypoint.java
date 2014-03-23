@@ -1,7 +1,7 @@
 package szoftlab4;
 
 /**
- * Az utakat kijelölõ pontokat megvalósító osztály.
+ * Az utakat kijelÃ¶lÅ‘ pontokat megvalÃ³sÃ­tÃ³ osztÃ¡ly.
  * @author Nusser Adam
  *
  */
@@ -10,7 +10,7 @@ public class Waypoint {
 	Vector pos;
 	
 	/**
-	 * A kapott helyre létrehoz egy Waypointot.
+	 * A kapott helyre lÃ©trehoz egy Waypointot.
 	 * @param pos
 	 */
 	public Waypoint(Vector pos){
@@ -19,7 +19,7 @@ public class Waypoint {
 		printExit(this);
 	}
 	/**
-	 * @return Visszatér a céltól való távolságával.
+	 * @return VisszatÃ©r a cÃ©ltÃ³l valÃ³ tÃ¡volsÃ¡gÃ¡val.
 	 */
 	public double getDistance(){
 		printEnter(this);
@@ -29,7 +29,7 @@ public class Waypoint {
 	}
 	/**
 	 * 
-	 * @return Visszatér a következõ célponttal.
+	 * @return VisszatÃ©r a kÃ¶vetkezÅ‘ cÃ©lponttal.
 	 */
 	public Waypoint getNextWaypoint(){
 		printEnter(this);
@@ -40,7 +40,7 @@ public class Waypoint {
 	}
 	/**
 	 * 
-	 * @return Visszatér a pályán felvett pozíciójával.
+	 * @return VisszatÃ©r a pÃ¡lyÃ¡n felvett pozÃ­ciÃ³jÃ¡val.
 	 */
 	public Vector getPosition(){
 		printEnter(this);

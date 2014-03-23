@@ -1,14 +1,14 @@
 package szoftlab4;
 
 /**
- * A toronyba rakható varázskövet megvalósító osztály.
+ * A toronyba rakhatÃ³ varÃ¡zskÃ¶vet megvalÃ³sÃ­tÃ³ osztÃ¡ly.
  * @author Nusser Adam
  *
  */
 public class TowerGem extends Gem{
 	/**
 	 * 
-	 * @return Visszatér a támadás szorzójával a kapott ellenség títusra.
+	 * @return VisszatÃ©r a tÃ¡madÃ¡s szorzÃ³jÃ¡val a kapott ellensÃ©g tÃ­tusra.
 	 */
 	public double getDamageMultiplier(EnemyType type){
 		printEnter(this);
@@ -18,7 +18,7 @@ public class TowerGem extends Gem{
 	}
 	/**
 	 * 
-	 * @return Visszatér a támadási távolság szorzójával.
+	 * @return VisszatÃ©r a tÃ¡madÃ¡si tÃ¡volsÃ¡g szorzÃ³jÃ¡val.
 	 */
 	public double getRateMultiplier(){
 		printEnter(this);
