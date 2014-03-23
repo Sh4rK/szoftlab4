@@ -262,15 +262,12 @@ public class Game {
 	public void buildObstacle(Vector pos) {
 		printEnter(this, "position");
 
-		boolean build = map.canBuildObstacle(pos);
-		if (!build){
+		if (!map.canBuildObstacle(pos)){
 			printExit(this);
 			return;
 		}
 		
-		build &= collidesWithObstacle(pos);
-		
-		if (build)
+		if (!collidesWithObstacle(pos))
 			new Obstacle(pos);
 		
 		printExit(this);
@@ -284,15 +281,13 @@ public class Game {
 	 */
 	public void buildTower(Vector pos) {
 		printEnter(this, "position");
-		
-		boolean build = map.canBuildTower(pos);
-		if (!build){
+
+		if (!map.canBuildTower(pos)){
 			printExit(this);
 			return;
 		}
-		build &= collidesWithTower(pos);
 		
-		if (build)
+		if (!collidesWithTower(pos))
 			new Tower();
 		
 		printExit(this);
