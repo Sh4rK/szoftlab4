@@ -1,49 +1,51 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
-
 /**
- * A pályát megvalósíto / leíró osztály.
- *
+ * A pályát megvalósító / leíró osztály.
  * @author Nusser Adam
+ *
  */
 public class Map {
-
+	
 	Waypoint wp;
-
+	
 	/**
-	 * A kapott útvonalról betölti a Map-et;
+	 * A kapott útvonalrl betölti a Map-et;
 	 */
-	public Map(String path) {
-		printEnter(this, "path");
-
+	public Map(String str){
+		printEnter(this);
 		wp = new Waypoint(new Vector());
-
 		printExit(this);
 	}
-
+	
 	/**
-	 * @return Lehet-e az adott helyre Obstacle-t építeni.
+	 * @return Lehet-e a vector helyére Obstacle-t építeni.
 	 */
-	public boolean canBuildObstacle(Vector position) {
-		printEnter(this, "position");
-
+	public boolean canBuildObstacle(Vector v){
+		
+		boolean b;
+		
+		printEnter(this, "vector");
 		wp.getPosition();
-		boolean b = printYesNoQuestion("Lehet építeni akadályt?");
-
+		
+		b = printYesNoQuestion("Lehet építeni akadályt?");
+		
 		printExit(this);
 		return b;
+		
 	}
-
 	/**
 	 * @return Lehet-e a vector helyére Tower-t építeni.
 	 */
-	public boolean canBuildTower(Vector position) {
-		printEnter(this, "position");
-
+	public boolean canBuildTower(Vector v){
+		
+		boolean b;
+		
+		printEnter(this, "vector");
 		wp.getPosition();
-		boolean b = printYesNoQuestion("Lehet építeni tornyot?");
-
+		
+		b = printYesNoQuestion("Lehet építeni tornyot?");
+		
 		printExit(this);
 		return b;
 	}

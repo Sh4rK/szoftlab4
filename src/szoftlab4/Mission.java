@@ -1,40 +1,36 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
-
 /**
  * Az ellenséget ütemezését megvalósító osztály.
- *
  * @author Adam
+ *
  */
 public class Mission {
-
-	public static Waypoint wp = new Waypoint(new Vector());
-
+	
 	/**
 	 * A kapott útvonalról betölti a Mission-t.
+	 * @param str
 	 */
-	public Mission(String path) {
-		printEnter(this, "path");
+	public Mission(String str){
+		printEnter(this);
 
 		printExit(this);
 	}
-
 	/**
-	 * Lekéri a következő ellenséget..
-	 *
-	 * @return Visszatér a listában tárolt következő ellenséggel, vagy null értékkel.
+	 * MegK�rdezi, hogy legyen-e következő ellenség.
+	 * @return Visszatér a listában tárolt következő ellenséggel,vagy null értékkel.
 	 */
 	public Enemy getNextEnemy() {
 		printEnter(this);
-
-		Enemy ret = null;
-		if (printYesNoQuestion("Legyen következő ellenség?")) {
-			ret = new Enemy(EnemyType.fooType, wp);
+		
+		if(printYesNoQuestion("Legyen következő ellenség?")){
+			printExit(this);
+			return new Enemy();
 		}
-
-		printExit(this);
-		return ret;
+		else{
+			printExit(this);
+			return null;
+		}	
 	}
 
 }
