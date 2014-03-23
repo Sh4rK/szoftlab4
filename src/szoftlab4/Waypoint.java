@@ -13,7 +13,6 @@ public class Waypoint {
 	
 	/**
 	 * A kapott helyre létrehoz egy Waypointot.
-	 * @param pos
 	 */
 	public Waypoint(Vector pos){
 		printEnter(this);
@@ -37,8 +36,7 @@ public class Waypoint {
 		printEnter(this);
 
 		printExit(this);
-		
-		return null;
+		return this;
 	}
 	/**
 	 * 
@@ -48,7 +46,6 @@ public class Waypoint {
 		printEnter(this);
 
 		printExit(this);
-		
 		return pos;
 	}
 }
