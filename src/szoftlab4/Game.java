@@ -237,8 +237,7 @@ public class Game {
 					obstacles.get(0).getRange();
 					obstacles.get(0).getSlowingFactor(enemies.get(0));
 					enemies.get(0).getPosition();
-					boolean en = printYesNoQuestion("Van ellenség az akadály hatókörében?");
-					if (en)
+					if (printYesNoQuestion("Van ellenség az akadály hatókörében?"))
 						enemies.get(0).setSlowingFactor(1);
 					break;
 				case 9:
@@ -251,8 +250,10 @@ public class Game {
 						printMessage("Gratulálok, nyertél");
 					else if (ex.equalsIgnoreCase("V"))
 						printMessage("Sajnos vesztettél");
-					else if (ex.equalsIgnoreCase("F1"))
+					else if (ex.equalsIgnoreCase("F"))
 						printMessage("Feladtad a játékot");
+					else
+						break;
 					
 					printExit(this);
 					return true;
