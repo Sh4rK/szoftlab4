@@ -161,17 +161,6 @@ public class Game {
 				return answer;
 		}
 	}
-
-	public static double printDoubleQuestion(String msg) {
-		while (true) {
-			printIndent();
-			System.out.printf("%s ", msg);
-			if (sc.hasNextDouble()) {
-				return sc.nextDouble();
-			}
-			sc.next();
-		}
-	}
 	
 	String[] menuStrings = {"1. Torony építés",
 							"2. Akadály építés",
