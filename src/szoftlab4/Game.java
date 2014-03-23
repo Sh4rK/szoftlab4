@@ -9,7 +9,7 @@ import java.util.Scanner;
  * A felhasználótól érkező parancsokat, eseményeket kezeli.
  * Tárolja a játék különböző elemeit:
  * Ellenségeket, tornyokat, akadályokat, lövedékeket.
- * 
+ *
  * @author Tallér Bátor
  * @author Szabó Antal
  */
@@ -108,6 +108,7 @@ public class Game {
 
 	/**
 	 * Kiír egy kérdést a megfelelő formátumban
+	 *
 	 * @return stringként a megadott válasz
 	 */
 	public static String printQuestion(String msg) {
@@ -116,9 +117,10 @@ public class Game {
 		System.out.printf("  %s ", msg);
 		return sc.next();
 	}
-	
+
 	/**
 	 * Kiír egy igen/nem kérdést a megfelelő formátumban
+	 *
 	 * @return igen/nem
 	 */
 	public static boolean printYesNoQuestion(String msg) {
@@ -133,7 +135,7 @@ public class Game {
 				return false;
 		}
 	}
-	
+
 	/**
 	 * Kiír egy kérdést, amire a válasz egész szám lehet
 	 */
@@ -151,6 +153,7 @@ public class Game {
 
 	/**
 	 * Kiír egy kérdést, amire a válasz egész szám lehet
+	 *
 	 * @param min lehetséges válasz alsó korlátja
 	 * @param max lehetséges válasz felső korlátja
 	 */
@@ -161,7 +164,7 @@ public class Game {
 				return answer;
 		}
 	}
-	
+
 	String[] menuStrings = {"1. Torony építés",
 							"2. Akadály építés",
 							"3. Következő ellenség lekérése",
@@ -170,7 +173,7 @@ public class Game {
 							"6. Lövedék mozgatása",
 							"7. Varázskő felrakása",
 							"8. Kilépés"};
-	
+
 	private void printMenu() {
 		for (String s : menuStrings)
 			printMessage(s);
@@ -227,12 +230,12 @@ public class Game {
 
 	public void addGem(Vector pos, TowerGem gem) {
 		printEnter(this, "position", "gem");
-		
-		if(!printYesNoQuestion("Érvényes helyet adtunk meg?")){ //Változás a dokumentációban
+
+		if (!printYesNoQuestion("Érvényes helyet adtunk meg?")) { //Változás a dokumentációban
 			printExit(this);
 			return;
 		}
-		
+
 		towers.get(0).getPosition();
 		towers.get(0).setGem(gem);
 
@@ -242,14 +245,14 @@ public class Game {
 	public void addGem(Vector pos, ObstacleGem gem) {
 		printEnter(this, "position", "gem");
 
-		if(!printYesNoQuestion("Érvényes helyet adtunk meg?")){ //Változás a dokumentációban
+		if (!printYesNoQuestion("Érvényes helyet adtunk meg?")) { //Változás a dokumentációban
 			printExit(this);
 			return;
 		}
-		
+
 		obstacles.get(0).getPosition();
 		obstacles.get(0).setGem(gem);
-		
+
 		printExit(this);
 	}
 
@@ -257,19 +260,20 @@ public class Game {
 	 * A megadott helyre épít egy akadályt
 	 * Ellenőrzi, hogy a megadott helyre a pályán lehet-e akadályt építeni,
 	 * illetve hogy nem ütközik-e már meglévő akadállyal.
+	 *
 	 * @param pos az akadály koordinátái
 	 */
 	public void buildObstacle(Vector pos) {
 		printEnter(this, "position");
 
-		if (!map.canBuildObstacle(pos)){
+		if (!map.canBuildObstacle(pos)) {
 			printExit(this);
 			return;
 		}
-		
+
 		if (!collidesWithObstacle(pos))
 			new Obstacle(pos);
-		
+
 		printExit(this);
 	}
 
@@ -277,19 +281,20 @@ public class Game {
 	 * A megadott helyre épít egy tornyot
 	 * Ellenőrzi, hogy a megadott helyre a pályán lehet-e tornyot építeni,
 	 * illetve hogy nem ütközik-e már meglévő toronnyal.
+	 *
 	 * @param pos a torony koordinátái
 	 */
 	public void buildTower(Vector pos) {
 		printEnter(this, "position");
 
-		if (!map.canBuildTower(pos)){
+		if (!map.canBuildTower(pos)) {
 			printExit(this);
 			return;
 		}
-		
+
 		if (!collidesWithTower(pos))
 			new Tower(new Vector());
-		
+
 		printExit(this);
 	}
 
@@ -301,7 +306,7 @@ public class Game {
 
 		obstacles.get(0).getPosition();
 		boolean rtn = printYesNoQuestion("Ütközik másik akadállyal?");
-		
+
 		printExit(this);
 		return rtn;
 	}
@@ -314,7 +319,7 @@ public class Game {
 
 		towers.get(0).getPosition();
 		boolean rtn = printYesNoQuestion("Ütközik másik toronnyal?");
-		
+
 		printExit(this);
 		return rtn;
 	}
