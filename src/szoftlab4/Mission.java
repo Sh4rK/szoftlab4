@@ -13,28 +13,26 @@ public class Mission {
 	
 	/**
 	 * A kapott útvonalról betölti a Mission-t.
-	 * @param str
 	 */
-	public Mission(String str){
-		printEnter(this);
+	public Mission(String path){
+		printEnter(this, "path");
 
 		printExit(this);
 	}
 	/**
-	 * MegKérdezi, hogy legyen-e következő ellenség.
-	 * @return Visszatér a listában tárolt következő ellenséggel,vagy null értékkel.
+	 * Lekéri a következő ellenséget..
+	 * @return Visszatér a listában tárolt következő ellenséggel, vagy null értékkel.
 	 */
 	public Enemy getNextEnemy() {
 		printEnter(this);
-		
+
+		Enemy ret = null;
 		if(printYesNoQuestion("Legyen következő ellenség?")){
-			printExit(this);
-			return new Enemy(EnemyType.fooType, wp);
+			ret =  new Enemy(EnemyType.fooType, wp);
 		}
-		else{
-			printExit(this);
-			return null;
-		}	
+
+		printExit(this);
+		return ret;
 	}
 
 }
