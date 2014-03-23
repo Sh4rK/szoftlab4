@@ -73,10 +73,10 @@ public class Obstacle {
 
 	public double getRange() {
 		Game.printEnter(this);
-		
+
 		if (printYesNoQuestion("Van varazsko az akadalyon?"))
 			gem.getRangeMultiplier();
-		
+
 		Game.printExit(this);
 		return 1;
 	}

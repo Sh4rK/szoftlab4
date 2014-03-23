@@ -1,7 +1,5 @@
 package szoftlab4;
 
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -32,12 +30,12 @@ public class Game {
 
 	public Game() {
 		printEnter(this);
-		
+
 		printMessage("1. palya");
 		printMessage("2. palya");
 		printIntQuestion("Melyik palyat toltsem be?", 1, 2);
 		map = new Map("map.map");
-		
+
 		printMessage("1. kuldetes");
 		printMessage("2. kuldetes");
 		printIntQuestion("Melyik kuldetest toltsem be?", 1, 2);
@@ -51,9 +49,8 @@ public class Game {
 	}
 
 	public static void main(String[] args) {
-
 		boolean run = true;
-		while (run){
+		while (run) {
 			Game game = new Game();
 			run = game.run();
 		}
@@ -199,7 +196,7 @@ public class Game {
 	/**
 	 * Egy ciklusban kérdézi a felhasználót, mit akar csinálni,
 	 * majd a válasznal megfelelő metódust hívja meg
-	 * 
+	 *
 	 * @return Új játékot indítunk-e
 	 */
 	public boolean run() { //változás a dokumentációban: visszatérési érték
@@ -245,11 +242,10 @@ public class Game {
 					break;
 				case 9:
 					String ex = printQuestion("Nyeres, vesztes, feladas vagy kilepes a programbol? N/V/F/K");
-					if (ex.equalsIgnoreCase("K")){
+					if (ex.equalsIgnoreCase("K")) {
 						printExit(this);
 						return false;
-					}
-					else if (ex.equalsIgnoreCase("N"))
+					} else if (ex.equalsIgnoreCase("N"))
 						printMessage("Gratulalok, nyertel");
 					else if (ex.equalsIgnoreCase("V"))
 						printMessage("Sajnos vesztettel");
@@ -257,12 +253,12 @@ public class Game {
 						printMessage("Feladtad a jatekot");
 					else
 						break;
-					
+
 					printExit(this);
 					return true;
 			}
 		}
-		
+
 		printExit(this);
 		return true;
 	}

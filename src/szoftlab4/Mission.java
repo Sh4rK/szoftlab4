@@ -16,7 +16,7 @@ public class Mission {
 	 */
 	public Mission(String path) {
 		printEnter(this, "path");
-		
+
 		wp = new Waypoint(new Vector());
 
 		printExit(this);
