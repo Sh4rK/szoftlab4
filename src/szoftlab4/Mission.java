@@ -8,6 +8,8 @@ import static szoftlab4.Game.*;
  *
  */
 public class Mission {
+
+	public static Waypoint wp = new Waypoint(new Vector());
 	
 	/**
 	 * A kapott útvonalról betölti a Mission-t.
@@ -27,7 +29,7 @@ public class Mission {
 		
 		if(printYesNoQuestion("Legyen következő ellenség?")){
 			printExit(this);
-			return new Enemy(EnemyType.fooType, new Waypoint(new Vector())); // TODO
+			return new Enemy(EnemyType.fooType, wp);
 		}
 		else{
 			printExit(this);

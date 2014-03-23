@@ -31,7 +31,7 @@ public class Game {
 	public Game() {
 		printEnter(this);
 
-		enemies.add(new Enemy(EnemyType.fooType, new Waypoint(new Vector()))); // TODO
+		enemies.add(new Enemy(EnemyType.fooType, Mission.wp));
 		projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
 		towers.add(new Tower());
 		obstacles.add(new Obstacle(new Vector()));
