@@ -21,8 +21,8 @@ public class Game {
 	 */
 	private static int tabs = 0;
 	private static Scanner sc = new Scanner(System.in);
-	private Map map = new Map("map.map");
-	private Mission mission = new Mission("mission.mission");
+	private Map map;
+	private Mission mission;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -30,6 +30,16 @@ public class Game {
 
 	public Game() {
 		printEnter(this);
+		
+		printMessage("1. pálya");
+		printMessage("2. pálya");
+		printIntQuestion("Melyik pályát töltsem be?", 1, 2);
+		map = new Map("map.map");
+		
+		printMessage("1. küldetés");
+		printMessage("2. küldetés");
+		printIntQuestion("Melyik küldetést töltsem be?", 1, 2);
+		mission = new Mission("mission.mission");
 
 		enemies.add(new Enemy(EnemyType.fooType, Mission.wp));
 		projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
@@ -39,8 +49,11 @@ public class Game {
 	}
 
 	public static void main(String[] args) {
-		Game game = new Game();
-		game.run();
+		boolean run = true;
+		while (run){
+			Game game = new Game();
+			run = game.run();
+		}
 	}
 
 	public static void printIndent() {
@@ -172,7 +185,8 @@ public class Game {
 							"5. Torony tüzelés",
 							"6. Lövedék mozgatása",
 							"7. Varázskő felrakása",
-							"8. Kilépés"};
+							"8. Ellenségek lassítása",
+							"9. Kilépés"};
 
 	private void printMenu() {
 		for (String s : menuStrings)
@@ -182,13 +196,15 @@ public class Game {
 	/**
 	 * Egy ciklusban kérdézi a felhasználót, mit akar csinálni,
 	 * majd a válasznal megfelelő metódust hívja meg
+	 * 
+	 * @return Új játékot indítunk-e
 	 */
-	public void run() {
+	public boolean run() { //változás a dokumentációban: visszatérési érték
 		printEnter(this);
 		boolean exit = false;
 		while (!exit) {
 			printMenu();
-			int sel = printIntQuestion("Mit akarsz csinálni?", 1, 8);
+			int sel = printIntQuestion("Mit akarsz csinálni?", 1, 9);
 			printMessage(menuStrings[sel - 1]);
 			switch (sel) {
 				case 1:
@@ -215,17 +231,36 @@ public class Game {
 					else
 						addGem(new Vector(), new ObstacleGem());
 					break;
-				case 8:
-					String ex = printQuestion("Nyerés, vesztés, feladás vagy kilépés a programból? N/V/F/K");
-					if (ex.equalsIgnoreCase("K"))
-						exit = true;
-					else
-						new Game();
+				case 8: //változás a dokumentációban: új menüpont
+					enemies.get(0).setSlowingFactor(1);
+					obstacles.get(0).getPosition();
+					obstacles.get(0).getRange();
+					obstacles.get(0).getSlowingFactor(enemies.get(0));
+					enemies.get(0).getPosition();
+					boolean en = printYesNoQuestion("Van ellenség az akadály hatókörében?");
+					if (en)
+						enemies.get(0).setSlowingFactor(1);
 					break;
+				case 9:
+					String ex = printQuestion("Nyerés, vesztés, feladás vagy kilépés a programból? N/V/F/K");
+					if (ex.equalsIgnoreCase("K")){
+						printExit(this);
+						return false;
+					}
+					else if (ex.equalsIgnoreCase("N"))
+						printMessage("Gratulálok, nyertél");
+					else if (ex.equalsIgnoreCase("V"))
+						printMessage("Sajnos vesztettél");
+					else if (ex.equalsIgnoreCase("F1"))
+						printMessage("Feladtad a játékot");
+					
+					printExit(this);
+					return true;
 			}
 		}
-
+		
 		printExit(this);
+		return true;
 	}
 
 	public void addGem(Vector pos, TowerGem gem) {

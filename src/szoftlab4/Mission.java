@@ -9,13 +9,15 @@ import static szoftlab4.Game.*;
  */
 public class Mission {
 
-	public static Waypoint wp = new Waypoint(new Vector());
+	public static Waypoint wp;
 
 	/**
 	 * A kapott útvonalról betölti a Mission-t.
 	 */
 	public Mission(String path) {
 		printEnter(this, "path");
+		
+		wp = new Waypoint(new Vector());
 
 		printExit(this);
 	}

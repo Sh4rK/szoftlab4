@@ -67,4 +67,16 @@ public class Obstacle {
 
 		printExit(this);
 	}
+
+	public double getRange() {
+		Game.printEnter(this);
+		
+		boolean g = Game.printYesNoQuestion("Van varázskő az akadályon?");
+		
+		if (g)
+			gem.getRangeMultiplier();
+		
+		Game.printExit(this);
+		return 1;
+	}
 }
