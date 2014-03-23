@@ -6,6 +6,8 @@ import static szoftlab4.Game.*;
  * Az akadályokat megvalósító osztály.
  */
 public class Obstacle {
+	ObstacleGem gem = new ObstacleGem();
+
 	/** 
 	 * Létrehoz egy akadályt a megadott pozícióval.
 	 * 
@@ -24,11 +26,8 @@ public class Obstacle {
 	 */
 	public ObstacleGem getGem() {
 		printEnter(this);
-		
-		ObstacleGem ret = new ObstacleGem();
-		
 		printExit(this);
-		return ret;
+		return gem;
 	}
 	
 	/**

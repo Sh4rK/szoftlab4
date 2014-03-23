@@ -55,11 +55,8 @@ public class Tower {
 	 */
 	public TowerGem getGem() {
 		printEnter(this);
-		
-		TowerGem ret = new TowerGem();
-		
 		printExit(this);
-		return ret;
+		return gem;
 	}
 
 	/**
