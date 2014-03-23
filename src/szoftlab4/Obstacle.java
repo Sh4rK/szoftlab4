@@ -53,6 +53,9 @@ public class Obstacle {
 	public double getSlowingFactor(Enemy enemy) {
 		printEnter(this, "enemy");
 
+		if (printYesNoQuestion("Van az akadalyon varazsko?"))
+			gem.getSpeedMultiplier(EnemyType.fooType);
+
 		printExit(this);
 		return 0;
 	}
@@ -71,9 +74,7 @@ public class Obstacle {
 	public double getRange() {
 		Game.printEnter(this);
 		
-		boolean g = Game.printYesNoQuestion("Van varázskő az akadályon?");
-		
-		if (g)
+		if (printYesNoQuestion("Van varazsko az akadalyon?"))
 			gem.getRangeMultiplier();
 		
 		Game.printExit(this);

@@ -36,7 +36,7 @@ public class Projectile {
 
 		target.getPosition();
 		boolean ret = false;
-		if (printYesNoQuestion("Elérte a lövedék az ellenséget?")) {
+		if (printYesNoQuestion("Elerte a lovedek az ellenseget?")) {
 			target.damage(0);
 			ret = true;
 		}

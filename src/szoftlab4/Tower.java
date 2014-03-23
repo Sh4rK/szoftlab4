@@ -31,14 +31,14 @@ public class Tower {
 		printEnter(this, "enemies");
 
 		Projectile ret = null;
-		if (printYesNoQuestion("Van a tornyon varázskő?")) {
+		if (printYesNoQuestion("Van a tornyon varazsko?")) {
 			gem.getRangeMultiplier();
 			gem.getDamageMultiplier(enemies.get(0).getEnemyType());
 		}
 
-		if (printYesNoQuestion("Van a torony hatósugarán belül ellenség?")) {
+		if (printYesNoQuestion("Van a torony hatosugaran belul ellenseg?")) {
 			enemies.get(0).getDistance();
-			if (printYesNoQuestion("Ez az ellenség van a legközelebb a célhoz?")) {
+			if (printYesNoQuestion("Ez az ellenseg van a legkozelebb a celhoz?")) {
 				ret = new Projectile(enemies.get(0), new Vector(), 0);
 			}
 		}
