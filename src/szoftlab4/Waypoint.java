@@ -1,15 +1,52 @@
 package szoftlab4;
 
+/**
+ * Az utakat kijelölõ pontokat megvalósító osztály.
+ * @author Nusser Adam
+ *
+ */
 public class Waypoint {
-	public Vector getPosition() {
-		return new Vector();
+	
+	Vector pos;
+	
+	/**
+	 * A kapott helyre létrehoz egy Waypointot.
+	 * @param pos
+	 */
+	public Waypoint(Vector pos){
+		printEnter(this);
+		this.pos = pos;
+		printExit(this);
 	}
+	/**
+	 * @return Visszatér a céltól való távolságával.
+	 */
+	public double getDistance(){
+		printEnter(this);
 
-	public Waypoint getNextWaypoint() {
-		return this;
-	}
-
-	public double getDistance() {
+		printExit(this);
 		return 0;
+	}
+	/**
+	 * 
+	 * @return Visszatér a következõ célponttal.
+	 */
+	public Waypoint getNextWaypoint(){
+		printEnter(this);
+
+		printExit(this);
+		
+		return null;
+	}
+	/**
+	 * 
+	 * @return Visszatér a pályán felvett pozíciójával.
+	 */
+	public Vector getPosition(){
+		printEnter(this);
+
+		printExit(this);
+		
+		return pos;
 	}
 }

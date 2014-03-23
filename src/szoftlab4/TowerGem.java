@@ -1,23 +1,26 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
-
-public class TowerGem extends Gem {
-
+/**
+ * A toronyba rakható varázskövet megvalósító osztály.
+ * @author Nusser Adam
+ *
+ */
+public class TowerGem extends Gem{
 	/**
-	 * @return VisszatÃ©r a sebzÃ©s szorzÃ³jÃ¡val.
+	 * 
+	 * @return Visszatér a támadás szorzójával a kapott ellenség títusra.
 	 */
-	public double getDamageMultiplier() {
+	public double getDamageMultiplier(EnemyType type){
 		printEnter(this);
 
 		printExit(this);
 		return 0;
 	}
-
 	/**
-	 * @return VisszatÃ©r a tÃ¼zelÃ©si sebessÃ©g szorzÃ³jÃ¡val.
+	 * 
+	 * @return Visszatér a támadási távolság szorzójával.
 	 */
-	public double getRateMultiplier() {
+	public double getRateMultiplier(){
 		printEnter(this);
 
 		printExit(this);
