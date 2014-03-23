@@ -95,7 +95,7 @@
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-javac -d bin *.java
+javac -d bin src/szoftlab4/*.java
 \end{lstlisting}
 
 \subsection{Futtatás}
@@ -103,7 +103,7 @@ javac -d bin *.java
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
 cd bin
-java Game.java
+java szoftlab4.Game
 \end{lstlisting}
 
 \section{Értékelés}
@@ -131,3 +131,5 @@ Ezzel együtt a 8. Kilépés menüpont, 9. Kilépésre változott. \\
 \subsection{Game osztály}
 A Game.run metódus visszatérési értékét boolean-ra változtattuk. Igazzal tér vissza ha a játékos nyert/vesztett/feladata, hamissal tér vissza ha kilép a játékból.
 
+\subsection{Obstacle}
+Az Obstacle-ből kimaradt a getRange() metódus, ami az osztálydiagramban és az osztály leírásánál nem szerepel, de a szekvencia diagramokban igen. A metódus visszaadja az akadály hatótávolságát.
