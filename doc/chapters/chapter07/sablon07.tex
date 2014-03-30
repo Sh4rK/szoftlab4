@@ -77,15 +77,86 @@ Ehhez létrehoztunk egy új SplitterProjectile osztályt, ami a Projectile oszt�
 \comment{A use-case-eknek a részletezettsége feleljen meg a kezelői felületnek, azaz a felület elemeire kell hivatkozniuk.
 Alábbi táblázat minden use-case-hez külön-külön.}
 
-\begin{figure}[h]
-\begin{center}
-%\includegraphics[width=17cm]{chapters/chapter07/example.pdf}
-\caption{x}
-\label{fig:ProtoUseCase}
-\end{center}
-\end{figure}
+\usecase
+{buildObstacle}
+{A megadott koordinátákra épít egy akadélyt.}
+{Tesztelő}
+{A kapott koordinátákra megnézi a program, hogy épülhet-e akadály. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg. 
+Ha igen akkor bekerül az akadály listába egy új akadály a koordinátákkal.}
 
-\usecase{...}{...}{...}{...}
+\usecase
+{buildTower}
+{A megadott koordinátákra épít egy tornyot.}
+{Tesztelő}
+{A kapott koordinátákra megnézi a program, hogy épülhet-e torony. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg. 
+Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
+
+\usecase
+{enchant}
+{A megadott koordinátán levő toronyra vagy akadályra egy megadott színű varázskövet tesz. }
+{Tesztelő}
+{Ha a kapott koordinátán van egy akadály vagy torony akkor azt felruházza egy kapott színű varázskővel.}
+
+\usecase
+{listEnemies}
+{Kilistázza az ellenségeket.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő ellenségeket.}
+
+\usecase
+{listObstacles}
+{Kilistázza az akadályokat.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő akadályokat.}
+
+\usecase
+{listProjectiles}
+{Kilistázza a lövedékeket.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő lövedékeket.}
+
+\usecase
+{listTowers}
+{Kilistázza a tornyokat.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő tornyokat.}
+
+\usecase
+{loadMap}
+{Betölti a kiválasztott pályát.}
+{Tesztelő}
+{A bementeten megadott nevű pályát betölti, ha létezik olyan.}
+
+\usecase
+{loadMission}
+{Betölti a kiválasztott küldetést.}
+{Tesztelő}
+{A bementeten megadott nevű küldetést betölti, ha létezik olyan.}
+
+\usecase
+{setCritical}
+{Beállítja, hogy kettévágó lövedékek keletkezzenek-e.}
+{Tesztelő}
+{Kiveszi a véletlenszerűséget a kettévágó lövedékek keletkezéséből, és egy általunk megadott értékre állítja. (0-1)}
+
+\usecase
+{setFog}
+{Beállítja, hogy legyen-e köd.}
+{Tesztelő}
+{Kiveszi a véletlenszerűséget a köd keletkezéséből, és egy általunk megadott értékre állítja. (0-1)}
+
+\usecase
+{setWaypoint}
+{Beállítja egy útelágazódásnak a következő célállomást.}
+{Tesztelő}
+{Kiveszi a véletlenszerűséget a következő célállomás kiválasztásából, és egy általunk megadott célállomásra állítja egy ID alapján.}
+
+\usecase
+{step}
+{Lépteti a programot.}
+{Game osztály}
+{A tesztelhetőség miatt, egy időzített belső ciklus helyett ezzel lehet egyesével léptetni a program főciklusát,
+ amibe beletartozik az ellenségek és lövedékek mozgatása, valamint a küldetés alapján, új ellenségek behozatala.}
 
 \section{Tesztelési terv}
 \comment{A tesztelési tervben definiálni kell, hogy a be- és kimeneti fájlok egybevetésével miként végezhető el a program tesztelése. Meg kell adni teszt forgatókönyveket. Az egyes teszteket elég informálisan, szabad szövegként leírni. Teszt-esetenként egy-öt mondatban. Minden teszthez meg kell adni, hogy mi a célja, a proto mely funkcionalitását, osztályait stb. teszteli. Az alábbi táblázat minden teszt-esethez külön-külön elkészítendő.}
