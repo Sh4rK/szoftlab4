@@ -52,16 +52,10 @@ Ha igen akkor bekerül az akadály listába egy új akadály a koordinátákkal.
 Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
 
 \usecase
-{enchantObstacle}
-{A megadott koordinátán levő }
-{}
-{}
-
-\usecase
-{enchantTower}
-{}
-{}
-{}
+{enchant}
+{A megadott koordinátán levő toronyra vagy akadályra egy megadott színű varázskövet tesz. }
+{Tesztelő}
+{Ha a kapott koordinátán van egy akadály vagy torony akkor azt felruházza egy kapott színű varázskővel.}
 
 \usecase
 {listEnemies}
@@ -112,10 +106,10 @@ Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
 {Kiveszi a véletlenszerűséget a köd keletkezéséből, és egy általunk megadott értékre állítja. (0-1)}
 
 \usecase
-{setPath}
-{}
+{setWaypoint}
+{Beállítja egy útelágazódásnak a következő célállomást.}
 {Tesztelő}
-{}
+{Kiveszi a véletlenszerűséget a következő célállomás kiválasztásából, és egy általunk megadott célállomásra állítja egy ID alapján.}
 
 \usecase
 {step}
