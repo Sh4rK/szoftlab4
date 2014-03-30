@@ -4,6 +4,46 @@
 \chapter{Prototípus koncepciója}
 
 \thispagestyle{fancy}
+\setcounter{section}{0}
+\section{Változások a specifikációban}
+
+\subsection{Köd}
+\textbf{A tornyokra időnként köd ereszkedik, aminek következtében a látás erősen lecsökken. Ez hatással van a lövésre.}\\
+Egy új Fog osztályt vezetünk be. Ennek van egy darab statikus getRangeMultiplier() metódusa, ami visszaadja mennyivel csökkenjen a látótáv, valamint van egy setFog(bool), amivel be lehet állítani, hogy van-e köd vagy nincs. Ha nincs köd beállítva getRangeMultiplier() 1-et ad vissza.
+
+\subsection{Elágazások}
+\textbf{A játékosok által járható útvonalon lehetnek elágazások és becsatlakozások. Az elágazásokon az egyes játékosok véletlenszerűen mennek a különböző irányokba.}\\
+Mi a feladatot alapból így specifikáltuk, ezért változásra nincs szükség.
+\subsection{Új lövedék}
+\textbf{A tornyokban elvétve lehetnek olyan lövedékek, amelyek az eltalált játékost kettőbe vágják. A két játékos egymástól függetlenül él tovább, csökkentett életerővel.}\\
+Ehhez létrehoztunk egy új SplitterProjectile osztályt, ami a Projectile osztályból származik le. Valamint hozzáadtunk az Enemy osztályhoz egy split() metódust. A Game osztályhoz pedig egy addEnemy(Enemy) metódust adtunk, amit a SplitterProjectile hív meg egy callback-el, amikor kettévágta az ellenséget.
+
+\subsection{Módosult osztálydiagram}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=17cm]{images/ch07/class_new.png}
+\caption{Osztály diagram}
+\label{fig:classDiagNew}
+\end{center}
+\end{figure}
+
+\subsection{Módosult szekvencia diagramok}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=17cm]{images/ch07/attack_enemy.png}
+\caption{Ellenség támadása}
+\label{fig:enemyAttackNew}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{images/ch07/splitterprojectile_step.png}
+\caption{Újfajta lövedék mozgatása}
+\label{fig:splitProjMove}
+\end{center}
+\end{figure}
+
 
 \section{Prototípus interface-definíciója}
 \comment{Definiálni kell a teszteket leíró nyelvet. Külön figyelmet kell fordítani arra, hogy ha a rendszer véletlen elemeket is tartalmaz, akkor a véletlenszerűség ki-bekapcsolható legyen, és a program determinisztikusan is tesztelhető legyen.}
