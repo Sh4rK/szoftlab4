@@ -81,14 +81,14 @@ Alábbi táblázat minden use-case-hez külön-külön.}
 {buildObstacle}
 {A megadott koordinátákra épít egy akadélyt.}
 {Tesztelő}
-{A kapott koordinátákra megnézi a program, hogy épülhet-e akadály. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg. 
+{A kapott koordinátákra megnézi a program, hogy épülhet-e akadály. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg.
 Ha igen akkor bekerül az akadály listába egy új akadály a koordinátákkal.}
 
 \usecase
 {buildTower}
 {A megadott koordinátákra épít egy tornyot.}
 {Tesztelő}
-{A kapott koordinátákra megnézi a program, hogy épülhet-e torony. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg. 
+{A kapott koordinátákra megnézi a program, hogy épülhet-e torony. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg.
 Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
 
 \usecase
@@ -161,7 +161,70 @@ Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
 \section{Tesztelési terv}
 \comment{A tesztelési tervben definiálni kell, hogy a be- és kimeneti fájlok egybevetésével miként végezhető el a program tesztelése. Meg kell adni teszt forgatókönyveket. Az egyes teszteket elég informálisan, szabad szövegként leírni. Teszt-esetenként egy-öt mondatban. Minden teszthez meg kell adni, hogy mi a célja, a proto mely funkcionalitását, osztályait stb. teszteli. Az alábbi táblázat minden teszt-esethez külön-külön elkészítendő.}
 
-\teszteset{...}{...}{...}
+\teszteset
+{Ellenség mozgatása (nem érte el a következő Waypoint-ot)} % Teszteset neve
+{Ellenségek mozgásának tesztelése.} % Rövid leírás
+{Teszteli, hogy az ellenségek megfelelően mozognak-e a cél felé a pályán, ha nem kell Waypoint-ot váltaniuk.} % Teszt célja
+
+\teszteset
+{Ellenség mozgatása (elérte a következő Waypoint-ot)}
+{Ellenségek mozgásának tesztelése.}
+{Teszteli, hogy az ellenségek megfelelően mozognak-e a cél felé a pályán, ha Waypoint-ot kell váltaniuk.}
+
+\teszteset
+{Lassítás}
+{Az ellenségek lassításának tesztelése.}
+{Teszteli, hogy az akadályok megfelelően lassítják-e a hatókörükben lévő ellenségeket, illetve hogy a hatókörükön kívülieket nem befolyásolják.}
+
+\teszteset
+{Lassítás varázskővel ellátott akadályokkal}
+{Az ellenségek lassításának tesztelése.}
+{Teszteli, hogy az varázskővel ellátott akadályok helyesen működnek-e.}
+
+\teszteset
+{Lövés}
+{A tornyok lövésének tesztelése.}
+{Teszteli, hogy a tornyok által kilőtt lövedék elér-e egy ellenséget, és megsebzi-e, illetve hogy a megfelelő időközönként lő-e a torony.}
+
+\teszteset
+{Lövés ködben}
+{A tornyok lövésének tesztelése.}
+{Teszteli, hogy a tornyoknak kisebb lesz-e a hatótávolsága ködben.}
+
+\teszteset
+{Lövés varázskővel ellátva}
+{A tornyok lövésének tesztelése.}
+{Teszteli, hogy a tornyoknak változnak-e a tulajdonságai varázskővel ellátva.}
+
+\teszteset
+{Megfelelő célra lövés}
+{A tornyok célkiválasztását teszteli.}
+{Teszteli, hogy a tornyok a hatókörükben lévő ellenségek közül a célhoz legközelebbire lőnek-e.}
+
+\teszteset
+{Lövedék által kettőbe vágás}
+{A kettévágó lövedék tesztelése.}
+{Teszteli, hogy az ellenségek két részre szakadnak-e a kettévágó lövedék hatására.}
+
+\teszteset
+{Toronyépítés}
+{Toronyépítés tesztelése.}
+{Teszteli, hogy a torony megépül-e egy érvényes helyre és hogy nem lehet megépíteni egy érvénytelen helyre.}
+
+\teszteset
+{Akadályépítés}
+{Akadályépítés tesztelése.}
+{Teszteli, hogy az akadály megépül-e egy érvényes helyre és hogy nem lehet megépíteni egy érvénytelen helyre.}
+
+\teszteset
+{Torony varázskővel ellátása}
+{Torony varázskővel való ellátásának tesztelése.}
+{Teszteli, hogy a jó helyre rakott varázskő rákerül-e a toronyra, a rossz helyre rakott pedig nem.}
+
+\teszteset
+{Akadály varázskővel ellátása}
+{Akadály varázskővel való ellátásának tesztelése.}
+{Teszteli, hogy a jó helyre rakott varázskő rákerül-e az akadályra, a rossz helyre rakott pedig nem.}
 
 \section{Tesztelést támogató segéd- és fordítóprogramok specifikálása}
 \comment{Specifikálni kell a tesztelést támogató segédprogramokat.}
