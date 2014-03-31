@@ -4,7 +4,45 @@
 \chapter{Prototípus koncepciója}
 
 \thispagestyle{fancy}
+\setcounter{section}{0}
+\section{Változások a specifikációban}
 
+\subsection{Köd}
+\textbf{A tornyokra időnként köd ereszkedik, aminek következtében a látás erősen lecsökken. Ez hatással van a lövésre.}\\
+Egy új Fog osztályt vezetünk be. Ennek van egy darab statikus getRangeMultiplier() metódusa, ami visszaadja mennyivel csökkenjen a látótáv, valamint van egy setFog(bool), amivel be lehet állítani, hogy van-e köd vagy nincs. Ha nincs köd beállítva getRangeMultiplier() 1-et ad vissza.
+
+\subsection{Elágazások}
+\textbf{A játékosok által járható útvonalon lehetnek elágazások és becsatlakozások. Az elágazásokon az egyes játékosok véletlenszerűen mennek a különböző irányokba.}\\
+Mi a feladatot alapból így specifikáltuk, ezért változásra nincs szükség.
+\subsection{Új lövedék}
+\textbf{A tornyokban elvétve lehetnek olyan lövedékek, amelyek az eltalált játékost kettőbe vágják. A két játékos egymástól függetlenül él tovább, csökkentett életerővel.}\\
+Ehhez létrehoztunk egy új SplitterProjectile osztályt, ami a Projectile osztályból származik le. Valamint hozzáadtunk az Enemy osztályhoz egy split() metódust. A Game osztályhoz pedig egy addEnemy(Enemy) metódust adtunk, amit a SplitterProjectile hív meg egy callback-el, amikor kettévágta az ellenséget.
+
+\subsection{Módosult osztálydiagram}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=17cm]{images/ch07/class_new.png}
+\caption{Osztály diagram}
+\label{fig:classDiagNew}
+\end{center}
+\end{figure}
+
+\subsection{Módosult szekvencia diagramok}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=17cm]{images/ch07/attack_enemy.png}
+\caption{Ellenség támadása}
+\label{fig:enemyAttackNew}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{images/ch07/splitterprojectile_step.png}
+\caption{Újfajta lövedék mozgatása}
+\label{fig:splitProjMove}
+\end{center}
+\end{figure}
 
 
 \section{Prototípus interface-definíciója}
@@ -156,20 +194,154 @@ Az összes tornyot írja ki, soronként egyet:\newline
 \comment{A use-case-eknek a részletezettsége feleljen meg a kezelői felületnek, azaz a felület elemeire kell hivatkozniuk.
 Alábbi táblázat minden use-case-hez külön-külön.}
 
-\begin{figure}[h]
-\begin{center}
-%\includegraphics[width=17cm]{chapters/chapter07/example.pdf}
-\caption{x}
-\label{fig:ProtoUseCase}
-\end{center}
-\end{figure}
+\usecase
+{buildObstacle}
+{A megadott koordinátákra épít egy akadélyt.}
+{Tesztelő}
+{A kapott koordinátákra megnézi a program, hogy épülhet-e akadály. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg.
+Ha igen akkor bekerül az akadály listába egy új akadály a koordinátákkal.}
 
-\usecase{...}{...}{...}{...}
+\usecase
+{buildTower}
+{A megadott koordinátákra épít egy tornyot.}
+{Tesztelő}
+{A kapott koordinátákra megnézi a program, hogy épülhet-e torony. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg.
+Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
+
+\usecase
+{enchant}
+{A megadott koordinátán levő toronyra vagy akadályra egy megadott színű varázskövet tesz. }
+{Tesztelő}
+{Ha a kapott koordinátán van egy akadály vagy torony akkor azt felruházza egy kapott színű varázskővel.}
+
+\usecase
+{listEnemies}
+{Kilistázza az ellenségeket.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő ellenségeket.}
+
+\usecase
+{listObstacles}
+{Kilistázza az akadályokat.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő akadályokat.}
+
+\usecase
+{listProjectiles}
+{Kilistázza a lövedékeket.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő lövedékeket.}
+
+\usecase
+{listTowers}
+{Kilistázza a tornyokat.}
+{Tesztelő}
+{Kiírja a kimenetre a játékban levő tornyokat.}
+
+\usecase
+{loadMap}
+{Betölti a kiválasztott pályát.}
+{Tesztelő}
+{A bementeten megadott nevű pályát betölti, ha létezik olyan.}
+
+\usecase
+{loadMission}
+{Betölti a kiválasztott küldetést.}
+{Tesztelő}
+{A bementeten megadott nevű küldetést betölti, ha létezik olyan.}
+
+\usecase
+{setCritical}
+{Beállítja, hogy kettévágó lövedékek keletkezzenek-e.}
+{Tesztelő}
+{Kiveszi a véletlenszerűséget a kettévágó lövedékek keletkezéséből, és egy általunk megadott értékre állítja. (0-1)}
+
+\usecase
+{setFog}
+{Beállítja, hogy legyen-e köd.}
+{Tesztelő}
+{Kiveszi a véletlenszerűséget a köd keletkezéséből, és egy általunk megadott értékre állítja. (0-1)}
+
+\usecase
+{setWaypoint}
+{Beállítja egy útelágazódásnak a következő célállomást.}
+{Tesztelő}
+{Kiveszi a véletlenszerűséget a következő célállomás kiválasztásából, és egy általunk megadott célállomásra állítja egy ID alapján.}
+
+\usecase
+{step}
+{Lépteti a programot.}
+{Game osztály}
+{A tesztelhetőség miatt, egy időzített belső ciklus helyett ezzel lehet egyesével léptetni a program főciklusát,
+ amibe beletartozik az ellenségek és lövedékek mozgatása, valamint a küldetés alapján, új ellenségek behozatala.}
 
 \section{Tesztelési terv}
 \comment{A tesztelési tervben definiálni kell, hogy a be- és kimeneti fájlok egybevetésével miként végezhető el a program tesztelése. Meg kell adni teszt forgatókönyveket. Az egyes teszteket elég informálisan, szabad szövegként leírni. Teszt-esetenként egy-öt mondatban. Minden teszthez meg kell adni, hogy mi a célja, a proto mely funkcionalitását, osztályait stb. teszteli. Az alábbi táblázat minden teszt-esethez külön-külön elkészítendő.}
 
-\teszteset{...}{...}{...}
+\teszteset
+{Ellenség mozgatása (nem érte el a következő Waypoint-ot)} % Teszteset neve
+{Ellenségek mozgásának tesztelése.} % Rövid leírás
+{Teszteli, hogy az ellenségek megfelelően mozognak-e a cél felé a pályán, ha nem kell Waypoint-ot váltaniuk.} % Teszt célja
+
+\teszteset
+{Ellenség mozgatása (elérte a következő Waypoint-ot)}
+{Ellenségek mozgásának tesztelése.}
+{Teszteli, hogy az ellenségek megfelelően mozognak-e a cél felé a pályán, ha Waypoint-ot kell váltaniuk.}
+
+\teszteset
+{Lassítás}
+{Az ellenségek lassításának tesztelése.}
+{Teszteli, hogy az akadályok megfelelően lassítják-e a hatókörükben lévő ellenségeket, illetve hogy a hatókörükön kívülieket nem befolyásolják.}
+
+\teszteset
+{Lassítás varázskővel ellátott akadályokkal}
+{Az ellenségek lassításának tesztelése.}
+{Teszteli, hogy az varázskővel ellátott akadályok helyesen működnek-e.}
+
+\teszteset
+{Lövés}
+{A tornyok lövésének tesztelése.}
+{Teszteli, hogy a tornyok által kilőtt lövedék elér-e egy ellenséget, és megsebzi-e, illetve hogy a megfelelő időközönként lő-e a torony.}
+
+\teszteset
+{Lövés ködben}
+{A tornyok lövésének tesztelése.}
+{Teszteli, hogy a tornyoknak kisebb lesz-e a hatótávolsága ködben.}
+
+\teszteset
+{Lövés varázskővel ellátva}
+{A tornyok lövésének tesztelése.}
+{Teszteli, hogy a tornyoknak változnak-e a tulajdonságai varázskővel ellátva.}
+
+\teszteset
+{Megfelelő célra lövés}
+{A tornyok célkiválasztását teszteli.}
+{Teszteli, hogy a tornyok a hatókörükben lévő ellenségek közül a célhoz legközelebbire lőnek-e.}
+
+\teszteset
+{Lövedék által kettőbe vágás}
+{A kettévágó lövedék tesztelése.}
+{Teszteli, hogy az ellenségek két részre szakadnak-e a kettévágó lövedék hatására.}
+
+\teszteset
+{Toronyépítés}
+{Toronyépítés tesztelése.}
+{Teszteli, hogy a torony megépül-e egy érvényes helyre és hogy nem lehet megépíteni egy érvénytelen helyre.}
+
+\teszteset
+{Akadályépítés}
+{Akadályépítés tesztelése.}
+{Teszteli, hogy az akadály megépül-e egy érvényes helyre és hogy nem lehet megépíteni egy érvénytelen helyre.}
+
+\teszteset
+{Torony varázskővel ellátása}
+{Torony varázskővel való ellátásának tesztelése.}
+{Teszteli, hogy a jó helyre rakott varázskő rákerül-e a toronyra, a rossz helyre rakott pedig nem.}
+
+\teszteset
+{Akadály varázskővel ellátása}
+{Akadály varázskővel való ellátásának tesztelése.}
+{Teszteli, hogy a jó helyre rakott varázskő rákerül-e az akadályra, a rossz helyre rakott pedig nem.}
 
 \section{Tesztelést támogató segéd- és fordítóprogramok specifikálása}
 \comment{Specifikálni kell a tesztelést támogató segédprogramokat.}
