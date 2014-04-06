@@ -4,7 +4,7 @@
 \chapter{Prototípus koncepciója}
 
 \thispagestyle{fancy}
-\setcounter{section}{0}
+\setcounter{section}{-1}
 \section{Változások a specifikációban}
 
 \subsection{Köd}
@@ -21,7 +21,7 @@ Ehhez létrehoztunk egy új SplitterProjectile osztályt, ami a Projectile oszt�
 \subsection{Módosult osztálydiagram}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=17cm]{images/ch07/class_new.png}
+\includegraphics[width=17cm]{images/ch07/class_new_ok.png}
 \caption{Osztály diagram}
 \label{fig:classDiagNew}
 \end{center}
@@ -190,13 +190,14 @@ listProjectiles\newline
 Az összes tornyot írja ki, soronként egyet:\newline
 <sorszám> <koordináták> <célpont> <szétvágó-e>\newline
 \newline
+\pagebreak
 \section{Összes részletes use-case}
-\comment{A use-case-eknek a részletezettsége feleljen meg a kezelői felületnek, azaz a felület elemeire kell hivatkozniuk.
-Alábbi táblázat minden use-case-hez külön-külön.}
+%\comment{A use-case-eknek a részletezettsége feleljen meg a kezelői felületnek, azaz a felület elemeire kell hivatkozniuk.
+% Alábbi táblázat minden use-case-hez külön-külön.}
 
 \usecase
 {buildObstacle}
-{A megadott koordinátákra épít egy akadélyt.}
+{A megadott koordinátákra épít egy akadályt.}
 {Tesztelő}
 {A kapott koordinátákra megnézi a program, hogy épülhet-e akadály. Ha nem akkor nem épül meg és kiírja, hogy nem épült meg.
 Ha igen akkor bekerül az akadály listába egy új akadály a koordinátákkal.}
@@ -276,7 +277,6 @@ Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
  amibe beletartozik az ellenségek és lövedékek mozgatása, valamint a küldetés alapján, új ellenségek behozatala.}
 
 \section{Tesztelési terv}
-\comment{A tesztelési tervben definiálni kell, hogy a be- és kimeneti fájlok egybevetésével miként végezhető el a program tesztelése. Meg kell adni teszt forgatókönyveket. Az egyes teszteket elég informálisan, szabad szövegként leírni. Teszt-esetenként egy-öt mondatban. Minden teszthez meg kell adni, hogy mi a célja, a proto mely funkcionalitását, osztályait stb. teszteli. Az alábbi táblázat minden teszt-esethez külön-külön elkészítendő.}
 
 \teszteset
 {Ellenség mozgatása (nem érte el a következő Waypoint-ot)} % Teszteset neve
@@ -344,5 +344,5 @@ Ha igen akkor bekerül a torony listába egy új torony a koordinátákkal.}
 {Teszteli, hogy a jó helyre rakott varázskő rákerül-e az akadályra, a rossz helyre rakott pedig nem.}
 
 \section{Tesztelést támogató segéd- és fordítóprogramok specifikálása}
-\comment{Specifikálni kell a tesztelést támogató segédprogramokat.}
+A tesztelés emberi erővel hosszadalmas, és repetitív, a program működése viszont determinisztikus, így minden feltétel adott, hogy a teszt kiértékelését gép végezze el. A segédprogram teszt bemeneteket tárol, hozzájuk rendelve a várt kimenettel. A segédprogram lefuttatja a megadott tesztet (vagy többet), és összeveti a kimenetüket az elvárt kimenettel (az összehasonlítás szöveges alapon történik, leginkább a UNIX-ban található diff parancshoz lehet hasonlítani). Amennyiben a kimenet nem egyezik meg az elvárt kimenettel, úgy a teszt nem sikerült (fail), ellenkező esetben a teszt sikeres (pass). Hiba esetén a program kijelzi, hogy hol, és milyen eltérést talált.
 
