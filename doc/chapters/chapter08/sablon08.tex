@@ -7,6 +7,145 @@
 
 \section{Osztályok és metódusok tervei}
 
+\subsection{Enemy}
+\begin{itemize}
+\item Felelősség\\
+Az ellenségek pozíciójának, sebességének és életerejének nyilvántartása.
+\item Attribútumok
+	\begin{itemize}
+		\item type: \textbf{EnemyType}: Az egység típusa.
+		\item health: Double: Az ellenség fennmaradó életereje.
+		\item position: Vector: Pillanatnyi pozíció a pályán.
+		\item targetWaypoint: \textbf{Waypoint}: Az a \textbf{Waypoint}, ami felé az ellenség jelenleg tart.
+		\item slowingFactor: Double: Ha az ellenség belelép egy akadályba, akkor beállítja ennek az értékét. Az \textbf{EnemyType} sebességét ezzel kell beszorozni, hogy megkapjuk az ellenség tényleges jelenlegi sebességét.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + Enemy(et: EnemyType, start: Waypoint): Létrehoz egy \textbf{EnemyType} típusú \textbf{Enemy}-t a start \textbf{Waypoint}-helyén.
+		\item + move(): boolean: Az ellenséget a sebességének megfelelő mértékben mozgatja a célja irányába. Ha az ellenség életereje 0 vagy kisebb, akkor igazzal tér visza, egyébként hamissal.
+		\item + damage(amount: Double): boolean: Csökkenti az ellenség életerejét amount-al, igazzal tér vissza ha az ellenség meghalt.
+		\item + getPosition(): Vector: A position attribútum értékével tér vissza.
+		\item + getEnemyType(): \textbf{EnemyType}: Visszaadja az ellenség típusát.
+		\item + getDistance(): Double: Visszaadja az ellenség céltól való távolságát a legrövidebb úton haladva.
+		\item + setSlowingFactor(sf: Double): void: Beállítja a slowingFactor-t sf-re.
+		\item + split(d: Double): Enemy: Megsebzi az ellenséget d-vel, majd klónozza az objektumot és ezzel tér vissza.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{EnemyType}
+\begin{itemize}
+\item Felelősség\\
+Leírja egy bizonyos típusú (fajú) ellenség alapvető tulajdonságait. Egy-egy példányára hivatkozik az összes ellenség, amelyeknek ezáltal meghatározza a viselkedését. Az osztályból nem lehet példányosítani, csakis a statikus tagként szereplő objektumokat lehet felhasználni.
+\item Attribútumok
+	\begin{itemize}
+		\item - cost: int: Az ilyen fajtájú ellenségek ára varázserőben.
+		\item - initialHealth: Double: Az ilyen fajtájú ellenségek kezdeti életereje.
+		\item - normalSpeed: Double: Az ilyen fajtájú ellenségek akadályoztatás nélküli haladási sebessége.
+		\item + \underline{EnemyType dwarf}: Csak olvasható törp típus.
+		\item + \underline{EnemyType elf}: Csak olvasható tünde típus.
+		\item + \underline{EnemyType hobbit}: Csak olvasható hobbit típus.
+		\item + \underline{EnemyType human}: Csak olvasható ember típus.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + getInitialHealth(): Double: Visszaadja az initialHealth attribútum értékét.
+		\item + getNormalSpeed(): Double: Visszaadja a normalSpeed attribútum értékét.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Fog}
+\begin{itemize}
+\item Felelősség\newline
+Ez az osztály felelős a ködért, ami a 7.0 fejezetben lett specifikálva. Az osztály statikus metódusokkal biztosítja a köd működését és ki- és bekapcsolását.
+\item Attribútumok
+	\begin{itemize}
+		\item - \underline{isSet: boolean}: Ez tárolja, hogy be van-e kapcsolva a játékban a köd.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + \underline{getRangeMultiplier(): Double}: Ha be van kapcsolva a köd akkor egy <1 számmal tér vissza, amivel csökkenti a tornyok látótávát, ha nincs bekapcsolva akkor 1-el tér vissza.
+		\item + \underline{setFog(b: boolean): void}: b paraméter értékére állítja az isSet attribútumot.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Game}
+\begin{itemize}
+\item Felelősség\\
+A többi osztály nyilvántartása és összekötése, a játékbeli események vezérlése. A felhasználói felülettől érkező parancsok végrehajtása, és a játék állapotának rendelkezésre bocsájtása a kijelzéshez.
+\item Attribútumok
+	\begin{itemize}
+		\item - map: \textbf{Map}: Referencia a kiválasztott pályára, amin a játék folyik.
+		\item - mission: \textbf{Mission}: Referencia a kiválasztott misszióra, amely alapján zajlik a játék.
+		\item - enemies: List<\textbf{Enemy}>: Az összes jelenleg élő ellenség található meg benne.
+		\item - projectiles: List<\textbf{Projectile}>: Eltárolja a jelenleg játékban lévő lövedékeket.
+		\item - towers: List<\textbf{Tower}>: Eltárolja a játékos megépített tornyait.
+		\item - magic: int: A játékos jelenlegi varázsereje.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + run(): boolean: Ez a metódus futtatja a főciklust, amelyben maga a játék működik. Ez a metódus hívja meg az ellenségek, lövedékek léptető metódusait. Meghívja a tornyok attack metódusát az ellenségek listájával. Az ellenségeknek beállítja a lassítást, ha akadályba léptek.
+		\item + buildTower(position: Vector): void: Épít egy tornyot a paraméterül kapott helyen lévő mezőre, ha a pozíció a pályán belül, nem úton van nem ütközik másik toronnyal.
+		\item + buildObstacle(position: Vector): void: Épít egy akadályt a paraméterül kapott helyen lévő mezőre, ha a megadott pozíció úton, pályán belül van és nem ütközik másik akadállyal..
+		\item + addGem(position: Vector, gem: \textbf{TowerGem}): void: A paraméterként kapott helyen lévő toronyra rárakja a paraméterként kapott varázskövet.
+		\item + addGem(position: Vector, gem: \textbf{ObstacleGem}): void: A paraméterként kapott helyen lévő akadályra rárakja a paraméterként kapott varázskövet.
+		\item + addEnemy(en: Enemy): void: Hozzáadja a paraméterként kapott ellenséget az enemies listába.
+		\item - collidesWithTower(p: Vector): boolean: megadja, hogy ha p helyre építenénk tornyot, az belelógna-e egy már megépített toronyba.
+		\item - collidesWithObstacle(p: Vector): boolean: megadja, hogy ha p helyre építenénk akadályt, az belelógna-e egy már megépített akadályba.
+		\item + giveup(): void: A játék feladása.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Gem}
+\begin{itemize}
+\item Felelősség\\
+Egy általános varázskő tulajdonságainak tárolása. Absztrakt osztály.
+\item Attribútumok
+	\begin{itemize}
+		\item - cost: int: A varázskő ára varázserőben.
+		\item - rangeMultiplier: Double: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a hatótávolsága.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + getRangeMultiplier(): Double: Visszaadja a varázskő hatótávolság szorzóját.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Projectile}
+\begin{itemize}
+\item Felelősség\\
+Követni a cél ellenséget, majd sebezni ha eléri.
+\item Attribútumok
+	\begin{itemize}
+		\item - damage: Double: A lövedék sebzése, ennyivel csökkenti a cél ellenség életerejét amikor eltalálja.
+		\item - position: Vector: A lövedék pozíciója.
+		\item - speed: Double: A lövedék sebessége.
+		\item - enemy: \textbf{Enemy}: A lövedék cél \textbf{Enemy}-je.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + Projectile(\textbf{Enemy} enemy, Vector position, double speed): Konstruktor, átveszi a cél \textbf{Enemy}-t, a kezdő pozíciót és sebességet.
+		\item + step(): boolean: speed-el mozgatja a lövedéket az ellenség irányába. Ha eltalálta az ellenséget vagy az ellenség már meghalt, akkor true-t ad vissza, különben false-t.
+		\item + getPosition(): Vector: Visszaadja a lövedék pozícióját.
+	\end{itemize}
+\end{itemize}
+
+\subsection{SplitterProjectile}
+\begin{itemize}
+\item Felelősség\\
+Követni a cél ellenséget, majd kettévágni ha eléri.
+\item Ősosztályok\newline
+Projectile
+\item Attribútumok
+	\begin{itemize}
+		\item - game: Game: Egy referencia a játék objektumra. Erre a Game.addEnemy callback miatt van szükség.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + Projectile(\textbf{Enemy} enemy, Vector position, double speed, Game game): Konstruktor, átveszi a cél \textbf{Enemy}-t, a kezdő pozíciót, sebességet és egy referenciát a játékra.
+	\end{itemize}
+\end{itemize}
+
 \subsection{Osztály1}
 \begin{itemize}
 \item Felelősség\newline
@@ -52,6 +191,7 @@ Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
 		\item int bar(Osztály5 o1): metódus leírása, láthatósága (UML jelöléssel)
 	\end{itemize}
 \end{itemize}
+
 
 \section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
 [A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.]
