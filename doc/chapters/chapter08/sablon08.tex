@@ -7,11 +7,14 @@
 
 \section{Osztályok és metódusok tervei}
 
-<<<<<<< HEAD
 \subsection{Enemy}
 \begin{itemize}
 \item Felelősség\\
 Az ellenségek pozíciójának, sebességének és életerejének nyilvántartása.
+\item Interfészek\newline
+\begin{itemize}
+\item Cloneable
+\end{itemize}
 \item Attribútumok
 	\begin{itemize}
 		\item type: \textbf{EnemyType}: Az egység típusa.
@@ -162,9 +165,51 @@ Projectile
 		\item + getDistance():double: Visszaadja a distance attribútumot.
 		\item + getNextWaypoint(): \textbf{Waypoint}: Visszatér a nextWaypoints listából véletlenszerűen kiválasztott \textbf{Waypoint}-al
 		\item + getPosition(): Vector: visszatér a position attribútummal.
-		\item + \textbf{Waypoint}(Vector v): Konstruktor, beállítja a position attribútumot. 
+		\item + \textbf{Waypoint}(Vector v): Konstruktor, beállítja a position attribútumot.
 	\end{itemize}
 \end{itemize}
+
+\subsection{Map}
+\begin{itemize}
+\item Felelősség\newline
+%\comment{Mi az osztály felelőssége. Kb 1 bekezdés. Ha szükséges, akkor state-chart is.}
+Betölt egy XML pályaleíró fájlt, és ez alapján felépíti a pályát Waypointok-ból; elérhetővé teszi a Waypoint-okat id alapján; ellenőrizni tudja, hogy egy adott helyre építhető-e torony vagy akadály.
+\item Attribútumok\newline
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item -waypoints: HashMap<Integer, Waypoint>: A Waypoint-okat tárolja id alapján.
+	\end{itemize}
+\item Metódusok\newline
+%\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is  a metódusban megvalósítandó algoritmusról.}
+	\begin{itemize}
+		\item Map(file: String): Létrehoz egy Map osztályt a paraméterként megadott pályaleíró fájlból.
+		\item getWaypoint(id: int): Waypoint: Visszaadja az id-hez tartozó Waypoint-ot.
+		\item canBuildObstacle(pos: Vector): boolean: Visszaadja, hogy a pos helyre építhető-e akadály.
+		\item canBuildTower(pos: Vector): boolean: Visszaadja, hogy a pos helyre építhető-e torony.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Mission}
+\begin{itemize}
+\item Felelősség\newline
+%\comment{Mi az osztály felelőssége. Kb 1 bekezdés. Ha szükséges, akkor state-chart is.}
+Betölt egy XML küldetésleíró fájlt, és létrehoz az összes ellenséghez egy Enemy objektumot, amiket eltárol, hogy később le lehessen kérni tőle a következő ellenséget.
+\item Attribútumok\newline
+%\comment{Milyen attribútumai vannak}
+	\begin{itemize}
+		\item -spawnList: List<Spawn>: Az Enemy-ket és a hozzájuk tartozó spawn időket tárolja.
+		\item -lastSpawn: double: Tárolja az előző spawn idejét.
+	\end{itemize}
+\item Metódusok\newline
+%\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is  a metódusban megvalósítandó algoritmusról.}
+	\begin{itemize}
+		\item Mission(file: String): Létrehoz egy Mission osztályt a paraméterként megadott küldetésleíró fájlból.
+		\item getNextEnemy(): Enemy: Visszaadja a következő ellenséget amit el kell indítani a pályán, vagy null.
+	\end{itemize}
+\end{itemize}
+
+\section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
+[A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.]
 
 \subsection{Tower}
 \begin{itemize}
@@ -250,41 +295,80 @@ Gem
 \end{itemize}
 
 \section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
-[A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.]
+%[A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.]
 
 \subsection{Alapvető működés}
 \begin{itemize}
 \item Leírás\newline
-Ennek a tesztnek az egységek működésének tesztelése a célja.
-\item Ellenőrzött funkcionalitás, várható hibahelyek
-Egy pálya és egy misszió betöltése, egy torony és egy akadály építése, egy időegység léptetése, valamint a tornyok, lövedékek, és ellenségek listázása, ezután pedig az épületek megerősítése, és az ellenség útválasztása kerül ellenőrzésre.
+Ennek a tesztnek az alapegységek működésének tesztelése a célja.
+\item Ellenőrzött funkcionalitás, várható hibahelyek\newline
+Egy pálya és egy misszió betöltése, egy torony és egy akadály építése, egy időegység léptetése, valamint a tornyok, lövedékek, és ellenségek listázása, ezután pedig az épületek megerősítése, és az ellenség útválasztása kerül ellenőrzésre. Lehetséges hibák: A torony vagy az akadály nem épül meg. Az ellenség nem követi a számára kijelölt utat. Az épületek erősítése nem történik meg megfelelően. A torony nem sebzi a mellette elhaladó ellenséget, vagy létre sem jön lövedék.
 \item Bemenet\newline
-loadMap basic_test_map
-loadMission basic_test_mission
-buildTower 2 5
-buildObstacle 10 4
-step 1
-listTowers
-listObstacles
-listProjectiles
-listEnemies
-enchant 1 2 5
-enchant 2 10 4
-setWaypoint 3
-step 100
-listTowers
-listObstacles
-listEnemies
+loadMap basic\_test\_map\newline
+loadMission basic\_test\_mission\newline
+buildTower 2 5\newline
+buildObstacle 10 4\newline
+step 1\newline
+listTowers\newline
+listObstacles\newline
+listProjectiles\newline
+listEnemies\newline
+enchant 1 2 5\newline
+enchant 2 10 4\newline
+setWaypoint 3\newline
+step 100\newline
+listTowers\newline
+listObstacles\newline
+listEnemies\newline
 \item Elvárt kimenet\newline
-1	(2;5)	-
-1	(10;4)	-
-1	(2;5)	1	false
-1	100	(0;4)
-1	(2;5)	1
-1	(10;4)	2
-1	60	(20;6)
+1 (2;5)	-\newline
+1 (10;4)	-\newline
+1 (2;5)	1	false\newline
+1 100	(0;4)\newline
+1 (2;5)	1\newline
+1 (10;4)	2\newline
+1 60	(20;6)\newline
 \end{itemize}
 
-\section{A tesztelést támogató programok tervei}
-\comment{A tesztadatok előállítására, a tesztek eredményeinek kiértékelésére szolgáló segédprogramok részletes terveit kell elkészíteni.}
 
+\subsection{Köd ellenőrzése}
+\begin{itemize}
+\item Leírás\newline
+Ennek a tesztnek a köd működésének tesztelése a célja.
+\item Ellenőrzött funkcionalitás, várható hibahelyek\newline
+A ködben létrejövő látótávolság-csökkenés hatását vizsgálja. Lehetséges hiba, hogy a köd nem csökkenti megfelelő mértékben a látótávolságot, így az az ellenség is sebződik, amelyik túl messze van a toronytól.
+\item Bemenet\newline
+loadMap fog\_test\_map\newline
+loadMission fog\_test\_mission\newline
+buildTower 2 5\newline
+setFog 1\newline
+step 100\newline
+listEnemies\newline
+\item Elvárt kimenet\newline
+1 100	(20;10)\newline
+\end{itemize}
+
+
+\subsection{Erős lövés ellenőrzése}
+\begin{itemize}
+\item Leírás\newline
+Ennek a tesztnek az erős lövedék hatásának tesztelése a célja.
+\item Ellenőrzött funkcionalitás, várható hibahelyek\newline
+A tornyokban elvétve előforduló erős lövés hatását teszteli. Lehetséges hiba, hogy az ellenség nem osztódik ketté.
+\item Bemenet\newline
+loadMap fog\_test\_map\newline
+loadMission fog\_test\_mission\newline
+buildTower 2 5\newline
+setCritical 1
+step 100\newline
+listEnemies\newline
+\item Elvárt kimenet\newline
+1 40	(20;10)\newline
+2 40	(20;10)\newline
+\end{itemize}
+
+
+\section{A tesztelést támogató programok tervei}
+%\comment{A tesztadatok előállítására, a tesztek eredményeinek kiértékelésére szolgáló segédprogramok részletes terveit kell elkészíteni.}
+
+A tesztelést végző segédprogram a specifikált formátumban megírt tesztfájlokat olvassa be, elindítja az alkalmazást, megadja neki az előírt bemenetet, majd a kapott kimenetet összehasonlítja a megaditt elvárt kimenettel, és amelyik sorban eltérést észlel, ott jelzi a különbséget. Ha nincs eltérés, a teszt sikeresen lefutott.
