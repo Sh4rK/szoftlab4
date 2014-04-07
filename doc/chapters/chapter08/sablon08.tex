@@ -7,6 +7,7 @@
 
 \section{Osztályok és metódusok tervei}
 
+<<<<<<< HEAD
 \subsection{Enemy}
 \begin{itemize}
 \item Felelősség\\
@@ -146,52 +147,107 @@ Projectile
 	\end{itemize}
 \end{itemize}
 
-\subsection{Osztály1}
+\subsection{Waypoint}
 \begin{itemize}
-\item Felelősség\newline
-\comment{Mi az osztály felelőssége. Kb 1 bekezdés. Ha szükséges, akkor state-chart is.}
-\item Ősosztályok\newline
-\comment{Mely osztályokból származik (öröklési hierarchia)\newline
-Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
-\item Interfészek\newline
-\comment{Mely interfészeket valósítja meg.}
-\item Attribútumok\newline
-\comment{Milyen attribútumai vannak}
+\item Felelősség\\
+Útvonalat kijelölni az ellenségeknek, úgy, hogy megadja a pozícióját, amely felé az ellenségek mehetnek, valamint a következő  \textbf{Waypoint}-ot ami felé menniük kell, ha egyszer elérték ezt a  \textbf{Waypoint}-ot.
+\item Attribútumok
 	\begin{itemize}
-		\item attribútum1: attribútum jellemzése: mire való, láthatósága (UML jelöléssel), típusa
-		\item attribútum2: attribútum jellemzése: mire való, láthatósága (UML jelöléssel), típusa
+		\item - position: Vector: A \textbf{Waypoint} pozíciója a pályán.
+		\item - distance: double: A  \textbf{Waypoint} távolságát a céltól tárolja.
+		\item - nextWaypoints: List <Waypoint, double>: A következő  \textbf{Waypoint}-okat és a hozzájuk tartozó valószínűségeket
 	\end{itemize}
-\item Metódusok\newline
-\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is  a metódusban megvalósítandó algoritmusról.}
+\item Metódusok
 	\begin{itemize}
-		\item int foo(Osztály3 o1, Osztály4 o2): metódus leírása, láthatósága (UML jelöléssel)
-		\item int bar(Osztály5 o1): metódus leírása, láthatósága (UML jelöléssel)
+		\item + getDistance():double: Visszaadja a distance attribútumot.
+		\item + getNextWaypoint(): \textbf{Waypoint}: Visszatér a nextWaypoints listából véletlenszerűen kiválasztott \textbf{Waypoint}-al
+		\item + getPosition(): Vector: visszatér a position attribútummal.
+		\item + \textbf{Waypoint}(Vector v): Konstruktor, beállítja a position attribútumot. 
 	\end{itemize}
 \end{itemize}
 
-\subsection{Osztály2}
+\subsection{Tower}
 \begin{itemize}
-\item Felelősség\newline
-\comment{Mi az osztály felelőssége. Kb 1 bekezdés. Ha szükséges, akkor state-chart is.}
-\item Ősosztályok\newline
-\comment{Mely osztályokból származik (öröklési hierarchia)\newline
-Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
-\item Interfészek\newline
-\comment{Mely interfészeket valósítja meg.}
-\item Attribútumok\newline
-\comment{Milyen attribútumai vannak}
+\item Felelősség\\
+Felelős \textbf{Projectile}-ok létrehozásához, azok megfelelő felparaméterezésével. Továbbá felelős azért, hogy \textbf{Projectile}-okat csak a megadott időközönként lőjjön ki.
+\item Attribútumok
 	\begin{itemize}
-		\item attribútum1: attribútum jellemzése: mire való, láthatósága (UML jelöléssel), típusa
-		\item attribútum2: attribútum jellemzése: mire való, láthatósága (UML jelöléssel), típusa
+		\item \underline{cost}: int: A torony ára varázserőben.
+		\item - range: double: A távolság amire tud lőni.
+		\item - cooldown: double: A lövések gyakorisága.
+		\item - gem: \textbf{Gem}: Eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
+		\item - double: \textbf{HashMap}<\textbf{EnemyType}, double>: Megadja mekkora az adott típusú ellenfélre kifejtett hatása a toronynak.
+		\item - position: Vector: Visszatér az épület koordinátáival.
 	\end{itemize}
-\item Metódusok\newline
-\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is  a metódusban megvalósítandó algoritmusról.}
+\item Metódusok
 	\begin{itemize}
-		\item int foo(Osztály3 o1, Osztály4 o2): metódus leírása, láthatósága (UML jelöléssel)
-		\item int bar(Osztály5 o1): metódus leírása, láthatósága (UML jelöléssel)
+		\item + attack(List <\textbf{Enemy}>): \textbf{Projectile}: Először megnézi, hogy lőhet-e, ha nem akkor semmivel se tér vissza. Ha igen akkor végignézi a kapott listában az ellenségeket, és amelyik a hatótávolságán belül van, és a legközelebb a célhoz, arra kilő egy \textbf{Projectile}-t, majd a visszatérési értékében visszaadja azt. A \textbf{Projectile}-t felparaméterezi az ellenséghez megfelelő sebzési adatokkal.
+		\item + getCost(): int: Visszatér a cost attribútummal.
+		\item + getGem(): \textbf{Gem}: Visszaadja az épületen található varázskövet.
+		\item + setGem(\textbf{TowerGem} gem): void: Beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
+		\item + getPosition(): Vector: Visszaadja a position attribútumot.
 	\end{itemize}
 \end{itemize}
 
+
+\subsection{Obstacle}
+\begin{itemize}
+\item Felelősség\\
+Felelős, az ellenfelek lassításáért, úgy, hogy meg kell tudnia mondani a pozícióját, valamint, hogy az adott ellenséget mennyire lassítja.
+\item Attribútumok
+	\begin{itemize}
+		\item \underline{cost}: int: Az akadály ára varázserőben.
+		\item - gem: \textbf{Gem}: Eltárol egy referenciát egy \textbf{Gem} típusú objektumra, ami meghatározza, hogy az adott épület milyen echant alatt áll.
+		\item - slowingFactor: \textbf{Map}<\textbf{EnemyType}, double>: Megadja mekkora az adott típusú ellenfélre kifejtett hatása az akadálynak.
+		\item - position: \textbf{Vector}: Az akadály koordinátáit tárolja.
+		\item - range: double: Az akadály hatótávolsága.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + Obstacle(Vector pos): Létrehoz egy \textbf{Obstacle} objektumot, a pozícióját pos-ra állítva.
+		\item + getCost(): int: Visszatér a torony árával.
+		\item + getSlowingFactor(\textbf{Enemy} enemy): double: Visszatér azzal az értékkel, amivel az adott ellenfelet lassítja.
+		\item + getGem(): \textbf{Gem}: Visszaadja az épületen található varázskövet.
+		\item + setGem(\textbf{Gem} gem): void: Beállítja az epületen lévő varázskövet. Ha már volt az épületen varázskő, akkor az előző megszűnik.
+		\item + getPosition(): Vector: Visszaadja a position attribútumot.
+		\item + getRange(): double: Visszaadja az akadály hatótávolságát.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{ObstacleGem}
+\begin{itemize}
+\item Felelősség\\
+Egy akadályra rakható varázskő tulajdonságainak tárolása.
+\item Ősosztályok\\
+Gem
+\item Attribútumok
+	\begin{itemize}
+		\item - speedMultiplier: HashMap<\textbf{EnemyType}, Double>: Megadja, hogy a varázskővel elátott akadályon áthaladó adott típusú ellenség sebessége hányadára csökken.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + getSpeedMultiplier(\textbf{EnemyType} enemyType): double: Visszaadja varázskő sebesség szorzóját egy adott típusú ellenséghez.
+	\end{itemize}
+\end{itemize}
+
+\subsection{TowerGem}
+\begin{itemize}
+\item Felelősség\\
+Egy toronyra rakható varázskő tulajdonságainak tárolása.
+\item Ősosztályok\\
+Gem
+\item Attribútumok
+	\begin{itemize}
+		\item - rateMultiplier: double: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a tüzelési sebessége.
+		\item - damageMultiplier: HashMap<\textbf{EnemyType}, double>: Megadja, hogy a varázskővel ellátott toronynak hányszorosára nő a sebzése egy adott típusú ellenséggel szemben.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + getRateMultiplier(): double: Visszaadja a varázskő tüzelési sebesség szorzójáz.
+		\item + getDamageMultiplier(\textbf{EnemyType} enemyType): double: Visszaadja varázskő sebzés szorzóját egy adott típusú ellenséghez.
+	\end{itemize}
+\end{itemize}
 
 \section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
 [A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.]
