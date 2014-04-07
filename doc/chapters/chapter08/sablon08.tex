@@ -56,26 +56,37 @@ Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
 \section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
 [A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.]
 
-\subsection{Teszteset1}
+\subsection{Alapvető működés}
 \begin{itemize}
 \item Leírás\newline
-\comment{szöveges leírás, kb. 1-5 mondat.}
+Ennek a tesztnek az egységek működésének tesztelése a célja.
 \item Ellenőrzött funkcionalitás, várható hibahelyek
+Egy pálya és egy misszió betöltése, egy torony és egy akadály építése, egy időegység léptetése, valamint a tornyok, lövedékek, és ellenségek listázása, ezután pedig az épületek megerősítése, és az ellenség útválasztása kerül ellenőrzésre.
 \item Bemenet\newline
-\comment{a proto bemeneti nyelvén megadva (lásd előző anyag)}
+loadMap basic_test_map
+loadMission basic_test_mission
+buildTower 2 5
+buildObstacle 10 4
+step 1
+listTowers
+listObstacles
+listProjectiles
+listEnemies
+enchant 1 2 5
+enchant 2 10 4
+setWaypoint 3
+step 100
+listTowers
+listObstacles
+listEnemies
 \item Elvárt kimenet\newline
-\comment{a proto kimeneti nyelvén megadva (lásd előző anyag)}
-\end{itemize}
-
-\subsection{Teszteset2}
-\begin{itemize}
-\item Leírás\newline
-\comment{szöveges leírás, kb. 1-5 mondat.}
-\item Ellenőrzött funkcionalitás, várható hibahelyek
-\item Bemenet\newline
-\comment{a proto bemeneti nyelvén megadva (lásd előző anyag)}
-\item Elvárt kimenet\newline
-\comment{a proto kimeneti nyelvén megadva (lásd előző anyag)}
+1	(2;5)	-
+1	(10;4)	-
+1	(2;5)	1	false
+1	100	(0;4)
+1	(2;5)	1
+1	(10;4)	2
+1	60	(20;6)
 \end{itemize}
 
 \section{A tesztelést támogató programok tervei}
