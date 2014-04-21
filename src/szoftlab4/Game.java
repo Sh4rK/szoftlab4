@@ -1,7 +1,13 @@
 package szoftlab4;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * Ez az osztály fogja össze a többi osztályt.
@@ -35,11 +41,7 @@ public class Game {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Hello!");
-		/*while (true) {
-			Game game = new Game();
-			game.run();
-		}*/
+		new Game().run();
 	}
 
 	/**
@@ -49,8 +51,110 @@ public class Game {
 	 * @return Új játékot indítunk-e
 	 */
 	public void run() {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
+		while (true) {
+			String line = "";
+			Scanner ls = null;
+			
+			try {
+				line = br.readLine();
+				ls = new Scanner(new InputStreamReader(new ByteArrayInputStream(line.getBytes("UTF-8"))));
+		
+				if (!ls.hasNext()) {
+					continue;
+				}
+				
+				String command = ls.next();
+				
+				if (command.equals("loadMap")) {
+					map = new Map(ls.next());
+				} else if (command.equals("loadMission")) {
+					mission = new Mission(ls.next());
+				} else if (command.equals("setFog")) {
+					int opt = ls.nextInt();
+					
+					if (!((opt == 0) || (opt == 1))) {
+						throw new IllegalArgumentException();  
+					}
+					
+					Fog.setFog(opt == 1);
+					
+				} else if (command.equals("setCritical")) {
+					int opt = ls.nextInt();
+					
+					if (!((opt == 0) || (opt == 1))) {
+						throw new IllegalArgumentException();  
+					}
+					
+					Tower.critical = (opt == 1);
+					
+				} else if (command.equals("setWaypoint")) {
+					// ???? throw new WTFException();
+				} else if (command.equals("step")) {
+					int num = ls.nextInt();
+					
+					if (num < 0) {
+						throw new IllegalArgumentException();  
+					}
+					
+					for (int i = 0; i < num; ++i) {
+						step();
+					}
+					
+				} else if (command.equals("buildTower")) {
+					double x = ls.nextDouble();
+					double y = ls.nextDouble();
+					
+					buildTower(new Vector(x, y));
+					
+				} else if (command.equals("buildObstacle")) {
+					double x = ls.nextDouble();
+					double y = ls.nextDouble();
+					
+					buildObstacle(new Vector(x, y));
+					
+				} else if (command.equals("enchant")) {
+					double x = ls.nextDouble();
+					double y = ls.nextDouble();
+					
+					Vector point = new Vector(x, y);
+					
+					// ???
+					
+				} else if (command.equals("listEnemies")) {
+					
+				} else if (command.equals("listTowers")) {
+					
+				} else if (command.equals("listObstacles")) {
+					
+				} else if (command.equals("listProjectiles")) {
+					
+				} else {
+					System.out.println("Ismeretlen parancs!");
+				}
+				
+			} catch (IOException e) {
+				System.out.println("Bemeneti hiba!");
+				e.printStackTrace();
+			} catch (NoSuchElementException e) {
+				System.out.println("Hibás parancsformátum!");
+			} catch (IllegalArgumentException e) {
+				System.out.println("Érvénytelen paraméter!");
+			} finally {
+				ls.close();
+			}
+		}
 	}
+	
+	/**
+	 * A játék logikáját egy lépéssel előrébb viszi.
+	 * (Az ellenségek itt haladnak, a tornyok itt lőnek, a lövedékek ott repülnek, stb.)
+	 */
+	private void step() {
+		// MAGIC!
+	}
+	
 	/**
 	 * run részmetódusa
 	 */
@@ -156,5 +260,29 @@ public class Game {
 		}
 			
 		return false;
+	}
+	
+	/**
+	 * @return Az akadály, amellyel az adott pont ütközik. Ha egyikkel sem, akkor null.
+	 */
+	public Obstacle getCollidingObstacle(Vector pos) {
+		for (Obstacle o : obstacles){
+			if (o.doesCollide(pos))
+				return o;
+		}
+			
+		return null;
+	}
+
+	/**
+	 * @return A torony, amellyel az adott pont ütközik. Ha egyikkel sem, akkor null.
+	 */
+	public Tower getCollidingTower(Vector pos) {
+		for (Tower t : towers){
+			if (t.doesCollide(pos))
+				return t;
+		}
+			
+		return null;
 	}
 }

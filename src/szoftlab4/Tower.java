@@ -13,6 +13,8 @@ public class Tower {
 	private Vector position;
 	private double cooldown;	
 	
+	static boolean critical = false;
+	
 	static final double range = 100;//temp értékek
 	static final double fireRate = 1;
 	static final int cost = 100;
@@ -99,7 +101,7 @@ public class Tower {
 		
 		Projectile pro;
 		
-		if(Math.random() % 20 == 1)
+		if (critical)
 			pro = new SplitterProjectile(target, new Vector(position), tempDamage, 100, game);
 		else
 			pro = new Projectile(target, new Vector(position), tempDamage, 100);
