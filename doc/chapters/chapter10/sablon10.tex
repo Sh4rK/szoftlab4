@@ -31,7 +31,7 @@
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-javac -d bin *.java
+javac -encoding utf8 -d bin src/szoftlab4/*.java src/Tester/*.java
 \end{lstlisting}
 
 \subsection{Futtatás}
@@ -39,8 +39,8 @@ javac -d bin *.java
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-cd bin
-java Main.java
+cd tests
+java -cp ../bin Tester.Main
 \end{lstlisting}
 
 

@@ -1,10 +1,7 @@
 package Tester;
 
-import szoftlab4.*;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -68,6 +65,7 @@ public class Main {
 				String o = runTest(f + ".in");
 				
 				Runtime rt = Runtime.getRuntime();
+				// platform independency ftw
 				Process pr = rt.exec("FC " + f + ".in" + " " + o);
 				
 				BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));

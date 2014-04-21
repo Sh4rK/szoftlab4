@@ -1,16 +1,16 @@
 package szoftlab4;
 /**
- * A Fog osztály statikus metódusokkal biztosítja a köd ki- és bekacsolását,
- * illetve lekérdezését. 
+ * A Fog osztÃ¡ly statikus metÃ³dusokkal biztosÃ­tja a kÃ¶d ki- Ã©s bekacsolÃ¡sÃ¡t,
+ * illetve lekÃ©rdezÃ©sÃ©t. 
  * 
- * @author Tallér Bátor
+ * @author TallÃ©r BÃ¡tor
  **/
 public class Fog {
 	private static boolean isSet = false;
 	
 	/**
-	 * Attól függõen, hogy be van-e kapcsolva a köd, 
-	 * visszaad egy látótávolság szorzót 
+	 * AttÃ³l fÃ¼ggÅ‘en, hogy be van-e kapcsolva a kÃ¶d, 
+	 * visszaad egy lÃ¡tÃ³tÃ¡volsÃ¡g szorzÃ³t 
 	 **/
 	public static double getRangeMultiplier(){
 		if (isSet)

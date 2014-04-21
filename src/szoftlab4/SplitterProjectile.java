@@ -11,9 +11,9 @@ public class SplitterProjectile extends Projectile{
 	}
 	
 	/**
-	 * Mozgatja a lövedéket a célja felé. Ha elérte, megsebzi.
+	 * Mozgatja a lÃ¶vedÃ©ket a cÃ©lja felÃ©. Ha elÃ©rte, megsebzi.
 	 *
-	 * @return true, ha a lövedék elérte a célját, egyébként false
+	 * @return true, ha a lÃ¶vedÃ©k elÃ©rte a cÃ©ljÃ¡t, egyÃ©bkÃ©nt false
 	 */
 	public boolean step(){
 		if(target == null)
