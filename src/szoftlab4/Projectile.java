@@ -39,7 +39,7 @@ public class Projectile {
 		if(target == null)
 			return true;
 		
-		position.MoveDistanceToVector(speed, target.getPosition());
+		position.MoveDistanceToVector(speed / Game.FPS, target.getPosition());
 		
 		if(position.equals(target.getPosition(), 0.1)){
 			target.damage(damage);

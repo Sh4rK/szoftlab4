@@ -13,6 +13,7 @@ public class Tower {
 	private double cooldown;	
 	
 	static final double range = 100;//temp értékek
+	static final double shotsPerSec = 1;
 	static final int cost = 100;
 	static java.util.HashMap<EnemyType, Double> damage;
 
@@ -25,7 +26,7 @@ public class Tower {
 		
 		this.position = position;
 		gem = null;
-		cooldown = Game.FPS;
+		cooldown = Game.FPS / shotsPerSec;
 		damage.put(EnemyType.human, 20.0);//temp értékek
 		damage.put(EnemyType.dwarf, 20.0);
 		damage.put(EnemyType.elf, 20.0);
@@ -53,9 +54,9 @@ public class Tower {
 	 * @param enemies Az ellenségek listája, amelyek közül kiválasztja a megtámadandót.
 	 * @return A lövedék, amit a torony kilőtt az egyik ellenségre.
 	 */
-	public Projectile attack(List<Enemy> enemies) {
+	public Projectile attack(List<Enemy> enemies, Game game) {
 		
-		if(cooldown != 0){
+		if(cooldown >= 0){
 			cooldown--;
 			return null;
 		}
@@ -93,8 +94,14 @@ public class Tower {
 		if(gem != null)
 			tempDamage *= gem.getDamageMultiplier(target.getEnemyType());
 		
-		cooldown = Game.FPS * gem.getRateMultiplier();
-		Projectile pro = new Projectile(target, new Vector(position), tempDamage, 100);
+		cooldown = Game.FPS * gem.getRateMultiplier() / shotsPerSec;
+		
+		Projectile pro;
+		
+		if(Math.random() % 20 == 1)
+			pro = new SplitterProjectile(target, new Vector(position), tempDamage, 100, game);
+		else
+			pro = new Projectile(target, new Vector(position), tempDamage, 100);
 
 		return pro;
 		
