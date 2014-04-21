@@ -171,7 +171,11 @@ public class Game {
 		slowEnemies();
 		moveEnemies();
 		
-		addEnemy(mission.getNextEnemy()); // FIXME - nem mindig
+		Enemy enemy = mission.getNextEnemy();
+		
+		if (enemy != null) {
+			addEnemy(enemy);
+		}
 		
 		moveProjectiles();
 		towersFire();
@@ -233,7 +237,11 @@ public class Game {
 	 * @param gem A varázskő, amellyel az épület erősítendő.
 	 */
 	public void addGem(Vector pos, TowerGem gem) {
-		getCollidingTower(pos).setGem(gem);
+		Tower t = getCollidingTower(pos);
+		
+		if (t != null) {
+			t.setGem(gem);
+		}
 	}
 
 	/**
@@ -243,7 +251,11 @@ public class Game {
 	 * @param gem A varázskő, amellyel az épület erősítendő.
 	 */
 	public void addGem(Vector pos, ObstacleGem gem) {
-		getCollidingObstacle(pos).setGem(gem);
+		Obstacle o = getCollidingObstacle(pos);
+		
+		if (o != null) {
+			o.setGem(gem);
+		}
 	}
 	
 	/**
