@@ -39,16 +39,18 @@ public class Game {
 		map = new Map("");
 		mission = new Mission("");
 	}
-
+	
+	/**
+	 * A program fő belépési pontja.
+	 * 
+	 * @param args A parancssori paraméterek.
+	 */
 	public static void main(String[] args) {
 		new Game().run();
 	}
 
 	/**
-	 * Egy ciklusban kérdézi a felhasználót, mit akar csinálni,
-	 * majd a válasznal megfelelő metódust hívja meg
-	 *
-	 * @return Új játékot indítunk-e
+	 * A felhasználó (vagy a tesztelő segédprogram) parancsait olvassa be, és hajtja végre.
 	 */
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -90,7 +92,7 @@ public class Game {
 					Tower.critical = (opt == 1);
 					
 				} else if (command.equals("setWaypoint")) {
-					// ???? throw new WTFException();
+					// ???? throw new WTFException(); - Ezt nehéz lesz Waypoint ID nélkül
 				} else if (command.equals("step")) {
 					int num = ls.nextInt();
 					
@@ -115,21 +117,35 @@ public class Game {
 					buildObstacle(new Vector(x, y));
 					
 				} else if (command.equals("enchant")) {
+					String type = ls.next();
+					
 					double x = ls.nextDouble();
 					double y = ls.nextDouble();
 					
 					Vector point = new Vector(x, y);
 					
-					// ???
+					if (type.equals("red")) {
+						addGem(point, TowerGem.red);
+					} else if (type.equals("green")) {
+						addGem(point, TowerGem.green);
+					} else if (type.equals("blue")) {
+						addGem(point, TowerGem.blue);
+					} else if (type.equals("yellow")) {
+						addGem(point, ObstacleGem.yellow);
+					} else if (type.equals("orange")) {
+						addGem(point, ObstacleGem.orange);
+					} else {
+						throw new IllegalArgumentException();
+					}
 					
 				} else if (command.equals("listEnemies")) {
-					
+					listEnemies();
 				} else if (command.equals("listTowers")) {
-					
+					listTowers();
 				} else if (command.equals("listObstacles")) {
-					
+					listObstacles();
 				} else if (command.equals("listProjectiles")) {
-					
+					listProjectiles();
 				} else {
 					System.out.println("Ismeretlen parancs!");
 				}
@@ -152,11 +168,17 @@ public class Game {
 	 * (Az ellenségek itt haladnak, a tornyok itt lőnek, a lövedékek ott repülnek, stb.)
 	 */
 	private void step() {
-		// MAGIC!
+		slowEnemies();
+		moveEnemies();
+		
+		addEnemy(mission.getNextEnemy()); // FIXME - nem mindig
+		
+		moveProjectiles();
+		towersFire();
 	}
 	
 	/**
-	 * run részmetódusa
+	 * run A lövedékek mozgatása.
 	 */
 	private void moveProjectiles(){
 		for(Projectile p : projectiles){
@@ -164,16 +186,27 @@ public class Game {
 				projectiles.remove(p);
 		}
 	}
+	
 	/**
-	 * run részmetódusa
+	 * A tornyok támadását intéző metódus.
 	 */
 	private void towersFire(){
 		for(Tower t : towers){
 			t.attack(enemies, this);
 		}
 	}
+	
 	/**
-	 * run részmetódusa
+	 * Az ellenségek mozgását intéző metódus.
+	 */
+	private void moveEnemies() {
+		for(Enemy e : enemies) {
+			e.move();
+		}
+	}
+	
+	/**
+	 * Az ellenségek lassítását beállító metódus.
 	 */
 	private void slowEnemies(){
 		for(Enemy e : enemies){
@@ -186,18 +219,38 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * @return A játékos rendelkezésére álló varázserő.
+	 */
 	public int getMagic(){
 		return magic;
 	}
-
+	
+	/**
+	 * Egy torony megerősítése egy varázskővel.
+	 * 
+	 * @param pos A pozíció, ahol az erősítendő épület található.
+	 * @param gem A varázskő, amellyel az épület erősítendő.
+	 */
 	public void addGem(Vector pos, TowerGem gem) {
-		
+		getCollidingTower(pos).setGem(gem);
 	}
 
+	/**
+	 * Egy akadály megerősítése egy varázskővel.
+	 * 
+	 * @param pos A pozíció, ahol az erősítendő épület található.
+	 * @param gem A varázskő, amellyel az épület erősítendő.
+	 */
 	public void addGem(Vector pos, ObstacleGem gem) {
-		
+		getCollidingObstacle(pos).setGem(gem);
 	}
 	
+	/**
+	 * Egy ellenség hozzáadása a játéktérhez.
+	 * 
+	 * @param en A hozzáadandó ellenség.
+	 */
 	public void addEnemy(Enemy en){
 		enemies.add(en);
 	}
@@ -285,4 +338,63 @@ public class Game {
 			
 		return null;
 	}
+	
+	/**
+	 * Az ellenségek kilistázása.
+	 */
+	void listEnemies() {
+		for (Enemy e : enemies) {
+			System.out.println(String.format("%d %.1f (%.1f;%.1f)", e.getID(), e.getHealth(), e.getPosition().x, e.getPosition().y));
+		}
+	}
+	
+	/**
+	 * A tornyok kilistázása.
+	 */
+	void listTowers() {
+		for (Tower t : towers) {
+			System.out.print(String.format("(%.1f;%.1f) ", t.getPosition().x, t.getPosition().y));
+			
+			TowerGem tg = t.getGem();
+			
+			if (tg == TowerGem.red) {
+				System.out.println("red");
+			} else if (tg == TowerGem.green) {
+				System.out.println("green");
+			} else if (tg == TowerGem.blue) {
+				System.out.println("blue");
+			} else {
+				System.out.println("-");
+			}
+		}
+	}
+
+	/**
+	 * Az akadályok kilistázása.
+	 */
+	void listObstacles() {
+		for (Obstacle o : obstacles) {
+			System.out.print(String.format("(%.1f;%.1f) ", o.getPosition().x, o.getPosition().y));
+			
+			ObstacleGem og = o.getGem();
+			
+			if (og == ObstacleGem.yellow) {
+				System.out.println("yellow");
+			} else if (og == ObstacleGem.orange) {
+				System.out.println("orange");
+			} else {
+				System.out.println("-");
+			}
+		}
+	}
+
+	/**
+	 * A lövedékek kilistázása.
+	 */
+	void listProjectiles() {
+		for (Projectile p : projectiles) {
+			System.out.println(String.format("(%.1f;%.1f) %d %b", p.getPosition().x, p.getPosition().y, p.target.getID(), p instanceof SplitterProjectile));
+		}
+	}
+	
 }

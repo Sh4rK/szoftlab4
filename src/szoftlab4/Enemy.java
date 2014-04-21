@@ -14,7 +14,7 @@ public class Enemy {
 	private double slowingFactor;
 	private static int num = 0;
 	private int ID;
-
+	
 	/**
 	 * Létrehoz egy új ellenséget.
 	 *
@@ -90,6 +90,13 @@ public class Enemy {
 		return position;
 	}
 
+	/**
+	 * @return az ellenség életereje
+	 */
+	public double getHealth() {
+		return health;
+	}
+	
 	/**
 	 * Beállítja az ellenség sebességét egy szorzó segítségével.
 	 *

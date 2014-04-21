@@ -13,7 +13,7 @@ public class Projectile {
 	protected Enemy target;
 
 	/**
-	 * Létrehot egy lövedéket.
+	 * Létrehoz egy lövedéket.
 	 *
 	 * @param target a lövedék cél ellensége
 	 * @param start  a lövedék kezdeti pozíciója
