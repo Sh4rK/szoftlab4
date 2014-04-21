@@ -1,5 +1,5 @@
 loadMap test.map
 loadMission test.mission
-buildTower 5 20
-listTowers
+buildObstacle 5 20
+listObstacles
 exit
