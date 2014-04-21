@@ -54,7 +54,7 @@ public class Game {
 	/**
 	 * run részmetódusa
 	 */
-	public void moveProjectiles(){
+	private void moveProjectiles(){
 		for(Projectile p : projectiles){
 			if(p.step())
 				projectiles.remove(p);
@@ -63,7 +63,7 @@ public class Game {
 	/**
 	 * run részmetódusa
 	 */
-	public void towersFire(){
+	private void towersFire(){
 		for(Tower t : towers){
 			t.attack(enemies, this);
 		}
@@ -71,7 +71,7 @@ public class Game {
 	/**
 	 * run részmetódusa
 	 */
-	public void slowEnemies(){
+	private void slowEnemies(){
 		for(Enemy e : enemies){
 			for(Obstacle o : obstacles){
 				if(e.getPosition().equals(o.getPosition(), 5))
