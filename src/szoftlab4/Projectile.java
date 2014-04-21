@@ -7,10 +7,10 @@ package szoftlab4;
  */
 public class Projectile {
 	
-	double damage;
-	Vector position;
-	double speed;
-	Enemy target;
+	private double damage;
+	private Vector position;
+	private double speed;
+	private Enemy target;
 
 	/**
 	 * Létrehot egy lövedéket.
