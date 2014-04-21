@@ -1,0 +1,5 @@
+loadMap test.map
+loadMission test.mission
+buildTower 5 5
+listTowers
+exit

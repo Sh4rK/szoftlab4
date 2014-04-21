@@ -1,0 +1,9 @@
+loadMap test.map
+loadMission one_enemy.mission
+step 1
+listEnemies
+setCritical 1
+buildTower 10 10
+step 10
+listEnemies
+exit

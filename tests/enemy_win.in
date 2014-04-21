@@ -1,0 +1,5 @@
+loadMap test.map
+loadMission test.mission
+step 100
+listEnemies
+exit
