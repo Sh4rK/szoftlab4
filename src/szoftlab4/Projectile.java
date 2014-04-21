@@ -38,11 +38,13 @@ public class Projectile {
 		
 		if(target == null)
 			return true;
+		
+		position.MoveDistanceToVector(speed, target.getPosition());
+		
 		if(position.equals(target.getPosition())){
 			target.damage(damage);
 			return true;
 		}
-		position.MoveDistanceToVector(speed, target.getPosition());
 		return false;
 	}
 
