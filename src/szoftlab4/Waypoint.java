@@ -32,8 +32,22 @@ public class Waypoint {
 	 * 
 	 * @param d Beállítja a céltól való távolságot.
 	 */
-	public void setDistance(double d){
-		distance = d;
+	public double setDistance(){
+		
+		if(nextWaypoints.isEmpty()){
+			distance =0;
+			return distance;
+		}
+		double minDis = 1000;
+		double temp;
+		
+		for(Pair<Waypoint, Double> l : nextWaypoints){
+			temp = l.a.setDistance() + position.getDistance(l.a.position);
+			if(temp  < minDis)
+				minDis = temp;
+		}
+		
+		return minDis;
 	}
 	public void setNextWaypoint(Waypoint wp, double r){
 		nextWaypoints.add(new Pair<Waypoint,Double>(wp, r));
