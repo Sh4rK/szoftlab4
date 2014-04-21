@@ -2,8 +2,6 @@ package szoftlab4;
 
 import java.util.List;
 
-import static szoftlab4.Game.*;
-
 /**
  * Egy tornyot megvalósító osztály.
  */

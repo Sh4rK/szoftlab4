@@ -1,7 +1,5 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
-
 /**
  * Egy akadályokra tehető varázskövet ír le.
  */
@@ -14,9 +12,6 @@ public class ObstacleGem extends Gem {
 	 * @return Az enemyType típusú ellenség lassulásának módosulása.
 	 */
 	public double getSpeedMultiplier(EnemyType enemyType) {
-		printEnter(this, "enemyType");
-
-		printExit(this);
 		return 0;
 	}
 }
