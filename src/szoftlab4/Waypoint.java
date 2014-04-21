@@ -19,6 +19,7 @@ public class Waypoint {
 	public Waypoint(Vector pos) {
 		
 		this.position = pos;
+		this.distance = -1;
 		
 	}
 
@@ -33,6 +34,8 @@ public class Waypoint {
 	 * @param d Beállítja a céltól való távolságot.
 	 */
 	public double setDistance(){
+		if(distance >= 0)
+			return distance;
 		
 		if(nextWaypoints.isEmpty()){
 			distance =0;
@@ -46,19 +49,11 @@ public class Waypoint {
 			if(temp  < minDis)
 				minDis = temp;
 		}
-		
-		return minDis;
+		distance = minDis;
+		return distance;
 	}
 	public void setNextWaypoint(Waypoint wp, double r){
 		nextWaypoints.add(new Pair<Waypoint,Double>(wp, r));
-	}
-	
-	public List<Waypoint> listNextWaypoints(){
-		List<Waypoint> list = new ArrayList<Waypoint>();
-		for(Pair<Waypoint, Double> l: nextWaypoints){
-			list.add(l.a);
-		}
-		return list;
 	}
 
 	/**
