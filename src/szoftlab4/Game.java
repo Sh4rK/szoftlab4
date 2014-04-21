@@ -51,6 +51,36 @@ public class Game {
 	public void run() {
 		
 	}
+	/**
+	 * run részmetódusa
+	 */
+	private void moveProjectiles(){
+		for(Projectile p : projectiles){
+			if(p.step())
+				projectiles.remove(p);
+		}
+	}
+	/**
+	 * run részmetódusa
+	 */
+	private void towersFire(){
+		for(Tower t : towers){
+			t.attack(enemies, this);
+		}
+	}
+	/**
+	 * run részmetódusa
+	 */
+	private void slowEnemies(){
+		for(Enemy e : enemies){
+			for(Obstacle o : obstacles){
+				if(e.getPosition().equals(o.getPosition(), 5))
+					e.setSlowingFactor(o.getSlowingFactor(e));
+				else
+					e.setSlowingFactor(1);
+			}
+		}
+	}
 	
 	public int getMagic(){
 		return magic;

@@ -66,9 +66,7 @@ public class Enemy {
 	 * @return az ellenség végső céljától való távolsága
 	 */
 	public double getDistance() {
-		targetWaypoint.getPosition();
-		targetWaypoint.getDistance();
-		return 0;
+		return targetWaypoint.getDistance() + position.getDistance(targetWaypoint.getPosition());
 	}
 
 	/**
