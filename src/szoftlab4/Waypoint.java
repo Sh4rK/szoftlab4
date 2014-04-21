@@ -52,6 +52,7 @@ public class Waypoint {
 		distance = minDis;
 		return distance;
 	}
+	
 	public void setNextWaypoint(Waypoint wp, double r){
 		nextWaypoints.add(new Pair<Waypoint,Double>(wp, r));
 	}

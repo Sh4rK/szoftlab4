@@ -51,6 +51,36 @@ public class Game {
 	public void run() {
 		
 	}
+	/**
+	 * run részmetódusa
+	 */
+	public void moveProjectiles(){
+		for(Projectile p : projectiles){
+			if(p.step())
+				projectiles.remove(p);
+		}
+	}
+	/**
+	 * run részmetódusa
+	 */
+	public void towersFire(){
+		for(Tower t : towers){
+			t.attack(enemies, this);
+		}
+	}
+	/**
+	 * run részmetódusa
+	 */
+	public void slowEnemies(){
+		for(Enemy e : enemies){
+			for(Obstacle o : obstacles){
+				if(e.getPosition().equals(o.getPosition(), 5))
+					e.setSlowingFactor(o.getSlowingFactor(e));
+				else
+					e.setSlowingFactor(1);
+			}
+		}
+	}
 	
 	public int getMagic(){
 		return magic;
@@ -127,11 +157,5 @@ public class Game {
 			
 		return false;
 	}
-	/**
-	 * Hozzáad a listához egy ellenséget
-	 * SplitterProjectilehoz kell.
-	 */
-	public void addEnemy(Enemy enemy){
-		
-	}
+	
 }
