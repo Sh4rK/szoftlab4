@@ -14,6 +14,7 @@ public class Tower {
 	private double cooldown;	
 
 	static boolean critical = false;
+    public static double radius = 2;
 	static final double range = 10;//temp értékek
 
 	static final double fireRate = 1;

@@ -18,6 +18,8 @@ import java.util.HashMap;
  */
 public class Map {
 
+    public static double roadRadius = 2;
+
     private HashMap<Integer, Waypoint> waypoints;
 
     /**
@@ -67,17 +69,43 @@ public class Map {
         return waypoints.get(id);
     }
 
+    private double segmentPointDistance(Vector s1, Vector s2, Vector p) {
+        double px = s2.x - s1.x;
+        double py = s2.y - s1.y;
+
+        double lenSquared = px*px + py*py;
+
+        double u = ((p.x - s1.x)*px + (p.y - s1.y)*py) / lenSquared;
+        u = Math.max(Math.min(u, 1), 0);
+
+        double dx = s1.x + u*px - p.x;
+        double dy = s1.y + u*py - p.y;
+
+        return Math.sqrt(dx*dx + dy*dy);
+    }
+
+    private boolean isInRoadRange(Vector pos, double range) {
+        for (Waypoint wpfrom : waypoints.values()) {
+            for (Waypoint wpto : wpfrom.listNextWaypoints()) {
+                if (segmentPointDistance(wpfrom.getPosition(), wpto.getPosition(), pos) < range) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * @return Lehet-e az adott helyre Obstacle-t építeni.
      */
     public boolean canBuildObstacle(Vector position) {
-        return true;
+        return isInRoadRange(position, roadRadius);
     }
 
     /**
      * @return Lehet-e a vector helyére Tower-t építeni.
      */
     public boolean canBuildTower(Vector position) {
-        return true;
+        return !isInRoadRange(position, roadRadius + Tower.radius);
     }
 }
