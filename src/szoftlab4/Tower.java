@@ -13,7 +13,7 @@ public class Tower {
 	private double cooldown;	
 	
 	static final double range = 100;//temp értékek
-	static final double shotsPerSec = 1;
+	static final double fireRate = 1;
 	static final int cost = 100;
 	static java.util.HashMap<EnemyType, Double> damage;
 
@@ -26,7 +26,7 @@ public class Tower {
 		
 		this.position = position;
 		gem = null;
-		cooldown = Game.FPS / shotsPerSec;
+		cooldown = Game.FPS / fireRate;
 		damage.put(EnemyType.human, 20.0);//temp értékek
 		damage.put(EnemyType.dwarf, 20.0);
 		damage.put(EnemyType.elf, 20.0);
@@ -94,7 +94,7 @@ public class Tower {
 		if(gem != null)
 			tempDamage *= gem.getDamageMultiplier(target.getEnemyType());
 		
-		cooldown = Game.FPS * gem.getRateMultiplier() / shotsPerSec;
+		cooldown = Game.FPS * gem.getRateMultiplier() / fireRate;
 		
 		Projectile pro;
 		
