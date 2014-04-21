@@ -11,7 +11,6 @@ public class Tower {
 	private TowerGem gem;
 	private Vector position;
 	private double cooldown;	
-	double fireRate;
 	
 	static final double range = 100;//temp értékek
 	static final int cost = 100;
@@ -26,8 +25,7 @@ public class Tower {
 		
 		this.position = position;
 		gem = null;
-		fireRate = 100; // temp érték
-		cooldown = fireRate;
+		cooldown = Game.FPS;
 		damage.put(EnemyType.human, 20.0);//temp értékek
 		damage.put(EnemyType.dwarf, 20.0);
 		damage.put(EnemyType.elf, 20.0);
@@ -68,7 +66,7 @@ public class Tower {
 			tempRange *= gem.getRangeMultiplier();
 		}
 		
-		tempRange *= Fog.getRangeMultiplier();
+		tempRange *= gem.getRangeMultiplier();
 		
 		List<Enemy> TargetsInRange = new java.util.ArrayList<Enemy>();
 		
@@ -95,7 +93,7 @@ public class Tower {
 		if(gem != null)
 			tempDamage *= gem.getDamageMultiplier(target.getEnemyType());
 		
-		cooldown = fireRate;
+		cooldown = Game.FPS * gem.getRateMultiplier();
 		Projectile pro = new Projectile(target, new Vector(position), tempDamage, 100);
 
 		return pro;
@@ -135,9 +133,6 @@ public class Tower {
 	 * @param gem A felrakandó varázskő.
 	 */
 	public void setGem(TowerGem gem) {
-		if(gem != null)
-			fireRate /= this.gem.getRateMultiplier();
 		this.gem = gem;
-		fireRate *= this.gem.getRateMultiplier();
 	}
 }
