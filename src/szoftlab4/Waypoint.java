@@ -17,10 +17,8 @@ public class Waypoint {
 	 * A kapott helyre létrehoz egy Waypointot.
 	 */
 	public Waypoint(Vector pos) {
-		
 		this.position = pos;
 		this.distance = -1;
-		
 	}
 
 	/**

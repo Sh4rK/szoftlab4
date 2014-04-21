@@ -12,6 +12,8 @@ public class Enemy {
 	private Vector position;
 	private Waypoint targetWaypoint;
 	private double slowingFactor;
+	private static int num = 0;
+	private int ID;
 
 	/**
 	 * Létrehoz egy új ellenséget.
@@ -24,6 +26,11 @@ public class Enemy {
 		position = start.getPosition();
 		targetWaypoint = start.getNextWaypoint();
 		health = type.getHealth();
+		ID = num++;
+	}
+	
+	public int getID(){
+		return ID;
 	}
 	
 	/* Változás: nincs Cloneable interfész, helyette copy konstruktor */
