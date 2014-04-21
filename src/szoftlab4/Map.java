@@ -17,7 +17,7 @@ public class Map {
 	public Map(String path) {
 		printEnter(this, "path");
 
-		wp = new Waypoint(new Vector());
+		//wp = new Waypoint(new Vector());
 
 		printExit(this);
 	}

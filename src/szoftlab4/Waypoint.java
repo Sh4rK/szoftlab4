@@ -1,7 +1,5 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
-
 /**
  * Az utakat kijelölő pontokat megvalósító osztály.
  *

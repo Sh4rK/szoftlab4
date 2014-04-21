@@ -1,22 +1,34 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
+import java.util.HashMap;
 
 /**
  * Az akadályokat megvalósító osztály.
+ * @author Tallér Bátor, Török Attila
  */
 public class Obstacle {
-	ObstacleGem gem = new ObstacleGem();
-
+	public static final int cost = 700;
+	private ObstacleGem gem;
+	private static HashMap<EnemyType, Double> slowingFactor;
+	private Vector position;
+	private static double range;
+	
+	static {
+		slowingFactor = new HashMap<EnemyType, Double>();
+		
+		slowingFactor.put(EnemyType.dwarf, 0.7);
+		slowingFactor.put(EnemyType.elf, 0.85);
+		slowingFactor.put(EnemyType.human, 0.7);
+		slowingFactor.put(EnemyType.hobbit, 0.5);
+	}
+	
 	/**
 	 * Létrehoz egy akadályt a megadott pozícióval.
 	 *
 	 * @param position A létrejövő akadály kívánt helye.
 	 */
 	public Obstacle(Vector position) {
-		printEnter(this, "position");
-
-		printExit(this);
+		this.position = position;
 	}
 
 	/**
@@ -25,8 +37,6 @@ public class Obstacle {
 	 * @return Az akadályon lévő varázskő.
 	 */
 	public ObstacleGem getGem() {
-		printEnter(this);
-		printExit(this);
 		return gem;
 	}
 
@@ -36,12 +46,7 @@ public class Obstacle {
 	 * @return Az akadály helyét tartalmazó Vector.
 	 */
 	public Vector getPosition() {
-		printEnter(this);
-
-		Vector ret = new Vector();
-
-		printExit(this);
-		return ret;
+		return position;
 	}
 
 	/**
@@ -51,13 +56,11 @@ public class Obstacle {
 	 * @return Az ellenség lassulása.
 	 */
 	public double getSlowingFactor(Enemy enemy) {
-		printEnter(this, "enemy");
-
-		if (printYesNoQuestion("Van az akadalyon varazsko?"))
-			gem.getSpeedMultiplier(enemy.getEnemyType());
-
-		printExit(this);
-		return 0;
+		double slow = slowingFactor.get(enemy.getEnemyType());
+		if (gem != null)
+			slow *= gem.getSpeedMultiplier(enemy.getEnemyType());
+		
+		return slow;
 	}
 
 	/**
@@ -66,18 +69,14 @@ public class Obstacle {
 	 * @param gem A felrakandó varázskő.
 	 */
 	public void setGem(ObstacleGem gem) {
-		printEnter(this, "gem");
-
-		printExit(this);
+		this.gem = gem;
 	}
 
 	public double getRange() {
-		Game.printEnter(this);
-
-		if (printYesNoQuestion("Van varazsko az akadalyon?"))
-			gem.getRangeMultiplier();
-
-		Game.printExit(this);
-		return 1;
+		double rtn = range;
+		if (gem != null)
+			rtn *= gem.getRangeMultiplier();
+		
+		return rtn;
 	}
 }

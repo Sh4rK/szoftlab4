@@ -17,7 +17,7 @@ public class Mission {
 	public Mission(String path) {
 		printEnter(this, "path");
 
-		wp = new Waypoint(new Vector());
+		//wp = new Waypoint(new Vector());
 
 		printExit(this);
 	}
@@ -32,7 +32,7 @@ public class Mission {
 
 		Enemy ret = null;
 		if (printYesNoQuestion("Legyen kovetkezo ellenseg?")) {
-			ret = new Enemy(EnemyType.fooType, wp);
+			ret = new Enemy(EnemyType.dwarf, wp);
 		}
 
 		printExit(this);

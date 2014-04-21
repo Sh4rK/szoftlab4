@@ -1,17 +1,17 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
-
-
 /**
  * Egy ellenség megvalósítása.
  *
- * @author Szabó Antal
+ * @author Szabó Antal, Tallér Bátor
  */
 public class Enemy {
 
 	private EnemyType type;
-	private Waypoint waypoint;
+	private double health;
+	private Vector position;
+	private Waypoint targetWaypoint;
+	private double slowingFactor;
 
 	/**
 	 * Létrehoz egy új ellenséget.
@@ -20,13 +20,19 @@ public class Enemy {
 	 * @param start a kezdő waypoint
 	 */
 	public Enemy(EnemyType type, Waypoint start) {
-		printEnter(this, "type", "start");
-
 		this.type = type;
-		this.waypoint = start;
-		type.getInitialHealth();
-
-		printExit(this);
+		position = start.getPosition();
+		targetWaypoint = start.getNextWaypoint();
+		health = type.getHealth();
+	}
+	
+	/* Változás: nincs Cloneable interfész, helyette copy konstruktor */
+	public Enemy(Enemy en){
+		type = en.type;
+		health = en.health;
+		position = en.position;
+		targetWaypoint = en.targetWaypoint;
+		slowingFactor = en.slowingFactor;
 	}
 
 	/**
@@ -35,20 +41,16 @@ public class Enemy {
 	 * @return meghalt-e az ellenség
 	 */
 	public boolean move() {
-		printEnter(this);
-
-		boolean ret = printYesNoQuestion("Meghalt az ellenseg?");
-		if (!ret) {
-			type.getNormalSpeed();
-
-			waypoint.getPosition();
-			if (printYesNoQuestion("Elerte az ellenseg a jelenlegi celjat?")) {
-				waypoint = waypoint.getNextWaypoint();
-			}
-		}
-
-		printExit(this);
-		return ret;
+		Vector wPos = targetWaypoint.getPosition();
+		double speed = type.getSpeed() * slowingFactor;
+		
+		position.MoveDistanceToVector(speed / Game.FPS, wPos);
+		
+		double epsilon = 10;
+		if (position.getDistance(wPos) <= epsilon)
+			targetWaypoint = targetWaypoint.getNextWaypoint();
+		
+		return health <= 0;
 	}
 
 	/**
@@ -57,20 +59,15 @@ public class Enemy {
 	 * @param amount a sebzés mértéke
 	 */
 	public void damage(double amount) {
-		printEnter(this, "amount");
-		printExit(this);
+		health -= amount;
 	}
 
 	/**
 	 * @return az ellenség végső céljától való távolsága
 	 */
 	public double getDistance() {
-		printEnter(this);
-
-		waypoint.getPosition();
-		waypoint.getDistance();
-
-		printExit(this);
+		targetWaypoint.getPosition();
+		targetWaypoint.getDistance();
 		return 0;
 	}
 
@@ -78,8 +75,6 @@ public class Enemy {
 	 * @return az ellenség típusa
 	 */
 	public EnemyType getEnemyType() {
-		printEnter(this);
-		printExit(this);
 		return type;
 	}
 
@@ -87,12 +82,7 @@ public class Enemy {
 	 * @return az ellenség pozíciója
 	 */
 	public Vector getPosition() {
-		printEnter(this);
-
-		Vector ret = new Vector();
-
-		printExit(this);
-		return ret;
+		return position;
 	}
 
 	/**
@@ -101,8 +91,6 @@ public class Enemy {
 	 * @param slowingFactor sebesség szorzó
 	 */
 	public void setSlowingFactor(double slowingFactor) {
-		printEnter(this, "slowingFactor");
-		printExit(this);
+		this.slowingFactor = slowingFactor;
 	}
-
 }

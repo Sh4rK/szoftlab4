@@ -1,7 +1,5 @@
 package szoftlab4;
 
-import static szoftlab4.Game.*;
-
 /**
  * Egy lövedék viselkedését megvalósító osztály.
  *

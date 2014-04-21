@@ -27,6 +27,8 @@ public class Game {
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
+	
+	public static final int FPS = 30;
 
 	public Game() {
 		printEnter(this);
@@ -41,10 +43,10 @@ public class Game {
 		printIntQuestion("Melyik kuldetest toltsem be?", 1, 2);
 		mission = new Mission("mission.mission");
 
-		enemies.add(new Enemy(EnemyType.fooType, Mission.wp));
-		projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
-		towers.add(new Tower(new Vector()));
-		obstacles.add(new Obstacle(new Vector()));
+		enemies.add(new Enemy(EnemyType.dwarf, Mission.wp));
+		//projectiles.add(new Projectile(enemies.get(0), new Vector(), 0));
+		//towers.add(new Tower(new Vector()));
+		//obstacles.add(new Obstacle(new Vector()));
 		printExit(this);
 	}
 
@@ -208,10 +210,10 @@ public class Game {
 			printMessage(menuStrings[sel - 1]);
 			switch (sel) {
 				case 1:
-					buildTower(new Vector());
+				//	buildTower(new Vector());
 					break;
 				case 2:
-					buildObstacle(new Vector());
+					//buildObstacle(new Vector());
 					break;
 				case 3:
 					mission.getNextEnemy();
@@ -227,9 +229,9 @@ public class Game {
 					break;
 				case 7:
 					if (printQuestion("Toronyra vagy akadalyra? T/A").equalsIgnoreCase("T"))
-						addGem(new Vector(), new TowerGem());
+					;//	addGem(new Vector(), new TowerGem());
 					else
-						addGem(new Vector(), new ObstacleGem());
+					;//	addGem(new Vector(), new ObstacleGem());
 					break;
 				case 8: //változás a dokumentációban: új menüpont
 					enemies.get(0).setSlowingFactor(1);
@@ -328,7 +330,7 @@ public class Game {
 		}
 
 		if (!collidesWithTower(pos))
-			new Tower(new Vector());
+			;//new Tower(new Vector());
 
 		printExit(this);
 	}
