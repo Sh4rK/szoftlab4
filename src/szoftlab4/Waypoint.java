@@ -1,5 +1,8 @@
  package szoftlab4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Az utakat kijelölő pontokat megvalósító osztály.
  *
