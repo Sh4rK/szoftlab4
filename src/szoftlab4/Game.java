@@ -24,8 +24,8 @@ public class Game {
 	 * Ez számolja milyen mélyen vagyunk a metódushívásokban
 	 * A printEnter és a printExit metódusok ez alapján indentálnak
 	 */
-	private Map map;
-	private Mission mission;
+	private Map map = null;
+	private Mission mission = null;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -35,10 +35,7 @@ public class Game {
 	
 	public static final int FPS = 30;
 
-	public Game() {
-		map = new Map("");
-		mission = new Mission("");
-	}
+	public Game() {}
 	
 	/**
 	 * A program fő belépési pontja.
@@ -70,9 +67,9 @@ public class Game {
 				String command = ls.next();
 				
 				if (command.equals("loadMap")) {
-					map = new Map(ls.next());
+                    map = new Map(ls.next());
 				} else if (command.equals("loadMission")) {
-					mission = new Mission(ls.next());
+					mission = new Mission(ls.next(), map);
 				} else if (command.equals("setFog")) {
 					int opt = ls.nextInt();
 					
@@ -156,9 +153,13 @@ public class Game {
 			} catch (NoSuchElementException e) {
 				System.out.println("Hibás parancsformátum!");
 			} catch (IllegalArgumentException e) {
-				System.out.println("Érvénytelen paraméter!");
+                System.out.println("Érvénytelen paraméter!");
+            } catch (Exception e) {
+                System.out.println("Valami hiba történt! Kárpótlásul itt egy stack trace:");
+                e.printStackTrace();
 			} finally {
-				ls.close();
+                if (ls != null)
+				    ls.close();
 			}
 		}
 	}
