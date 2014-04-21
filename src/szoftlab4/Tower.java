@@ -1,5 +1,6 @@
 package szoftlab4;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class Tower {
 	
 	static final double range = 100;//temp értékek
 	static final int cost = 100;
-	static java.util.HashMap<EnemyType, Double> damage;
+	static java.util.HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
 
 	/**
 	 * Létrehoz egy tornyot a megadott pozícióval.

@@ -35,10 +35,11 @@ public class Game {
 	}
 
 	public static void main(String[] args) {
-		while (true) {
+		System.out.println("Hello!");
+		/*while (true) {
 			Game game = new Game();
 			game.run();
-		}
+		}*/
 	}
 
 	/**
@@ -61,6 +62,10 @@ public class Game {
 
 	public void addGem(Vector pos, ObstacleGem gem) {
 		
+	}
+	
+	public void addEnemy(Enemy en){
+		enemies.add(en);
 	}
 
 	/**
