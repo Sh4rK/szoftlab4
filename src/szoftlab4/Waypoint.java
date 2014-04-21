@@ -1,4 +1,7 @@
-package szoftlab4;
+ package szoftlab4;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Az utakat kijelölő pontokat megvalósító osztály.
@@ -34,6 +37,14 @@ public class Waypoint {
 	}
 	public void setNextWaypoint(Waypoint wp, double r){
 		nextWaypoints.add(new Pair<Waypoint,Double>(wp, r));
+	}
+	
+	public List<Waypoint> listNextWaypoints(){
+		List<Waypoint> list = new ArrayList<Waypoint>();
+		for(Pair<Waypoint, Double> l: nextWaypoints){
+			list.add(l.a);
+		}
+		return list;
 	}
 
 	/**
