@@ -1,11 +1,13 @@
 package szoftlab4;
 
-public class SplitterProjectile extends Projectile {
+public class SplitterProjectile extends Projectile{
 
-	public SplitterProjectile(Enemy target, Vector start, double damage,
-			double speed) {
+	private Game game;
+	
+	public SplitterProjectile(Enemy target, Vector start, double damage, double speed, Game game) {
 		super(target, start, damage, speed);
-		// TODO Auto-generated constructor stub
+		
+		this.game = game;
 	}
 	
 	/**
@@ -13,15 +15,16 @@ public class SplitterProjectile extends Projectile {
 	 *
 	 * @return true, ha a lövedék elérte a célját, egyébként false
 	 */
-	public boolean step(Game game) {
+	public boolean step(){
 		if(target == null)
 			return true;
+		
+		position.MoveDistanceToVector(speed / Game.FPS, target.getPosition());
+		
 		if(position.equals(target.getPosition(), 0.1)){
-			Enemy sp = target.split(damage);
-			game.addEnemy(sp);
+			game.addEnemy(target.split(damage));
 			return true;
 		}
-		position.MoveDistanceToVector(speed, target.getPosition());
 		return false;
 	}
 }

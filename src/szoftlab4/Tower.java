@@ -12,9 +12,9 @@ public class Tower {
 	private TowerGem gem;
 	private Vector position;
 	private double cooldown;	
-	double fireRate;
 	
 	static final double range = 100;//temp értékek
+	static final double fireRate = 1;
 	static final int cost = 100;
 	static java.util.HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
 
@@ -27,8 +27,7 @@ public class Tower {
 		
 		this.position = position;
 		gem = null;
-		fireRate = 100; // temp érték
-		cooldown = fireRate;
+		cooldown = Game.FPS / fireRate;
 		damage.put(EnemyType.human, 20.0);//temp értékek
 		damage.put(EnemyType.dwarf, 20.0);
 		damage.put(EnemyType.elf, 20.0);
@@ -56,9 +55,9 @@ public class Tower {
 	 * @param enemies Az ellenségek listája, amelyek közül kiválasztja a megtámadandót.
 	 * @return A lövedék, amit a torony kilőtt az egyik ellenségre.
 	 */
-	public Projectile attack(List<Enemy> enemies) {
+	public Projectile attack(List<Enemy> enemies, Game game) {
 		
-		if(cooldown != 0){
+		if(cooldown >= 0){
 			cooldown--;
 			return null;
 		}
@@ -69,7 +68,7 @@ public class Tower {
 			tempRange *= gem.getRangeMultiplier();
 		}
 		
-		tempRange *= Fog.getRangeMultiplier();
+		tempRange *= gem.getRangeMultiplier();
 		
 		List<Enemy> TargetsInRange = new java.util.ArrayList<Enemy>();
 		
@@ -96,8 +95,14 @@ public class Tower {
 		if(gem != null)
 			tempDamage *= gem.getDamageMultiplier(target.getEnemyType());
 		
-		cooldown = fireRate;
-		Projectile pro = new Projectile(target, new Vector(position), tempDamage, 100);
+		cooldown = Game.FPS * gem.getRateMultiplier() / fireRate;
+		
+		Projectile pro;
+		
+		if(Math.random() % 20 == 1)
+			pro = new SplitterProjectile(target, new Vector(position), tempDamage, 100, game);
+		else
+			pro = new Projectile(target, new Vector(position), tempDamage, 100);
 
 		return pro;
 		
@@ -136,9 +141,6 @@ public class Tower {
 	 * @param gem A felrakandó varázskő.
 	 */
 	public void setGem(TowerGem gem) {
-		if(gem != null)
-			fireRate /= this.gem.getRateMultiplier();
 		this.gem = gem;
-		fireRate *= this.gem.getRateMultiplier();
 	}
 }

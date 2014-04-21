@@ -42,26 +42,22 @@ public class Vector {
 	 * @param v A vektor ami felé mozdul
 	 */
 	public void MoveDistanceToVector(double distance, Vector v){
-		double xDiff = x - v.x;
-		double yDiff = y - v.y;
-		double alfa;
 		
-		if(Math.sqrt(xDiff*xDiff + yDiff*yDiff) <= distance){
+		Vector vTemp = new Vector(v.x - x, v.y - y);
+		
+		double length = Math.sqrt(vTemp.x*vTemp.x + vTemp.y*vTemp.y);
+		if(length < distance){
 			x = v.x;
 			y = v.y;
 		}
-		else{
-			if(xDiff == 0 && yDiff > 0)
-				alfa = Math.PI /2;
-			else if(xDiff == 0 && yDiff < 0)
-				alfa = (-1) * Math.PI /2;
-			else if(xDiff < 0){
-				alfa = Math.PI - Math.atan(yDiff/(-xDiff));
-			}
-			else
-				alfa = Math.atan(yDiff/xDiff);
-			y = distance * Math.sin(alfa);
-			x = distance * Math.cos(alfa);
+		else{	
+			vTemp.x /= length;
+			vTemp.y /= length;
+			
+			vTemp.x *= distance;
+			vTemp.y *= distance;
+			
+			this.Add(vTemp);
 		}
 	}
 	

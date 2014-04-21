@@ -127,4 +127,11 @@ public class Game {
 			
 		return false;
 	}
+	/**
+	 * Hozzáad a listához egy ellenséget
+	 * SplitterProjectilehoz kell.
+	 */
+	public void addEnemy(Enemy enemy){
+		
+	}
 }
