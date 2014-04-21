@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 public class Map {
 
-    private HashMap<String, Waypoint> waypoints;
+    private HashMap<Integer, Waypoint> waypoints;
 
     /**
      * A kapott útvonalról betölti a Map-et;
@@ -34,12 +34,12 @@ public class Map {
 
         Element map = (Element) maps.item(0);
 
-        waypoints = new HashMap<String, Waypoint>();
+        waypoints = new HashMap<Integer, Waypoint>();
 
         NodeList wps = map.getElementsByTagName("waypoint");
         for (int i = 0; i < wps.getLength(); ++i) {
             Element wp = (Element) wps.item(i);
-            String id = ((Element) wp.getElementsByTagName("id").item(0)).getTextContent();
+            int id = Integer.parseInt(((Element) wp.getElementsByTagName("id").item(0)).getTextContent());
             Element coords = (Element) wp.getElementsByTagName("coords").item(0);
             double x = Double.parseDouble(((Element) coords.getElementsByTagName("x").item(0)).getTextContent());
             double y = Double.parseDouble(((Element) coords.getElementsByTagName("y").item(0)).getTextContent());
@@ -49,8 +49,8 @@ public class Map {
         NodeList rts = map.getElementsByTagName("route");
         for (int i = 0; i < rts.getLength(); ++i) {
             Element rt = (Element) rts.item(i);
-            String a = ((Element) rt.getElementsByTagName("a").item(0)).getTextContent();
-            String b = ((Element) rt.getElementsByTagName("b").item(0)).getTextContent();
+            int a = Integer.parseInt(((Element) rt.getElementsByTagName("a").item(0)).getTextContent());
+            int b = Integer.parseInt(((Element) rt.getElementsByTagName("b").item(0)).getTextContent());
             double chance = Double.parseDouble(((Element) rt.getElementsByTagName("chance").item(0)).getTextContent());
             waypoints.get(a).setNextWaypoint(waypoints.get(b), chance);
         }
@@ -63,7 +63,7 @@ public class Map {
     /**
      * @return Az adott ID-jű Waypoint.
      */
-    public Waypoint getWaypointById(String id) {
+    public Waypoint getWaypointById(int id) {
         return waypoints.get(id);
     }
 
