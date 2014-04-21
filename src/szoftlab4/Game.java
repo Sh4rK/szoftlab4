@@ -17,13 +17,9 @@ import java.util.Scanner;
  *
  * @author Tallér Bátor
  * @author Szabó Antal
+ * @author Török Attila
  */
 public class Game {
-
-	/**
-	 * Ez számolja milyen mélyen vagyunk a metódushívásokban
-	 * A printEnter és a printExit metódusok ez alapján indentálnak
-	 */
 	private Map map = null;
 	private Mission mission = null;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
