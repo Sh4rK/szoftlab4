@@ -7,9 +7,9 @@ package szoftlab4;
  */
 public class Waypoint {
 
-	Vector position;
-	double distance;
-	java.util.List<Pair<Waypoint,Double>> nextWaypoints;
+	private Vector position;
+	private double distance;
+	private java.util.List<Pair<Waypoint,Double>> nextWaypoints;
 	/**
 	 * A kapott helyre létrehoz egy Waypointot.
 	 */
@@ -32,6 +32,9 @@ public class Waypoint {
 	public void setDistance(double d){
 		distance = d;
 	}
+	public void setNextWaypoint(Waypoint wp, double r){
+		nextWaypoints.add(new Pair<Waypoint,Double>(wp, r));
+	}
 
 	/**
 	 * @return Visszatér a következő célponttal.
@@ -39,15 +42,15 @@ public class Waypoint {
 	public Waypoint getNextWaypoint() {
 		double total = 0;
 		for(Pair<Waypoint, Double> w : nextWaypoints){
-			total += w.getV();
+			total += w.b;
 		}
 		double r = Math.random() % total; 
 		total = 0;
 		for(Pair<Waypoint, Double> w : nextWaypoints){
-			if(r <= total + w.getV()){
-				return w.getK();
+			if(r <= total + w.b){
+				return w.a;
 			}else{
-				total += w.getV();
+				total += w.b;
 			}
 		}
 		return null;

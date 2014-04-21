@@ -8,13 +8,14 @@ import static szoftlab4.Game.*;
  * Egy tornyot megvalósító osztály.
  */
 public class Tower {
-	TowerGem gem;
-	Vector position;
-	double cooldown;
+	private TowerGem gem;
+	private Vector position;
+	private double cooldown;	
 	double fireRate;
-	double range;
-	int cost;
-	java.util.HashMap<EnemyType, Double> damage;
+	
+	static final double range = 100;//temp értékek
+	static final int cost = 100;
+	static java.util.HashMap<EnemyType, Double> damage;
 
 	/**
 	 * Létrehoz egy tornyot a megadott pozícióval.
@@ -22,13 +23,15 @@ public class Tower {
 	 * @param position A létrejövő torony kívánt helye.
 	 */
 	public Tower(Vector position) {
+		
 		this.position = position;
-		cost = 100;
 		gem = null;
-		range = 100;
-		fireRate = 100;
+		fireRate = 100; // temp érték
 		cooldown = fireRate;
-		//todo: enemytypeok beállítása
+		damage.put(EnemyType.Human, 20);//temp értékek
+		damage.put(EnemyType.Dwarf, 20);
+		damage.put(EnemyType.Elf, 20);
+		damage.put(EnemyType.Hobbit, 20);
 		
 	}
 
