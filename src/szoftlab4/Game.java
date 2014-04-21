@@ -2,7 +2,6 @@ package szoftlab4;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Ez az osztály fogja össze a többi osztályt.
@@ -19,8 +18,6 @@ public class Game {
 	 * Ez számolja milyen mélyen vagyunk a metódushívásokban
 	 * A printEnter és a printExit metódusok ez alapján indentálnak
 	 */
-	private static int tabs = 0;
-	private static Scanner sc = new Scanner(System.in);
 	private Map map;
 	private Mission mission;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
@@ -28,16 +25,19 @@ public class Game {
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
 	
+	private int magic = 1500;
+	
 	public static final int FPS = 30;
 
 	public Game() {
-		
+		map = new Map("");
+		mission = new Mission("");
 	}
 
 	public static void main(String[] args) {
-		boolean run = true;
 		while (true) {
 			Game game = new Game();
+			game.run();
 		}
 	}
 
@@ -49,6 +49,10 @@ public class Game {
 	 */
 	public void run() {
 		
+	}
+	
+	public int getMagic(){
+		return magic;
 	}
 
 	public void addGem(Vector pos, TowerGem gem) {
@@ -65,9 +69,16 @@ public class Game {
 	 * illetve hogy nem ütközik-e már meglévő akadállyal.
 	 *
 	 * @param pos az akadály koordinátái
+	 * VÁLTOZÁS:
+	 * @return Épített-e oda akadályt
 	 */
-	public void buildObstacle(Vector pos) {
+	public boolean buildObstacle(Vector pos) {
+		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos)){
+			obstacles.add(new Obstacle(pos));
+			return true;
+		}
 		
+		return false;
 	}
 
 	/**
@@ -76,22 +87,39 @@ public class Game {
 	 * illetve hogy nem ütközik-e már meglévő toronnyal.
 	 *
 	 * @param pos a torony koordinátái
+	 * VÁLTOZÁS:
+	 * @return Épített-e oda tornyot
 	 */
-	public void buildTower(Vector pos) {
+	public boolean buildTower(Vector pos) {
+		if (map.canBuildTower(pos) && !collidesWithTower(pos)){
+			towers.add(new Tower(pos));
+			return true;
+		}
 		
+		return false;
 	}
 
 	/**
 	 * @return visszadja, hogy az adott pont ütközik-e egy akadállyal
 	 */
 	public boolean collidesWithObstacle(Vector pos) {
-		return true;
+		for (Obstacle o : obstacles){
+			if (o.doesCollide(pos))
+				return true;
+		}
+			
+		return false;
 	}
 
 	/**
 	 * @return visszaadja, hogy az adott pont ütközik-e egy toronnyal
 	 */
 	public boolean collidesWithTower(Vector pos) {
-		return true;
+		for (Tower t : towers){
+			if (t.doesCollide(pos))
+				return true;
+		}
+			
+		return false;
 	}
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Egy tornyot megvalósító osztály.
+ * 
+ * @author Nusser Ádám
  */
 public class Tower {
 	private TowerGem gem;
@@ -26,11 +28,22 @@ public class Tower {
 		gem = null;
 		fireRate = 100; // temp érték
 		cooldown = fireRate;
-		damage.put(EnemyType.Human, 20);//temp értékek
-		damage.put(EnemyType.Dwarf, 20);
-		damage.put(EnemyType.Elf, 20);
-		damage.put(EnemyType.Hobbit, 20);
+		damage.put(EnemyType.human, 20.0);//temp értékek
+		damage.put(EnemyType.dwarf, 20.0);
+		damage.put(EnemyType.elf, 20.0);
+		damage.put(EnemyType.hobbit, 20.0);
 		
+	}
+	
+	/**
+	 * Új metódus! 
+	 * @return a megadott pozíció ütközik-e az építménnyel
+	 **/
+	public boolean doesCollide(Vector pos){
+		if (pos.getDistance(position) <= 2)
+			return true;
+		
+		return false;
 	}
 
 	/**
@@ -54,6 +67,9 @@ public class Tower {
 		if(gem != null){
 			tempRange *= gem.getRangeMultiplier();
 		}
+		
+		tempRange *= Fog.getRangeMultiplier();
+		
 		List<Enemy> TargetsInRange = new java.util.ArrayList<Enemy>();
 		
 		for(Enemy e: enemies){

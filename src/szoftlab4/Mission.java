@@ -3,7 +3,7 @@ package szoftlab4;
 /**
  * Az ellenséget ütemezését megvalósító osztály.
  *
- * @author Adam
+ * @author Nusser Ádám
  */
 public class Mission {
 

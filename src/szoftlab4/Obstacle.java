@@ -4,7 +4,9 @@ import java.util.HashMap;
 
 /**
  * Az akadályokat megvalósító osztály.
- * @author Tallér Bátor, Török Attila
+ * 
+ * @author Tallér Bátor
+ * @author Török Attila
  */
 public class Obstacle {
 	public static final int cost = 700;
@@ -13,6 +15,7 @@ public class Obstacle {
 	private Vector position;
 	private static double range;
 	
+	
 	static {
 		slowingFactor = new HashMap<EnemyType, Double>();
 		
@@ -20,6 +23,17 @@ public class Obstacle {
 		slowingFactor.put(EnemyType.elf, 0.85);
 		slowingFactor.put(EnemyType.human, 0.7);
 		slowingFactor.put(EnemyType.hobbit, 0.5);
+	}
+	
+	/**
+	 * Új metódus! 
+	 * @return a megadott pozíció ütközik-e az építménnyel
+	 **/
+	public boolean doesCollide(Vector pos){
+		if (pos.getDistance(position) <= 2)
+			return true;
+		
+		return false;
 	}
 	
 	/**

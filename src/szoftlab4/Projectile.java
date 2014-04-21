@@ -7,10 +7,10 @@ package szoftlab4;
  */
 public class Projectile {
 	
-	private double damage;
-	private Vector position;
-	private double speed;
-	private Enemy target;
+	protected double damage;
+	protected Vector position;
+	protected double speed;
+	protected Enemy target;
 
 	/**
 	 * Létrehot egy lövedéket.
@@ -38,7 +38,7 @@ public class Projectile {
 		
 		if(target == null)
 			return true;
-		if(position.equals(target.getPosition())){
+		if(position.equals(target.getPosition(), 0.1)){
 			target.damage(damage);
 			return true;
 		}

@@ -3,10 +3,10 @@ package szoftlab4;
 /**
  * Egy ellenség megvalósítása.
  *
- * @author Szabó Antal, Tallér Bátor
+ * @author Szabó Antal
+ * @author Tallér Bátor
  */
 public class Enemy {
-
 	private EnemyType type;
 	private double health;
 	private Vector position;
@@ -46,7 +46,7 @@ public class Enemy {
 		
 		position.MoveDistanceToVector(speed / Game.FPS, wPos);
 		
-		double epsilon = 10;
+		double epsilon = 2;
 		if (position.getDistance(wPos) <= epsilon)
 			targetWaypoint = targetWaypoint.getNextWaypoint();
 		
@@ -92,5 +92,12 @@ public class Enemy {
 	 */
 	public void setSlowingFactor(double slowingFactor) {
 		this.slowingFactor = slowingFactor;
+	}
+	
+	public Enemy split(double dmg){
+		this.damage(dmg);
+		Enemy rtn = new Enemy(this);
+		
+		return rtn;
 	}
 }
