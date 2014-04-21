@@ -1,0 +1,7 @@
+loadMap test.map
+loadMission test.mission
+buildTower 7 7
+enchant red
+step 1
+listEnemies
+exit

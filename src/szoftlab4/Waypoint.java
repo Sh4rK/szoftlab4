@@ -14,10 +14,8 @@ public class Waypoint {
 	 * A kapott helyre létrehoz egy Waypointot.
 	 */
 	public Waypoint(Vector pos) {
-		
 		this.position = pos;
 		this.distance = -1;
-		
 	}
 
 	/**
@@ -49,7 +47,23 @@ public class Waypoint {
 		distance = minDis;
 		return distance;
 	}
-	
+	/**
+	 * 
+	 * @return Listában visszaadja az ezzel a WP-al összekötött WP-okat.
+	 */
+	public List<Waypoint> listNextWaypoints(){
+		List<Waypoint> list = new ArrayList<Waypoint>();
+		for(Pair<Waypoint, Double> l: nextWaypoints){
+			list.add(l.a);
+		}
+		return list;
+	}
+
+	/**
+	 * 
+	 * @param wp Beteszi a listába ezt a Waypointot
+	 * @param r Ezzel a valószínűséggel
+	 */
 	public void setNextWaypoint(Waypoint wp, double r){
 		nextWaypoints.add(new Pair<Waypoint,Double>(wp, r));
 	}

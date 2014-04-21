@@ -1,0 +1,33 @@
+<mission>
+	<name>Test</name>
+	<enemy>
+		<id>1</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>0</time>
+	</enemy>
+	<enemy>
+		<id>2</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>0</time>
+	</enemy>
+	<enemy>
+		<id>3</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>0</time>
+	</enemy>
+	<enemy>
+		<id>4</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>0</time>
+	</enemy>
+	<enemy>
+		<id>5</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>0</time>
+	</enemy>
+</mission>

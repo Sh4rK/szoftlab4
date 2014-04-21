@@ -12,13 +12,13 @@ public class Tower {
 	private TowerGem gem;
 	private Vector position;
 	private double cooldown;	
-	
+
 	static boolean critical = false;
-	
-	static final double range = 100;//temp értékek
+	static final double range = 10;//temp értékek
+
 	static final double fireRate = 1;
 	static final int cost = 100;
-	static java.util.HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
+	static HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
 
 	/**
 	 * Létrehoz egy tornyot a megadott pozícióval.

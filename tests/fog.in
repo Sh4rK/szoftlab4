@@ -1,0 +1,7 @@
+loadMap test.map
+loadMission test.mission
+buildTower 7 7
+setFog 1
+step 1
+listEnemies
+exit

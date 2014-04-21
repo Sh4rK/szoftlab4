@@ -1,0 +1,8 @@
+loadMap test.map
+loadMission test_2.mission
+buildTower 1 1
+step 1
+listEnemies
+step 10
+listEnemies
+exit
