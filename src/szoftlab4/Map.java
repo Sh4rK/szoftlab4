@@ -28,13 +28,11 @@ public class Map {
     public Map(String path) throws Exception {
         File xmlFile = new File(path);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = null;
-        db = dbf.newDocumentBuilder();
+        DocumentBuilder db = dbf.newDocumentBuilder();
         Document d = db.parse(xmlFile);
         d.getDocumentElement().normalize();
-        NodeList maps = d.getElementsByTagName("map");
 
-        Element map = (Element) maps.item(0);
+        Element map = (Element) d.getElementsByTagName("map").item(0);
 
         waypoints = new HashMap<Integer, Waypoint>();
 
@@ -73,15 +71,15 @@ public class Map {
         double px = s2.x - s1.x;
         double py = s2.y - s1.y;
 
-        double lenSquared = px*px + py*py;
+        double lenSquared = px * px + py * py;
 
-        double u = ((p.x - s1.x)*px + (p.y - s1.y)*py) / lenSquared;
+        double u = ((p.x - s1.x) * px + (p.y - s1.y) * py) / lenSquared;
         u = Math.max(Math.min(u, 1), 0);
 
-        double dx = s1.x + u*px - p.x;
-        double dy = s1.y + u*py - p.y;
+        double dx = s1.x + u * px - p.x;
+        double dy = s1.y + u * py - p.y;
 
-        return Math.sqrt(dx*dx + dy*dy);
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     private boolean isInRoadRange(Vector pos, double range) {
