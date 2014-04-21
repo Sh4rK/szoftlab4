@@ -1,4 +1,4 @@
- package szoftlab4;
+package szoftlab4;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,8 @@ public class Waypoint {
 
 	private Vector position;
 	private double distance;
-	private java.util.List<Pair<Waypoint,Double>> nextWaypoints;
+	private java.util.List<Pair<Waypoint, Double>> nextWaypoints;
+
 	/**
 	 * A kapott helyre létrehoz egy Waypointot.
 	 */
@@ -27,48 +28,47 @@ public class Waypoint {
 	public double getDistance() {
 		return distance;
 	}
+
 	/**
-	 * 
 	 * @param d Beállítja a céltól való távolságot.
 	 */
-	public double setDistance(){
-		if(distance >= 0)
+	public double setDistance() {
+		if (distance >= 0)
 			return distance;
-		
-		if(nextWaypoints.isEmpty()){
-			distance =0;
+
+		if (nextWaypoints.isEmpty()) {
+			distance = 0;
 			return distance;
 		}
 		double minDis = 1000;
 		double temp;
-		
-		for(Pair<Waypoint, Double> l : nextWaypoints){
+
+		for (Pair<Waypoint, Double> l : nextWaypoints) {
 			temp = l.a.setDistance() + position.getDistance(l.a.position);
-			if(temp  < minDis)
+			if (temp < minDis)
 				minDis = temp;
 		}
 		distance = minDis;
 		return distance;
 	}
+
 	/**
-	 * 
 	 * @return Listában visszaadja az ezzel a WP-al összekötött WP-okat.
 	 */
-	public List<Waypoint> listNextWaypoints(){
+	public List<Waypoint> listNextWaypoints() {
 		List<Waypoint> list = new ArrayList<Waypoint>();
-		for(Pair<Waypoint, Double> l: nextWaypoints){
+		for (Pair<Waypoint, Double> l : nextWaypoints) {
 			list.add(l.a);
 		}
 		return list;
 	}
 
 	/**
-	 * 
 	 * @param wp Beteszi a listába ezt a Waypointot
-	 * @param r Ezzel a valószínűséggel
+	 * @param r  Ezzel a valószínűséggel
 	 */
-	public void setNextWaypoint(Waypoint wp, double r){
-		nextWaypoints.add(new Pair<Waypoint,Double>(wp, r));
+	public void setNextWaypoint(Waypoint wp, double r) {
+		nextWaypoints.add(new Pair<Waypoint, Double>(wp, r));
 	}
 
 	/**
@@ -76,15 +76,15 @@ public class Waypoint {
 	 */
 	public Waypoint getNextWaypoint() {
 		double total = 0;
-		for(Pair<Waypoint, Double> w : nextWaypoints){
+		for (Pair<Waypoint, Double> w : nextWaypoints) {
 			total += w.b;
 		}
-		double r = Math.random() % total; 
+		double r = Math.random() % total;
 		total = 0;
-		for(Pair<Waypoint, Double> w : nextWaypoints){
-			if(r <= total + w.b){
+		for (Pair<Waypoint, Double> w : nextWaypoints) {
+			if (r <= total + w.b) {
 				return w.a;
-			}else{
+			} else {
 				total += w.b;
 			}
 		}

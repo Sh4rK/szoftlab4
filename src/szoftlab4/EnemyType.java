@@ -8,21 +8,20 @@ package szoftlab4;
  */
 public class EnemyType {
 
-	private double initialHealth;
-	private double normalSpeed;
-	public final int magic;
-	
 	public final static EnemyType elf;
 	public final static EnemyType dwarf;
 	public final static EnemyType hobbit;
 	public final static EnemyType human;
-	
-	protected EnemyType(double health, double speed, int magic){
+	public final int magic;
+	private double initialHealth;
+	private double normalSpeed;
+
+	protected EnemyType(double health, double speed, int magic) {
 		initialHealth = health;
 		normalSpeed = speed;
 		this.magic = magic;
 	}
-	
+
 	static {
 		elf = new EnemyType(110, 15, 300);
 		dwarf = new EnemyType(140, 7, 250);

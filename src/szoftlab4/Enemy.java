@@ -7,14 +7,14 @@ package szoftlab4;
  * @author Tallér Bátor
  */
 public class Enemy {
+	private static int num = 0;
 	private EnemyType type;
 	private double health;
 	private Vector position;
 	private Waypoint targetWaypoint;
 	private double slowingFactor;
-	private static int num = 0;
 	private int ID;
-	
+
 	/**
 	 * Létrehoz egy új ellenséget.
 	 *
@@ -28,18 +28,18 @@ public class Enemy {
 		health = type.getHealth();
 		ID = num++;
 	}
-	
-	public int getID(){
-		return ID;
-	}
-	
+
 	/* Változás: nincs Cloneable interfész, helyette copy konstruktor */
-	public Enemy(Enemy en){
+	public Enemy(Enemy en) {
 		type = en.type;
 		health = en.health;
 		position = en.position;
 		targetWaypoint = en.targetWaypoint;
 		slowingFactor = en.slowingFactor;
+	}
+
+	public int getID() {
+		return ID;
 	}
 
 	/**
@@ -50,13 +50,13 @@ public class Enemy {
 	public boolean move() {
 		Vector wPos = targetWaypoint.getPosition();
 		double speed = type.getSpeed() * slowingFactor;
-		
+
 		position.MoveDistanceToVector(speed / Game.FPS, wPos);
-		
+
 		double epsilon = 2;
 		if (position.getDistance(wPos) <= epsilon)
 			targetWaypoint = targetWaypoint.getNextWaypoint();
-		
+
 		return health <= 0;
 	}
 
@@ -96,7 +96,7 @@ public class Enemy {
 	public double getHealth() {
 		return health;
 	}
-	
+
 	/**
 	 * Beállítja az ellenség sebességét egy szorzó segítségével.
 	 *
@@ -105,11 +105,11 @@ public class Enemy {
 	public void setSlowingFactor(double slowingFactor) {
 		this.slowingFactor = slowingFactor;
 	}
-	
-	public Enemy split(double dmg){
+
+	public Enemy split(double dmg) {
 		this.damage(dmg);
 		Enemy rtn = new Enemy(this);
-		
+
 		return rtn;
 	}
 }

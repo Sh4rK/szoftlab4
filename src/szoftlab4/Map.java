@@ -18,92 +18,92 @@ import java.util.HashMap;
  */
 public class Map {
 
-    public static double roadRadius = 2;
+	public static double roadRadius = 2;
 
-    private HashMap<Integer, Waypoint> waypoints;
+	private HashMap<Integer, Waypoint> waypoints;
 
-    /**
-     * A kapott útvonalról betölti a Map-et;
-     */
-    public Map(String path) throws Exception {
-        File xmlFile = new File(path);
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        Document d = db.parse(xmlFile);
-        d.getDocumentElement().normalize();
+	/**
+	 * A kapott útvonalról betölti a Map-et;
+	 */
+	public Map(String path) throws Exception {
+		File xmlFile = new File(path);
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document d = db.parse(xmlFile);
+		d.getDocumentElement().normalize();
 
-        Element map = (Element) d.getElementsByTagName("map").item(0);
+		Element map = (Element) d.getElementsByTagName("map").item(0);
 
-        waypoints = new HashMap<Integer, Waypoint>();
+		waypoints = new HashMap<Integer, Waypoint>();
 
-        NodeList wps = map.getElementsByTagName("waypoint");
-        for (int i = 0; i < wps.getLength(); ++i) {
-            Element wp = (Element) wps.item(i);
-            int id = Integer.parseInt(((Element) wp.getElementsByTagName("id").item(0)).getTextContent());
-            Element coords = (Element) wp.getElementsByTagName("coords").item(0);
-            double x = Double.parseDouble(((Element) coords.getElementsByTagName("x").item(0)).getTextContent());
-            double y = Double.parseDouble(((Element) coords.getElementsByTagName("y").item(0)).getTextContent());
-            waypoints.put(id, new Waypoint(new Vector(x, y)));
-        }
+		NodeList wps = map.getElementsByTagName("waypoint");
+		for (int i = 0; i < wps.getLength(); ++i) {
+			Element wp = (Element) wps.item(i);
+			int id = Integer.parseInt(((Element) wp.getElementsByTagName("id").item(0)).getTextContent());
+			Element coords = (Element) wp.getElementsByTagName("coords").item(0);
+			double x = Double.parseDouble(((Element) coords.getElementsByTagName("x").item(0)).getTextContent());
+			double y = Double.parseDouble(((Element) coords.getElementsByTagName("y").item(0)).getTextContent());
+			waypoints.put(id, new Waypoint(new Vector(x, y)));
+		}
 
-        NodeList rts = map.getElementsByTagName("route");
-        for (int i = 0; i < rts.getLength(); ++i) {
-            Element rt = (Element) rts.item(i);
-            int a = Integer.parseInt(((Element) rt.getElementsByTagName("a").item(0)).getTextContent());
-            int b = Integer.parseInt(((Element) rt.getElementsByTagName("b").item(0)).getTextContent());
-            double chance = Double.parseDouble(((Element) rt.getElementsByTagName("chance").item(0)).getTextContent());
-            waypoints.get(a).setNextWaypoint(waypoints.get(b), chance);
-        }
+		NodeList rts = map.getElementsByTagName("route");
+		for (int i = 0; i < rts.getLength(); ++i) {
+			Element rt = (Element) rts.item(i);
+			int a = Integer.parseInt(((Element) rt.getElementsByTagName("a").item(0)).getTextContent());
+			int b = Integer.parseInt(((Element) rt.getElementsByTagName("b").item(0)).getTextContent());
+			double chance = Double.parseDouble(((Element) rt.getElementsByTagName("chance").item(0)).getTextContent());
+			waypoints.get(a).setNextWaypoint(waypoints.get(b), chance);
+		}
 
-        for (Waypoint wp : waypoints.values()) {
-            wp.setDistance();
-        }
-    }
+		for (Waypoint wp : waypoints.values()) {
+			wp.setDistance();
+		}
+	}
 
-    /**
-     * @return Az adott ID-jű Waypoint.
-     */
-    public Waypoint getWaypointById(int id) {
-        return waypoints.get(id);
-    }
+	/**
+	 * @return Az adott ID-jű Waypoint.
+	 */
+	public Waypoint getWaypointById(int id) {
+		return waypoints.get(id);
+	}
 
-    private double segmentPointDistance(Vector s1, Vector s2, Vector p) {
-        double px = s2.x - s1.x;
-        double py = s2.y - s1.y;
+	private double segmentPointDistance(Vector s1, Vector s2, Vector p) {
+		double px = s2.x - s1.x;
+		double py = s2.y - s1.y;
 
-        double lenSquared = px * px + py * py;
+		double lenSquared = px * px + py * py;
 
-        double u = ((p.x - s1.x) * px + (p.y - s1.y) * py) / lenSquared;
-        u = Math.max(Math.min(u, 1), 0);
+		double u = ((p.x - s1.x) * px + (p.y - s1.y) * py) / lenSquared;
+		u = Math.max(Math.min(u, 1), 0);
 
-        double dx = s1.x + u * px - p.x;
-        double dy = s1.y + u * py - p.y;
+		double dx = s1.x + u * px - p.x;
+		double dy = s1.y + u * py - p.y;
 
-        return Math.sqrt(dx * dx + dy * dy);
-    }
+		return Math.sqrt(dx * dx + dy * dy);
+	}
 
-    private boolean isInRoadRange(Vector pos, double range) {
-        for (Waypoint wpfrom : waypoints.values()) {
-            for (Waypoint wpto : wpfrom.listNextWaypoints()) {
-                if (segmentPointDistance(wpfrom.getPosition(), wpto.getPosition(), pos) < range) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+	private boolean isInRoadRange(Vector pos, double range) {
+		for (Waypoint wpfrom : waypoints.values()) {
+			for (Waypoint wpto : wpfrom.listNextWaypoints()) {
+				if (segmentPointDistance(wpfrom.getPosition(), wpto.getPosition(), pos) < range) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
-    /**
-     * @return Lehet-e az adott helyre Obstacle-t építeni.
-     */
-    public boolean canBuildObstacle(Vector position) {
-        return isInRoadRange(position, roadRadius);
-    }
+	/**
+	 * @return Lehet-e az adott helyre Obstacle-t építeni.
+	 */
+	public boolean canBuildObstacle(Vector position) {
+		return isInRoadRange(position, roadRadius);
+	}
 
-    /**
-     * @return Lehet-e a vector helyére Tower-t építeni.
-     */
-    public boolean canBuildTower(Vector position) {
-        return !isInRoadRange(position, roadRadius + Tower.radius);
-    }
+	/**
+	 * @return Lehet-e a vector helyére Tower-t építeni.
+	 */
+	public boolean canBuildTower(Vector position) {
+		return !isInRoadRange(position, roadRadius + Tower.radius);
+	}
 }

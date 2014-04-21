@@ -6,7 +6,7 @@ package szoftlab4;
  * @author Nusser Ádám
  */
 public class Projectile {
-	
+
 	protected double damage;
 	protected Vector position;
 	protected double speed;
@@ -18,7 +18,7 @@ public class Projectile {
 	 * @param target a lövedék cél ellensége
 	 * @param start  a lövedék kezdeti pozíciója
 	 * @param damage a lövedék által kifejtett sebzés
-	 * @param speed a lövedék sebessége
+	 * @param speed  a lövedék sebessége
 	 */
 	public Projectile(Enemy target, Vector start, double damage, double speed) {
 
@@ -26,7 +26,7 @@ public class Projectile {
 		this.position = start;
 		this.damage = damage;
 		this.speed = speed;
-		
+
 	}
 
 	/**
@@ -35,13 +35,13 @@ public class Projectile {
 	 * @return true, ha a lövedék elérte a célját, egyébként false
 	 */
 	public boolean step() {
-		
-		if(target == null)
+
+		if (target == null)
 			return true;
-		
+
 		position.MoveDistanceToVector(speed / Game.FPS, target.getPosition());
-		
-		if(position.equals(target.getPosition(), 0.1)){
+
+		if (position.equals(target.getPosition(), 0.1)) {
 			target.damage(damage);
 			return true;
 		}
