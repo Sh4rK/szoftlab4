@@ -1,0 +1,29 @@
+loadMap test.map
+loadMission attack.mission
+listTowers
+step 15
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+
+exit

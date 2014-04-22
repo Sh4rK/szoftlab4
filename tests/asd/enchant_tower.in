@@ -1,0 +1,6 @@
+loadMap test.map
+loadMission test.mission
+buildTower 5 5
+enchant 5 5 red
+listTower
+exit
