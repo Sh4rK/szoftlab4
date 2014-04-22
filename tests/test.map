@@ -16,7 +16,7 @@
 	</waypoint>
 	<route>
 		<a>1</a>
-		<a>2</a>
+		<b>2</b>
 		<chance>1</chance>
 	</route>
 </map>

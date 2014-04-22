@@ -38,22 +38,22 @@
 
 	<route>
 		<a>1</a>
-		<a>2</a>
+		<b>2</b>
 		<chance>1</chance>
 	</route>
 	<route>
 		<a>2</a>
-		<a>3</a>
+		<b>3</b>
 		<chance>1</chance>
 	</route>
 	<route>
 		<a>3</a>
-		<a>4</a>
+		<b>4</b>
 		<chance>1</chance>
 	</route>
 	<route>
 		<a>4</a>
-		<a>5</a>
+		<b>5</b>
 		<chance>1</chance>
 	</route>
 </map>

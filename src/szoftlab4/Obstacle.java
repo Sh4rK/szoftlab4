@@ -12,6 +12,7 @@ public class Obstacle {
 	public static final int cost = 700;
 	private static HashMap<EnemyType, Double> slowingFactor;
 	private static double range;
+
 	static {
 		slowingFactor = new HashMap<EnemyType, Double>();
 
@@ -20,6 +21,7 @@ public class Obstacle {
 		slowingFactor.put(EnemyType.human, 0.7);
 		slowingFactor.put(EnemyType.hobbit, 0.5);
 	}
+
 	private ObstacleGem gem;
 	private Vector position;
 

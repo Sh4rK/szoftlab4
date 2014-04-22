@@ -138,6 +138,8 @@ public class Game {
 					listObstacles();
 				} else if (command.equals("listProjectiles")) {
 					listProjectiles();
+				} else if (command.equals("exit")) {
+					return;
 				} else {
 					System.out.println("Ismeretlen parancs!");
 				}
