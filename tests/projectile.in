@@ -1,7 +1,0 @@
-loadMap test.map
-loadMission one_enemy.mission
-step 1
-buildTower 10 10
-step 1
-listProjectiles
-exit

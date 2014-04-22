@@ -11,7 +11,8 @@ public class SplitterProjectile extends Projectile {
 	}
 
 	/**
-	 * Mozgatja a lövedéket a célja felé. Ha elérte, megsebzi.
+	 * Mozgatja a lövedéket a célja felé. Ha elérte, megsebzi
+	 * És a létrejött ellenséget odaadja a Game-nek
 	 *
 	 * @return true, ha a lövedék elérte a célját, egyébként false
 	 */

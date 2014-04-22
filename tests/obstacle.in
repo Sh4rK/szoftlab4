@@ -1,9 +1,30 @@
 loadMap test.map
-loadMission one_enemy.mission
-step 1
+loadMission attack.mission
+buildObstacle 10 10
+listTowers
+step 15
 listEnemies
-setCritical 1
-buildTower 10 10
-step 10
+listProjectiles
+step 5
 listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+step 5
+listEnemies
+listProjectiles
+
 exit

@@ -15,7 +15,7 @@ public class Fog {
 	 */
 	public static double getRangeMultiplier() {
 		if (isSet)
-			return 0.6;
+			return 0.2;
 
 		return 1.0;
 	}

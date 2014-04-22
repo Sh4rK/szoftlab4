@@ -2,10 +2,14 @@ package szoftlab4;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -29,8 +33,6 @@ public class Game {
 	private List<Tower> towers = new ArrayList<Tower>();
 	private int magic = 1500;
 
-	public Game() {
-	}
 
 	/**
 	 * A program fő belépési pontja.
@@ -38,34 +40,52 @@ public class Game {
 	 * @param args A parancssori paraméterek.
 	 */
 	public static void main(String[] args) {
-		new Game().run();
+		
+		//if (args.length > 0){
+		try {
+			//System.out.println("MAIN: ");
+			Enemy.resetID();
+			new Game().run(null);
+		}
+		catch(Exception e){
+			
+			e.printStackTrace();
+		}
+		/*}
+		else
+			new Game().run(null);*/
 	}
 
 	/**
 	 * A felhasználó (vagy a tesztelő segédprogram) parancsait olvassa be, és hajtja végre.
+	 * @throws FileNotFoundException 
 	 */
-	public void run() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+	public void run(String f) {
+		BufferedReader br = null; 
+		br = new BufferedReader(new InputStreamReader(System.in));
+		
 		while (true) {
 			String line = "";
 			Scanner ls = null;
 
 			try {
 				line = br.readLine();
+				//System.out.println(line);
 				ls = new Scanner(new InputStreamReader(new ByteArrayInputStream(line.getBytes("UTF-8"))));
-
+				
 				if (!ls.hasNext()) {
 					continue;
 				}
 
 				String command = ls.next();
-
-				if (command.equals("loadMap")) {
+				if (command.equalsIgnoreCase("exit")){
+					return;
+				}
+				else if (command.equalsIgnoreCase("loadMap")) {
 					map = new Map(ls.next());
-				} else if (command.equals("loadMission")) {
+				} else if (command.equalsIgnoreCase("loadMission")) {
 					mission = new Mission(ls.next(), map);
-				} else if (command.equals("setFog")) {
+				} else if (command.equalsIgnoreCase("setFog")) {
 					int opt = ls.nextInt();
 
 					if (!((opt == 0) || (opt == 1))) {
@@ -74,7 +94,7 @@ public class Game {
 
 					Fog.setFog(opt == 1);
 
-				} else if (command.equals("setCritical")) {
+				} else if (command.equalsIgnoreCase("setCritical")) {
 					int opt = ls.nextInt();
 
 					if (!((opt == 0) || (opt == 1))) {
@@ -83,32 +103,43 @@ public class Game {
 
 					Tower.critical = (opt == 1);
 
-				} else if (command.equals("setWaypoint")) {
-					// ???? throw new WTFException(); - Ezt nehéz lesz Waypoint ID nélkül
-				} else if (command.equals("step")) {
+				} else if (command.equalsIgnoreCase("setWaypoint")) {
+					int enemyID = ls.nextInt();
+					int waypointID = ls.nextInt();
+					
+					Enemy e = getEnemyByID(enemyID);
+					
+					if (e != null) {
+						e.setNextWaypoint(map.getWaypointById(waypointID));
+					} else {
+						throw new IllegalArgumentException();
+					}
+				} else if (command.equalsIgnoreCase("step")) {
 					int num = ls.nextInt();
 
 					if (num < 0) {
 						throw new IllegalArgumentException();
 					}
-
+					//System.out.println("num = " + num);
+					
 					for (int i = 0; i < num; ++i) {
-						step();
+						if (step())
+							return;
 					}
 
-				} else if (command.equals("buildTower")) {
+				} else if (command.equalsIgnoreCase("buildTower")) {
 					double x = ls.nextDouble();
 					double y = ls.nextDouble();
 
 					buildTower(new Vector(x, y));
 
-				} else if (command.equals("buildObstacle")) {
+				} else if (command.equalsIgnoreCase("buildObstacle")) {
 					double x = ls.nextDouble();
 					double y = ls.nextDouble();
 
 					buildObstacle(new Vector(x, y));
 
-				} else if (command.equals("enchant")) {
+				} else if (command.equalsIgnoreCase("enchant")) {
 					String type = ls.next();
 
 					double x = ls.nextDouble();
@@ -116,29 +147,29 @@ public class Game {
 
 					Vector point = new Vector(x, y);
 
-					if (type.equals("red")) {
+					if (type.equalsIgnoreCase("red")) {
 						addGem(point, TowerGem.red);
-					} else if (type.equals("green")) {
+					} else if (type.equalsIgnoreCase("green")) {
 						addGem(point, TowerGem.green);
-					} else if (type.equals("blue")) {
+					} else if (type.equalsIgnoreCase("blue")) {
 						addGem(point, TowerGem.blue);
-					} else if (type.equals("yellow")) {
+					} else if (type.equalsIgnoreCase("yellow")) {
 						addGem(point, ObstacleGem.yellow);
-					} else if (type.equals("orange")) {
+					} else if (type.equalsIgnoreCase("orange")) {
 						addGem(point, ObstacleGem.orange);
 					} else {
 						throw new IllegalArgumentException();
 					}
 
-				} else if (command.equals("listEnemies")) {
+				} else if (command.equalsIgnoreCase("listEnemies")) {
 					listEnemies();
-				} else if (command.equals("listTowers")) {
+				} else if (command.equalsIgnoreCase("listTowers")) {
 					listTowers();
-				} else if (command.equals("listObstacles")) {
+				} else if (command.equalsIgnoreCase("listObstacles")) {
 					listObstacles();
-				} else if (command.equals("listProjectiles")) {
+				} else if (command.equalsIgnoreCase("listProjectiles")) {
 					listProjectiles();
-				} else if (command.equals("exit")) {
+				} else if (command.equalsIgnoreCase("exit")) {
 					return;
 				} else {
 					System.out.println("Ismeretlen parancs!");
@@ -165,27 +196,34 @@ public class Game {
 	 * A játék logikáját egy lépéssel előrébb viszi.
 	 * (Az ellenségek itt haladnak, a tornyok itt lőnek, a lövedékek ott repülnek, stb.)
 	 */
-	private void step() {
+	private boolean step() {
+		//System.out.println("step");
 		slowEnemies();
-		moveEnemies();
+		boolean rtn = moveEnemies();
 
 		Enemy enemy = mission.getNextEnemy();
 
 		if (enemy != null) {
+			//System.out.println("kaptam enemit");
 			addEnemy(enemy);
 		}
 
 		moveProjectiles();
 		towersFire();
+		
+		return rtn;
 	}
 
 	/**
 	 * run A lövedékek mozgatása.
 	 */
 	private void moveProjectiles() {
-		for (Projectile p : projectiles) {
-			if (p.step())
-				projectiles.remove(p);
+		
+		Iterator<Projectile> i = projectiles.iterator();
+		while (i.hasNext()) {
+		   Projectile p = i.next();
+		   if (p.step())
+				i.remove();
 		}
 	}
 
@@ -194,17 +232,23 @@ public class Game {
 	 */
 	private void towersFire() {
 		for (Tower t : towers) {
-			t.attack(enemies, this);
+			Projectile p = t.attack(enemies, this);
+			if (p != null)
+				projectiles.add(p);
 		}
 	}
 
 	/**
 	 * Az ellenségek mozgását intéző metódus.
 	 */
-	private void moveEnemies() {
+	private boolean moveEnemies() {
 		for (Enemy e : enemies) {
-			e.move();
+			if (e.move()){
+				System.out.println("Enemy winz");
+				return true;
+			}
 		}
+		return false;
 	}
 
 	/**
@@ -354,7 +398,7 @@ public class Game {
 	 */
 	void listEnemies() {
 		for (Enemy e : enemies) {
-			System.out.println(String.format("%d %.1f (%.1f;%.1f)", e.getID(), e.getHealth(), e.getPosition().x, e.getPosition().y));
+			System.out.println(String.format(Locale.ENGLISH, "%d %.1f (%.1f;%.1f)", e.getID(), e.getHealth(), e.getPosition().x, e.getPosition().y));
 		}
 	}
 
@@ -363,7 +407,7 @@ public class Game {
 	 */
 	void listTowers() {
 		for (Tower t : towers) {
-			System.out.print(String.format("(%.1f;%.1f) ", t.getPosition().x, t.getPosition().y));
+			System.out.print(String.format(Locale.ENGLISH, "(%.1f;%.1f) ", t.getPosition().x, t.getPosition().y));
 
 			TowerGem tg = t.getGem();
 
@@ -384,7 +428,7 @@ public class Game {
 	 */
 	void listObstacles() {
 		for (Obstacle o : obstacles) {
-			System.out.print(String.format("(%.1f;%.1f) ", o.getPosition().x, o.getPosition().y));
+			System.out.print(String.format(Locale.ENGLISH, "(%.1f;%.1f) ", o.getPosition().x, o.getPosition().y));
 
 			ObstacleGem og = o.getGem();
 
@@ -403,8 +447,23 @@ public class Game {
 	 */
 	void listProjectiles() {
 		for (Projectile p : projectiles) {
-			System.out.println(String.format("(%.1f;%.1f) %d %b", p.getPosition().x, p.getPosition().y, p.target.getID(), p instanceof SplitterProjectile));
+			System.out.println(String.format(Locale.ENGLISH, "(%.1f;%.1f) %d %b", p.getPosition().x, p.getPosition().y, p.target.getID(), p instanceof SplitterProjectile));
 		}
 	}
-
+	
+	/**
+	 * Megkeres egy ellenséget az azonosítója alapján.
+	 * 
+	 * @param enemyID A keresett ellenség azonosítója.
+	 * @return A keresett ellenség, vagy null, ha nincs találat.
+	 */
+	private Enemy getEnemyByID(int enemyID) {
+		for (Enemy e : enemies) {
+			if (e.getID() == enemyID) {
+				return e;
+			}
+		}
+		
+		return null;
+	}
 }

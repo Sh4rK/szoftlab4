@@ -6,28 +6,126 @@
 \thispagestyle{fancy}
 
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
+% \comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
 
 \fajl
-{Main.java} % Kezdet
-{250 byte} % Idptartam
-{2009.10.10~18:05~} % Résztvevők
-{...} % Leírás
+{Enemy.java}
+{3 473 byte}
+{2014.03.31~10:16~}
+{Az ellenségeket megvalósító osztály.}
 
 \fajl
-{...}
-{...}
-{...}
-{...}
+{EnemyType.java}
+{1 042 byte}
+{2014.03.31~10:16~}
+{Az ellenségek típusait leíró osztály.}
+
+\fajl
+{Fog.java}
+{513 byte}
+{2014.04.21~11:46~}
+{A köd viselkedését meghatározó osztály.}
+
+\fajl
+{Game.java}
+{11 727 byte}
+{2014.03.31~10:16~}
+{A játék mechanikáját tartalmazó osztály.}
+
+\fajl
+{Gem.java}
+{357 byte}
+{2014.03.31~10:16~}
+{A varázskövek közös absztrakt ősosztálya.}
+
+\fajl
+{Map.java}
+{3 628 byte}
+{2014.03.31~10:16~}
+{Egy térképet tároló osztály.}
+
+\fajl
+{Mission.java}
+{2 390 byte}
+{2014.03.31~10:16~}
+{Egy küldetés menetét leíró osztály.}
+
+\fajl
+{Obstacle.java}
+{2 116 byte}
+{2014.03.31~10:16~}
+{Egy akadályt megvalósító osztály.}
+
+\fajl
+{ObstacleGem.java}
+{821 byte}
+{2014.03.31~10:16~}
+{Az akadályokra rakható varázskő osztálya.}
+
+\fajl
+{Pair.java}
+{225 byte}
+{2014.04.21~13:24~}
+{Egy egyszerű generikus pár.}
+
+\fajl
+{Projectile.java}
+{1 228 byte}
+{2014.03.31~10:16~}
+{A lövedékeket működtető osztály.}
+
+\fajl
+{Spawn.java}
+{231 byte}
+{2014.04.22~6:59~}
+{Egy ellenség megjelenését tároló osztály.}
+
+\fajl
+{SplitterProjectile.java}
+{760 byte}
+{2014.04.21~15:42~}
+{Speciális, az ellenséget kettévágó Projectile.}
+
+\fajl
+{Tower.java}
+{3 696 byte}
+{2014.03.31~10:16~}
+{Egy tornyot leíró osztály.}
+
+\fajl
+{TowerGem.java}
+{928 byte}
+{2014.03.31~10:16~}
+{A tornyokat erősítő varázsköveket tárolja.}
+
+\fajl
+{Vector.java}
+{1 356 byte}
+{2014.03.31~10:16~}
+{Egy két dimenziós valós vektor.}
+
+\fajl
+{Waypoint.java}
+{2 319 byte}
+{2014.03.31~10:16~}
+{Az ellenségek útvonalainak egy csomópontja.}
+
+
+\fajl
+{Main.java}
+{4 548 byte}
+{2014.04.22~11:09~}
+{A teszter segédprogram főosztálya.}
+
 
 \end{fajllista}
 
 \subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+%\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
@@ -35,37 +133,577 @@ javac -encoding utf8 -d bin src/szoftlab4/*.java src/Tester/*.java
 \end{lstlisting}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+%\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
+Teszter indítása
 \begin{lstlisting}
 cd tests
 java -cp ../bin Tester.Main
 \end{lstlisting}
 
+Program indítása, ekkor a standard bementetről lehet parancsokat adni a programnak
+\begin{lstlisting}
+cd bin
+java szoftlab4.Main
+\end{lstlisting}
+
+Ilyenkor lehetséges előre elkészített teszteseteket is lefuttatni, pl így:
+\begin{lstlisting}
+cd tests
+java -cp ../bin szoftlab4.Main < teszteset.in
+\end{lstlisting}
+Ez azért lehet érdekes, mert ilyenkor látjuk a program kimenetét, nem csak a teszter mondja, hogy rendben lefutott a teszt.
+A tesztesetek egy .in és egy .out fájlból állnak, a .in a bemenetet tartalmazza, a .out meg az elvárt kimenetet.
 
 \section{Tesztek jegyzőkönyvei}
 
-\subsection{Teszteset1}
-\comment{Az alábbi táblázatot az utolsó, sikeres tesztfuttatáshoz kell kitölteni}
+\subsection{attackdamagegem}
 
-\tesztok{...}{...}
+\tesztok{Tallér Bátor}{2014.04.22.}
 
-\comment{Az alábbi táblázatot a megismételt (hibás) tesztek esetén kell kitölteni minden ismétléshez egyszer. Ha szükséges, akkor a valós kimenet is mellékelhető mint a teszt eredménye.}
+\subsection{attackone}
 
-\tesztfail{...}{...}{...}{...}{...}
+\tesztok{Tallér Bátor}{2014.04.22.}
 
+\tesztfail{Tallér Bátor}{2014.04.22.}{Nem támadta meg az ellenséget}{Nem rakja be a projectile-t a projectiles listába}{Hozzáadjuk a listához a létrejövő projectilet. }
+
+\subsection{buildobstacle}
+
+\tesztok{Tallér Bátor}{2014.04.22.}
+
+\subsection{buildobstaclewrong}
+
+\tesztok{Tallér Bátor}{2014.04.22.}
+
+\subsection{buildtower}
+
+\tesztok{Tallér Bátor}{2014.04.22.}
+
+\subsection{buildtowerwrong}
+
+\tesztok{Tallér Bátor}{2014.04.22.}
+
+\subsection{critical}
+
+\tesztok{Tallér Bátor}{2014.04.22.}
+\subsection{elagazodasbalra}
+
+\tesztok{Török Attila}{2014.04.22.}
+
+\subsection{elagazodasjobbra}
+
+\tesztok{Török Attila}{2014.04.22.}
+\tesztfail{Török Attila}{2014.04.22.}{Az ellenség továbbra is véletlenszerűen haladt.}{Rossz map file.}{Map file átírása.}
+
+\subsection{enemywin}
+
+\tesztok{Török Attila}{2014.04.22.}
+
+\subsection{fog}
+
+\tesztok{Török Attila}{2014.04.22.}
+
+\subsection{loadmap}
+
+\tesztok{Török Attila}{2014.04.22.}
+
+\subsection{noobstacle}
+
+\tesztok{Török Attila}{2014.04.22.}
+
+\subsection{obstacle}
+
+\tesztok{Török Attila}{2014.04.22.}
+
+\subsection{oneenemymove}
+
+\tesztok{Török Attila}{2014.04.22.}
+
+%\comment{Az alábbi táblázatot a megismételt (hibás) tesztek esetén kell kitölteni minden ismétléshez egyszer. Ha szükséges, akkor a valós kimenet is mellékelhető mint a teszt eredménye.}
+\section{Változások - Tesztek}
+\subsection{attack\_damage\_gem}
+Létrehoz egy tornyot olyan távolságban az úttól, hogy ne legyen a hatósugarában, de egy piros varázskővel már elérje.
+Majd rárak egy piros varázskövet a toronyra.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission attack.mission\\
+buildTower 7 1\\
+enchant red 7 1\\
+listTowers\\
+step 34\\
+listEnemies\\
+step 1\\
+listEnemies\\
+\\
+exit\\ \\
+Elvárt kimenet:\\
+(7.0;1.0) red \\
+1 75.0 (8.6;8.6) \\
+1 45.0 (8.8;8.8) \\
+\\
+\subsection{attack\_one}
+A teszt misszióban egy ellenség van. A teszt épít egy tornyot, majd megfelelő mennyiségű lépés után a torony elindít egy projectile-t az ellenség felé. \\
+Bemenet:\\
+loadMap test.map\\
+loadMission attack.mission\\
+buildTower 7 1\\
+listTowers\\
+step 30\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+\\
+exit\\
+\\
+Elvárt kimenet:\\\\
+(7.0;1.0) -\\
+1 75.0 (7.5;7.5)\\
+1 75.0 (7.8;7.8)\\
+1 75.0 (8.0;8.0)\\
+(7.0;1.0) 1 false\\
+1 75.0 (8.3;8.3)\\
+(7.6;4.3) 1 false\\
+1 75.0 (8.6;8.6)\\
+(8.3;7.5) 1 false\\
+1 55.0 (8.8;8.8)\\
+
+\subsection{buildobstacle}
+Épít egy akadályt útra, majd kilistázza.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission test.mission\\
+buildObstacle 5 5\\
+listObstacles\\
+exit\\
+Elvárt kimenet:\\
+(5.0;5.0) -
+\subsection{buildobstacle\_wrong}
+Azt teszteli, hogy akadályt nem lehet nem útra rakni.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission test.mission\\
+buildObstacle 5 20\\
+listObstacles\\
+exit\\
+Elvárt kimenet:\\
+\\
+\subsection{buildtower}
+Torony építését teszteli.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission test.mission\\
+buildTower 5 20\\
+listTowers\\
+exit\\
+\\
+Elvárt kimenet:\\
+(5.0;20.0) -\\
+\subsection{buildtower\_wrong}
+Azt teszteli, hogy tornyot nem lehet útra rakni.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission test.mission\\
+buildTower 5 5\\
+listTowers\\
+\\
+exit\\
+Elvárt kimenet:\\
+\\
+\subsection{critical}
+Szétvágó lövedéket teszteli.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission attack.mission\\
+setCritical 1\\
+buildTower 7 1\\
+listTowers\\
+step 30\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+\\
+exit\\
+Elvárt kimenet:\\
+(7.0;1.0) -\\
+1 75.0 (7.5;7.5)\\
+1 75.0 (7.8;7.8)\\
+1 75.0 (8.0;8.0)\\
+(7.0;1.0) 1 true\\
+1 75.0 (8.3;8.3)\\
+(7.6;4.3) 1 true\\
+1 75.0 (8.6;8.6)\\
+(8.3;7.5) 1 true\\
+1 55.0 (8.8;8.8)\\
+2 55.0 (8.8;8.8)\\
+\subsection{elagazodas\_balra}
+Elágazás tesztelése.
+Elágazásnál, ahol két irányba mehet balra megy (igazából inkább lefelé).\\
+Bemenet:\\
+loadMap elagazodas.map\\
+loadMission one\_enemy.mission\\
+step 1\\
+setWaypoint 0 3\\
+step 70\\
+listEnemies\\
+exit\\
+\\
+Elvárt kimenet:\\
+0 100.0 (11.1;18.5)\\
+\subsection{elagazodas\_jobbra}
+Elágazás tesztelése.
+Elágazásnál, ahol két irányba mehet jobbra megy.\\
+Bemenet:\\
+loadMap elagazodas.map\\
+loadMission one\_enemy.mission\\
+step 1\\
+setWaypoint 0 4\\
+step 70\\
+listEnemies\\
+exit\\
+\\
+Elvárt kimenet:\\
+0 100.0 (18.5;11.1)\\
+\subsection{enemy\_win}
+Az ellenség nyerését teszteli.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission test.mission\\
+step 100\\
+listEnemies\\
+exit\\
+\\
+Elvárt kimenet:\\
+Enemy winz\\
+\subsection{fog}
+Ködöt teszteli. A teszt program olyan tornyot épít, ami rálát egy útra, de a köd bekapcsolásával már nem. \\
+Bemenet:\\
+loadMap test.map\\
+loadMission attack.mission\\
+setFog 1\\
+buildTower 7 1\\
+listTowers\\
+step 30\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+step 1\\
+listEnemies\\
+listProjectiles\\
+\\
+exit\\
+\\
+Elvárt kimenet:\\
+(7.0;1.0) -\\
+1 75.0 (7.5;7.5)\\
+1 75.0 (7.8;7.8)\\
+1 75.0 (8.0;8.0)\\
+1 75.0 (8.3;8.3)\\
+1 75.0 (8.6;8.6)\\
+1 75.0 (8.8;8.8)\\
+\subsection{loadmap}
+Pályabetöltés tesztelése.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission test.mission\\
+exit\\
+\\
+Elvárt kimenet: \\
+\\
+\subsection{no\_obstacle}
+obstacle teszesettel való összehasonlításra. A két teszt ugyanazt végzi, csak az obstacle-ben van egy akadály.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission attack.mission\\
+listTowers\\
+step 15\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+\\
+exit\\
+\\
+Elvárt kimenet:\\
+1 75.0 (3.6;3.6)\\
+1 75.0 (4.9;4.9)\\
+1 75.0 (6.2;6.2)\\
+1 75.0 (7.5;7.5)\\
+1 75.0 (8.8;8.8)\\
+1 75.0 (10.1;10.1)\\
+1 75.0 (11.4;11.4)\\
+1 75.0 (12.7;12.7)\\
+\subsection{obstacle}
+Akadály tesztelése. A pályára épített akadály lassítja az ellenséget.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission attack.mission\\
+buildObstacle 10 10\\
+listTowers\\
+step 15\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+step 5\\
+listEnemies\\
+listProjectiles\\
+\\
+exit\\
+\\
+Elvárt kimenet:\\
+1 75.0 (3.6;3.6)\\
+1 75.0 (4.9;4.9)\\
+1 75.0 (6.2;6.2)\\
+1 75.0 (7.0;7.0)\\
+1 75.0 (7.6;7.6)\\
+1 75.0 (8.3;8.3)\\
+1 75.0 (8.9;8.9)\\
+1 75.0 (9.6;9.6)\\
+\\
+\subsection{one\_enemy\_move}
+Egy ellenség mozgatásánal a tesztelése.\\
+Bemenet:\\
+loadMap test.map\\
+loadMission one\_enemy.mission\\
+step 31\\
+listEnemies\\
+exit\\
+\\
+Elvárt kimenet:\\
+0 100.0 (7.1;7.1)\\
+
+\subsection{elagazodas.map tartalma}
+<map>\\
+\phantom{pina}<name>Test\_Multi\_Waypoint</name>\\
+\phantom{pina}<waypoint>\\
+\phantom{pina}\phantom{pina}<id>1</id>\\
+\phantom{pina}\phantom{pina}<coords>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<x>0</x>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<y>0</y>\\
+\phantom{pina}\phantom{pina}</coords>\\
+\phantom{pina}</waypoint>\\
+\phantom{pina}<waypoint>\\
+\phantom{pina}\phantom{pina}<id>2</id>\\
+\phantom{pina}\phantom{pina}<coords>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<x>10</x>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<y>10</y>\\
+\phantom{pina}\phantom{pina}</coords>\\
+\phantom{pina}</waypoint>\\
+\phantom{pina}<waypoint>\\
+\phantom{pina}\phantom{pina}<id>3</id>\\
+\phantom{pina}\phantom{pina}<coords>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<x>10</x>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<y>20</y>\\
+\phantom{pina}\phantom{pina}</coords>\\
+\phantom{pina}</waypoint>\\
+\phantom{pina}<waypoint>\\
+\phantom{pina}\phantom{pina}<id>4</id>\\
+\phantom{pina}\phantom{pina}<coords>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<x>20</x>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<y>10</y>\\
+\phantom{pina}\phantom{pina}</coords>\\
+\phantom{pina}</waypoint>\\
+\phantom{pina}<waypoint>\\
+\phantom{pina}\phantom{pina}<id>5</id>\\
+\phantom{pina}\phantom{pina}<coords>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<x>20</x>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<y>20</y>\\
+\phantom{pina}\phantom{pina}</coords>\\
+\phantom{pina}</waypoint>\\
+\\
+\\
+\phantom{pina}<route>\\
+\phantom{pina}\phantom{pina}<a>1</a>\\
+\phantom{pina}\phantom{pina}<b>2</b>\\
+\phantom{pina}\phantom{pina}<chance>1</chance>\\
+\phantom{pina}</route>\\
+\phantom{pina}\\
+\phantom{pina}<route>\\
+\phantom{pina}\phantom{pina}<a>2</a>\\
+\phantom{pina}\phantom{pina}<b>3</b>\\
+\phantom{pina}\phantom{pina}<chance>0.5</chance>\\
+\phantom{pina}</route>\\
+\phantom{pina}<route>\\
+\phantom{pina}\phantom{pina}<a>2</a>\\
+\phantom{pina}\phantom{pina}<b>4</b>\\
+\phantom{pina}\phantom{pina}<chance>0.5</chance>\\
+\phantom{pina}</route>\\
+\phantom{pina}<route>\\
+\phantom{pina}\phantom{pina}<a>3</a>\\
+\phantom{pina}\phantom{pina}<b>5</b>\\
+\phantom{pina}\phantom{pina}<chance>1</chance>\\
+\phantom{pina}</route>\\
+\phantom{pina}<route>\\
+\phantom{pina}\phantom{pina}<a>4</a>\\
+\phantom{pina}\phantom{pina}<b>5</b>\\
+\phantom{pina}\phantom{pina}<chance>1</chance>\\
+\phantom{pina}</route>\\
+</map>\\
+
+\subsection{test.map tartalma}
+<map>\\
+\phantom{pina}<name>Test</name>\\
+\phantom{pina}<waypoint>\\
+\phantom{pina}\phantom{pina}<id>1</id>\\
+\phantom{pina}\phantom{pina}<coords>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<x>0</x>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<y>0</y>\\
+\phantom{pina}\phantom{pina}</coords>\\
+\phantom{pina}</waypoint>\\
+\phantom{pina}<waypoint>\\
+\phantom{pina}\phantom{pina}<id>2</id>\\
+\phantom{pina}\phantom{pina}<coords>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<x>100</x>\\
+\phantom{pina}\phantom{pina}\phantom{pina}<y>100</y>\\
+\phantom{pina}\phantom{pina}</coords>\\
+\phantom{pina}</waypoint>\\
+\phantom{pina}<route>\\
+\phantom{pina}\phantom{pina}<a>1</a>\\
+\phantom{pina}\phantom{pina}<b>2</b>\\
+\phantom{pina}\phantom{pina}<chance>1</chance>\\
+\phantom{pina}</route>\\
+</map>\\
+
+\subsection{attack.mission tartalma}
+<mission>\\
+\phantom{pina}<name>Test</name>\\
+\phantom{pina}<enemy>\\
+\phantom{pina}\phantom{pina}<id>1</id>\\
+\phantom{pina}\phantom{pina}<waypointID>1</waypointID>\\
+\phantom{pina}\phantom{pina}<type>hobbit</type>\\
+\phantom{pina}\phantom{pina}<time>0</time>\\
+\phantom{pina}</enemy>\\
+</mission>\\
+\subsection{one\_enemy.mission tartalma}
+<mission>\\
+\phantom{pina}<name>Test</name>\\
+\phantom{pina}<enemy>\\
+\phantom{pina}\phantom{pina}<id>0</id>\\
+\phantom{pina}\phantom{pina}<waypointID>1</waypointID>\\
+\phantom{pina}\phantom{pina}<type>human</type>\\
+\phantom{pina}\phantom{pina}<time>0</time>\\
+\phantom{pina}</enemy>\\
+</mission>\\
+\subsection{test.mission tartalma}
+<mission>\\
+\phantom{pina}<name>Test</name>\\
+\phantom{pina}<enemy>\\
+\phantom{pina}\phantom{pina}<id>1</id>\\
+\phantom{pina}\phantom{pina}<waypointID>1</waypointID>\\
+\phantom{pina}\phantom{pina}<type>hobbit</type>\\
+\phantom{pina}\phantom{pina}<time>0</time>\\
+\phantom{pina}</enemy>\\
+\phantom{pina}<enemy>\\
+\phantom{pina}\phantom{pina}<id>2</id>\\
+\phantom{pina}\phantom{pina}<waypointID>1</waypointID>\\
+\phantom{pina}\phantom{pina}<type>hobbit</type>\\
+\phantom{pina}\phantom{pina}<time>0</time>\\
+\phantom{pina}</enemy>\\
+\phantom{pina}<enemy>\\
+\phantom{pina}\phantom{pina}<id>3</id>\\
+\phantom{pina}\phantom{pina}<waypointID>1</waypointID>\\
+\phantom{pina}\phantom{pina}<type>hobbit</type>\\
+\phantom{pina}\phantom{pina}<time>0</time>\\
+\phantom{pina}</enemy>\\
+\phantom{pina}<enemy>\\
+\phantom{pina}\phantom{pina}<id>4</id>\\
+\phantom{pina}\phantom{pina}<waypointID>1</waypointID>\\
+\phantom{pina}\phantom{pina}<type>hobbit</type>\\
+\phantom{pina}\phantom{pina}<time>0</time>\\
+\phantom{pina}</enemy>\\
+\phantom{pina}<enemy>\\
+\phantom{pina}\phantom{pina}<id>5</id>\\
+\phantom{pina}\phantom{pina}<waypointID>1</waypointID>\\
+\phantom{pina}\phantom{pina}<type>hobbit</type>\\
+\phantom{pina}\phantom{pina}<time>0</time>\\
+\phantom{pina}</enemy>\\
+</mission>\\
 \section{Értékelés}
-\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
+%\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
 
 \begin{ertekeles}
-\tag{Horváth} % Tag neve
-{23.5}        % Munka szazalekban
-\tag{Német}
-{24.5}
-\tag{Tóth}
-{25}
-\tag{Oláh}
+\tag{Nusser} % Tag neve
+{25}        % Munka szazalekban
+\tag{Szabó}
 {27}
+\tag{Tallér}
+{29}
+\tag{Török}
+{19}
 \end{ertekeles}
 

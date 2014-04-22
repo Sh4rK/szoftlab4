@@ -21,7 +21,10 @@ public class EnemyType {
 		normalSpeed = speed;
 		this.magic = magic;
 	}
-
+	
+	/**
+	 * Statikus konstruktor, létrehozza az ellenségtípusokat.
+	 * */
 	static {
 		elf = new EnemyType(110, 15, 300);
 		dwarf = new EnemyType(140, 7, 250);

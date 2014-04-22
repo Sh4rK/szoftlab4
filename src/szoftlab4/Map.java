@@ -7,6 +7,7 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import java.io.File;
 import java.util.HashMap;
 
@@ -23,7 +24,7 @@ public class Map {
 	private HashMap<Integer, Waypoint> waypoints;
 
 	/**
-	 * A kapott útvonalról betölti a Map-et;
+	 * A kapott útvonalról betölti a Map-et
 	 */
 	public Map(String path) throws Exception {
 		File xmlFile = new File(path);
@@ -43,7 +44,7 @@ public class Map {
 			Element coords = (Element) wp.getElementsByTagName("coords").item(0);
 			double x = Double.parseDouble(((Element) coords.getElementsByTagName("x").item(0)).getTextContent());
 			double y = Double.parseDouble(((Element) coords.getElementsByTagName("y").item(0)).getTextContent());
-			waypoints.put(id, new Waypoint(new Vector(x, y)));
+			waypoints.put(id, new Waypoint(new Vector(x, y), id));
 		}
 
 		NodeList rts = map.getElementsByTagName("route");
@@ -105,5 +106,15 @@ public class Map {
 	 */
 	public boolean canBuildTower(Vector position) {
 		return !isInRoadRange(position, roadRadius + Tower.radius);
+	}
+	
+	/**
+	 * Megkeres egy waypointt az azonosítója alapján.
+	 * 
+	 * @param waypointID A keresett waypoint azonosítója.
+	 * @return A keresett waypoint, vagy null, ha nincs találat.
+	 */
+	private Waypoint getWaypointByID(int waypointID) {
+		return waypoints.get(waypointID);
 	}
 }

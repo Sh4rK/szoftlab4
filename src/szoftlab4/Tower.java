@@ -9,7 +9,7 @@ import java.util.List;
  * @author Nusser Ádám
  */
 public class Tower {
-	static final double range = 10;//temp értékek
+	static final double range = 20;//temp értékek
 	static final double fireRate = 1;
 	static final int cost = 100;
 	public static double radius = 2;
@@ -37,8 +37,6 @@ public class Tower {
 	}
 
 	/**
-	 * Új metódus!
-	 *
 	 * @return a megadott pozíció ütközik-e az építménnyel
 	 */
 	public boolean doesCollide(Vector pos) {
@@ -64,13 +62,13 @@ public class Tower {
 			return null;
 		}
 
-		double tempRange = range;
+		double tempRange = range * Fog.getRangeMultiplier();
 
 		if (gem != null) {
 			tempRange *= gem.getRangeMultiplier();
 		}
 
-		tempRange *= gem.getRangeMultiplier();
+		//tempRange *= gem.getRangeMultiplier();
 
 		List<Enemy> TargetsInRange = new java.util.ArrayList<Enemy>();
 
@@ -93,12 +91,13 @@ public class Tower {
 		}
 
 		double tempDamage = damage.get(target.getEnemyType());
-
-		if (gem != null)
+		cooldown = Game.FPS / fireRate;
+		
+		if (gem != null){
 			tempDamage *= gem.getDamageMultiplier(target.getEnemyType());
-
-		cooldown = Game.FPS * gem.getRateMultiplier() / fireRate;
-
+			cooldown *= gem.getRateMultiplier();
+		}
+		
 		Projectile pro;
 
 		if (critical)

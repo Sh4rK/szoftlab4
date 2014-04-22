@@ -25,6 +25,6 @@ public class ObstacleGem extends Gem {
 	 * @return Az enemyType típusú ellenség lassulásának módosulása.
 	 */
 	public double getSpeedMultiplier(EnemyType enemyType) {
-		return 0;
+		return 0.6;
 	}
 }

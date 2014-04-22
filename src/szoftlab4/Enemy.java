@@ -12,8 +12,16 @@ public class Enemy {
 	private double health;
 	private Vector position;
 	private Waypoint targetWaypoint;
-	private double slowingFactor;
+	private Waypoint nextWaypoint = null;
+	private double slowingFactor = 1;
 	private int ID;
+	
+	/**
+	 * A globális num változót 0-ba állítja, erre a tesztelő program miatt van szükség 
+	 **/
+	public static void resetID(){
+		num = 0;
+	}
 
 	/**
 	 * Létrehoz egy új ellenséget.
@@ -28,6 +36,21 @@ public class Enemy {
 		health = type.getHealth();
 		ID = num++;
 	}
+	
+	/**
+	 * Ha explicit módon meg akarjuk adni az ellenség ID-jét.
+	 **/
+	public Enemy(EnemyType type, Waypoint start, int ID) {
+		this.type = type;
+		position = start.getPosition();
+		targetWaypoint = start.getNextWaypoint();
+		health = type.getHealth();
+		this.ID = ID;
+		
+		/* Beállítja a num-ot, hogy ne lehessen ütközés */
+		if (ID > num)
+			num = ID + 1;
+	}
 
 	/* Változás: nincs Cloneable interfész, helyette copy konstruktor */
 	public Enemy(Enemy en) {
@@ -36,28 +59,46 @@ public class Enemy {
 		position = en.position;
 		targetWaypoint = en.targetWaypoint;
 		slowingFactor = en.slowingFactor;
+		ID = num++;
 	}
 
 	public int getID() {
 		return ID;
 	}
-
+	
+	public Waypoint getTarget(){
+		return targetWaypoint;
+	}
+	
+	public void setNextWaypoint(Waypoint w) {
+		nextWaypoint = w;
+	}
+	
 	/**
 	 * Mozgatja az ellenséget a célja felé.
 	 *
-	 * @return meghalt-e az ellenség
+	 * @return nyert-e az ellenség
 	 */
 	public boolean move() {
+		//System.out.println("IMMOVVINIT " + getID());
+		if (targetWaypoint == null){
+			return true;
+		}
 		Vector wPos = targetWaypoint.getPosition();
 		double speed = type.getSpeed() * slowingFactor;
 
-		position.MoveDistanceToVector(speed / Game.FPS, wPos);
+		position.MoveDistanceToVector((double)speed / Game.FPS, wPos);
 
 		double epsilon = 2;
-		if (position.getDistance(wPos) <= epsilon)
-			targetWaypoint = targetWaypoint.getNextWaypoint();
-
-		return health <= 0;
+		if (position.getDistance(wPos) <= epsilon) {
+			if (nextWaypoint == null) {
+				targetWaypoint = targetWaypoint.getNextWaypoint();
+			} else {
+				targetWaypoint = nextWaypoint;
+				nextWaypoint = null;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -106,6 +147,10 @@ public class Enemy {
 		this.slowingFactor = slowingFactor;
 	}
 
+	/**
+	 * Megsebzi az ellenfelet, majd kettévágja
+	 * @return az új ellenség 
+	 **/
 	public Enemy split(double dmg) {
 		this.damage(dmg);
 		Enemy rtn = new Enemy(this);
