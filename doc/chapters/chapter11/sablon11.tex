@@ -96,8 +96,8 @@ Az alkalmanként leszálló köd az egész játékteret beborító halvány, sz�
 
 \subsection{A felület működési elve}
 A grafikus felületet MVC architektúrának megfelelően próbáltuk megtervezni. Minden képernyőn megjelenő objektumnak van egy grafikus párja, ami megvalósítja a \textbf{Drawable} interfészt. A \textbf{View} osztály ilyen objektumokat tárol, és minden kirajzolásnál meghívja ezen objektumok draw metódusát. \\
-A megjelenítés push alapú. Ha a modelben történt valami változás (amit hívhatunk egy eseménynek), akkor értesíti a \textbf{View}-t, hogy valami esemény történt, úgy hogy meghívja az eseménynek megfelelő metódust. Kirajzolásnál minden grafikus objektum, lekérdezi a \textbf{Game}-ben lévő párjától az adatait, majd ez alapján kirajzolja magát.\\
-Az MVC megvalósítás alól kivételt képez a program indulása, amikor is egy egyszerű menü jelenik, amin el lehet indítani a játékot, ezt a \textbf{Menu} osztály végzi.\\
+A megjelenítés push alapú. Ha a modelben történt valami változás (amit hívhatunk egy eseménynek), akkor értesíti a \textbf{View}-t, hogy valami esemény történt, úgy hogy meghívja az eseménynek megfelelő metódust. Kirajzolásnál minden grafikus objektum, lekérdezi a \textbf{Game}-ben lévő párjától az adatait, majd ez alapján kirajzolja magát. Esemény esetén nem történik kirajzolás. Kirajzolás csakis a drawAll() metódus hívásra történik, amit a Game adott időközönként meghív.\\
+Az MVC megvalósítás alól kivételt képez a program indulása, amikor is egy egyszerű menü jelenik, amin el lehet indítani a játékot, ezt a \textbf{Menu} osztály végzi. Ez az osztály annyira egyszerű, hogy felesleges ebben is egy MVC-t megvalósítani.\\
 A \textbf{Controller} osztály a program elején, a \textbf{Game} és \textbf{View} objektumok létrehozása után feliratkozik a neki megfelelő eseményekre. Ez után már fogadja is az eseményeket.\\
 Tervezés során ügyletünk arra is, hogy könnyen bővíthető, cserélhető legyen a rendszer. A \textbf{View} és \textbf{Graphic} osztályokból való származtatással új GUI-t lehet készíteni, anélkül, hogy meglévő kódban kelljen (sokat) változtatni.
 
@@ -106,57 +106,237 @@ Tervezés során ügyletünk arra is, hogy könnyen bővíthető, cserélhető l
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=18cm]{images/ch11/very_uml_class_tiny.png}
+\includegraphics[width=18cm]{images/ch11/very_final_uml_doge_diagram.png}
 \caption{Grafikus felület osztálydigaramja}
 \label{fig:Graphic_class_diag}
 \end{center}
 \end{figure}
 
+\pagebreak
 \section{A grafikus objektumok felsorolása}
 %\comment{Az új osztályok felsorolása. Az régi osztályok közül azoknak a felsorolása, ahol változás volt. Ezek esetén csak a változásokat kell leírni.}
 
-\subsection{Window}
+\subsection{Controller}
 \begin{itemize}
-\item Felelősség\newline
-A játék fő ablaka, ez jeleníti meg a menüt és aztán magát a játékot.
-\item Ősosztályok\newline
-JFrame
-\item Attribútumok\newline
+\item Felelősség
+\begin{itemize}
+	\item A játék futása közben a felhasználótól érkező eseményeket kezeli, és értesíti róluk a Game-et. Az egyes események kezelését továbbadja a benne lévő eseménykezelő osztályoknak.
+\end{itemize}
+\item Attribútumok
 	\begin{itemize}
-		\item - menu: Menu: A játék menü objektumát tárolja.
-		\item - game: Game: A játék Game objektumát tárolja.
-	\end{itemize}
-\item Metódusok\newline
-	\begin{itemize}
-		\item + setGame(Game): Beállítja azt a Game objektumot, amit a kezelőfelület meg fog jeleníteni. A menü fogja meghívni a pálya- és misszióválasztás után.
+		\item - game: Game: A kontrollerhez tartozó Game onjektum.
 	\end{itemize}
 \end{itemize}
 
+\subsection{Drawable}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item Közös interfészt nyújt a játékban az összes kirajzolható objektumnak.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item Comparable<Drawable>: A kirajzolási sorrend megállapítása miatt van erre szükség.
+\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + draw(): Kirajzolja az objektumot.
+		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Game}
+\begin{itemize}
+\item Attribútumok
+	\begin{itemize}
+		\item - view: View: Egy referencia a grafikus megjelenítést végző osztályra.
+	\end{itemize}
+\end{itemize}
+
+\subsection{GraphicEnemy}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item Egy ellenség kirajzolása.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item Comparable<Drawable> $\rightarrow$ Drawable
+\end{itemize}
+\item Attribútumok
+	\begin{itemize}
+		\item \# img: Image: A kirajzolandó ellenség képe.
+		\item \# z\_index: int: A kirajzolandó ellenség mélységi elhelyezkedése.
+		\item \# enemy: Enemy: A kirajzolandó ellenség.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + draw(): Kirajzolja az ellenséget.
+		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+	\end{itemize}
+\end{itemize}
+
+\subsection{GraphicFog}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item A köd kirajzolása.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item Comparable<Drawable> $\rightarrow$ Drawable
+\end{itemize}
+\item Attribútumok
+	\begin{itemize}
+		\item \# img: Image: A köd képe.
+		\item \# z\_index: int: A köd mélységi elhelyezkedése.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + draw(): Kirajzolja a ködöt.
+		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+	\end{itemize}
+\end{itemize}
+
+\subsection{GraphicMap}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item A pálya kirajzolása.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item Comparable<Drawable> $\rightarrow$ Drawable
+\end{itemize}
+\item Attribútumok
+	\begin{itemize}
+		\item \# img: Image: A pálya háttérképe.
+		\item \# z\_index: int: A pálya háttérképének mélységi elhelyezkedése.
+		\item \# map: Map: A kirajzolandó pálya.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + draw(): Kirajzolja a pályát.
+		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+	\end{itemize}
+\end{itemize}
+
+\subsection{GraphicObstacle}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item Egy akadály kirajzolása.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item Comparable<Drawable> $\rightarrow$ Drawable
+\end{itemize}
+\item Attribútumok
+	\begin{itemize}
+		\item \# img: Image: A kirajzolandó akadály képe.
+		\item \# z\_index: int: A kirajzolandó akadály mélységi elhelyezkedése.
+		\item \# obstacle: Obstacle: A kirajzolandó akadály.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + draw(): Kirajzolja az akadályt.
+		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+	\end{itemize}
+\end{itemize}
+
+\subsection{GraphicProjectile}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item Egy lövedék kirajzolása.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item Comparable<Drawable> $\rightarrow$ Drawable
+\end{itemize}
+\item Attribútumok
+	\begin{itemize}
+		\item \# img: Image: A kirajzolandó lövedék képe.
+		\item \# z\_index: int: A kirajzolandó lövedék mélységi elhelyezkedése.
+		\item \# projectile: Projectile: A kirajzolandó lövedék.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + draw(): Kirajzolja a lövedéket.
+		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+	\end{itemize}
+\end{itemize}
+
+\subsection{GraphicTower}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item Egy torony kirajzolása.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item{} Comparable<Drawable> $\rightarrow$ Drawable
+\end{itemize}
+\item Attribútumok
+	\begin{itemize}
+		\item \# img: Image: A kirajzolandó torony képe.
+		\item \# z\_index: int: A kirajzolandó torony mélységi elhelyezkedése.
+		\item \# tower: Tower: A kirajzolandó torony.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + draw(): Kirajzolja a tornyot.
+		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+	\end{itemize}
+\end{itemize}
+
+
 \subsection{Menu}
 \begin{itemize}
-\item Felelősség\newline
-A játék főmenüjét valósítja meg, amivel új játékot lehet indítani, ezen belül kiválasztani a pályát és a missziót.
-\item Attribútumok\newline
+\item Felelősség
+\begin{itemize}
+	\item A játék főmenüjét valósítja meg, amivel új játékot lehet indítani, ezen belül kiválasztani a pályát és a missziót.
+\end{itemize}
+\item Attribútumok
 	\begin{itemize}
 		\item \# panel: JPanel: A menü kirajzolásához használt JPanel.
 	\end{itemize}
-\item Metódusok\newline
+\item Metódusok
 	\begin{itemize}
 		\item + exit(): Bezárja a játék ablakait, és kilép a programból.
 		\item + newGame(): Új játék indítását kezdeményezi.
+		\item + run(): Elindítja a menü futását.
+	\end{itemize}
+\end{itemize}
+
+\subsection{MouseEventHandler}
+\begin{itemize}
+\item Felelősség
+\begin{itemize}
+	\item Az egérkattintás eseményeket kezeli le.
+\end{itemize}
+\item Interfészek
+\begin{itemize}
+	\item MouseListener
+\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + MouseClicked(MouseEvent): Egérkattintáskor hívódik meg, kezeli az eseményt. Az egérkattintás pozíciójától függően meghívja a megfelelő metódust a Game-ben.
 	\end{itemize}
 \end{itemize}
 
 \subsection{View}
 \begin{itemize}
-\item Felelősség\newline
-A játék kirajzolása, azaz a Game osztály állapotának megjelenítésa a képernyőn.
-\item Attribútumok\newline
+\item Felelősség
+\begin{itemize}
+	\item A játék kirajzolása, azaz a Game osztály állapotának megjelenítésa a képernyőn.
+\end{itemize}
+\item Attribútumok
 	\begin{itemize}
 		\item \# panel: JPanel: A játék kirajzolásához használt JPanel
-		\item \# drawables: List<Drawable>: A játékban kirajzolandó dolgok (ellenségek, tornyok, stb.) listája.
+		\item \# drawables: List<Drawable>: A játékban kirajzolandó dolgok (ellenségek, tornyok, stb.) listája rendezve, hogy jó sorrenben legyen az objektumok kirajzolva.
 	\end{itemize}
-\item Metódusok\newline
+\item Metódusok
 	\begin{itemize}
 		\item + drawAll(): Kirajzolja a játék jelenlegi állását.
 		\item + enemyAdded(Enemy): A Game hívja meg amikor új ellenség kerül a pályára, frissíti a View adatstruktúráit.
@@ -168,151 +348,22 @@ A játék kirajzolása, azaz a Game osztály állapotának megjelenítésa a ké
 	\end{itemize}
 \end{itemize}
 
-\subsection{Controller}
+\subsection{Window}
 \begin{itemize}
-\item Felelősség\newline
-A játék futása közben a felhasználótól érkező eseményeket kezeli, és értesíti róluk a Game-et. Az egyes események kezelését továbbadja a benne lévő eseménykezelő osztályoknak.
-\item Attribútumok\newline
-	\begin{itemize}
-		\item - game: Game: A kontrollerhez tartozó Game onjektum.
-	\end{itemize}
+\item Felelősség
+\begin{itemize}
+	\item A játék fő ablaka, ez jeleníti meg a menüt és aztán magát a játékot.
 \end{itemize}
-
-\subsection{MouseEventHandler}
-\begin{itemize}
-\item Felelősség\newline
-Az egérkattintás eseményeket kezeli le.
-\item Interfészek\newline
-MouseListener
-\item Metódusok\newline
+\item Ősosztályok\newline
+JFrame
+\item Attribútumok
 	\begin{itemize}
-		\item + MouseClicked(MouseEvent): Egérkattintáskor hívódik meg, kezeli az eseményt.
+		\item - menu: Menu: A játék menü objektumát tárolja.
+		\item - game: Game: A játék Game objektumát tárolja.
 	\end{itemize}
-\end{itemize}
-
-\subsection{Drawable}
-\begin{itemize}
-\item Felelősség\newline
-Közös interfészt nyújt a játékban az összes kirajzolható objektumnak.
-\item Interfészek\newline
-Comparable<Drawable>
-\item Metódusok\newline
+\item Metódusok
 	\begin{itemize}
-		\item + draw(): Kirajzolja az objektumot.
-		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
-	\end{itemize}
-\end{itemize}
-
-\subsection{GraphicEnemy}
-\begin{itemize}
-\item Felelősség\newline
-Egy ellenség kirajzolása.
-\item Interfészek\newline
-Comparable<Drawable> $\rightarrow$ Drawable
-\item Attribútumok\newline
-	\begin{itemize}
-		\item \# img: Image: A kirajzolandó ellenség képe.
-		\item \# z\_index: int: A kirajzolandó ellenség mélységi elhelyezkedése.
-		\item \# enemy: Enemy: A kirajzolandó ellenség.
-	\end{itemize}
-\item Metódusok\newline
-	\begin{itemize}
-		\item + draw(): Kirajzolja az ellenséget.
-		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
-	\end{itemize}
-\end{itemize}
-
-\subsection{GraphicFog}
-\begin{itemize}
-\item Felelősség\newline
-A köd kirajzolása.
-\item Interfészek\newline
-Comparable<Drawable> $\rightarrow$ Drawable
-\item Attribútumok\newline
-	\begin{itemize}
-		\item \# img: Image: A köd képe.
-		\item \# z\_index: int: A köd mélységi elhelyezkedése.
-	\end{itemize}
-\item Metódusok\newline
-	\begin{itemize}
-		\item + draw(): Kirajzolja a ködöt.
-		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
-	\end{itemize}
-\end{itemize}
-
-\subsection{GraphicTower}
-\begin{itemize}
-\item Felelősség\newline
-Egy torony kirajzolása.
-\item Interfészek\newline
-Comparable<Drawable> $\rightarrow$ Drawable
-\item Attribútumok\newline
-	\begin{itemize}
-		\item \# img: Image: A kirajzolandó torony képe.
-		\item \# z\_index: int: A kirajzolandó torony mélységi elhelyezkedése.
-		\item \# tower: Tower: A kirajzolandó torony.
-	\end{itemize}
-\item Metódusok\newline
-	\begin{itemize}
-		\item + draw(): Kirajzolja a tornyot.
-		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
-	\end{itemize}
-\end{itemize}
-
-\subsection{GraphicMap}
-\begin{itemize}
-\item Felelősség\newline
-A pálya kirajzolása.
-\item Interfészek\newline
-Comparable<Drawable> $\rightarrow$ Drawable
-\item Attribútumok\newline
-	\begin{itemize}
-		\item \# img: Image: A pálya háttérképe.
-		\item \# z\_index: int: A pálya háttérképének mélységi elhelyezkedése.
-		\item \# map: Map: A kirajzolandó pálya.
-	\end{itemize}
-\item Metódusok\newline
-	\begin{itemize}
-		\item + draw(): Kirajzolja a pályát.
-		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
-	\end{itemize}
-\end{itemize}
-
-\subsection{GraphicObstacle}
-\begin{itemize}
-\item Felelősség\newline
-Egy akadály kirajzolása.
-\item Interfészek\newline
-Comparable<Drawable> $\rightarrow$ Drawable
-\item Attribútumok\newline
-	\begin{itemize}
-		\item \# img: Image: A kirajzolandó akadály képe.
-		\item \# z\_index: int: A kirajzolandó akadály mélységi elhelyezkedése.
-		\item \# obstacle: Obstacle: A kirajzolandó akadály.
-	\end{itemize}
-\item Metódusok\newline
-	\begin{itemize}
-		\item + draw(): Kirajzolja az akadályt.
-		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
-	\end{itemize}
-\end{itemize}
-
-\subsection{GraphicProjectile}
-\begin{itemize}
-\item Felelősség\newline
-Egy lövedék kirajzolása.
-\item Interfészek\newline
-Comparable<Drawable> $\rightarrow$ Drawable
-\item Attribútumok\newline
-	\begin{itemize}
-		\item \# img: Image: A kirajzolandó lövedék képe.
-		\item \# z\_index: int: A kirajzolandó lövedék mélységi elhelyezkedése.
-		\item \# projectile: Projectile: A kirajzolandó lövedék.
-	\end{itemize}
-\item Metódusok\newline
-	\begin{itemize}
-		\item + draw(): Kirajzolja a lövedéket.
-		\item + compareTo(Drawable): int: Z-index szerint hasonlít össze két Drawable-t.
+		\item + setGame(Game): Beállítja azt a Game objektumot, amit a kezelőfelület meg fog jeleníteni. A menü fogja meghívni a pálya- és misszióválasztás után.
 	\end{itemize}
 \end{itemize}
 
