@@ -12,6 +12,9 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+import javax.swing.UIManager;
+
 /**
  * Ez az osztály fogja össze a többi osztályt.
  * A felhasználótól érkező parancsokat, eseményeket kezeli.
@@ -33,6 +36,15 @@ public class Game {
 	private int magic = 1500;
 	private View view;
 
+	
+	public Game(){
+		JFrame window = new JFrame();
+		window.setSize(500, 350);
+		view = new View(this);
+		window.add(view.getPanel());
+		window.setVisible(true);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 
 	/**
 	 * A program fő belépési pontja.
@@ -43,15 +55,12 @@ public class Game {
 		
 		try {
 			Enemy.resetID();
-			new Game().run_proto(null);
+			new Game().run();
 		}
 		catch(Exception e){
 			
 			e.printStackTrace();
 		}
-		/*}
-		else
-			new Game().run(null);*/
 	}
 
 	/**
@@ -190,7 +199,7 @@ public class Game {
 	}
 	
 	public void run(){
-		step();
+		//step();
 		view.drawAll();
 	}
 
