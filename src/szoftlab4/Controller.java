@@ -2,8 +2,6 @@ package szoftlab4;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
 
 
@@ -20,7 +18,7 @@ public class Controller {
 		public void MapClicked(MouseEvent e);
 	}
 	
-	class BuildTowerClickEvent extends MouseAdapter implements MapClickDelegate {
+	public class BuildTowerMouseEvent extends MouseAdapter implements MapClickDelegate {
 		public void mouseClicked(MouseEvent e){
 			mapClick = this;
 			activeButton = (JButton)e.getSource();
@@ -28,11 +26,11 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			game.buildTower(pos);
+			game.buildTower(game.toGameCoords(pos));
 		}
 	}
 	
-	class BuildObstacleClickEvent extends MouseAdapter implements MapClickDelegate {
+	public class BuildObstacleMouseEvent extends MouseAdapter implements MapClickDelegate {
 		public void mouseClicked(MouseEvent e){
 			mapClick = this;
 			activeButton = (JButton)e.getSource();
@@ -40,11 +38,11 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			game.buildObstacle(pos);
+			game.buildObstacle(game.toGameCoords(pos));
 		}
 	}
 	
-	class EnchantClickEvent extends MouseAdapter implements MapClickDelegate {
+	public class EnchantMouseEvent extends MouseAdapter implements MapClickDelegate {
 		public void mouseClicked(MouseEvent e){
 			mapClick = this;
 			activeButton = (JButton)e.getSource();
@@ -55,17 +53,17 @@ public class Controller {
 			Gem g = ((GemButton)activeButton).getGemType();
 			if (g instanceof TowerGem){
 				TowerGem tg = (TowerGem)g;
-				game.addGem(pos, tg);
+				game.addGem(game.toGameCoords(pos), tg);
 			}
 			else {
 				ObstacleGem tg = (ObstacleGem)g;
-				game.addGem(pos, tg);
+				game.addGem(game.toGameCoords(pos), tg);
 			}
 				
 		}
 	}
 	
-	class MapClickEvent extends MouseAdapter {
+	public class MapMouseEvent extends MouseAdapter {
 		public void mouseClicked(MouseEvent e){
 			if (mapClick != null)
 				mapClick.MapClicked(e);

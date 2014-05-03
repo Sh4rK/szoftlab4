@@ -3,7 +3,6 @@ package szoftlab4;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -109,7 +108,7 @@ public class Game {
 					Enemy e = getEnemyByID(enemyID);
 					
 					if (e != null) {
-						e.setNextWaypoint(map.getWaypointById(waypointID));
+						e.setNextWaypoint(map.getWaypointByID(waypointID));
 					} else {
 						throw new IllegalArgumentException();
 					}
@@ -486,5 +485,14 @@ public class Game {
 		}
 		
 		return null;
+	}
+	
+	private int pix = 10;
+	public Vector toGameCoords(Vector v){
+		return new Vector(v.x/pix, v.y/pix);
+	}
+	
+	public Vector toMouseCoords(Vector v){
+		return new Vector(v.x*pix, v.y*pix);
 	}
 }

@@ -61,13 +61,6 @@ public class Map {
 		}
 	}
 
-	/**
-	 * @return Az adott ID-jű Waypoint.
-	 */
-	public Waypoint getWaypointById(int id) {
-		return waypoints.get(id);
-	}
-
 	private double segmentPointDistance(Vector s1, Vector s2, Vector p) {
 		double px = s2.x - s1.x;
 		double py = s2.y - s1.y;
@@ -114,7 +107,7 @@ public class Map {
 	 * @param waypointID A keresett waypoint azonosítója.
 	 * @return A keresett waypoint, vagy null, ha nincs találat.
 	 */
-	private Waypoint getWaypointByID(int waypointID) {
+	public Waypoint getWaypointByID(int waypointID) {
 		return waypoints.get(waypointID);
 	}
 }
