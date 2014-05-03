@@ -496,12 +496,12 @@ public class Game {
 		return null;
 	}
 	
-	private int pix = 10;
-	public Vector toGameCoords(Vector v){
+	static private int pix = 10;
+	static public Vector toGameCoords(Vector v){
 		return new Vector(v.x/pix, v.y/pix);
 	}
 	
-	public Vector toMouseCoords(Vector v){
+	static public Vector toMouseCoords(Vector v){
 		return new Vector(v.x*pix, v.y*pix);
 	}
 }

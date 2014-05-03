@@ -27,7 +27,6 @@ public class GraphicMap extends Drawable {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, 0, 0, null);
-		
 		int i=0;
 		Waypoint way = m.getWaypointByID(i++);
 		while(way != null){
