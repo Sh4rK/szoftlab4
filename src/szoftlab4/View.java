@@ -3,9 +3,12 @@ package szoftlab4;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -14,6 +17,9 @@ import javax.swing.JPanel;
 
 public class View {
 	JPanel panel;
+	JPanel mapPanel;
+	JPanel menuPanel;
+	List<Drawable> drawables;
 	
 	public View(Game game){
 		Controller c = new Controller(game);
@@ -24,8 +30,21 @@ public class View {
 		JButton blueGem = new JButton();
 		JButton yellowGem = new JButton();
 		JButton orangeGem = new JButton();
-		JPanel menuPanel = new JPanel();
-		JPanel mapPanel = new JPanel();
+		menuPanel = new JPanel();
+		drawables = new ArrayList<Drawable>();
+		menuPanel = new JPanel();
+		/* wow such anonymous class */
+		mapPanel = new JPanel(){
+			List<Drawable> d;
+			public JPanel init(List<Drawable> dr){
+				d = dr;
+				return this;
+			}
+			public void paintComponent(Graphics g) {
+			    for (Drawable dr : d)
+			    	dr.draw(g);
+			}
+		}.init(drawables);
 		
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -125,8 +144,7 @@ public class View {
 	}
 
 	public void drawAll() {
-		// TODO Auto-generated method stub
-		
+		mapPanel.invalidate();
 	}
 
 }
