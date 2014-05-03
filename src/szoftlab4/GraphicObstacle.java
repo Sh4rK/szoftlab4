@@ -15,6 +15,7 @@ public class GraphicObstacle extends Drawable {
 	
 	public GraphicObstacle(Obstacle o){
 		this.o = o;
+		z_index = 1;
 		
 		try {
 			img = ImageIO.read(new File("icons\\obstacle.png"));
@@ -33,9 +34,9 @@ public class GraphicObstacle extends Drawable {
 	
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)o.getPosition().x, (int)o.getPosition().y, null);
+		g.drawImage(img, (int)toMouseCoords(o.getPosition()).x, (int)toMouseCoords(o.getPosition()).y, null);
 		if(gemImage != null)
-			g.drawImage(gemImage, (int)o.getPosition().x, (int)o.getPosition().y, null);
+			g.drawImage(gemImage, (int)toMouseCoords(o.getPosition()).x, (int)toMouseCoords(o.getPosition()).y, null);
 	}
 
 }

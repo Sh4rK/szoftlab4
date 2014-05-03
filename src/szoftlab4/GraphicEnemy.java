@@ -12,7 +12,7 @@ public class GraphicEnemy extends Drawable {
 	
 	public GraphicEnemy(Enemy e){
 		this.e = e;
-		
+		z_index = 3;
 		try{
 			if(e.getEnemyType() == EnemyType.human)
 				img = ImageIO.read(new File("icons\\human.png"));
@@ -29,7 +29,7 @@ public class GraphicEnemy extends Drawable {
 	}
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)e.getPosition().x, (int)e.getPosition().y, null);
+		g.drawImage(img, (int)toMouseCoords(e.getPosition()).x, (int)toMouseCoords(e.getPosition()).y, null);
 	}
 
 }

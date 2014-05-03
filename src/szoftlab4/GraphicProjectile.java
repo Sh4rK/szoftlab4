@@ -12,6 +12,7 @@ public class GraphicProjectile extends Drawable {
 	
 	public GraphicProjectile(Projectile p){
 		this.p = p;
+		z_index = 4;
 		try {
 			if(p instanceof SplitterProjectile)
 				img = ImageIO.read(new File("icons\\splitter_projectile.png"));
@@ -24,7 +25,7 @@ public class GraphicProjectile extends Drawable {
 	}
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)p.getPosition().x, (int)p.getPosition().y, null);
+		g.drawImage(img, (int)toMouseCoords(p.getPosition()).x, (int)toMouseCoords(p.getPosition()).y, null);
 
 	}
 

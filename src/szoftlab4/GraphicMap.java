@@ -15,6 +15,7 @@ public class GraphicMap extends Drawable {
 	
 	public GraphicMap(Map m){
 		this.m = m;
+		z_index = 0;
 		
 		try {
 			img = ImageIO.read(new File("icons\\background.png"));

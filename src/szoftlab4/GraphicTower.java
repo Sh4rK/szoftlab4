@@ -13,6 +13,7 @@ public class GraphicTower extends Drawable {
 	
 	public GraphicTower(Tower t){
 		this.t = t;
+		z_index = 2;
 		try {
 			img = ImageIO.read(new File("icons\tower.png"));
 			
@@ -31,9 +32,9 @@ public class GraphicTower extends Drawable {
 	}
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)t.getPosition().x, (int)t.getPosition().y, null);
+		g.drawImage(img, (int)toMouseCoords(t.getPosition()).x, (int)toMouseCoords(t.getPosition()).y, null);
 		if(gemImage != null)
-			g.drawImage(gemImage, (int)t.getPosition().x, (int)t.getPosition().y, null);
+			g.drawImage(gemImage, (int)toMouseCoords(t.getPosition()).x, (int)toMouseCoords(t.getPosition()).y, null);
 	}
 
 }

@@ -2,6 +2,7 @@ package szoftlab4;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.JComponent;
 
 public abstract class Drawable implements Comparable<Drawable>{
 	protected int z_index;
