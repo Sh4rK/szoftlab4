@@ -15,12 +15,12 @@ public class GraphicObstacle extends Drawable {
 	public GraphicObstacle(Obstacle o){
 		this.o = o;
 		
-		img = ImageIO.read(new File(doc\images\ch11\icons\obstacle.png));
+		img = ImageIO.read(new File("icons\obstacle.png"));
 		if(o.getGem() != null){
 			if(o.getGem() == ObstacleGem.orange)
-				gemImage = ImageIO.read(new File(doc\images\ch11\icons\orange_gem.png));
+				gemImage = ImageIO.read(new File("icons\orange_gem.png"));
 			else if(o.getGem() == ObstacleGem.yellow)
-				gemImage = ImageIO.read(new File(doc\images\ch11\icons\yellow_gem.png));
+				gemImage = ImageIO.read(new File("icons\yellow_gem.png"));
 		}
 	}
 	

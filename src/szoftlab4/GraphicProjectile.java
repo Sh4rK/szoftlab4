@@ -14,9 +14,9 @@ public class GraphicProjectile extends Drawable {
 		this.p = p;
 		
 		if(p instanceof SplitterProjectile)
-			img = ImageIO.read(new File(doc\images\ch11\icons\splitter_projectile.png));
+			img = ImageIO.read(new File("icons\splitter_projectile.png"));
 		else
-			img = ImageIO.read(new File(doc\images\ch11\icons\projectile.png));
+			img = ImageIO.read(new File("icons\projectile.png"));
 	}
 	@Override
 	public void draw(Graphics g) {
