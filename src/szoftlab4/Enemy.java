@@ -80,7 +80,6 @@ public class Enemy {
 	 * @return nyert-e az ellenség
 	 */
 	public boolean move() {
-		//System.out.println("IMMOVVINIT " + getID());
 		if (targetWaypoint == null){
 			return true;
 		}
@@ -136,6 +135,10 @@ public class Enemy {
 	 */
 	public double getHealth() {
 		return health;
+	}
+	
+	public boolean isAlive(){
+		return health > 0;
 	}
 
 	/**

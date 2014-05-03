@@ -32,6 +32,7 @@ public class Game {
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
 	private int magic = 1500;
+	private View view;
 
 
 	/**
@@ -41,11 +42,9 @@ public class Game {
 	 */
 	public static void main(String[] args) {
 		
-		//if (args.length > 0){
 		try {
-			//System.out.println("MAIN: ");
 			Enemy.resetID();
-			new Game().run(null);
+			new Game().run_proto(null);
 		}
 		catch(Exception e){
 			
@@ -60,7 +59,7 @@ public class Game {
 	 * A felhasználó (vagy a tesztelő segédprogram) parancsait olvassa be, és hajtja végre.
 	 * @throws FileNotFoundException 
 	 */
-	public void run(String f) {
+	public void run_proto(String f) {
 		BufferedReader br = null; 
 		br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -120,7 +119,6 @@ public class Game {
 					if (num < 0) {
 						throw new IllegalArgumentException();
 					}
-					//System.out.println("num = " + num);
 					
 					for (int i = 0; i < num; ++i) {
 						if (step())
@@ -191,20 +189,23 @@ public class Game {
 			}
 		}
 	}
+	
+	public void run(){
+		step();
+		view.drawAll();
+	}
 
 	/**
 	 * A játék logikáját egy lépéssel előrébb viszi.
 	 * (Az ellenségek itt haladnak, a tornyok itt lőnek, a lövedékek ott repülnek, stb.)
 	 */
 	private boolean step() {
-		//System.out.println("step");
 		slowEnemies();
 		boolean rtn = moveEnemies();
 
 		Enemy enemy = mission.getNextEnemy();
 
 		if (enemy != null) {
-			//System.out.println("kaptam enemit");
 			addEnemy(enemy);
 		}
 
@@ -215,16 +216,27 @@ public class Game {
 	}
 
 	/**
-	 * run A lövedékek mozgatása.
+	 * A lövedékek mozgatása. Ha az ellenség meghalt akkor kitörli
 	 */
 	private void moveProjectiles() {
-		
 		Iterator<Projectile> i = projectiles.iterator();
 		while (i.hasNext()) {
 		   Projectile p = i.next();
-		   if (p.step())
+		   if (p.step()){
 				i.remove();
+				view.projectileExploded(p);
+				if (!p.getTarget().isAlive()){
+					removeEnemy(p.getTarget());
+				}
+		   }
 		}
+	}
+	/**
+	 * Kitöröl egy ellenséget. 
+	 */
+	private void removeEnemy(Enemy en){
+		enemies.remove(en);
+		view.enemyDied(en);
 	}
 
 	/**
@@ -233,8 +245,10 @@ public class Game {
 	private void towersFire() {
 		for (Tower t : towers) {
 			Projectile p = t.attack(enemies, this);
-			if (p != null)
+			if (p != null){
 				projectiles.add(p);
+				view.projectileAdded(p);
+			}
 		}
 	}
 
@@ -244,7 +258,7 @@ public class Game {
 	private boolean moveEnemies() {
 		for (Enemy e : enemies) {
 			if (e.move()){
-				System.out.println("Enemy winz");
+				//ellenség nyer
 				return true;
 			}
 		}
@@ -307,6 +321,7 @@ public class Game {
 	 */
 	public void addEnemy(Enemy en) {
 		enemies.add(en);
+		view.enemyAdded(en);
 	}
 
 	/**
@@ -320,7 +335,10 @@ public class Game {
 	 */
 	public boolean buildObstacle(Vector pos) {
 		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos)) {
-			obstacles.add(new Obstacle(pos));
+			Obstacle o = new Obstacle(pos);
+			obstacles.add(o);
+			view.obstacleAdded(o);
+			
 			return true;
 		}
 
@@ -338,7 +356,10 @@ public class Game {
 	 */
 	public boolean buildTower(Vector pos) {
 		if (map.canBuildTower(pos) && !collidesWithTower(pos)) {
-			towers.add(new Tower(pos));
+			Tower t = new Tower(pos);
+			towers.add(t);
+			view.towerAdded(t);
+			
 			return true;
 		}
 

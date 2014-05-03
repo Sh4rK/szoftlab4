@@ -54,5 +54,9 @@ public class Projectile {
 	public Vector getPosition() {
 		return position;
 	}
+	
+	public Enemy getTarget(){
+		return target;
+	}
 
 }
