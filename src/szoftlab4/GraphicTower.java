@@ -13,15 +13,20 @@ public class GraphicTower extends Drawable {
 	
 	public GraphicTower(Tower t){
 		this.t = t;
-		img = ImageIO.read(new File(icons\tower.png));
-		
-		if(t.getGem() != null){
-			if(t.getGem() == TowerGem.red)
-				gemImage = ImageIO.read(new File("icons\red_gem.png"));
-			else if(t.getGem() == TowerGem.green)
-				gemImage = ImageIO.read(new File("icons\green_gem.png"));
-			else if(t.getGem() == TowerGem.blue)
-				gemImage = ImageIO.read(new File("icons\blue_gem.png"));
+		try {
+			img = ImageIO.read(new File("icons\tower.png"));
+			
+			if(t.getGem() != null){
+				if(t.getGem() == TowerGem.red)
+					gemImage = ImageIO.read(new File("icons\\red_gem.png"));
+				else if(t.getGem() == TowerGem.green)
+					gemImage = ImageIO.read(new File("icons\\green_gem.png"));
+				else if(t.getGem() == TowerGem.blue)
+					gemImage = ImageIO.read(new File("icons\\blue_gem.png"));
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	@Override

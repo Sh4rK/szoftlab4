@@ -3,6 +3,7 @@ package szoftlab4;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -15,8 +16,13 @@ public class GraphicMap extends Drawable {
 	public GraphicMap(Map m){
 		this.m = m;
 		
-		img = ImageIO.read(new File("icons\background.png"));
-		mountains = ImageIO.read(new File("icons\saurontower.png"));
+		try {
+			img = ImageIO.read(new File("icons\\background.png"));
+			mountains = ImageIO.read(new File("icons\\saurontower.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public void draw(Graphics g) {
