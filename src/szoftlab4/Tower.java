@@ -11,7 +11,7 @@ import java.util.List;
 public class Tower {
 	static final double range = 20;//temp értékek
 	static final double fireRate = 1;
-	static final int cost = 100;
+	static final int cost = 500;
 	static final int projectileSpeed = 20;
 	public static double radius = 2;
 	static boolean critical = false;

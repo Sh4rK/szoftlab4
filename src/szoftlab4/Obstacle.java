@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @author Török Attila
  */
 public class Obstacle {
-	public static final int cost = 700;
+	public static final int cost = 300;
 	private static HashMap<EnemyType, Double> slowingFactor;
 	private static double range;
 

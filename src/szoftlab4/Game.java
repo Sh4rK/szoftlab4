@@ -88,6 +88,7 @@ public class Game {
 	 * Kitöröl egy ellenséget. 
 	 */
 	private void removeEnemy(Enemy en){
+		magic += en.getEnemyType().magic;
 		enemies.remove(en);
 		view.enemyDied(en);
 	}
@@ -199,12 +200,13 @@ public class Game {
 	 * @return Épített-e oda akadályt
 	 */
 	public boolean buildObstacle(Vector pos) {
-		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos)) {
+		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos) && magic > Obstacle.cost) {
 			Obstacle o = new Obstacle(pos);
 			synchronized(obstacles){
 				obstacles.add(o);
 			}
 			view.obstacleAdded(o);
+			magic -= Obstacle.cost;
 			
 			return true;
 		}
@@ -221,12 +223,13 @@ public class Game {
 	 * @return Épített-e oda tornyot
 	 */
 	public boolean buildTower(Vector pos) {
-		if (map.canBuildTower(pos) && !collidesWithTower(pos)) {
+		if (map.canBuildTower(pos) && !collidesWithTower(pos) && magic > Tower.cost) {
 			Tower t = new Tower(pos);
 			synchronized(towers){
 				towers.add(t);
 			}
 			view.towerAdded(t);
+			magic -= Tower.cost;
 			
 			return true;
 		}
