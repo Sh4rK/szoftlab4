@@ -65,7 +65,7 @@ public class Game {
 	
 	public void run(){
 		while(true){
-			//step();
+			step();
 			view.drawAll();
 			try {
 				Thread.sleep(1000/FPS);

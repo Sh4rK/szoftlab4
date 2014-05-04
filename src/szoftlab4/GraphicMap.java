@@ -18,8 +18,8 @@ public class GraphicMap extends Drawable {
 		z_index = 0;
 		
 		try {
-			img = ImageIO.read(new File("icons\\background.png"));
-			mountains = ImageIO.read(new File("icons\\saurontower.png"));
+			img = ImageIO.read(new File("icons/background.png"));
+			mountains = ImageIO.read(new File("icons/saurontower.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -28,7 +28,7 @@ public class GraphicMap extends Drawable {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, 0, 0, null);
-		int i=0;
+		int i = 1;
 		Waypoint way = m.getWaypointByID(i++);
 		while(way != null){
 			for(Waypoint w: way.listNextWaypoints()){
