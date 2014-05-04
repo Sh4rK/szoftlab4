@@ -17,6 +17,14 @@ public class Controller {
 		this.game = game;
 	}
 	
+	private void nullActiveButton(){
+		if(activeButton != null)
+			activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		
+		activeButton = null;
+		mapClick = null;
+	}
+	
 	interface MapClickDelegate {
 		public void MapClicked(MouseEvent e);
 	}
@@ -33,7 +41,8 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			game.buildTower(Game.toGameCoords(pos));
+			if (game.buildTower(Game.toGameCoords(pos)))
+				nullActiveButton();
 		}
 	}
 	
@@ -49,7 +58,8 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			game.buildObstacle(Game.toGameCoords(pos));
+			if (game.buildObstacle(Game.toGameCoords(pos)))
+				nullActiveButton();
 		}
 	}
 	
@@ -74,6 +84,8 @@ public class Controller {
 				ObstacleGem tg = (ObstacleGem)g;
 				game.addGem(Game.toGameCoords(pos), tg);
 			}
+			
+			nullActiveButton();
 				
 		}
 	}
@@ -82,11 +94,6 @@ public class Controller {
 		public void mousePressed(MouseEvent e){
 			if (mapClick != null)
 				mapClick.MapClicked(e);
-			
-			if(activeButton != null)
-				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			activeButton = null;
-			mapClick = null;
 		}
 	}
 }
