@@ -35,6 +35,7 @@ public class View {
 				return this;
 			}
 			public void paintComponent(Graphics g) {
+				/* very thread-safe */
 				synchronized(d){
 				    for (Drawable dr : d)
 				    	dr.draw(g);

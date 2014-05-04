@@ -10,6 +10,7 @@ public class Window extends JFrame {
 		this.setContentPane(game.view.getPanel());
 		this.game = game;
 		this.pack();
+		/* very notify */
 		this.notify();
 	}
 	

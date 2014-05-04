@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
  * Ez az osztály fogja össze a többi osztályt.
@@ -42,25 +40,6 @@ public class Game {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * A program fő belépési pontja.
-	 *
-	 * @param args A parancssori paraméterek.
-	 */
-	public static void main(String[] args) {
-		Window window = new Window();
-		window.setResizable(false);
-		window.setVisible(true);
-		synchronized(window){
-			try {
-				window.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		window.runGame();
 	}
 	
 	public void run(){
