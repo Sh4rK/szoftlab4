@@ -1,6 +1,5 @@
 package szoftlab4;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 
@@ -29,7 +28,7 @@ public class GraphicEnemy extends Drawable {
 	}
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)toMouseCoords(e.getPosition()).x, (int)toMouseCoords(e.getPosition()).y, null);
+		g.drawImage(img, (int)Game.toMouseCoords(e.getPosition()).x, (int)Game.toMouseCoords(e.getPosition()).y, null);
 	}
 
 }

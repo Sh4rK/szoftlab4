@@ -1,13 +1,9 @@
 package szoftlab4;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,7 +12,9 @@ public class View {
 	JPanel panel;
 	
 	public View(Game game){
+		game.view = this; // bocsi, ezt én kontárkodtam ide - Török
 		Controller c = new Controller(game);
+		
 		JButton buildTower = new JButton();
 		JButton buildObstacle = new JButton();
 		JButton redGem = new JButton();
