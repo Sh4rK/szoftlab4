@@ -28,7 +28,7 @@ public class GraphicEnemy extends Drawable {
 	}
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)Game.toMouseCoords(e.getPosition()).x - 10, (int)Game.toMouseCoords(e.getPosition()).y - 10, null);
+		g.drawImage(img, (int)Game.toMouseCoords(e.getPosition()).x - img.getWidth(null) / 2, (int)Game.toMouseCoords(e.getPosition()).y - img.getHeight(null) / 2, null);
 	}
 
 	@Override
