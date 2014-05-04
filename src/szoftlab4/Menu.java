@@ -96,7 +96,6 @@ public class Menu {
 	
 	public void newGame() {
 		Game game = new Game(mapList.getSelectedValue(), missionList.getSelectedValue());
-		new View(game);
 		window.setGame(game);
 		
 	}

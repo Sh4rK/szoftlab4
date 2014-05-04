@@ -17,8 +17,7 @@ public class View {
 	JPanel menuPanel;
 	List<Drawable> drawables;
 	
-	public View(Game game){
-		game.view = this; // bocsi, ezt én kontárkodtam ide - Török
+	public View(Game game, Map map){
 		Controller c = new Controller(game);
 		
 		JButton buildTower = new JButton();
@@ -29,6 +28,7 @@ public class View {
 		JButton yellowGem = new JButton();
 		JButton orangeGem = new JButton();
 		drawables = new ArrayList<Drawable>();
+		drawables.add(new GraphicMap(map));
 		menuPanel = new JPanel();
 		/* wow such anonymous class */
 		mapPanel = new JPanel(){

@@ -38,6 +38,7 @@ public class Game {
 		try {
 			map = new Map("maps/" + mapName + ".map");
 			mission = new Mission("missions/" + mapName + "_" + missionName + ".mission", map);
+			view = new View(this, map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
