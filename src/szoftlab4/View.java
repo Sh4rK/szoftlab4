@@ -35,8 +35,10 @@ public class View {
 				return this;
 			}
 			public void paintComponent(Graphics g) {
-			    for (Drawable dr : d)
-			    	dr.draw(g);
+				synchronized(d){
+				    for (Drawable dr : d)
+				    	dr.draw(g);
+				}
 			}
 		}.init(drawables);
 		mapPanel.setPreferredSize(new Dimension(800, 600));
@@ -109,27 +111,39 @@ public class View {
 	}
 	
 	public void enemyAdded(Enemy en) {
-		drawables.add(new GraphicEnemy(en));
+		synchronized(drawables){
+			drawables.add(new GraphicEnemy(en));
+		}
 	}
 
 	public void projectileExploded(Projectile p) {
-		drawables.remove(new GraphicProjectile(p));
+		synchronized(drawables){
+			drawables.remove(new GraphicProjectile(p));
+		}
 	}
 
 	public void projectileAdded(Projectile p) {
-		drawables.add(new GraphicProjectile(p));
+		synchronized(drawables){
+			drawables.add(new GraphicProjectile(p));
+		}
 	}
 
 	public void enemyDied(Enemy en) {
-		drawables.remove(new GraphicEnemy(en));
+		synchronized(drawables){
+			drawables.remove(new GraphicEnemy(en));
+		}
 	}
 
 	public void towerAdded(Tower t) {
-		drawables.add(new GraphicTower(t));
+		synchronized(drawables){
+			drawables.add(new GraphicTower(t));
+		}
 	}
 
 	public void obstacleAdded(Obstacle o) {
-		drawables.add(new GraphicObstacle(o));
+		synchronized(drawables){
+			drawables.add(new GraphicObstacle(o));
+		}
 	}
 
 	public void drawAll() {
