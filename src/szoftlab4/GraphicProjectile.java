@@ -25,7 +25,7 @@ public class GraphicProjectile extends Drawable {
 	}
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)toMouseCoords(p.getPosition()).x, (int)toMouseCoords(p.getPosition()).y, null);
+		g.drawImage(img, (int)Game.toMouseCoords(p.getPosition()).x, (int)Game.toMouseCoords(p.getPosition()).y, null);
 
 	}
 

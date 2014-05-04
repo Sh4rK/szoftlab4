@@ -1,0 +1,22 @@
+<map>
+	<name>Test</name>
+	<waypoint>
+		<id>1</id>
+		<coords>
+			<x>0</x>
+			<y>0</y>
+		</coords>
+	</waypoint>
+	<waypoint>
+		<id>2</id>
+		<coords>
+			<x>100</x>
+			<y>100</y>
+		</coords>
+	</waypoint>
+	<route>
+		<a>1</a>
+		<b>2</b>
+		<chance>1</chance>
+	</route>
+</map>

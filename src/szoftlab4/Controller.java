@@ -26,7 +26,7 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			game.buildTower(game.toGameCoords(pos));
+			game.buildTower(Game.toGameCoords(pos));
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			game.buildObstacle(game.toGameCoords(pos));
+			game.buildObstacle(Game.toGameCoords(pos));
 		}
 	}
 	
@@ -53,11 +53,11 @@ public class Controller {
 			Gem g = ((GemButton)activeButton).getGemType();
 			if (g instanceof TowerGem){
 				TowerGem tg = (TowerGem)g;
-				game.addGem(game.toGameCoords(pos), tg);
+				game.addGem(Game.toGameCoords(pos), tg);
 			}
 			else {
 				ObstacleGem tg = (ObstacleGem)g;
-				game.addGem(game.toGameCoords(pos), tg);
+				game.addGem(Game.toGameCoords(pos), tg);
 			}
 				
 		}

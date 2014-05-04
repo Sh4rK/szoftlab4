@@ -12,9 +12,6 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-
 /**
  * Ez az osztály fogja össze a többi osztályt.
  * A felhasználótól érkező parancsokat, eseményeket kezeli.
@@ -34,16 +31,16 @@ public class Game {
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
 	private int magic = 1500;
-	private View view;
+	View view;
 
 	
-	public Game(){
-		JFrame window = new JFrame();
-		window.setSize(500, 350);
-		view = new View(this);
-		window.add(view.getPanel());
-		window.setVisible(true);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public Game(String mapName, String missionName) {
+		try {
+			map = new Map("maps/" + mapName + ".map");
+			mission = new Mission("missions/" + mapName + "_" + missionName + ".mission", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -52,15 +49,9 @@ public class Game {
 	 * @param args A parancssori paraméterek.
 	 */
 	public static void main(String[] args) {
+		Window window = new Window();
+		window.setVisible(true);
 		
-		try {
-			Enemy.resetID();
-			new Game().run();
-		}
-		catch(Exception e){
-			
-			e.printStackTrace();
-		}
 	}
 	
 	public void run(){

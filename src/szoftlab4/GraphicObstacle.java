@@ -34,9 +34,9 @@ public class GraphicObstacle extends Drawable {
 	
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)toMouseCoords(o.getPosition()).x, (int)toMouseCoords(o.getPosition()).y, null);
+		g.drawImage(img, (int)Game.toMouseCoords(o.getPosition()).x, (int)Game.toMouseCoords(o.getPosition()).y, null);
 		if(gemImage != null)
-			g.drawImage(gemImage, (int)toMouseCoords(o.getPosition()).x, (int)toMouseCoords(o.getPosition()).y, null);
+			g.drawImage(gemImage, (int)Game.toMouseCoords(o.getPosition()).x, (int)Game.toMouseCoords(o.getPosition()).y, null);
 	}
 
 }
