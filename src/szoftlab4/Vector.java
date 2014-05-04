@@ -66,4 +66,10 @@ public class Vector {
 	public boolean equals(Vector v, double epsilon) {
 		return getDistance(v) <= epsilon;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Vector v = (Vector)o;
+		return (x == v.x) && (v.y == y);
+	}
 }
