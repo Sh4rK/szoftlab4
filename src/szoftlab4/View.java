@@ -28,7 +28,6 @@ public class View {
 		JButton blueGem = new JButton();
 		JButton yellowGem = new JButton();
 		JButton orangeGem = new JButton();
-		menuPanel = new JPanel();
 		drawables = new ArrayList<Drawable>();
 		menuPanel = new JPanel();
 		/* wow such anonymous class */
@@ -112,33 +111,27 @@ public class View {
 	}
 	
 	public void enemyAdded(Enemy en) {
-		// TODO Auto-generated method stub
-		
+		drawables.add(new GraphicEnemy(en));
 	}
 
 	public void projectileExploded(Projectile p) {
-		// TODO Auto-generated method stub
-		
+		drawables.remove(new GraphicProjectile(p));
 	}
 
 	public void projectileAdded(Projectile p) {
-		// TODO Auto-generated method stub
-		
+		drawables.add(new GraphicProjectile(p));
 	}
 
 	public void enemyDied(Enemy en) {
-		// TODO Auto-generated method stub
-		
+		drawables.remove(new GraphicEnemy(en));
 	}
 
 	public void towerAdded(Tower t) {
-		// TODO Auto-generated method stub
-		
+		drawables.add(new GraphicTower(t));
 	}
 
 	public void obstacleAdded(Obstacle o) {
-		// TODO Auto-generated method stub
-		
+		drawables.add(new GraphicObstacle(o));
 	}
 
 	public void drawAll() {

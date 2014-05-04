@@ -31,4 +31,9 @@ public class GraphicEnemy extends Drawable {
 		g.drawImage(img, (int)Game.toMouseCoords(e.getPosition()).x, (int)Game.toMouseCoords(e.getPosition()).y, null);
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		return other != null && other instanceof GraphicEnemy && ((GraphicEnemy) other).e.equals(this.e);
+	}
+
 }

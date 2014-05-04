@@ -37,4 +37,8 @@ public class GraphicTower extends Drawable {
 			g.drawImage(gemImage, (int)Game.toMouseCoords(t.getPosition()).x, (int)Game.toMouseCoords(t.getPosition()).y, null);
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		return other != null && other instanceof GraphicEnemy && ((GraphicTower) other).t.equals(this.t);
+	}
 }

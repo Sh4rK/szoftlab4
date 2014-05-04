@@ -12,6 +12,7 @@ public abstract class Drawable implements Comparable<Drawable>{
 	public int compareTo(Drawable other) {
 		return other.z_index - this.z_index;
 	}
+	
 	public int getZIndex(){
 		return z_index;
 	}

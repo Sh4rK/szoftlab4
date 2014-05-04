@@ -39,4 +39,9 @@ public class GraphicMap extends Drawable {
 		g.drawImage(mountains,0,0,null);
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		return other != null && other instanceof GraphicMap && ((GraphicMap) other).m.equals(this.m);
+	}
+
 }

@@ -29,4 +29,9 @@ public class GraphicProjectile extends Drawable {
 
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		return other != null && other instanceof GraphicProjectile && ((GraphicProjectile) other).p.equals(this.p);
+	}
+
 }

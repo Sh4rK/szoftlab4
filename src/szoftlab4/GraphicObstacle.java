@@ -39,4 +39,9 @@ public class GraphicObstacle extends Drawable {
 			g.drawImage(gemImage, (int)Game.toMouseCoords(o.getPosition()).x, (int)Game.toMouseCoords(o.getPosition()).y, null);
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		return other != null && other instanceof GraphicObstacle && ((GraphicObstacle) other).o.equals(this.o);
+	}
+
 }

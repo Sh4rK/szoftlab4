@@ -13,5 +13,4 @@ public class GraphicFog extends Drawable {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
