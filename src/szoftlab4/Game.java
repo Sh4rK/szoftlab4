@@ -16,7 +16,7 @@ import java.util.Locale;
  * @author Török Attila
  */
 public class Game {
-	public static final int FPS = 30;
+	public static final int FPS = 60;
 	private Map map = null;
 	private Mission mission = null;
 	private List<Enemy> enemies = new ArrayList<Enemy>();

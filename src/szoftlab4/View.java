@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -52,6 +53,7 @@ public class View {
 		panel.add(mapPanel, BorderLayout.CENTER);
 		
 		menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		menuPanel.setPreferredSize(new Dimension(0, 55));
 		menuPanel.add(buildTower);
 		menuPanel.add(redGem);
 		menuPanel.add(greenGem);
@@ -101,11 +103,12 @@ public class View {
 		b.setContentAreaFilled(false);*/
 		/*b.setForeground(new Color(0, 0, 0));
 		b.setBackground(new Color(255, 255, 255));*/
-		b.setBorderPainted(false);
+		//b.setBorderPainted(false);
 		b.setFocusPainted(false);
 		b.setMargin(new Insets(1,1,1,1));
 		b.setContentAreaFilled(false);
 		b.setIcon(img);
+		b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 	}
 	
 	public JPanel getPanel(){

@@ -12,6 +12,7 @@ public class Tower {
 	static final double range = 20;//temp értékek
 	static final double fireRate = 1;
 	static final int cost = 100;
+	static final int projectileSpeed = 20;
 	public static double radius = 2;
 	static boolean critical = false;
 	static HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
@@ -101,9 +102,9 @@ public class Tower {
 		Projectile pro;
 
 		if (critical)
-			pro = new SplitterProjectile(target, new Vector(position), tempDamage, 100, game);
+			pro = new SplitterProjectile(target, new Vector(position), tempDamage, projectileSpeed, game);
 		else
-			pro = new Projectile(target, new Vector(position), tempDamage, 100);
+			pro = new Projectile(target, new Vector(position), tempDamage, projectileSpeed);
 
 		return pro;
 

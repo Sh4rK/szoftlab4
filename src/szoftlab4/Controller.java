@@ -1,8 +1,12 @@
 package szoftlab4;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.border.Border;
 
 
 public class Controller {
@@ -20,8 +24,12 @@ public class Controller {
 	
 	public class BuildTowerMouseEvent extends MouseAdapter implements MapClickDelegate {
 		public void mouseClicked(MouseEvent e){
+			if (activeButton != null)
+				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			
 			mapClick = this;
 			activeButton = (JButton)e.getSource();
+			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		}
 
 		public void MapClicked(MouseEvent e) {
@@ -32,8 +40,12 @@ public class Controller {
 	
 	public class BuildObstacleMouseEvent extends MouseAdapter implements MapClickDelegate {
 		public void mouseClicked(MouseEvent e){
+			if (activeButton != null)
+				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			
 			mapClick = this;
 			activeButton = (JButton)e.getSource();
+			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		}
 
 		public void MapClicked(MouseEvent e) {
@@ -44,8 +56,12 @@ public class Controller {
 	
 	public class EnchantMouseEvent extends MouseAdapter implements MapClickDelegate {
 		public void mouseClicked(MouseEvent e){
+			if (activeButton != null)
+				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			
 			mapClick = this;
 			activeButton = (JButton)e.getSource();
+			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		}
 
 		public void MapClicked(MouseEvent e) {
@@ -68,6 +84,7 @@ public class Controller {
 			if (mapClick != null)
 				mapClick.MapClicked(e);
 			
+			activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			activeButton = null;
 			mapClick = null;
 		}
