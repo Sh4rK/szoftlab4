@@ -64,6 +64,17 @@ public class View {
 		menuPanel.add(yellowGem);
 		menuPanel.add(orangeGem);
 		
+		redGem.setToolTipText("<html><center>Piros varázskő<br/>\nTöbbet sebez<br/>\n" + TowerGem.red.getCost() + " VE</center></html>");
+		greenGem.setToolTipText("<html><center>Zöld varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + TowerGem.green.getCost() + " VE</center></html>");
+		blueGem.setToolTipText("<html><center>Kék varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + TowerGem.blue.getCost() + " VE</center></html>");
+		
+		yellowGem.setToolTipText("<html><center>Sárga varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + ObstacleGem.yellow.getCost() + " VE</center></html>");
+		orangeGem.setToolTipText("<html><center>Narancssárga varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + ObstacleGem.orange.getCost() + " VE</center></html>");
+		
+		buildTower.setToolTipText("<html><center>Torony építése<br/>\n" + Tower.cost + " VE</center></html>");
+		buildObstacle.setToolTipText("<html><center>Akadály építése<br/>\n" + Obstacle.cost + " VE</center></html>");
+		
+		
 		buildTower.addMouseListener(c.new BuildTowerMouseEvent());
 		redGem.addMouseListener(c.new EnchantMouseEvent());
 		greenGem.addMouseListener(c.new EnchantMouseEvent());
@@ -95,16 +106,9 @@ public class View {
 		
 		orangeGem.setBackground(menuPanel.getBackground());
 		setButtonLook(orangeGem, new ImageIcon("icons/orange_gem.png"));
-
 	}
 	
 	private void setButtonLook(JButton b, ImageIcon img){
-		/*b.setOpaque(false);
-		b.setIcon(img);
-		b.setContentAreaFilled(false);*/
-		/*b.setForeground(new Color(0, 0, 0));
-		b.setBackground(new Color(255, 255, 255));*/
-		//b.setBorderPainted(false);
 		b.setFocusPainted(false);
 		b.setMargin(new Insets(1,1,1,1));
 		b.setContentAreaFilled(false);
