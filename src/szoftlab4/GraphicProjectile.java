@@ -15,9 +15,9 @@ public class GraphicProjectile extends Drawable {
 		z_index = 4;
 		try {
 			if(p instanceof SplitterProjectile)
-				img = ImageIO.read(new File("icons\\splitter_projectile.png"));
+				img = ImageIO.read(new File("icons/splitter_projectile.png"));
 			else
-				img = ImageIO.read(new File("icons\\projectile.png"));
+				img = ImageIO.read(new File("icons/projectile.png"));
 			}
 		catch(Exception e){
 			e.printStackTrace();
