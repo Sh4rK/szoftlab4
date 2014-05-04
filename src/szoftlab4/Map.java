@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -109,5 +110,9 @@ public class Map {
 	 */
 	public Waypoint getWaypointByID(int waypointID) {
 		return waypoints.get(waypointID);
+	}
+
+	public Collection<Waypoint> getWaypoints() {
+		return waypoints.values();
 	}
 }
