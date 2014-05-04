@@ -200,7 +200,7 @@ public class Game {
 	 * @return Épített-e oda akadályt
 	 */
 	public boolean buildObstacle(Vector pos) {
-		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos) && magic > Obstacle.cost) {
+		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos) && magic >= Obstacle.cost) {
 			Obstacle o = new Obstacle(pos);
 			synchronized(obstacles){
 				obstacles.add(o);
@@ -223,7 +223,7 @@ public class Game {
 	 * @return Épített-e oda tornyot
 	 */
 	public boolean buildTower(Vector pos) {
-		if (map.canBuildTower(pos) && !collidesWithTower(pos) && magic > Tower.cost) {
+		if (map.canBuildTower(pos) && !collidesWithTower(pos) && magic >= Tower.cost) {
 			Tower t = new Tower(pos);
 			synchronized(towers){
 				towers.add(t);
