@@ -6,6 +6,7 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.List;
 public class Mission {
 
 	private List<Spawn> spawnList;
+	@SuppressWarnings("unused")
 	private String name;
 
 	/**

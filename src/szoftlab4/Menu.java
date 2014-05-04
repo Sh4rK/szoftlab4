@@ -17,10 +17,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+@SuppressWarnings("serial")
 public class Menu {
 	JPanel panel = new JPanel();
 	Window window;
@@ -56,6 +57,7 @@ public class Menu {
 			return values.get(index);
 		}
 	};
+	
 	
 	private class MissionListModel extends AbstractListModel<String> {
 		ArrayList<String> values = new ArrayList<String>();

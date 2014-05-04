@@ -88,8 +88,7 @@ public class Enemy {
 
 		position.MoveDistanceToVector((double)speed / Game.FPS, wPos);
 
-		double epsilon = 2;
-		if (position.equals(wPos)) {
+		if (position.equals(wPos)) { // ez így jó, nem kell epszilon, mert a movethispointaspecifiedistancetowardsagivenvectorplease fgv fentebb direktbe' adja át, ha már elég közel van
 			if (nextWaypoint == null) {
 				targetWaypoint = targetWaypoint.getNextWaypoint();
 			} else {

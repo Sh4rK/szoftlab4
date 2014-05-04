@@ -2,6 +2,7 @@ package szoftlab4;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class Window extends JFrame {
 	Menu menu;
 	private volatile Game game = null; 
