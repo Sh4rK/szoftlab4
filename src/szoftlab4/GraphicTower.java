@@ -24,9 +24,16 @@ public class GraphicTower extends Drawable {
 	}
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)Game.toMouseCoords(t.getPosition()).x - img.getWidth(null) / 2, (int)Game.toMouseCoords(t.getPosition()).y - img.getHeight(null) / 2, null);
+		g.drawImage(img, (int)Game.toMouseCoords(t.getPosition()).x - img.getWidth(null) / 2,
+				(int)Game.toMouseCoords(t.getPosition()).y - img.getHeight(null) / 2, null);
+		
 		if(gemImage != null)
-			g.drawImage(gemImage, (int)Game.toMouseCoords(t.getPosition()).x - img.getWidth(null) / 2, (int)Game.toMouseCoords(t.getPosition()).y - img.getHeight(null) / 2, null);
+			g.drawImage(gemImage,
+					(int)Game.toMouseCoords(t.getPosition()).x - gemImage.getWidth(null)  / 2  + img.getWidth(null) / 2,
+					(int)Game.toMouseCoords(t.getPosition()).y - gemImage.getHeight(null) / 2,
+					(int)img.getWidth(null) / 2,
+					(int)img.getHeight(null) / 2,
+					null);
 	}
 
 	@Override
