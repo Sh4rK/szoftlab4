@@ -15,7 +15,7 @@ import java.util.List;
  * @author Török Attila
  */
 public class Game {
-	public static final int FPS = 60;
+	public static final int FPS = 500;
 	private Map map = null;
 	private Mission mission = null;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
@@ -88,7 +88,6 @@ public class Game {
 	 * Kitöröl egy ellenséget. 
 	 */
 	private void removeEnemy(Enemy en){
-		magic += en.getEnemyType().magic;
 		enemies.remove(en);
 		view.enemyDied(en);
 	}
@@ -127,14 +126,15 @@ public class Game {
 	 * Az ellenségek lassítását beállító metódus.
 	 */
 	private void slowEnemies() {
+		
 		synchronized(enemies){
 			synchronized(obstacles){
 				for (Enemy e : enemies) {
+					e.setSlowingFactor(1);
+					
 					for (Obstacle o : obstacles) {
-						if (e.getPosition().equals(o.getPosition(), 5))
+						if (e.getPosition().equals(o.getPosition(), o.getRange()))
 							e.setSlowingFactor(o.getSlowingFactor(e));
-						else
-							e.setSlowingFactor(1);
 					}
 				}
 			}
@@ -200,13 +200,12 @@ public class Game {
 	 * @return Épített-e oda akadályt
 	 */
 	public boolean buildObstacle(Vector pos) {
-		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos) && magic >= Obstacle.cost) {
+		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos)) {
 			Obstacle o = new Obstacle(pos);
 			synchronized(obstacles){
 				obstacles.add(o);
 			}
 			view.obstacleAdded(o);
-			magic -= Obstacle.cost;
 			
 			return true;
 		}
@@ -223,13 +222,12 @@ public class Game {
 	 * @return Épített-e oda tornyot
 	 */
 	public boolean buildTower(Vector pos) {
-		if (map.canBuildTower(pos) && !collidesWithTower(pos) && magic >= Tower.cost) {
+		if (map.canBuildTower(pos) && !collidesWithTower(pos)) {
 			Tower t = new Tower(pos);
 			synchronized(towers){
 				towers.add(t);
 			}
 			view.towerAdded(t);
-			magic -= Tower.cost;
 			
 			return true;
 		}
