@@ -27,7 +27,6 @@ public class Menu {
 	
 	JList<String> mapList, missionList;
 	
-	@SuppressWarnings("serial")
 	AbstractListModel<String> mapListModel = new AbstractListModel<String>() {
 		ArrayList<String> values = new ArrayList<String>();
 		boolean arrayFilled;
@@ -58,7 +57,6 @@ public class Menu {
 		}
 	};
 	
-	@SuppressWarnings("serial")
 	private class MissionListModel extends AbstractListModel<String> {
 		ArrayList<String> values = new ArrayList<String>();
 		
@@ -97,7 +95,6 @@ public class Menu {
 	public void newGame() {
 		Game game = new Game(mapList.getSelectedValue(), missionList.getSelectedValue());
 		window.setGame(game);
-		
 	}
 	
 	public void exit() {

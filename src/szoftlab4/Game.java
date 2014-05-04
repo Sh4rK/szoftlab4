@@ -23,7 +23,7 @@ import java.util.Scanner;
  * @author Török Attila
  */
 public class Game {
-	public static final int FPS = 30;
+	public static final int FPS = 60;
 	private Map map = null;
 	private Mission mission = null;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
@@ -53,11 +53,26 @@ public class Game {
 		Window window = new Window();
 		window.setResizable(false);
 		window.setVisible(true);
+		synchronized(window){
+			try {
+				window.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		window.runGame();
 	}
 	
 	public void run(){
-		//step();
-		view.drawAll();
+		while(true){
+			//step();
+			view.drawAll();
+			try {
+				Thread.sleep(1000/FPS);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

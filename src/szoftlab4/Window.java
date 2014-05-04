@@ -2,13 +2,19 @@ package szoftlab4;
 
 import javax.swing.JFrame;
 
-@SuppressWarnings("serial")
 public class Window extends JFrame {
 	Menu menu;
+	private volatile Game game = null; 
 	
-	public void setGame(Game game) {
+	public synchronized void setGame(Game game) {
 		this.setContentPane(game.view.getPanel());
+		this.game = game;
 		this.pack();
+		this.notify();
+	}
+	
+	public void runGame(){
+		game.run();
 	}
 	
 	public Window() {

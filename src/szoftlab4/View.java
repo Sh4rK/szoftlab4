@@ -133,7 +133,7 @@ public class View {
 	}
 
 	public void drawAll() {
-		mapPanel.invalidate();
+		mapPanel.repaint();
 	}
 
 }
