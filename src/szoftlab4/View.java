@@ -155,6 +155,18 @@ public class View {
 			Collections.sort(drawables, Collections.reverseOrder());
 		}
 	}
+	public void towerEnchanted(Tower t){
+		synchronized(drawables){
+			GraphicTower gt = (GraphicTower)drawables.get(drawables.indexOf(new GraphicTower(t)));
+			gt.setGem();
+		}
+	}
+	public void obstacleEnchanted(Obstacle o){
+		synchronized(drawables){
+			GraphicObstacle go = (GraphicObstacle)drawables.get(drawables.indexOf(new GraphicObstacle(o)));
+			go.setGem();
+		}
+	}
 
 	public void drawAll() {
 		mapPanel.repaint();

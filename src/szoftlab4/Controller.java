@@ -83,7 +83,7 @@ public class Controller {
 			if (mapClick != null)
 				mapClick.MapClicked(e);
 			
-			activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			//activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			activeButton = null;
 			mapClick = null;
 		}

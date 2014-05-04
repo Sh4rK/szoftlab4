@@ -36,12 +36,24 @@ public class GraphicObstacle extends Drawable {
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(o.getPosition()).x - img.getWidth(null) / 2, (int)Game.toMouseCoords(o.getPosition()).y - img.getHeight(null) / 2, null);
 		if(gemImage != null)
-			g.drawImage(gemImage, (int)Game.toMouseCoords(o.getPosition()).x, (int)Game.toMouseCoords(o.getPosition()).y, null);
+			g.drawImage(gemImage, (int)Game.toMouseCoords(o.getPosition()).x- img.getWidth(null) / 2, (int)Game.toMouseCoords(o.getPosition()).y- img.getHeight(null) / 2, null);
 	}
 
 	@Override
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicObstacle && ((GraphicObstacle) other).o.equals(this.o);
+	}
+	public void setGem(){
+		try{
+			if(o.getGem() != null){
+				if(o.getGem() == ObstacleGem.orange)
+					gemImage = ImageIO.read(new File("icons/orange_gem.png"));
+				else if(o.getGem() == ObstacleGem.yellow)
+					gemImage = ImageIO.read(new File("icons/yellow_gem.png"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

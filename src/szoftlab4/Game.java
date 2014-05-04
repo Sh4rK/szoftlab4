@@ -159,6 +159,7 @@ public class Game {
 
 		if (t != null) {
 			t.setGem(gem);
+			view.towerEnchanted(t);
 		}
 	}
 
@@ -173,6 +174,7 @@ public class Game {
 
 		if (o != null) {
 			o.setGem(gem);
+			view.obstacleEnchanted(o);
 		}
 	}
 
