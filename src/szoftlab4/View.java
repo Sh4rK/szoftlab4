@@ -1,9 +1,6 @@
 package szoftlab4;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Insets;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +39,7 @@ public class View {
 			    	dr.draw(g);
 			}
 		}.init(drawables);
+		mapPanel.setPreferredSize(new Dimension(800, 600));
 		
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
