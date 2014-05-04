@@ -1,6 +1,8 @@
 package szoftlab4;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +46,20 @@ public class GraphicObstacle extends Drawable {
 					(int)img.getWidth(null) / 2,
 					(int)img.getHeight(null) / 2,
 					null);
+		
+
+		int range = (int)Game.toMouseCoords(new Vector(o.getRange(), 0)).x;
+		
+		Color color = new Color(160, 160, 160, 128);
+		
+		if (o.getGem() == ObstacleGem.yellow)
+			color = new Color(160, 160, 0, 128);
+		
+		if (o.getGem() == ObstacleGem.orange)
+			color = new Color(128, 80, 0, 128);
+		
+		drawRangeCircle((Graphics2D)g, color, (int)Game.toMouseCoords(o.getPosition()).x, (int)Game.toMouseCoords(o.getPosition()).y, range);
+		
 	}
 
 	@Override

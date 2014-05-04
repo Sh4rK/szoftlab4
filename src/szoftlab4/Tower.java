@@ -63,18 +63,10 @@ public class Tower {
 			return null;
 		}
 
-		double tempRange = range * Fog.getRangeMultiplier();
-
-		if (gem != null) {
-			tempRange *= gem.getRangeMultiplier();
-		}
-
-		//tempRange *= gem.getRangeMultiplier();
-
 		List<Enemy> TargetsInRange = new java.util.ArrayList<Enemy>();
 
 		for (Enemy e : enemies) {
-			if (position.getDistance(e.getPosition()) < tempRange) {
+			if (position.getDistance(e.getPosition()) < getRange()) {
 				TargetsInRange.add(e);
 			}
 		}
@@ -143,6 +135,6 @@ public class Tower {
 	 * @return A torony hatótávolsága.
 	 */
 	public double getRange() {
-		return range;
+		return range * Fog.getRangeMultiplier() * ((gem == null)?1:gem.getRangeMultiplier());
 	}
 }

@@ -1,5 +1,7 @@
 package szoftlab4;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 
@@ -22,6 +24,7 @@ public class GraphicTower extends Drawable {
 			e.printStackTrace();
 		}
 	}
+	
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(t.getPosition()).x - img.getWidth(null) / 2,
@@ -34,6 +37,21 @@ public class GraphicTower extends Drawable {
 					(int)img.getWidth(null) / 2,
 					(int)img.getHeight(null) / 2,
 					null);
+		
+		int range = (int)Game.toMouseCoords(new Vector(t.getRange(), 0)).x;
+		
+		Color color = new Color(160, 160, 160, 128);
+		
+		if (t.getGem() == TowerGem.red)
+			color = new Color(255, 0, 0, 128);
+		
+		if (t.getGem() == TowerGem.green)
+			color = new Color(0, 255, 0, 128);
+		
+		if (t.getGem() == TowerGem.blue)
+			color = new Color(0, 0, 255, 128);
+		
+		drawRangeCircle((Graphics2D)g, color, (int)Game.toMouseCoords(t.getPosition()).x, (int)Game.toMouseCoords(t.getPosition()).y, range);
 	}
 
 	@Override

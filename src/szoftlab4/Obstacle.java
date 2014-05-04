@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Obstacle {
 	public static final int cost = 700;
 	private static HashMap<EnemyType, Double> slowingFactor;
-	private static double range;
+	private static double range = 2;
 
 	static {
 		slowingFactor = new HashMap<EnemyType, Double>();
@@ -40,7 +40,7 @@ public class Obstacle {
 	 * @return a megadott pozíció ütközik-e az építménnyel
 	 */
 	public boolean doesCollide(Vector pos) {
-		if (pos.getDistance(position) <= 2)
+		if (pos.getDistance(position) <= getRange())
 			return true;
 
 		return false;
@@ -88,7 +88,7 @@ public class Obstacle {
 	}
 
 	public double getRange() {
-		double rtn = range;
+		double rtn = range * Fog.getRangeMultiplier();
 		if (gem != null)
 			rtn *= gem.getRangeMultiplier();
 
