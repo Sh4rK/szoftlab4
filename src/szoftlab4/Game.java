@@ -16,7 +16,7 @@ import java.util.Locale;
  * @author Török Attila
  */
 public class Game {
-	public static final int FPS = 60;
+	public static final int FPS = 500;
 	private Map map = null;
 	private Mission mission = null;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
@@ -97,11 +97,13 @@ public class Game {
 	 * A tornyok támadását intéző metódus.
 	 */
 	private void towersFire() {
-		for (Tower t : towers) {
-			Projectile p = t.attack(enemies, this);
-			if (p != null){
-				projectiles.add(p);
-				view.projectileAdded(p);
+		synchronized(towers){
+			for (Tower t : towers) {
+				Projectile p = t.attack(enemies, this);
+				if (p != null){
+					projectiles.add(p);
+					view.projectileAdded(p);
+				}
 			}
 		}
 	}
@@ -110,10 +112,12 @@ public class Game {
 	 * Az ellenségek mozgását intéző metódus.
 	 */
 	private boolean moveEnemies() {
-		for (Enemy e : enemies) {
-			if (e.move()){
-				//ellenség nyer
-				return true;
+		synchronized(enemies){
+			for (Enemy e : enemies) {
+				if (e.move()){
+					//ellenség nyer
+					return true;
+				}
 			}
 		}
 		return false;
@@ -123,12 +127,16 @@ public class Game {
 	 * Az ellenségek lassítását beállító metódus.
 	 */
 	private void slowEnemies() {
-		for (Enemy e : enemies) {
-			for (Obstacle o : obstacles) {
-				if (e.getPosition().equals(o.getPosition(), 5))
-					e.setSlowingFactor(o.getSlowingFactor(e));
-				else
-					e.setSlowingFactor(1);
+		synchronized(enemies){
+			synchronized(obstacles){
+				for (Enemy e : enemies) {
+					for (Obstacle o : obstacles) {
+						if (e.getPosition().equals(o.getPosition(), 5))
+							e.setSlowingFactor(o.getSlowingFactor(e));
+						else
+							e.setSlowingFactor(1);
+					}
+				}
 			}
 		}
 	}
@@ -174,7 +182,9 @@ public class Game {
 	 * @param en A hozzáadandó ellenség.
 	 */
 	public void addEnemy(Enemy en) {
-		enemies.add(en);
+		synchronized(enemies){
+			enemies.add(en);
+		}
 		view.enemyAdded(en);
 	}
 
@@ -190,7 +200,9 @@ public class Game {
 	public boolean buildObstacle(Vector pos) {
 		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos)) {
 			Obstacle o = new Obstacle(pos);
-			obstacles.add(o);
+			synchronized(obstacles){
+				obstacles.add(o);
+			}
 			view.obstacleAdded(o);
 			
 			return true;
@@ -205,13 +217,14 @@ public class Game {
 	 * illetve hogy nem ütközik-e már meglévő toronnyal.
 	 *
 	 * @param pos a torony koordinátái
-	 *            VÁLTOZÁS:
 	 * @return Épített-e oda tornyot
 	 */
 	public boolean buildTower(Vector pos) {
 		if (map.canBuildTower(pos) && !collidesWithTower(pos)) {
 			Tower t = new Tower(pos);
-			towers.add(t);
+			synchronized(towers){
+				towers.add(t);
+			}
 			view.towerAdded(t);
 			
 			return true;
@@ -224,9 +237,11 @@ public class Game {
 	 * @return visszadja, hogy az adott pont ütközik-e egy akadállyal
 	 */
 	public boolean collidesWithObstacle(Vector pos) {
-		for (Obstacle o : obstacles) {
-			if (o.doesCollide(pos))
-				return true;
+		synchronized(obstacles){
+			for (Obstacle o : obstacles) {
+				if (o.doesCollide(pos))
+					return true;
+			}
 		}
 
 		return false;
@@ -236,9 +251,11 @@ public class Game {
 	 * @return visszaadja, hogy az adott pont ütközik-e egy toronnyal
 	 */
 	public boolean collidesWithTower(Vector pos) {
-		for (Tower t : towers) {
-			if (t.doesCollide(pos))
-				return true;
+		synchronized(towers){
+			for (Tower t : towers) {
+				if (t.doesCollide(pos))
+					return true;
+			}
 		}
 
 		return false;
@@ -248,9 +265,11 @@ public class Game {
 	 * @return Az akadály, amellyel az adott pont ütközik. Ha egyikkel sem, akkor null.
 	 */
 	public Obstacle getCollidingObstacle(Vector pos) {
-		for (Obstacle o : obstacles) {
-			if (o.doesCollide(pos))
-				return o;
+		synchronized(obstacles){
+			for (Obstacle o : obstacles) {
+				if (o.doesCollide(pos))
+					return o;
+			}
 		}
 
 		return null;
@@ -260,70 +279,14 @@ public class Game {
 	 * @return A torony, amellyel az adott pont ütközik. Ha egyikkel sem, akkor null.
 	 */
 	public Tower getCollidingTower(Vector pos) {
-		for (Tower t : towers) {
-			if (t.doesCollide(pos))
-				return t;
+		synchronized(towers){
+			for (Tower t : towers) {
+				if (t.doesCollide(pos))
+					return t;
+			}
 		}
 
 		return null;
-	}
-
-	/**
-	 * Az ellenségek kilistázása.
-	 */
-	void listEnemies() {
-		for (Enemy e : enemies) {
-			System.out.println(String.format(Locale.ENGLISH, "%d %.1f (%.1f;%.1f)", e.getID(), e.getHealth(), e.getPosition().x, e.getPosition().y));
-		}
-	}
-
-	/**
-	 * A tornyok kilistázása.
-	 */
-	void listTowers() {
-		for (Tower t : towers) {
-			System.out.print(String.format(Locale.ENGLISH, "(%.1f;%.1f) ", t.getPosition().x, t.getPosition().y));
-
-			TowerGem tg = t.getGem();
-
-			if (tg == TowerGem.red) {
-				System.out.println("red");
-			} else if (tg == TowerGem.green) {
-				System.out.println("green");
-			} else if (tg == TowerGem.blue) {
-				System.out.println("blue");
-			} else {
-				System.out.println("-");
-			}
-		}
-	}
-
-	/**
-	 * Az akadályok kilistázása.
-	 */
-	void listObstacles() {
-		for (Obstacle o : obstacles) {
-			System.out.print(String.format(Locale.ENGLISH, "(%.1f;%.1f) ", o.getPosition().x, o.getPosition().y));
-
-			ObstacleGem og = o.getGem();
-
-			if (og == ObstacleGem.yellow) {
-				System.out.println("yellow");
-			} else if (og == ObstacleGem.orange) {
-				System.out.println("orange");
-			} else {
-				System.out.println("-");
-			}
-		}
-	}
-
-	/**
-	 * A lövedékek kilistázása.
-	 */
-	void listProjectiles() {
-		for (Projectile p : projectiles) {
-			System.out.println(String.format(Locale.ENGLISH, "(%.1f;%.1f) %d %b", p.getPosition().x, p.getPosition().y, p.target.getID(), p instanceof SplitterProjectile));
-		}
 	}
 	
 	static private int pix = 10;
