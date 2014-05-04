@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 
 public abstract class Drawable implements Comparable<Drawable>{
 	protected int z_index;
@@ -22,6 +23,11 @@ public abstract class Drawable implements Comparable<Drawable>{
 	
 	public static void drawRangeCircle(Graphics2D g, Color color, int x, int y, int radius)
 	{
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+				
 		g.setStroke( new BasicStroke(4) );
 		
 		g.setColor(color);
