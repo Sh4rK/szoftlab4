@@ -18,13 +18,13 @@ public class GraphicObstacle extends Drawable {
 		z_index = 1;
 		
 		try {
-			img = ImageIO.read(new File("icons\\obstacle.png"));
+			img = ImageIO.read(new File("icons/obstacle.png"));
 
 			if(o.getGem() != null){
 				if(o.getGem() == ObstacleGem.orange)
-					gemImage = ImageIO.read(new File("icons\\orange_gem.png"));
+					gemImage = ImageIO.read(new File("icons/orange_gem.png"));
 				else if(o.getGem() == ObstacleGem.yellow)
-					gemImage = ImageIO.read(new File("icons\\yellow_gem.png"));
+					gemImage = ImageIO.read(new File("icons/yellow_gem.png"));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

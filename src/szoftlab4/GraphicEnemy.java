@@ -14,13 +14,13 @@ public class GraphicEnemy extends Drawable {
 		z_index = 3;
 		try{
 			if(e.getEnemyType() == EnemyType.human)
-				img = ImageIO.read(new File("icons\\human.png"));
+				img = ImageIO.read(new File("icons/human.png"));
 			else if(e.getEnemyType() == EnemyType.dwarf)
-				img = ImageIO.read(new File("icons\\dwarf.png"));
+				img = ImageIO.read(new File("icons/dwarf.png"));
 			else if(e.getEnemyType() == EnemyType.elf)
-				img = ImageIO.read(new File("icons\\elf.png"));
+				img = ImageIO.read(new File("icons/elf.png"));
 			else if(e.getEnemyType() == EnemyType.hobbit)
-				img = ImageIO.read(new File("icons\\hobbit.png"));
+				img = ImageIO.read(new File("icons/hobbit.png"));
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
