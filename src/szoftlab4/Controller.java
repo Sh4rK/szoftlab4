@@ -23,7 +23,7 @@ public class Controller {
 	}
 	
 	public class BuildTowerMouseEvent extends MouseAdapter implements MapClickDelegate {
-		public void mouseClicked(MouseEvent e){
+		public void mousePressed(MouseEvent e){
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			
@@ -39,7 +39,7 @@ public class Controller {
 	}
 	
 	public class BuildObstacleMouseEvent extends MouseAdapter implements MapClickDelegate {
-		public void mouseClicked(MouseEvent e){
+		public void mousePressed(MouseEvent e){
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			
@@ -55,7 +55,7 @@ public class Controller {
 	}
 	
 	public class EnchantMouseEvent extends MouseAdapter implements MapClickDelegate {
-		public void mouseClicked(MouseEvent e){
+		public void mousePressed(MouseEvent e){
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			
@@ -80,7 +80,7 @@ public class Controller {
 	}
 	
 	public class MapMouseEvent extends MouseAdapter {
-		public void mouseClicked(MouseEvent e){
+		public void mousePressed(MouseEvent e){
 			if (mapClick != null)
 				mapClick.MapClicked(e);
 			
