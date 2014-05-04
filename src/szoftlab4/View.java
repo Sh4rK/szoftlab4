@@ -21,11 +21,11 @@ public class View {
 		
 		JButton buildTower = new JButton();
 		JButton buildObstacle = new JButton();
-		JButton redGem = new JButton();
-		JButton greenGem = new JButton();
-		JButton blueGem = new JButton();
-		JButton yellowGem = new JButton();
-		JButton orangeGem = new JButton();
+		GemButton redGem = new GemButton(TowerGem.red);
+		GemButton greenGem = new GemButton(TowerGem.green);
+		GemButton blueGem = new GemButton(TowerGem.blue);
+		GemButton yellowGem = new GemButton(ObstacleGem.yellow);
+		GemButton orangeGem = new GemButton(ObstacleGem.orange);
 		drawables = new ArrayList<Drawable>();
 		drawables.add(new GraphicMap(map));
 		menuPanel = new JPanel();
