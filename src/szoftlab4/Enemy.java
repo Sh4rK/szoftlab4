@@ -56,7 +56,7 @@ public class Enemy {
 	public Enemy(Enemy en) {
 		type = en.type;
 		health = en.health;
-		position = en.position;
+		position = new Vector(en.position);
 		targetWaypoint = en.targetWaypoint;
 		slowingFactor = en.slowingFactor;
 		ID = num++;
@@ -157,7 +157,11 @@ public class Enemy {
 	public Enemy split(double dmg) {
 		this.damage(dmg);
 		Enemy rtn = new Enemy(this);
-
+		
+		final int moveNum = 10;
+		for (int i = 0; i < moveNum; ++i)
+			rtn.move();
+		
 		return rtn;
 	}
 }
