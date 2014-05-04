@@ -109,12 +109,6 @@ public class View {
 	}
 	
 	private void setButtonLook(JButton b, ImageIcon img){
-		/*b.setOpaque(false);
-		b.setIcon(img);
-		b.setContentAreaFilled(false);*/
-		/*b.setForeground(new Color(0, 0, 0));
-		b.setBackground(new Color(255, 255, 255));*/
-		b.setBorderPainted(false);
 		b.setFocusPainted(false);
 		b.setMargin(new Insets(1,1,1,1));
 		b.setContentAreaFilled(false);
