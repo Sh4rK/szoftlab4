@@ -2,6 +2,7 @@ package szoftlab4;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -114,6 +115,7 @@ public class View {
 	public void enemyAdded(Enemy en) {
 		synchronized(drawables){
 			drawables.add(new GraphicEnemy(en));
+			Collections.sort(drawables, Collections.reverseOrder());
 		}
 	}
 
@@ -126,6 +128,7 @@ public class View {
 	public void projectileAdded(Projectile p) {
 		synchronized(drawables){
 			drawables.add(new GraphicProjectile(p));
+			Collections.sort(drawables, Collections.reverseOrder());
 		}
 	}
 
@@ -138,12 +141,14 @@ public class View {
 	public void towerAdded(Tower t) {
 		synchronized(drawables){
 			drawables.add(new GraphicTower(t));
+			Collections.sort(drawables, Collections.reverseOrder());
 		}
 	}
 
 	public void obstacleAdded(Obstacle o) {
 		synchronized(drawables){
 			drawables.add(new GraphicObstacle(o));
+			Collections.sort(drawables, Collections.reverseOrder());
 		}
 	}
 
