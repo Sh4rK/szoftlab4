@@ -1,10 +1,5 @@
 package szoftlab4;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +16,7 @@ import java.util.Locale;
  * @author Török Attila
  */
 public class Game {
-	public static final int FPS = 60;
+	public static final int FPS = 30;
 	private Map map = null;
 	private Mission mission = null;
 	private List<Enemy> enemies = new ArrayList<Enemy>();
@@ -329,22 +324,6 @@ public class Game {
 		for (Projectile p : projectiles) {
 			System.out.println(String.format(Locale.ENGLISH, "(%.1f;%.1f) %d %b", p.getPosition().x, p.getPosition().y, p.target.getID(), p instanceof SplitterProjectile));
 		}
-	}
-	
-	/**
-	 * Megkeres egy ellenséget az azonosítója alapján.
-	 * 
-	 * @param enemyID A keresett ellenség azonosítója.
-	 * @return A keresett ellenség, vagy null, ha nincs találat.
-	 */
-	private Enemy getEnemyByID(int enemyID) {
-		for (Enemy e : enemies) {
-			if (e.getID() == enemyID) {
-				return e;
-			}
-		}
-		
-		return null;
 	}
 	
 	static private int pix = 10;
