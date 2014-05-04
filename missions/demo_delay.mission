@@ -1,0 +1,81 @@
+<mission>
+	<name>Attack</name>
+	<enemy>
+		<id>1</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>6</time>
+	</enemy>
+	<enemy>
+		<id>2</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>0.5</time>
+	</enemy>
+	<enemy>
+		<id>3</id>
+		<waypointID>1</waypointID>
+		<type>hobbit</type>
+		<time>0.5</time>
+	</enemy>
+	
+
+
+	<enemy>
+		<id>4</id>
+		<waypointID>1</waypointID>
+		<type>dwarf</type>
+		<time>2</time>
+	</enemy>
+	<enemy>
+		<id>5</id>
+		<waypointID>1</waypointID>
+		<type>dwarf</type>
+		<time>0.5</time>
+	</enemy>
+	<enemy>
+		<id>6</id>
+		<waypointID>1</waypointID>
+		<type>dwarf</type>
+		<time>0.5</time>
+	</enemy>
+	<enemy>
+		<id>7</id>
+		<waypointID>1</waypointID>
+		<type>dwarf</type>
+		<time>0.5</time>
+	</enemy>
+
+
+
+	<enemy>
+		<id>8</id>
+		<waypointID>1</waypointID>
+		<type>elf</type>
+		<time>3</time>
+	</enemy>
+	<enemy>
+		<id>9</id>
+		<waypointID>1</waypointID>
+		<type>elf</type>
+		<time>0.2</time>
+	</enemy>
+	<enemy>
+		<id>10</id>
+		<waypointID>1</waypointID>
+		<type>elf</type>
+		<time>0.2</time>
+	</enemy>
+	<enemy>
+		<id>11</id>
+		<waypointID>1</waypointID>
+		<type>elf</type>
+		<time>0.2</time>
+	</enemy>
+	<enemy>
+		<id>12</id>
+		<waypointID>1</waypointID>
+		<type>elf</type>
+		<time>0.2</time>
+	</enemy>
+</mission>
