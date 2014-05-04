@@ -139,7 +139,7 @@ public class Main {
 			
 			System.setIn(new FileInputStream(f));
 		
-			szoftlab4.Game.main(new String[]{in});
+			//szoftlab4.Game.main(new String[]{in});
 		
 			System.setIn(new FileInputStream(FileDescriptor.in));
 		
