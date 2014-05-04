@@ -42,7 +42,7 @@ public class Enemy {
 	 **/
 	public Enemy(EnemyType type, Waypoint start, int ID) {
 		this.type = type;
-		position = start.getPosition();
+		position = new Vector(start.getPosition());
 		targetWaypoint = start.getNextWaypoint();
 		health = type.getHealth();
 		this.ID = ID;
