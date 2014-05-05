@@ -130,11 +130,10 @@ public class Game {
 		synchronized(enemies){
 			synchronized(obstacles){
 				for (Enemy e : enemies) {
+					e.setSlowingFactor(1);
 					for (Obstacle o : obstacles) {
-						if (e.getPosition().equals(o.getPosition(), 5))
+						if (e.getPosition().equals(o.getPosition(), o.getRange()))
 							e.setSlowingFactor(o.getSlowingFactor(e));
-						else
-							e.setSlowingFactor(1);
 					}
 				}
 			}
