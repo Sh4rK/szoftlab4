@@ -51,6 +51,7 @@ public class Game {
 						g.drawString(""+(int)(game.realFPS), 750, 30);
 					}
 				}.init(this));
+				view.magicChange(magic);
 			}
 			
 		} catch (Exception e) {
@@ -121,6 +122,7 @@ public class Game {
 	 */
 	private void removeEnemy(Enemy en){
 		magic += en.getEnemyType().magic;
+		view.magicChange(magic);
 		enemies.remove(en);
 		view.enemyDied(en);
 	}
@@ -189,6 +191,8 @@ public class Game {
 		Tower t = getCollidingTower(pos);
 
 		if (t != null) {
+			magic -= gem.cost;
+			view.magicChange(magic);
 			t.setGem(gem);
 			view.towerEnchanted(t);
 		}
@@ -204,6 +208,8 @@ public class Game {
 		Obstacle o = getCollidingObstacle(pos);
 
 		if (o != null) {
+			magic -= gem.cost;
+			view.magicChange(magic);
 			o.setGem(gem);
 			view.obstacleEnchanted(o);
 		}
@@ -238,6 +244,7 @@ public class Game {
 			}
 			view.obstacleAdded(o);
 			magic -= Obstacle.cost;
+			view.magicChange(magic);
 			
 			return true;
 		}
@@ -261,6 +268,7 @@ public class Game {
 			}
 			view.towerAdded(t);
 			magic -= Tower.cost;
+			view.magicChange(magic);
 			
 			return true;
 		}
