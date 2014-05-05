@@ -116,6 +116,17 @@ public class View {
 		b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 	}
 	
+	/**
+	 * Bármilyen drawable hozzáadásához.
+	 * Anonymous class-okkal lehet használni.
+	 * FPS számlálóhoz kell.
+	 */
+	public void addDrawable(Drawable d){
+		synchronized(drawables){
+			drawables.add(d);
+		}
+	}
+	
 	public JPanel getPanel(){
 		return panel;
 	}

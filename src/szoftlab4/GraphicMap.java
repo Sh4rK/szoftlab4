@@ -30,10 +30,12 @@ public class GraphicMap extends Drawable {
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform originalTransform = g2.getTransform();
 		
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-				RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		if (Game.AA){
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		}
 		
 		g2.drawImage(img, 0, 0, null);
 		
@@ -56,6 +58,13 @@ public class GraphicMap extends Drawable {
 			}
 		}
 		g2.drawImage(mountains,0,0,null);
+		
+		if (Game.AA){
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+					RenderingHints.VALUE_ANTIALIAS_OFF);
+			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+		}
 	}
 
 	@Override

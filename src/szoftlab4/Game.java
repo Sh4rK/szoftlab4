@@ -1,5 +1,8 @@
 package szoftlab4;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,7 +25,10 @@ public class Game {
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
-	private int magic = 1500;
+	private int magic = 15000;
+	public static boolean AA = false;
+	private boolean countFPS = true;
+	public double realFPS;
 	View view;
 
 	
@@ -31,19 +37,44 @@ public class Game {
 			map = new Map("maps/" + mapName + ".map");
 			mission = new Mission("missions/" + mapName + "_" + missionName + ".mission", map);
 			view = new View(this, map);
+			if (countFPS){
+				view.addDrawable(new Drawable(){
+					Game game;
+					public Drawable init(Game g){
+						z_index = 10;
+						game = g;
+						return this;
+					}
+					public void draw(Graphics g) {
+						g.setColor(Color.white);
+						g.setFont(new Font("Consolas", Font.BOLD, 36));
+						g.drawString(""+(int)(game.realFPS), 750, 30);
+					}
+				}.init(this));
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	
 	public void run(){
+		int i = 1;
 		while(true){
+			double stime = System.nanoTime();
 			step();
 			view.drawAll();
 			try {
 				Thread.sleep(1000/FPS);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			}
+			
+			double etime = System.nanoTime();
+			if (++i % 15 == 0){
+				realFPS = 1000000000.0/(etime - stime);
+				i = 1;
 			}
 		}
 	}

@@ -23,10 +23,12 @@ public abstract class Drawable implements Comparable<Drawable>{
 	
 	public static void drawRangeCircle(Graphics2D g, Color color, int x, int y, int radius)
 	{
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-				RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		if (Game.AA){
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		}
 				
 		g.setStroke( new BasicStroke(4) );
 		
@@ -41,5 +43,13 @@ public abstract class Drawable implements Comparable<Drawable>{
 		g.drawOval(x - radius, y - radius, radius*2, radius*2);
 		radius -= 4;
 		g.drawOval(x - radius, y - radius, radius*2, radius*2);
+		
+		if (Game.AA){
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+					RenderingHints.VALUE_ANTIALIAS_OFF);
+			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+					RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+		}
+		
 	}
 }
