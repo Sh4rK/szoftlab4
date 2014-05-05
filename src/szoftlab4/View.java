@@ -26,9 +26,10 @@ public class View {
 	JPanel menuPanel;
 	JPanel magicPanel;
 	List<Drawable> drawables;
+	Drawable placing;
 	
 	public View(Game game, Map map){
-		Controller c = new Controller(game);
+		Controller c = new Controller(game, this);
 		
 		JButton buildTower = new JButton();
 		JButton buildObstacle = new JButton();
@@ -56,6 +57,11 @@ public class View {
 				synchronized(d){
 				    for (Drawable dr : d)
 				    	dr.draw(g);
+					if (placing != null) {
+						Graphics2D g2 = (Graphics2D)g;
+						g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+						placing.draw(g);
+					}
 				}
 			}
 		}.init(drawables);
@@ -110,6 +116,7 @@ public class View {
 		orangeGem.addMouseListener(c.new EnchantMouseEvent());
 		
 		mapPanel.addMouseListener(c.new MapMouseEvent());
+		mapPanel.addMouseMotionListener(c.new MapMouseEvent());
 
 		buildTower.setBackground(menuPanel.getBackground());
 		setButtonLook(buildTower, new ImageIcon("icons/tower.png"));
@@ -206,6 +213,10 @@ public class View {
 			GraphicObstacle go = (GraphicObstacle)drawables.get(drawables.indexOf(new GraphicObstacle(o)));
 			go.setGem();
 		}
+	}
+
+	public void setPlacing(Drawable d) {
+		placing = d;
 	}
 
 	public void drawAll() {
