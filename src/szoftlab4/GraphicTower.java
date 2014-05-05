@@ -1,11 +1,9 @@
 package szoftlab4;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
-
-import javax.imageio.ImageIO;
 
 
 public class GraphicTower extends Drawable {
@@ -16,13 +14,7 @@ public class GraphicTower extends Drawable {
 	public GraphicTower(Tower t){
 		this.t = t;
 		z_index = 2;
-		try {
-			img = ImageIO.read(new File("icons/tower.png"));
-			
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		img = Resources.TowerImage;
 	}
 	
 	@Override
@@ -59,17 +51,13 @@ public class GraphicTower extends Drawable {
 		return other != null && other instanceof GraphicTower && ((GraphicTower) other).t.equals(this.t);
 	}
 	public void setGem(){
-		try{
-			if(t.getGem() != null){
-				if(t.getGem() == TowerGem.red)
-					gemImage = ImageIO.read(new File("icons/red_gem.png"));
-				else if(t.getGem() == TowerGem.green)
-					gemImage = ImageIO.read(new File("icons/green_gem.png"));
-				else if(t.getGem() == TowerGem.blue)
-					gemImage = ImageIO.read(new File("icons/blue_gem.png"));
-			}
-		}catch(Exception e){
-			e.printStackTrace();
+		if(t.getGem() != null){
+			if(t.getGem() == TowerGem.red)
+				gemImage = Resources.RedGemImage;
+			else if(t.getGem() == TowerGem.green)
+				gemImage = Resources.GreenGemImage;
+			else if(t.getGem() == TowerGem.blue)
+				gemImage = Resources.BlueGemImage;
 		}
 	}
 }

@@ -13,15 +13,11 @@ public class GraphicProjectile extends Drawable {
 	public GraphicProjectile(Projectile p){
 		this.p = p;
 		z_index = 4;
-		try {
-			if(p instanceof SplitterProjectile)
-				img = ImageIO.read(new File("icons/splitter_projectile.png"));
-			else
-				img = ImageIO.read(new File("icons/projectile.png"));
-			}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+
+		if(p instanceof SplitterProjectile)
+			img = Resources.SplitterProjectileImage;
+		else
+			img = Resources.ProjectileImage;
 	}
 	@Override
 	public void draw(Graphics g) {

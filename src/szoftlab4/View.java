@@ -297,10 +297,6 @@ public class View {
 	}
 
 	public void gameWon() {
-		try {
-			winLoseScreen("Kíváló munka, kollega!", ImageIO.read(new File("icons/LZF.png")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		winLoseScreen("Kíváló munka, kollega!", Resources.LZImage);
 	}
 }

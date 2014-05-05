@@ -16,14 +16,9 @@ public class GraphicMap extends Drawable {
 	public GraphicMap(Map m){
 		this.m = m;
 		z_index = 0;
-		
-		try {
-			img = ImageIO.read(new File("icons/background.png"));
-			mountains = ImageIO.read(new File("icons/saurontower.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		img = Resources.BackgroundImage;
+		mountains = Resources.MountainsImage;
 	}
 	@Override
 	public void draw(Graphics g) {

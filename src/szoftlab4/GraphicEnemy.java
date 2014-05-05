@@ -12,19 +12,15 @@ public class GraphicEnemy extends Drawable {
 	public GraphicEnemy(Enemy e){
 		this.e = e;
 		z_index = 3;
-		try{
-			if(e.getEnemyType() == EnemyType.human)
-				img = ImageIO.read(new File("icons/human.png"));
-			else if(e.getEnemyType() == EnemyType.dwarf)
-				img = ImageIO.read(new File("icons/dwarf.png"));
-			else if(e.getEnemyType() == EnemyType.elf)
-				img = ImageIO.read(new File("icons/elf.png"));
-			else if(e.getEnemyType() == EnemyType.hobbit)
-				img = ImageIO.read(new File("icons/hobbit.png"));
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
+
+		if(e.getEnemyType() == EnemyType.human)
+			img = Resources.HumanImage;
+		else if(e.getEnemyType() == EnemyType.dwarf)
+			img = Resources.DwarfImage;
+		else if(e.getEnemyType() == EnemyType.elf)
+			img = Resources.ElfImage;
+		else if(e.getEnemyType() == EnemyType.hobbit)
+			img = Resources.HobbitImage;
 	}
 	@Override
 	public void draw(Graphics g) {

@@ -1,8 +1,6 @@
 package szoftlab4;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
 
 
 public class GraphicGem extends Drawable {
@@ -10,20 +8,18 @@ public class GraphicGem extends Drawable {
 
 	public GraphicGem(Gem g) {
 		z_index = 2;
-		try {
-			if (g == TowerGem.red)
-				img = ImageIO.read(new File("icons/red_gem.png"));
-			else if (g == TowerGem.green)
-				img = ImageIO.read(new File("icons/green_gem.png"));
-			else if (g == TowerGem.blue)
-				img = ImageIO.read(new File("icons/blue_gem.png"));
-			else if (g == ObstacleGem.orange)
-				img = ImageIO.read(new File("icons/orange_gem.png"));
-			else if (g == ObstacleGem.yellow)
-				img = ImageIO.read(new File("icons/yellow_gem.png"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+		if (g == TowerGem.red)
+			img = Resources.RedGemImage;
+		else if (g == TowerGem.green)
+			img = Resources.GreenGemImage;
+		else if (g == TowerGem.blue)
+			img = Resources.BlueGemImage;
+		else if (g == ObstacleGem.orange)
+			img = Resources.OrangeGemImage;
+		else if (g == ObstacleGem.yellow)
+			img = Resources.YellowGemImage;
+
 		pos = new Vector(-100, -100);
 	}
 
