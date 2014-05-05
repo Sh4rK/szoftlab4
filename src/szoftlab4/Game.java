@@ -111,7 +111,7 @@ public class Game {
 		   if (p.step()){
 				i.remove();
 				view.projectileExploded(p);
-				if (!p.getTarget().isAlive()){
+				if (!p.getTarget().isAlive() && enemies.contains(p.target)){
 					removeEnemy(p.getTarget());
 				}
 		   }

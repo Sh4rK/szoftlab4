@@ -9,10 +9,10 @@ import java.util.List;
  * @author Nusser Ádám
  */
 public class Tower {
-	static final double range = 20;//temp értékek
+	static final double range = 20;
 	static final double fireRate = 1;
 	static final int cost = 500;
-	static final int projectileSpeed = 20;
+	static final int projectileSpeed = 30;
 	public static double radius = 2;
 	static boolean critical = false;
 	static HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
