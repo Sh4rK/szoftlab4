@@ -40,7 +40,7 @@ public class Obstacle {
 	 * @return a megadott pozíció ütközik-e az építménnyel
 	 */
 	public boolean doesCollide(Vector pos) {
-		if (pos.getDistance(position) <= getRange())
+		if (pos.getDistance(position) <= getRange() * 2)
 			return true;
 
 		return false;

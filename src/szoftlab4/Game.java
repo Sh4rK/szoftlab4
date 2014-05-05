@@ -29,7 +29,12 @@ public class Game {
 	public static boolean AA = false;
 	private boolean countFPS = true;
 	public double realFPS;
+	/* debuggoláshoz */
+	private double speed = 1.0;
+	
 	View view;
+	enum State { RUNNING, WIN, LOSE };
+	State gameState = State.RUNNING;
 
 	
 	public Game(String mapName, String missionName) {
@@ -62,13 +67,12 @@ public class Game {
 	
 	public void run(){
 		int i = 1;
-		while(true){
+		while(gameState == State.RUNNING){
 			double stime = System.nanoTime();
-			if (step())
-				return;
+			step();
 			view.drawAll();
 			try {
-				Thread.sleep(1000/FPS);
+				Thread.sleep((int)(1000/(FPS * speed)));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -78,6 +82,18 @@ public class Game {
 				realFPS = 1000000000.0/(etime - stime);
 				i = 1;
 			}
+			
+			if (!mission.hasEnemy() && enemies.isEmpty()){
+				gameState = State.WIN;
+				
+			}
+		}
+		
+		if (gameState == State.LOSE){
+			view.gameLost();
+		}
+		else if (gameState == State.WIN){
+			view.gameWon();
 		}
 	}
 
@@ -85,9 +101,9 @@ public class Game {
 	 * A játék logikáját egy lépéssel előrébb viszi.
 	 * (Az ellenségek itt haladnak, a tornyok itt lőnek, a lövedékek ott repülnek, stb.)
 	 */
-	private boolean step() {
+	private void step() {
 		slowEnemies();
-		boolean rtn = moveEnemies();
+		moveEnemies();
 
 		Enemy enemy = mission.getNextEnemy();
 
@@ -97,8 +113,6 @@ public class Game {
 
 		moveProjectiles();
 		towersFire();
-		
-		return rtn;
 	}
 
 	/**
@@ -149,7 +163,7 @@ public class Game {
 		synchronized(enemies){
 			for (Enemy e : enemies) {
 				if (e.move()){
-					//ellenség nyer
+					gameState = State.LOSE;
 					return true;
 				}
 			}

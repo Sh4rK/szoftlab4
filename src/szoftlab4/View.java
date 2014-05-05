@@ -1,10 +1,17 @@
 package szoftlab4;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -208,6 +215,126 @@ public class View {
 	public void magicChange(int magic){
 		JLabel magicLabel = (JLabel)magicPanel.getComponent(0);
 		magicLabel.setText("Magic: " + magic);
+	}
+
+	public void gameLost() {
+		Object lock = new Object();
+		
+		synchronized(drawables){
+			drawables.clear();
+			drawables.add(new Drawable(){
+					public void draw(Graphics g) {
+						Graphics2D g2 = (Graphics2D)g;
+						g2.setColor(Color.white);
+						g2.setFont(new Font("Consolas", Font.BOLD, 36));
+						String message = "Sajnálom kollega, ön vesztett";
+						
+						g2.setRenderingHint(
+						        RenderingHints.KEY_TEXT_ANTIALIASING,
+						        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+						
+						FontMetrics fm = g2.getFontMetrics();
+				        Rectangle2D r = fm.getStringBounds(message, g2);
+				        
+				        int x = (800 - (int) r.getWidth()) / 2;
+				        int y = ((600 - (int) r.getHeight()) / 3 + fm.getAscent());
+				        
+
+						g2.drawString(message, x, y);
+						
+						g2.setRenderingHint(
+						        RenderingHints.KEY_TEXT_ANTIALIASING,
+						        RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+					}
+				});
+		}
+		//menuPanel.setEnabled(false);
+		drawAll();
+		mapPanel.addMouseListener(new MouseAdapter(){
+			Object lock;
+			public MouseListener init(Object o){
+				lock = o;
+				return this;
+			}
+			public void mousePressed(MouseEvent e){
+				synchronized(lock){
+					lock.notify();
+				}
+			}
+		}.init(lock));
+		
+		synchronized(lock){
+			try {
+				lock.wait();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	public void gameWon() {
+Object lock = new Object();
+		
+		synchronized(drawables){
+			drawables.clear();
+			drawables.add(new Drawable(){
+					public Drawable init(){
+						try {
+							img = ImageIO.read(new File("icons/LZF.png"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						return this;
+					}
+					public void draw(Graphics g) {
+						Graphics2D g2 = (Graphics2D)g;
+						g2.setColor(Color.white);
+						g2.setFont(new Font("Consolas", Font.BOLD, 36));
+						String message = "Kíváló munka kollega!";
+						
+						g2.setRenderingHint(
+						        RenderingHints.KEY_TEXT_ANTIALIASING,
+						        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+						
+						FontMetrics fm = g2.getFontMetrics();
+				        Rectangle2D r = fm.getStringBounds(message, g2);
+				        
+				        int x = (800 - (int) r.getWidth()) / 2;
+				        int y = ((600 - (int) r.getHeight()) / 3 + fm.getAscent());
+				        
+
+						g2.drawString(message, x, y);
+						
+						g2.drawImage(img, 800/2, 600/2, null);
+						
+						g2.setRenderingHint(
+						        RenderingHints.KEY_TEXT_ANTIALIASING,
+						        RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+					}
+				}.init());
+		}
+		//menuPanel.setEnabled(false);
+		drawAll();
+		mapPanel.addMouseListener(new MouseAdapter(){
+			Object lock;
+			public MouseListener init(Object o){
+				lock = o;
+				return this;
+			}
+			public void mousePressed(MouseEvent e){
+				synchronized(lock){
+					lock.notify();
+				}
+			}
+		}.init(lock));
+		
+		synchronized(lock){
+			try {
+				lock.wait();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 
 }

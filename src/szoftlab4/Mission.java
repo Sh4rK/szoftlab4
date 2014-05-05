@@ -72,5 +72,9 @@ public class Mission {
 		}
 		return null;
 	}
+	
+	public boolean hasEnemy(){
+		return !spawnList.isEmpty();
+	}
 
 }
