@@ -165,7 +165,7 @@ public class Game {
 					e.setSlowingFactor(1);
 					for (Obstacle o : obstacles) {
 						if (e.getPosition().equals(o.getPosition(), o.getRange()))
-							e.setSlowingFactor(o.getSlowingFactor(e));
+							e.setSlowingFactor(o.getSlowingFactor(e) * e.getSlowingFactor());
 					}
 				}
 			}

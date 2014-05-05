@@ -148,6 +148,10 @@ public class Enemy {
 	public void setSlowingFactor(double slowingFactor) {
 		this.slowingFactor = slowingFactor;
 	}
+	
+	public double getSlowingFactor(){
+		return slowingFactor;
+	}
 
 	/**
 	 * Megsebzi az ellenfelet, majd kettévágja
