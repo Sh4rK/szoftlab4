@@ -33,6 +33,15 @@ public class Controller {
 		public void MapMoved(MouseEvent e);
 	}
 	
+	public class pauseMouseEvent extends MouseAdapter {
+		public void mousePressed(MouseEvent e){
+			if (game.gameState == szoftlab4.Game.State.RUNNING)
+				game.gameState = szoftlab4.Game.State.PAUSED;
+			else
+				game.gameState = szoftlab4.Game.State.RUNNING;
+		}
+	}
+
 	public class BuildTowerMouseEvent extends MouseAdapter implements MapClickDelegate {
 		Vector pos;
 		public void mousePressed(MouseEvent e){

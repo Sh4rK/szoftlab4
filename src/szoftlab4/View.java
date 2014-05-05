@@ -27,12 +27,13 @@ public class View {
 	JPanel magicPanel;
 	List<Drawable> drawables;
 	Drawable placing;
-	
+
 	public View(Game game, Map map){
 		Controller c = new Controller(game, this);
-		
+
 		JButton buildTower = new JButton();
 		JButton buildObstacle = new JButton();
+		JButton pause = new JButton("P");
 		GemButton redGem = new GemButton(TowerGem.red);
 		GemButton greenGem = new GemButton(TowerGem.green);
 		GemButton blueGem = new GemButton(TowerGem.blue);
@@ -44,7 +45,7 @@ public class View {
 		menuPanel = new JPanel();
 		mainPanel = new JPanel();
 		magicPanel = new JPanel();
-		
+
 		/* wow such anonymous class */
 		mapPanel = new JPanel(){
 			List<Drawable> d;
@@ -66,80 +67,86 @@ public class View {
 			}
 		}.init(drawables);
 		mapPanel.setPreferredSize(new Dimension(800, 600));
-		
+
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-		
+
 		panel.add(mainPanel, BorderLayout.PAGE_START);
 		panel.add(mapPanel, BorderLayout.CENTER);
-		
+
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.add(menuPanel);
 		mainPanel.add(magicPanel, BorderLayout.EAST);
-		
+
 		menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		menuPanel.setPreferredSize(new Dimension(0, 55));
 		menuPanel.add(buildTower);
 		menuPanel.add(redGem);
 		menuPanel.add(greenGem);
 		menuPanel.add(blueGem);
-		
+
 		menuPanel.add(buildObstacle);
 		menuPanel.add(yellowGem);
 		menuPanel.add(orangeGem);
-		
+
+		menuPanel.add(pause);
+
 		magicPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
-		
-		Font magicFont = new Font("Serif",Font.PLAIN,26);	
+
+
+		Font magicFont = new Font("Consolas",Font.PLAIN,26);
 		magic.setFont(magicFont);
 		magicPanel.add(magic);
-		
+
 		redGem.setToolTipText("<html><center>Piros varázskő<br/>\nTöbbet sebez<br/>\n" + TowerGem.red.getCost() + " VE</center></html>");
 		greenGem.setToolTipText("<html><center>Zöld varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + TowerGem.green.getCost() + " VE</center></html>");
 		blueGem.setToolTipText("<html><center>Kék varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + TowerGem.blue.getCost() + " VE</center></html>");
-		
+
 		yellowGem.setToolTipText("<html><center>Sárga varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + ObstacleGem.yellow.getCost() + " VE</center></html>");
 		orangeGem.setToolTipText("<html><center>Narancssárga varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + ObstacleGem.orange.getCost() + " VE</center></html>");
-		
+
 		buildTower.setToolTipText("<html><center>Torony építése<br/>\n" + Tower.cost + " VE</center></html>");
 		buildObstacle.setToolTipText("<html><center>Akadály építése<br/>\n" + Obstacle.cost + " VE</center></html>");
-		
-		
+
+
 		buildTower.addMouseListener(c.new BuildTowerMouseEvent());
 		redGem.addMouseListener(c.new EnchantMouseEvent());
 		greenGem.addMouseListener(c.new EnchantMouseEvent());
 		blueGem.addMouseListener(c.new EnchantMouseEvent());
-		
+
 		buildObstacle.addMouseListener(c.new BuildObstacleMouseEvent());
 		yellowGem.addMouseListener(c.new EnchantMouseEvent());
 		orangeGem.addMouseListener(c.new EnchantMouseEvent());
-		
+
 		mapPanel.addMouseListener(c.new MapMouseEvent());
 		mapPanel.addMouseMotionListener(c.new MapMouseEvent());
 
+		pause.addMouseListener(c.new pauseMouseEvent());
+		pause.setFont(magicFont);
+		setButtonLook(pause, null);
+
 		buildTower.setBackground(menuPanel.getBackground());
 		setButtonLook(buildTower, new ImageIcon("icons/tower.png"));
-		
+
 		buildObstacle.setBackground(menuPanel.getBackground());
 		setButtonLook(buildObstacle, new ImageIcon("icons/obstacle.png"));
-		
+
 		redGem.setBackground(menuPanel.getBackground());
 		setButtonLook(redGem, new ImageIcon("icons/red_gem.png"));
-		
+
 		greenGem.setBackground(menuPanel.getBackground());
 		setButtonLook(greenGem, new ImageIcon("icons/green_gem.png"));
-		
+
 		blueGem.setBackground(menuPanel.getBackground());
 		setButtonLook(blueGem, new ImageIcon("icons/blue_gem.png"));
-		
+
 		yellowGem.setBackground(menuPanel.getBackground());
 		setButtonLook(yellowGem, new ImageIcon("icons/yellow_gem.png"));
-		
+
 		orangeGem.setBackground(menuPanel.getBackground());
 		setButtonLook(orangeGem, new ImageIcon("icons/orange_gem.png"));
 	}
-	
+
 	private void setButtonLook(JButton b, ImageIcon img){
 		b.setFocusPainted(false);
 		b.setMargin(new Insets(1,1,1,1));
@@ -147,7 +154,7 @@ public class View {
 		b.setIcon(img);
 		b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 	}
-	
+
 	/**
 	 * Bármilyen drawable hozzáadásához.
 	 * Anonymous class-okkal lehet használni.
@@ -158,11 +165,11 @@ public class View {
 			drawables.add(d);
 		}
 	}
-	
+
 	public JPanel getPanel(){
 		return panel;
 	}
-	
+
 	public void enemyAdded(Enemy en) {
 		synchronized(drawables){
 			drawables.add(new GraphicEnemy(en));
@@ -226,11 +233,11 @@ public class View {
 		JLabel magicLabel = (JLabel)magicPanel.getComponent(0);
 		magicLabel.setText("Magic: " + magic);
 	}
-	
-	
+
+
 	private void winLoseScreen(String message, Image img) {
 		Object lock = new Object();
-		
+
 		synchronized(drawables){
 			drawables.add(new Drawable(){
 					String msg;
@@ -238,37 +245,37 @@ public class View {
 						msg = st;
 						img = i;
 						z_index = 10;
-						
+
 						return this;
 					}
 					public void draw(Graphics g) {
 						Graphics2D g2 = (Graphics2D)g;
 						g2.setColor(Color.white);
 						g2.setFont(new Font("Consolas", Font.BOLD, 36));
-						
+
 						g2.setRenderingHint(
 						        RenderingHints.KEY_TEXT_ANTIALIASING,
 						        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-						
+
 						FontMetrics fm = g2.getFontMetrics();
 				        Rectangle2D r = fm.getStringBounds(msg, g2);
-				        
+
 				        int x = (800 - (int) r.getWidth()) / 2;
 				        int y = ((600 - (int) r.getHeight()) / 3 + fm.getAscent());
-				        
+
 						g2.drawString(msg, x, y);
-						
+
 						if (img != null)
 							g2.drawImage(img, 800/2, 600/2, null);
-						
+
 						g2.setRenderingHint(
 						        RenderingHints.KEY_TEXT_ANTIALIASING,
 						        RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 					}
 				}.init(message, img));
 		}
-		
-		
+
+
 		drawAll();
 		mapPanel.addMouseListener(new MouseAdapter(){
 			Object lock;
@@ -282,7 +289,7 @@ public class View {
 				}
 			}
 		}.init(lock));
-		
+
 		synchronized(lock){
 			try {
 				lock.wait();

@@ -26,14 +26,14 @@ public class Game {
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
 	private int magic = 15000;
-	public static boolean AA = false;
+	public static boolean AA = true;
 	private boolean countFPS = true;
 	public double realFPS;
 	/* debuggoláshoz */
 	private double speed = 1.0;
 	
 	View view;
-	enum State { RUNNING, WIN, LOSE };
+	enum State { RUNNING, PAUSED, WIN, LOSE };
 	State gameState = State.RUNNING;
 
 	
@@ -67,9 +67,10 @@ public class Game {
 	
 	public void run(){
 		int i = 1;
-		while(gameState == State.RUNNING){
+		while(gameState == State.RUNNING || gameState == State.PAUSED){
 			double stime = System.nanoTime();
-			step();
+			if (gameState != State.PAUSED)
+				step();
 			view.drawAll();
 			try {
 				Thread.sleep((int)(1000/(FPS * speed)));
@@ -83,7 +84,7 @@ public class Game {
 				i = 1;
 			}
 			
-			if (!mission.hasEnemy() && enemies.isEmpty()){
+			if (gameState != State.PAUSED && !mission.hasEnemy() && enemies.isEmpty()){
 				gameState = State.WIN;
 				
 			}
