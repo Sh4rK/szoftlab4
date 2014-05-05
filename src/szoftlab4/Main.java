@@ -30,16 +30,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		Window window = new Window();
-		window.setResizable(false);
-		window.setVisible(true);
-		synchronized(window){
-			try {
-				window.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		while(true){
+			window.setResizable(false);
+			window.setVisible(true);
+			synchronized(window){
+				try {
+					window.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+			window.runGame();
 		}
-		window.runGame();
 	}
 
 }

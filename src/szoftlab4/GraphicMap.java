@@ -30,6 +30,7 @@ public class GraphicMap extends Drawable {
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform originalTransform = g2.getTransform();
 		
+		/* Turn on AA */
 		if (Game.AA){
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 					RenderingHints.VALUE_ANTIALIAS_ON);
@@ -59,6 +60,7 @@ public class GraphicMap extends Drawable {
 		}
 		g2.drawImage(mountains,0,0,null);
 		
+		/* Turn off AA */
 		if (Game.AA){
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
 					RenderingHints.VALUE_ANTIALIAS_OFF);

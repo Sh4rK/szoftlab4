@@ -63,7 +63,8 @@ public class Game {
 		int i = 1;
 		while(true){
 			double stime = System.nanoTime();
-			step();
+			if (step())
+				return;
 			view.drawAll();
 			try {
 				Thread.sleep(1000/FPS);
