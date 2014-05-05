@@ -8,13 +8,16 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class View {
 	JPanel panel;
 	JPanel mapPanel;
+	JPanel mainPanel;
 	JPanel menuPanel;
+	JPanel magicPanel;
 	List<Drawable> drawables;
 	
 	public View(Game game, Map map){
@@ -27,9 +30,13 @@ public class View {
 		GemButton blueGem = new GemButton(TowerGem.blue);
 		GemButton yellowGem = new GemButton(ObstacleGem.yellow);
 		GemButton orangeGem = new GemButton(ObstacleGem.orange);
+		JLabel magic = new JLabel("Magic: ");
 		drawables = new ArrayList<Drawable>();
 		drawables.add(new GraphicMap(map));
 		menuPanel = new JPanel();
+		mainPanel = new JPanel();
+		magicPanel = new JPanel();
+		
 		/* wow such anonymous class */
 		mapPanel = new JPanel(){
 			List<Drawable> d;
@@ -50,8 +57,12 @@ public class View {
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		
-		panel.add(menuPanel, BorderLayout.PAGE_START);
+		panel.add(mainPanel, BorderLayout.PAGE_START);
 		panel.add(mapPanel, BorderLayout.CENTER);
+		
+		mainPanel.setLayout(new BorderLayout());
+		mainPanel.add(menuPanel);
+		mainPanel.add(magicPanel, BorderLayout.EAST);
 		
 		menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		menuPanel.setPreferredSize(new Dimension(0, 55));
@@ -63,6 +74,14 @@ public class View {
 		menuPanel.add(buildObstacle);
 		menuPanel.add(yellowGem);
 		menuPanel.add(orangeGem);
+		
+		magicPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
+		
+		Font magicFont = new Font("Serif",Font.ITALIC,20);	
+		magic.setFont(magicFont);
+		magic.setForeground(Color.BLUE);
+		magicPanel.add(magic);
 		
 		redGem.setToolTipText("<html><center>Piros varázskő<br/>\nTöbbet sebez<br/>\n" + TowerGem.red.getCost() + " VE</center></html>");
 		greenGem.setToolTipText("<html><center>Zöld varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + TowerGem.green.getCost() + " VE</center></html>");
@@ -185,6 +204,10 @@ public class View {
 
 	public void drawAll() {
 		mapPanel.repaint();
+	}
+	public void magicChange(int magic){
+		JLabel magicLabel = (JLabel)magicPanel.getComponent(0);
+		magicLabel.setText("Magic: " + magic);
 	}
 
 }
