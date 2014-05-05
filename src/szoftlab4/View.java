@@ -78,7 +78,7 @@ public class View {
 		magicPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		
-		Font magicFont = new Font("Serif",Font.ITALIC,20);	
+		Font magicFont = new Font("Serif",Font.ITALIC,26);	
 		magic.setFont(magicFont);
 		magic.setForeground(Color.BLUE);
 		magicPanel.add(magic);
