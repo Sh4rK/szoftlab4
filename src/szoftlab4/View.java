@@ -85,9 +85,8 @@ public class View {
 		magicPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		
-		Font magicFont = new Font("Serif",Font.ITALIC,26);	
+		Font magicFont = new Font("Serif",Font.PLAIN,26);	
 		magic.setFont(magicFont);
-		magic.setForeground(Color.BLUE);
 		magicPanel.add(magic);
 		
 		redGem.setToolTipText("<html><center>Piros varázskő<br/>\nTöbbet sebez<br/>\n" + TowerGem.red.getCost() + " VE</center></html>");
