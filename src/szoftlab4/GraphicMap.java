@@ -2,10 +2,6 @@ package szoftlab4;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 
 public class GraphicMap extends Drawable {
@@ -20,7 +16,7 @@ public class GraphicMap extends Drawable {
 		img = Resources.BackgroundImage;
 		mountains = Resources.MountainsImage;
 	}
-	@Override
+
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform originalTransform = g2.getTransform();
@@ -64,7 +60,6 @@ public class GraphicMap extends Drawable {
 		}
 	}
 
-	@Override
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicMap && ((GraphicMap) other).m.equals(this.m);
 	}

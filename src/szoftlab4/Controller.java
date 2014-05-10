@@ -11,7 +11,9 @@ import javax.swing.JButton;
 public class Controller {
 	private Game game;
 	private View view;
-	private MapClickDelegate mapClick = null;
+	/** Ez tárolja mi az elvégzendő művelet a térképen történő eseményeknél */
+	private MapMouseDelegate mapMouseEvent = null;
+	/** A jelenleg lenyomott gomb */
 	private JButton activeButton = null;
 	
 	public Controller(Game game, View view){
@@ -19,20 +21,33 @@ public class Controller {
 		this.view = view;
 	}
 	
+	/**
+	 * Kitörli a kiválasztott gombot.
+	 * Beállítja a gombnak a kinézetét. 
+	 */
 	private void nullActiveButton(){
 		if(activeButton != null)
 			activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
 		view.setPlacing(null);
 		activeButton = null;
-		mapClick = null;
+		mapMouseEvent = null;
 	}
 	
-	interface MapClickDelegate {
+	/**
+	 * Egy interfész a térkép események kezelésére.
+	 * A térképen történő egéresemény során a térkép eseménykezelője egy ilyen objektum
+	 * megfelelő metódusát hívja meg.
+	 * Így könnyen lecserélhető, hogy hogyan viselkedjen.
+	 */
+	interface MapMouseDelegate {
 		public void MapClicked(MouseEvent e);
 		public void MapMoved(MouseEvent e);
 	}
 	
+	/**
+	 * A szünet gombra történő kattintás eseménykezelője 
+	 */
 	public class pauseMouseEvent extends MouseAdapter {
 		public void mousePressed(MouseEvent e){
 			if (game.gameState == szoftlab4.Game.State.RUNNING)
@@ -42,13 +57,16 @@ public class Controller {
 		}
 	}
 
-	public class BuildTowerMouseEvent extends MouseAdapter implements MapClickDelegate {
+	/**
+	 * A toronyépítés gombra történő kattintás eseménykezelője 
+	 */
+	public class BuildTowerMouseEvent extends MouseAdapter implements MapMouseDelegate {
 		Vector pos;
 		public void mousePressed(MouseEvent e){
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-			mapClick = this;
+			mapMouseEvent = this;
 			activeButton = (JButton)e.getSource();
 			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 			Tower t = new Tower(new Vector(-100, -100));
@@ -69,13 +87,16 @@ public class Controller {
 		}
 	}
 	
-	public class BuildObstacleMouseEvent extends MouseAdapter implements MapClickDelegate {
+	/**
+	 * Az akadályépítés gombra történő kattintás eseménykezelője 
+	 */
+	public class BuildObstacleMouseEvent extends MouseAdapter implements MapMouseDelegate {
 		Vector pos;
 		public void mousePressed(MouseEvent e){
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			
-			mapClick = this;
+			mapMouseEvent = this;
 			activeButton = (JButton)e.getSource();
 			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 			Obstacle o = new Obstacle(new Vector(-100, -100));
@@ -96,13 +117,16 @@ public class Controller {
 		}
 	}
 	
-	public class EnchantMouseEvent extends MouseAdapter implements MapClickDelegate {
+	/**
+	 * A varázskő gombokra történő kattintás eseménykezelője 
+	 */
+	public class EnchantMouseEvent extends MouseAdapter implements MapMouseDelegate {
 		Vector pos;
 		public void mousePressed(MouseEvent e){
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			
-			mapClick = this;
+			mapMouseEvent = this;
 			activeButton = (JButton)e.getSource();
 			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 			GraphicGem g = new GraphicGem(((GemButton)activeButton).getGemType());
@@ -133,15 +157,20 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * A térképre történő egéresemények eseménykezelője
+	 * Az eseményeket átirányítja a mapMouseEvent megfelelő metódusára
+	 * Így a működését a mapMouseEvent határozza meg
+	 */
 	public class MapMouseEvent extends MouseAdapter {
 		public void mousePressed(MouseEvent e){
-			if (mapClick != null)
-				mapClick.MapClicked(e);
+			if (mapMouseEvent != null)
+				mapMouseEvent.MapClicked(e);
 		}
 
 		public void mouseMoved(MouseEvent e) {
-			if (mapClick != null)
-				mapClick.MapMoved(e);
+			if (mapMouseEvent != null)
+				mapMouseEvent.MapMoved(e);
 		}
 	}
 }

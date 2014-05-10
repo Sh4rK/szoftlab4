@@ -26,13 +26,16 @@ public class Game {
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
 	private int magic = 15000;
+	/** Antialiasing bekapcsolása */
 	public static boolean AA = true;
+	/** FPS számláló megjelenítésének bekapcsolása */
 	private boolean countFPS = true;
+	/** Ez tárolja a tényleges FPS-t */
 	public double realFPS;
 	/* debuggoláshoz */
 	private double speed = 1.0;
 	
-	View view;
+	private View view;
 	/**
 	 * A játék lehetséges állapotai 
 	 */
@@ -57,6 +60,10 @@ public class Game {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public View getView(){
+		return view;
 	}
 	
 	/**

@@ -73,6 +73,9 @@ public class Mission {
 		return null;
 	}
 	
+	/**
+	 * @return Van-e még ellenség
+	 */
 	public boolean hasEnemy(){
 		return !spawnList.isEmpty();
 	}

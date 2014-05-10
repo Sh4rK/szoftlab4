@@ -2,13 +2,15 @@ package szoftlab4;
 
 import javax.swing.JFrame;
 
-@SuppressWarnings("serial")
 public class Window extends JFrame {
 	Menu menu;
 	private volatile Game game = null; 
 	
+	/**
+	 * Beállítja a játékot, majd értesít, hogy el lehet indítani a játékot 
+	 */
 	public synchronized void setGame(Game game) {
-		this.setContentPane(game.view.getPanel());
+		this.setContentPane(game.getView().getPanel());
 		this.game = game;
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -16,6 +18,9 @@ public class Window extends JFrame {
 		this.notify();
 	}
 	
+	/**
+	 * Elindítja a játékot 
+	 */
 	public void runGame(){
 		game.run();
 		setSize(500, 200);

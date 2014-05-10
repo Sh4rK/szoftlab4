@@ -1,9 +1,6 @@
 package szoftlab4;
 
 import java.awt.Graphics;
-import java.io.File;
-
-import javax.imageio.ImageIO;
 
 public class GraphicEnemy extends Drawable {
 	

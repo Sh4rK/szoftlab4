@@ -5,13 +5,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +25,10 @@ public class View {
 	List<Drawable> drawables;
 	Drawable placing;
 
+	/**
+	 * Konstruktor. Létrehozza az összes a képernyőn megjelenő gombot, panelt
+	 * Beállítja ezeknek az eseménykezelőit 
+	 */
 	public View(Game game, Map map){
 		Controller c = new Controller(game, this);
 
@@ -147,6 +148,9 @@ public class View {
 		setButtonLook(orangeGem, new ImageIcon("icons/orange_gem.png"));
 	}
 
+	/**
+	 * Beállítja egy JButton kinézetét
+	 */
 	private void setButtonLook(JButton b, ImageIcon img){
 		b.setFocusPainted(false);
 		b.setMargin(new Insets(1,1,1,1));
@@ -163,6 +167,7 @@ public class View {
 	public void addDrawable(Drawable d){
 		synchronized(drawables){
 			drawables.add(d);
+			Collections.sort(drawables, Collections.reverseOrder());
 		}
 	}
 
@@ -234,10 +239,11 @@ public class View {
 		magicLabel.setText("Magic: " + magic);
 	}
 
-
+	/**
+	 * Kiír a képernyőre egy szöveget és kirak egy képet
+	 * A mapPanel-re való kattintás után visszatér a metódus 
+	 */
 	private void winLoseScreen(String message, Image img) {
-		Object lock = new Object();
-
 		synchronized(drawables){
 			drawables.add(new Drawable(){
 					String msg;
@@ -275,21 +281,24 @@ public class View {
 				}.init(message, img));
 		}
 
-
 		drawAll();
+		Object lock = new Object(); // szinkronizációs objektum
 		mapPanel.addMouseListener(new MouseAdapter(){
 			Object lock;
 			public MouseListener init(Object o){
 				lock = o;
 				return this;
 			}
+			/**
+			 * Gombnyomásra értesíti a lock objektumot 
+			 */
 			public void mousePressed(MouseEvent e){
 				synchronized(lock){
 					lock.notify();
 				}
 			}
 		}.init(lock));
-
+		// vár amíg meg nem nyomunk egy egérgombot
 		synchronized(lock){
 			try {
 				lock.wait();
@@ -298,11 +307,17 @@ public class View {
 			}
 		}
 	}
-
+	
+	/**
+	 * Kirajzolja a vesztes képernyőt 
+	 */
 	public void gameLost() {
 		winLoseScreen("Sajnálom kollega, vesztett", null);
 	}
 
+	/**
+	 * Kirajzolja a nyertes képernyőt 
+	 */
 	public void gameWon() {
 		winLoseScreen("Kíváló munka, kollega!", Resources.LZImage);
 	}
