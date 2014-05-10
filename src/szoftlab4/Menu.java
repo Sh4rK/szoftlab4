@@ -21,14 +21,15 @@ import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class Menu {
 	JPanel panel = new JPanel();
 	Window window;
 	
-	JList<String> mapList, missionList;
+	JList mapList, missionList;
 	
-	AbstractListModel<String> mapListModel = new AbstractListModel<String>() {
+
+	AbstractListModel mapListModel = new AbstractListModel() {
 		ArrayList<String> values = new ArrayList<String>();
 		boolean arrayFilled;
 		
@@ -59,7 +60,7 @@ public class Menu {
 	};
 	
 	
-	private class MissionListModel extends AbstractListModel<String> {
+	private class MissionListModel extends AbstractListModel {
 		ArrayList<String> values = new ArrayList<String>();
 		
 		public void fillArray(String mapName) {
@@ -95,7 +96,7 @@ public class Menu {
 	
 	
 	public void newGame() {
-		Game game = new Game(mapList.getSelectedValue(), missionList.getSelectedValue());
+		Game game = new Game((String)mapList.getSelectedValue(), (String)missionList.getSelectedValue());
 		window.setGame(game);
 	}
 	
@@ -104,6 +105,7 @@ public class Menu {
 		window.dispose();
 	}
 	
+
 	public Menu(Window w) {
 		window = w;
 		
