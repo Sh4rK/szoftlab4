@@ -33,30 +33,25 @@ public class Game {
 	private double speed = 1.0;
 	
 	View view;
+	/**
+	 * A játék lehetséges állapotai 
+	 */
 	enum State { RUNNING, PAUSED, WIN, LOSE };
 	State gameState = State.RUNNING;
 
-	
+	/**
+	 * A játék konstruktora, betölt egy pályát és egy missziót
+	 * 
+	 *  @param mapName a map fájl neve
+	 *  @param missionName a mission fájl neve
+	 */
 	public Game(String mapName, String missionName) {
 		try {
 			map = new Map("maps/" + mapName + ".map");
 			mission = new Mission("missions/" + mapName + "_" + missionName + ".mission", map);
 			view = new View(this, map);
 			if (countFPS){
-				view.addDrawable(new Drawable(){
-					Game game;
-					public Drawable init(Game g){
-						z_index = 10;
-						game = g;
-						return this;
-					}
-					public void draw(Graphics g) {
-						g.setColor(Color.white);
-						g.setFont(new Font("Consolas", Font.BOLD, 36));
-						g.drawString(""+(int)(game.realFPS), 750, 30);
-					}
-				}.init(this));
-				view.magicChange(magic);
+				initFPScounter();
 			}
 			
 		} catch (Exception e) {
@@ -64,11 +59,34 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Inicializája a vizuális FPS számlálót
+	 * Az FPS számláló a képernyő jobb felső sarkában látható 
+	 */
+	private void initFPScounter(){
+		view.addDrawable(new Drawable(){
+			Game game;
+			public Drawable init(Game g){
+				z_index = 10;
+				game = g;
+				return this;
+			}
+			public void draw(Graphics g) {
+				g.setColor(Color.white);
+				g.setFont(new Font("Consolas", Font.BOLD, 36));
+				g.drawString(""+(int)(game.realFPS), 750, 30);
+			}
+		}.init(this));
+		view.magicChange(magic);
+	}
 	
+	/**
+	 * A játék főciklusa, a játék állapotától függően lépteti a játékot és kirajzolja azt. 
+	 */
 	public void run(){
 		int i = 1;
+		double stime = System.nanoTime();
 		while(gameState == State.RUNNING || gameState == State.PAUSED){
-			double stime = System.nanoTime();
 			if (gameState != State.PAUSED)
 				step();
 			view.drawAll();
@@ -78,10 +96,12 @@ public class Game {
 				e.printStackTrace();
 			}
 			
-			double etime = System.nanoTime();
-			if (++i % 15 == 0){
-				realFPS = 1000000000.0/(etime - stime);
-				i = 1;
+			// FPS számlálás, 15 darab minta átlagát veszi
+			if (++i % 15 == 0) {
+				double etime = System.nanoTime();
+				realFPS = (1000000000.0/((etime - stime)/15));
+				stime = System.nanoTime();
+				i = 0;
 			}
 			
 			if (gameState != State.PAUSED && !mission.hasEnemy() && enemies.isEmpty()){
@@ -248,7 +268,6 @@ public class Game {
 	 * illetve hogy nem ütközik-e már meglévő akadállyal.
 	 *
 	 * @param pos az akadály koordinátái
-	 *            VÁLTOZÁS:
 	 * @return Épített-e oda akadályt
 	 */
 	public boolean buildObstacle(Vector pos) {
@@ -347,11 +366,22 @@ public class Game {
 		return null;
 	}
 	
+	/**
+	 * Megmutatja, hogy 1 játékbeli méter hány pixel a képernyőn 
+	 */
 	static private int pix = 10;
+	/**
+	 * @param v egy Vector, ami fizikai koordinátákat tartalmaz
+	 * @return v Vector áttranszformálva játékbeli koordinákba 
+	 * */
 	static public Vector toGameCoords(Vector v){
 		return new Vector(v.x/pix, v.y/pix);
 	}
 	
+	/**
+	 * @param v egy Vector, ami játékbeli koordinátákat tartalmaz
+	 * @return v Vector áttranszformálva fizikai koordinátákba
+	 * */
 	static public Vector toMouseCoords(Vector v){
 		return new Vector(v.x*pix, v.y*pix);
 	}
