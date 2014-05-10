@@ -25,11 +25,11 @@ public class Game {
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
-	private int magic = 15000;
+	private int magic = 8000;
 	/** Antialiasing bekapcsolása */
-	public static boolean AA = true;
+	public static boolean AA = false;
 	/** FPS számláló megjelenítésének bekapcsolása */
-	private boolean countFPS = true;
+	public static boolean countFPS = false;
 	/** Ez tárolja a tényleges FPS-t */
 	public double realFPS;
 	/* debuggoláshoz */
@@ -53,6 +53,7 @@ public class Game {
 			map = new Map("maps/" + mapName + ".map");
 			mission = new Mission("missions/" + mapName + "_" + missionName + ".mission", map);
 			view = new View(this, map);
+			view.magicChange(magic);
 			if (countFPS){
 				initFPScounter();
 			}
