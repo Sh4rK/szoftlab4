@@ -60,6 +60,8 @@ public class Game {
 			if (countFPS){
 				initFPScounter();
 			}
+			Fog.setFog(false);
+			Tower.comeatmebro = false;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -288,10 +290,12 @@ public class Game {
 	 * @param en A hozzáadandó ellenség.
 	 */
 	public void addEnemy(Enemy en) {
-		synchronized(enemies){
-			enemies.add(en);
+		if (en != null){
+			synchronized(enemies){
+				enemies.add(en);
+			}
+			view.enemyAdded(en);
 		}
-		view.enemyAdded(en);
 	}
 
 	/**

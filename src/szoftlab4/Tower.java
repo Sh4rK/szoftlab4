@@ -97,7 +97,7 @@ public class Tower {
 		
 		Projectile pro;
 
-		if (Math.random() < 0.08)
+		if (Math.random() < 0.06)
 			pro = new SplitterProjectile(target, new Vector(position), tempDamage, projectileSpeed, game);
 		else
 			pro = new Projectile(target, new Vector(position), tempDamage, projectileSpeed);

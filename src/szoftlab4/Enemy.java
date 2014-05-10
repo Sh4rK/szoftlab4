@@ -112,7 +112,7 @@ public class Enemy {
 	 * @return az ellenség végső céljától való távolsága
 	 */
 	public double getDistance() {
-		return targetWaypoint.getDistance() + position.getDistance(targetWaypoint.getPosition());
+		return targetWaypoint != null ? targetWaypoint.getDistance() : 0 + position.getDistance(targetWaypoint.getPosition());
 	}
 
 	/**
@@ -158,14 +158,18 @@ public class Enemy {
 	 * @return az új ellenség 
 	 **/
 	public Enemy split(double dmg) {
-		this.damage(dmg);
-		Enemy rtn = new Enemy(this);
-		rtn.health *= 0.5;
+		if (isAlive()){
+			this.damage(dmg);
+			Enemy rtn = new Enemy(this);
+			rtn.health *= 0.5;
+			
+			final int moveNum = 10;
+			for (int i = 0; i < moveNum; ++i)
+				rtn.move();
+			
+			return rtn;
+		}
 		
-		final int moveNum = 10;
-		for (int i = 0; i < moveNum; ++i)
-			rtn.move();
-		
-		return rtn;
+		return null;
 	}
 }
