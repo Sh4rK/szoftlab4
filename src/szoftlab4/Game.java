@@ -270,7 +270,7 @@ public class Game {
 	public void addGem(Vector pos, TowerGem gem) {
 		Tower t = getCollidingTower(pos);
 
-		if (t != null) {
+		if (t != null && magic >= gem.cost) {
 			magic -= gem.cost;
 			view.magicChange(magic);
 			t.setGem(gem);
@@ -287,7 +287,7 @@ public class Game {
 	public void addGem(Vector pos, ObstacleGem gem) {
 		Obstacle o = getCollidingObstacle(pos);
 
-		if (o != null) {
+		if (o != null && magic >= gem.cost) {
 			magic -= gem.cost;
 			view.magicChange(magic);
 			o.setGem(gem);
