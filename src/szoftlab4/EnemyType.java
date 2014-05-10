@@ -26,10 +26,10 @@ public class EnemyType {
 	 * Statikus konstruktor, létrehozza az ellenségtípusokat.
 	 * */
 	static {
-		elf = new EnemyType(110, 8, 300);
-		dwarf = new EnemyType(140, 4, 250);
-		hobbit = new EnemyType(75, 6, 100);
-		human = new EnemyType(100, 5, 200);
+		elf = new EnemyType(110, 4.4, 300);
+		dwarf = new EnemyType(140, 2.8, 230);
+		hobbit = new EnemyType(75, 3.4, 150);
+		human = new EnemyType(100, 3.9, 200);
 	}
 
 	/**

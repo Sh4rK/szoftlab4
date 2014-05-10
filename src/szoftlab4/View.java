@@ -1,6 +1,8 @@
 package szoftlab4;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,6 +16,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import szoftlab4.Controller.MenuPanelMouseEvent;
 
 @SuppressWarnings("serial")
 public class View {
@@ -99,12 +103,12 @@ public class View {
 		magic.setFont(magicFont);
 		magicPanel.add(magic);
 
-		redGem.setToolTipText("<html><center>Piros varázskő<br/>\nTöbbet sebez<br/>\n" + TowerGem.red.getCost() + " VE</center></html>");
-		greenGem.setToolTipText("<html><center>Zöld varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + TowerGem.green.getCost() + " VE</center></html>");
-		blueGem.setToolTipText("<html><center>Kék varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + TowerGem.blue.getCost() + " VE</center></html>");
+		redGem.setToolTipText("<html><center>Piros varázskő<br/>\nTöbb sebezés<br/>\n" + TowerGem.red.getCost() + " VE</center></html>");
+		greenGem.setToolTipText("<html><center>Zöld varázskő<br/>\nNagyobb hatókör<br/>\n" + TowerGem.green.getCost() + " VE</center></html>");
+		blueGem.setToolTipText("<html><center>Kék varázskő<br/>\nGyorsabb tüzelés<br/>\n" + TowerGem.blue.getCost() + " VE</center></html>");
 
-		yellowGem.setToolTipText("<html><center>Sárga varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + ObstacleGem.yellow.getCost() + " VE</center></html>");
-		orangeGem.setToolTipText("<html><center>Narancssárga varázskő<br/>\n&lt; a varázskő hatása &gt;<br/>\n" + ObstacleGem.orange.getCost() + " VE</center></html>");
+		yellowGem.setToolTipText("<html><center>Sárga varázskő<br/>\nNagyobb hatókör<br/>\n" + ObstacleGem.yellow.getCost() + " VE</center></html>");
+		orangeGem.setToolTipText("<html><center>Narancssárga varázskő<br/>\nJobb lassítás<br/>\n" + ObstacleGem.orange.getCost() + " VE</center></html>");
 
 		buildTower.setToolTipText("<html><center>Torony építése<br/>\n" + Tower.cost + " VE</center></html>");
 		buildObstacle.setToolTipText("<html><center>Akadály építése<br/>\n" + Obstacle.cost + " VE</center></html>");
@@ -121,7 +125,25 @@ public class View {
 
 		mapPanel.addMouseListener(c.new MapMouseEvent());
 		mapPanel.addMouseMotionListener(c.new MapMouseEvent());
+		
+		/* comeatmebro cheat */
+		mapPanel.addKeyListener(new KeyAdapter(){
+			String typed = "";
+			public void keyPressed(KeyEvent e){
+				typed += e.getKeyChar();
+				if (typed.contains("comeatmebro")){
+					if (Tower.comeatmebro == false)
+						Tower.comeatmebro = true;
+					else
+						Tower.comeatmebro = false;
+					
+					typed = "";
+				}
+			}
+		});
 
+		menuPanel.addMouseListener(c.new MenuPanelMouseEvent());
+		
 		pause.addMouseListener(c.new pauseMouseEvent());
 		pause.setFont(magicFont);
 		setButtonLook(pause, null);
@@ -146,6 +168,8 @@ public class View {
 
 		orangeGem.setBackground(menuPanel.getBackground());
 		setButtonLook(orangeGem, new ImageIcon("icons/orange_gem.png"));
+		
+		mapPanel.requestFocusInWindow();
 	}
 
 	/**

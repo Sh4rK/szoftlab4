@@ -6,7 +6,7 @@ package szoftlab4;
 public abstract class Gem {
 
 	protected double range;
-	protected int cost = 300;
+	protected int cost = 400;
 
 	/**
 	 * Megadja, hogy mennyivel szorzódik a hatótávolság ezen varázskő hatására.

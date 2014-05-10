@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Ez az osztály fogja össze a többi osztályt.
@@ -25,13 +26,14 @@ public class Game {
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
-	private int magic = 8000;
+	private int magic = 6000;
 	/** Antialiasing bekapcsolása */
 	public static boolean AA = false;
 	/** FPS számláló megjelenítésének bekapcsolása */
 	public static boolean countFPS = false;
 	/** Ez tárolja a tényleges FPS-t */
 	public double realFPS;
+	private long tick = 0;
 	/* debuggoláshoz */
 	private double speed = 1.0;
 	
@@ -54,6 +56,7 @@ public class Game {
 			mission = new Mission("missions/" + mapName + "_" + missionName + ".mission", map);
 			view = new View(this, map);
 			view.magicChange(magic);
+			view.addDrawable(new GraphicFog());
 			if (countFPS){
 				initFPScounter();
 			}
@@ -95,8 +98,11 @@ public class Game {
 		int i = 1;
 		double stime = System.nanoTime();
 		while(gameState == State.RUNNING || gameState == State.PAUSED){
-			if (gameState != State.PAUSED)
+			if (gameState != State.PAUSED){
 				step();
+				setFog();
+				++tick;
+			}
 			view.drawAll();
 			try {
 				Thread.sleep((int)(1000/(FPS * speed)));
@@ -123,6 +129,18 @@ public class Game {
 		}
 		else if (gameState == State.WIN){
 			view.gameWon();
+		}
+	}
+	
+	private double gaus = new Random().nextGaussian();
+	private void setFog(){
+		long time = tick / FPS;
+
+		int secs = (int) (gaus * 7 + 25);
+		if (time != 0 && time % secs == 0){
+			Fog.toggle();
+			tick = 0;
+			gaus = new Random().nextGaussian();
 		}
 	}
 

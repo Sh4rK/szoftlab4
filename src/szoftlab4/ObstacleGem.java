@@ -11,6 +11,7 @@ public class ObstacleGem extends Gem {
 	protected ObstacleGem(double range, double speed) {
 		this.range = range;
 		this.speed = speed;
+		cost = 250;
 	}
 
 	static {

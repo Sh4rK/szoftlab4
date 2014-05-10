@@ -1,5 +1,6 @@
 package szoftlab4;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -8,9 +9,11 @@ public class GraphicFog extends Drawable {
 	public GraphicFog(){
 		z_index = 5;
 	}
-	@Override
+
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		if (Fog.isSet()){
+			g.setColor(new Color(255, 255, 255, 128));
+			g.fillRect(0, 0, 800, 600);
+		}
 	}
 }

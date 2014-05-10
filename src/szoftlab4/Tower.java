@@ -9,16 +9,17 @@ import java.util.List;
  * @author Nusser Ádám
  */
 public class Tower {
-	static final double range = 20;
+	static final double range = 13;
 	static final double fireRate = 1;
-	static final int cost = 500;
-	static final int projectileSpeed = 30;
+	static final int cost = 750;
+	static final int projectileSpeed = 25;
 	public static double radius = 2;
 	static boolean critical = false;
 	static HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
 	private TowerGem gem;
 	private Vector position;
 	private double cooldown;
+	public static boolean comeatmebro = false;
 
 	/**
 	 * Létrehoz egy tornyot a megadott pozícióval.
@@ -30,10 +31,10 @@ public class Tower {
 		this.position = position;
 		gem = null;
 		cooldown = Game.FPS / fireRate;
-		damage.put(EnemyType.human, 20.0);//temp értékek
-		damage.put(EnemyType.dwarf, 20.0);
-		damage.put(EnemyType.elf, 20.0);
-		damage.put(EnemyType.hobbit, 20.0);
+		damage.put(EnemyType.human, 40.0);
+		damage.put(EnemyType.dwarf, 30.0);
+		damage.put(EnemyType.elf, 42.0);
+		damage.put(EnemyType.hobbit, 55.0);
 
 	}
 
@@ -88,12 +89,15 @@ public class Tower {
 		
 		if (gem != null){
 			tempDamage *= gem.getDamageMultiplier(target.getEnemyType());
-			cooldown *= gem.getRateMultiplier();
+			cooldown /= gem.getRateMultiplier();
+		}
+		if (comeatmebro){
+			cooldown = (Game.FPS / fireRate) / 12.0;
 		}
 		
 		Projectile pro;
 
-		if (Math.random() < 0.1)
+		if (Math.random() < 0.08)
 			pro = new SplitterProjectile(target, new Vector(position), tempDamage, projectileSpeed, game);
 		else
 			pro = new Projectile(target, new Vector(position), tempDamage, projectileSpeed);
@@ -135,6 +139,9 @@ public class Tower {
 	 * @return A torony hatótávolsága.
 	 */
 	public double getRange() {
+		if (comeatmebro)
+			return 40;
+		
 		return range * Fog.getRangeMultiplier() * ((gem == null)?1:gem.getRangeMultiplier());
 	}
 }

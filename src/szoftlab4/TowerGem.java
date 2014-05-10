@@ -16,12 +16,13 @@ public class TowerGem extends Gem {
 		this.range = range;
 		this.damage = damage;
 		this.rate = rate;
+		cost = 500;
 	}
 
 	static {
 		red = new TowerGem(1.1, 1.5, 1.1);
-		blue = new TowerGem(1.5, 1.1, 1.1);
-		green = new TowerGem(1.1, 1.1, 1.5);
+		blue = new TowerGem(1.1, 1.1, 1.5);
+		green = new TowerGem(1.5, 1.1, 1.1);
 	}
 
 	/**

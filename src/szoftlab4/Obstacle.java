@@ -9,17 +9,17 @@ import java.util.HashMap;
  * @author Török Attila
  */
 public class Obstacle {
-	public static final int cost = 300;
+	public static final int cost = 500;
 	private static HashMap<EnemyType, Double> slowingFactor;
 	private static double range = 2;
 
 	static {
 		slowingFactor = new HashMap<EnemyType, Double>();
 
-		slowingFactor.put(EnemyType.dwarf, 0.7);
-		slowingFactor.put(EnemyType.elf, 0.85);
+		slowingFactor.put(EnemyType.dwarf, 0.6);
+		slowingFactor.put(EnemyType.elf, 0.8);
 		slowingFactor.put(EnemyType.human, 0.7);
-		slowingFactor.put(EnemyType.hobbit, 0.5);
+		slowingFactor.put(EnemyType.hobbit, 0.9);
 	}
 
 	private ObstacleGem gem;
@@ -35,7 +35,6 @@ public class Obstacle {
 	}
 
 	/**
-	 * Új metódus!
 	 *
 	 * @return a megadott pozíció ütközik-e az építménnyel
 	 */
@@ -88,7 +87,7 @@ public class Obstacle {
 	}
 
 	public double getRange() {
-		double rtn = range * Fog.getRangeMultiplier();
+		double rtn = range ;//* Fog.getRangeMultiplier();
 		if (gem != null)
 			rtn *= gem.getRangeMultiplier();
 

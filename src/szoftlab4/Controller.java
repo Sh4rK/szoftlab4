@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 
 public class Controller {
@@ -34,6 +35,13 @@ public class Controller {
 		mapMouseEvent = null;
 	}
 	
+	public class MenuPanelMouseEvent extends MouseAdapter {
+		public void mousePressed(MouseEvent e){
+			nullActiveButton();
+		}
+	}
+	
+	
 	/**
 	 * Egy interfész a térkép események kezelésére.
 	 * A térképen történő egéresemény során a térkép eseménykezelője egy ilyen objektum
@@ -50,10 +58,18 @@ public class Controller {
 	 */
 	public class pauseMouseEvent extends MouseAdapter {
 		public void mousePressed(MouseEvent e){
-			if (game.gameState == szoftlab4.Game.State.RUNNING)
+			JButton b = (JButton)e.getSource();
+			
+			if (game.gameState == szoftlab4.Game.State.RUNNING){
 				game.gameState = szoftlab4.Game.State.PAUSED;
-			else
+				
+				nullActiveButton();
+				b.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+			}
+			else {
 				game.gameState = szoftlab4.Game.State.RUNNING;
+				b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			}
 		}
 	}
 
@@ -166,6 +182,9 @@ public class Controller {
 		public void mousePressed(MouseEvent e){
 			if (mapMouseEvent != null)
 				mapMouseEvent.MapClicked(e);
+			JPanel jp = (JPanel)e.getSource();
+			jp.requestFocus();
+			jp.requestFocusInWindow();
 		}
 
 		public void mouseMoved(MouseEvent e) {

@@ -50,9 +50,9 @@ public class Mission {
 			Element en = (Element) ens.item(i);
 			EnemyType type = str2type.get(((Element) en.getElementsByTagName("type").item(0)).getTextContent());
 			int wpid = Integer.parseInt(((Element) en.getElementsByTagName("waypointID").item(0)).getTextContent());
-			int id = Integer.parseInt(((Element) en.getElementsByTagName("id").item(0)).getTextContent());
+			//int id = Integer.parseInt(((Element) en.getElementsByTagName("id").item(0)).getTextContent());
 			double time = Double.parseDouble(((Element) en.getElementsByTagName("time").item(0)).getTextContent());
-			spawnList.add(new Spawn(new Enemy(type, map.getWaypointByID(wpid), id), time));
+			spawnList.add(new Spawn(new Enemy(type, map.getWaypointByID(wpid), 0), time));
 		}
 	}
 

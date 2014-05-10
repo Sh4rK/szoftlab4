@@ -160,6 +160,7 @@ public class Enemy {
 	public Enemy split(double dmg) {
 		this.damage(dmg);
 		Enemy rtn = new Enemy(this);
+		rtn.health *= 0.5;
 		
 		final int moveNum = 10;
 		for (int i = 0; i < moveNum; ++i)

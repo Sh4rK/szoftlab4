@@ -15,12 +15,23 @@ public class Fog {
 	 */
 	public static double getRangeMultiplier() {
 		if (isSet)
-			return 0.2;
+			return 0.65;
 
 		return 1.0;
 	}
 
 	public static void setFog(boolean fog) {
 		isSet = fog;
+	}
+	
+	public static void toggle(){
+		if (isSet == true)
+			isSet = false;
+		else
+			isSet = true;
+	}
+	
+	public static boolean isSet(){
+		return isSet;
 	}
 }
