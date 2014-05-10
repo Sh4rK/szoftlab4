@@ -17,8 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import szoftlab4.Controller.MenuPanelMouseEvent;
-
 @SuppressWarnings("serial")
 public class View {
 	JPanel panel;

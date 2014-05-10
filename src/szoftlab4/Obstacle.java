@@ -11,15 +11,15 @@ import java.util.HashMap;
 public class Obstacle {
 	public static final int cost = 500;
 	private static HashMap<EnemyType, Double> slowingFactor;
-	private static double range = 2;
+	public static final double range = 2;
 
 	static {
 		slowingFactor = new HashMap<EnemyType, Double>();
 
-		slowingFactor.put(EnemyType.dwarf, 0.6);
-		slowingFactor.put(EnemyType.elf, 0.8);
-		slowingFactor.put(EnemyType.human, 0.7);
-		slowingFactor.put(EnemyType.hobbit, 0.9);
+		slowingFactor.put(EnemyType.dwarf, 0.5);
+		slowingFactor.put(EnemyType.elf, 0.7);
+		slowingFactor.put(EnemyType.human, 0.6);
+		slowingFactor.put(EnemyType.hobbit, 0.75);
 	}
 
 	private ObstacleGem gem;
@@ -35,11 +35,17 @@ public class Obstacle {
 	}
 
 	/**
-	 *
 	 * @return a megadott pozíció ütközik-e az építménnyel
 	 */
 	public boolean doesCollide(Vector pos) {
-		if (pos.getDistance(position) <= getRange() * 2)
+		if (pos.getDistance(position) <= getRange())
+			return true;
+
+		return false;
+	}
+	
+	public boolean doesCollideWithCircle(Vector pos, double radius) {
+		if (pos.getDistance(position) <= getRange() + radius)
 			return true;
 
 		return false;

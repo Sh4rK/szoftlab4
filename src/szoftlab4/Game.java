@@ -138,14 +138,25 @@ public class Game {
 	private void setFog(){
 		long time = tick / FPS;
 		
-		int secs;
+		double secs;
 		if (Fog.isSet()){
-			secs = (int) (gaus * 5 + 10);
+			secs = gaus * 5.0 + 10.0;
+			/* Valamiért néha a secs pont 0 lett és ezért div by 0 exceptiont dobott */
+			while (secs == 0){
+				gaus = new Random().nextGaussian();
+				secs = gaus * 5.0 + 10.0;
+			}
+			System.out.println("on: " + secs);
 		}
 		else {
-			secs = (int) (gaus * 7 + 25);
+			secs = gaus * 13.0 + 40.0;
+			while (secs == 0){
+				gaus = new Random().nextGaussian();
+				secs = gaus * 13.0 + 40.0;
+			}
+			System.out.println("off: " + secs);
 		}
-		if (time != 0 && time % secs == 0){
+		if (time != 0 && time % (int)secs == 0){
 			Fog.toggle();
 			tick = 0;
 			gaus = new Random().nextGaussian();
@@ -307,7 +318,7 @@ public class Game {
 	 * @return Épített-e oda akadályt
 	 */
 	public boolean buildObstacle(Vector pos) {
-		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos) && magic >= Obstacle.cost) {
+		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos, Obstacle.range) && magic >= Obstacle.cost) {
 			Obstacle o = new Obstacle(pos);
 			synchronized(obstacles){
 				obstacles.add(o);
@@ -347,12 +358,12 @@ public class Game {
 	}
 
 	/**
-	 * @return visszadja, hogy az adott pont ütközik-e egy akadállyal
+	 * @return visszadja, hogy az adott kör ütközik-e egy akadállyal
 	 */
-	public boolean collidesWithObstacle(Vector pos) {
+	public boolean collidesWithObstacle(Vector pos, double radius) {
 		synchronized(obstacles){
 			for (Obstacle o : obstacles) {
-				if (o.doesCollide(pos))
+				if (o.doesCollideWithCircle(pos, radius))
 					return true;
 			}
 		}
