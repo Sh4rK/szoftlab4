@@ -26,7 +26,7 @@ public class Game {
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
-	private int magic = 6000;
+	private int magic = 4200;
 	/** Antialiasing bekapcsolása */
 	public static boolean AA = false;
 	/** FPS számláló megjelenítésének bekapcsolása */
@@ -135,8 +135,14 @@ public class Game {
 	private double gaus = new Random().nextGaussian();
 	private void setFog(){
 		long time = tick / FPS;
-
-		int secs = (int) (gaus * 7 + 25);
+		
+		int secs;
+		if (Fog.isSet()){
+			secs = (int) (gaus * 5 + 10);
+		}
+		else {
+			secs = (int) (gaus * 7 + 25);
+		}
 		if (time != 0 && time % secs == 0){
 			Fog.toggle();
 			tick = 0;

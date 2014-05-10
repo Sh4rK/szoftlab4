@@ -3,7 +3,7 @@
 	<enemy>
 		<waypointID>1</waypointID>
 		<type>hobbit</type>
-		<time>3</time>
+		<time>6</time>
 	</enemy>
 	<enemy>
 		<waypointID>1</waypointID>
