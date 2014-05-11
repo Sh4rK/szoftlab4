@@ -101,10 +101,10 @@ public class Menu {
 	}
 
 	private boolean everythingSelected() {
-		return mapList.getSelectedIndex() >= 0 && mapList.getSelectedIndex() <= mapList.getLastVisibleIndex() &&
-		missionList.getSelectedIndex() >= 0 && missionList.getSelectedIndex() <= missionList.getLastVisibleIndex();
+		int mapi = mapList.getSelectedIndex();
+		int missioni = missionList.getSelectedIndex();
+		return mapi >= 0 && mapi < mapList.getModel().getSize() && missioni >= 0 && missioni < missionList.getModel().getSize();
 	}
-	
 
 	public Menu(Window w) {
 		window = w;
@@ -164,6 +164,7 @@ public class Menu {
 		mapList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		mapList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
+				missionList.setSelectedIndex(0);
 				btnNewButton.setEnabled(everythingSelected());
 			}
 		});
@@ -185,5 +186,8 @@ public class Menu {
 				btnNewButton.setEnabled(everythingSelected());
 			}
 		});
+		mapList.setSelectedIndex(0);
+		missionList.setSelectedIndex(0);
+		btnNewButton.setEnabled(everythingSelected());
 	}
 }
