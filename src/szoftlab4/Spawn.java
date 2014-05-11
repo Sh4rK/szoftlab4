@@ -1,6 +1,8 @@
 package szoftlab4;
 
 /**
+ * Egy konkrét ellenség típusát és játékba lépésének idejét tárolja.
+ * 
  * @author Szabó Antal
  */
 public class Spawn {
