@@ -54,12 +54,13 @@ public abstract class Drawable implements Comparable<Drawable>{
 		}
 				
 		g.setStroke( new BasicStroke(4) );
-		
+
+		color = new Color(color.getRed(), color.getGreen(), color.getBlue(), 80);
 		g.setColor(color);
 		
 		g.drawOval(x - radius, y - radius, radius*2, radius*2);
 		
-		g.setColor(new Color(0, 0, 0, 128));
+		g.setColor(new Color(0, 0, 0, 70));
 		
 		g.setStroke(new BasicStroke(2));
 		radius += 2;
