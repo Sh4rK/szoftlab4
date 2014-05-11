@@ -3,12 +3,20 @@ package szoftlab4;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-
+/**
+ * A pálya kirajzolásáért felelős osztály.
+ * @author Adam
+ *
+ */
 public class GraphicMap extends Drawable {
 	
 	Map m;
 	Image mountains;
 	
+	/**
+	 * Konstruktor mely hozzárendel egy map objektumot, és beállítja a háttérképeket.
+	 * @param m
+	 */
 	public GraphicMap(Map m){
 		this.m = m;
 		z_index = 0;
@@ -16,7 +24,10 @@ public class GraphicMap extends Drawable {
 		img = Resources.BackgroundImage;
 		mountains = Resources.MountainsImage;
 	}
-
+	/**
+	 * Kirajzolja a pálya hátterét, majd a Waypointokon végighaladva,
+	 * kirajzolja az utakat is.
+	 */
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform originalTransform = g2.getTransform();

@@ -2,10 +2,18 @@ package szoftlab4;
 
 import java.awt.*;
 
-
+/**
+ * Varázskő kirajzolásáért felelős osztály.
+ * @author Adam
+ *
+ */
 public class GraphicGem extends Drawable {
 	public Vector pos;
 
+	/**
+	 * Beállítja a kapott varázskőtől függően a kirajzolandó képet.
+	 * @param g
+	 */
 	public GraphicGem(Gem g) {
 		z_index = 2;
 
@@ -24,6 +32,9 @@ public class GraphicGem extends Drawable {
 	}
 
 	@Override
+	/**
+	 * Kirajzolja a varázskövet a pozíciójától eltolva, hogy attól jobbra fel kerüljön.
+	 */
 	public void draw(Graphics g) {
 		Vector mpos = Game.toMouseCoords(pos);
 		g.drawImage(img, (int) mpos.x - img.getWidth(null) / 4,

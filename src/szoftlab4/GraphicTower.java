@@ -5,12 +5,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-
+/**
+ * A tornyok kirajzolásáért felelős osztály.
+ * @author Adam
+ *
+ */
 public class GraphicTower extends Drawable {
 	
 	protected Tower t;
 	Image gemImage;
 	
+	/**
+	 * Konstruktor mely hozzárendel egy tower objektumot, és beállítja a háttérképeket.
+	 * @param m
+	 */
 	public GraphicTower(Tower t){
 		this.t = t;
 		z_index = 2;
@@ -18,6 +26,13 @@ public class GraphicTower extends Drawable {
 	}
 	
 	@Override
+	/**
+	 * Kirajzolja átszámított koordinátákkal a tornyot, 
+	 * majd ha van rajta varázskő, akkor azt is rárajzolja.
+	 * Végül varázskőtől függően rajzol egy olyan színű 
+	 * és olyan sugarú kört a torony köré, , amilyen színü a varázskő,
+	 * és amekkora a torony hatótávolsága.
+	 */
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(t.getPosition()).x - img.getWidth(null) / 2,
 				(int)Game.toMouseCoords(t.getPosition()).y - img.getHeight(null) / 2, null);
@@ -50,6 +65,9 @@ public class GraphicTower extends Drawable {
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicTower && ((GraphicTower) other).t.equals(this.t);
 	}
+	/**
+	 * Beállítja a torony varázskövének megfelelően a varázskő képét.
+	 */
 	public void setGem(){
 		if(t.getGem() != null){
 			if(t.getGem() == TowerGem.red)

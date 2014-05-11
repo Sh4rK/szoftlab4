@@ -7,20 +7,41 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 
+/**
+ * Minden kirajzolt objektumnak az abstrakt ősosztálya.
+ * @author Adam
+ *
+ */
 public abstract class Drawable implements Comparable<Drawable>{
 	protected int z_index;
 	protected Image img;
 	
+	/**
+	 * Abstrakt kirajzoló függvény, mely a kapott Graphics objektumra rajzol.
+	 * @param g
+	 */
 	public abstract void draw(Graphics g);
-
+	/**
+	 * Összehasonlít két Drawable objektumot.
+	 */
 	public int compareTo(Drawable other) {
 		return other.z_index - this.z_index;
 	}
-	
+	/**
+	 * 
+	 * @return Visszatér a Z-index-el.
+	 */
 	public int getZIndex(){
 		return z_index;
 	}
-	
+	/**
+	 * A kapott koordináták köré rajzol egy radius sugarú vékony gyűrűt.
+	 * @param g A grafikus elem amire rajzolunk.
+	 * @param color A kör színe.
+	 * @param x Az x koordináta.
+	 * @param y Az y koordináta.
+	 * @param radius A kör sugara.
+	 */
 	public static void drawRangeCircle(Graphics2D g, Color color, int x, int y, int radius)
 	{
 		if (Game.AA){
