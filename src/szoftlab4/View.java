@@ -144,7 +144,7 @@ public class View {
 		
 		pause.addMouseListener(c.new pauseMouseEvent());
 		pause.setFont(magicFont);
-		//setButtonLook(pause, null);
+		setButtonLook(pause, null);
 
 		buildTower.setBackground(menuPanel.getBackground());
 		setButtonLook(buildTower, new ImageIcon("icons/tower.png"));
