@@ -2,6 +2,9 @@ package szoftlab4;
 
 import java.awt.Graphics;
 
+/**
+ * A lövedékek kirajzolásáért felelős Drawable.
+ */
 public class GraphicProjectile extends Drawable {
 	
 	protected Projectile p;
@@ -15,6 +18,10 @@ public class GraphicProjectile extends Drawable {
 		else
 			img = Resources.ProjectileImage;
 	}
+
+	/**
+	 * A kirajzolást végző metódus.
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(p.getPosition()).x - img.getWidth(null) / 2, (int)Game.toMouseCoords(p.getPosition()).y  - img.getHeight(null) / 2, null);

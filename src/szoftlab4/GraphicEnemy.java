@@ -2,6 +2,9 @@ package szoftlab4;
 
 import java.awt.Graphics;
 
+/**
+ * Az ellenségek kirajzolásáért felelős Drawable.
+ */
 public class GraphicEnemy extends Drawable {
 	
 	protected Enemy e;
@@ -19,6 +22,9 @@ public class GraphicEnemy extends Drawable {
 		else if(e.getEnemyType() == EnemyType.hobbit)
 			img = Resources.HobbitImage;
 	}
+	/**
+	 * Kirajzolja az általa reprezentált ellenséget.
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(e.getPosition()).x - img.getWidth(null) / 2, (int)Game.toMouseCoords(e.getPosition()).y - img.getHeight(null) / 2, null);

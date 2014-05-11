@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-
+/**
+ * Az akadályok kirajzolásáért felelős Drawable.
+ */
 public class GraphicObstacle extends Drawable {
 	
 	Image gemImage;
@@ -17,6 +19,9 @@ public class GraphicObstacle extends Drawable {
 		img = Resources.ObstacleImage;
 	}
 	
+	/**
+	 * A kirajzolást végző metódus.
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(o.getPosition()).x - img.getWidth(null) / 2,
@@ -49,6 +54,7 @@ public class GraphicObstacle extends Drawable {
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicObstacle && ((GraphicObstacle) other).o.equals(this.o);
 	}
+	
 	public void setGem(){
 		if(o.getGem() != null){
 			if(o.getGem() == ObstacleGem.orange)

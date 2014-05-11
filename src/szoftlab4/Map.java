@@ -61,7 +61,15 @@ public class Map {
 			wp.setDistance();
 		}
 	}
-
+	
+	/**
+	 * Segédmetódus, amely megadja egy pontnak egy két végpontjával adott szakasztól való távolságát.
+	 * 
+	 * @param s1 A szakasz egyik pontja.
+	 * @param s2 A szakasz másik pontja.
+	 * @param p A pont, aminek a távolsága érdekes.
+	 * @return A pontnak a szakasztól mért távolsága.
+	 */
 	private double segmentPointDistance(Vector s1, Vector s2, Vector p) {
 		double px = s2.x - s1.x;
 		double py = s2.y - s1.y;

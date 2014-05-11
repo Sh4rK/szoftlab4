@@ -7,8 +7,6 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -16,8 +14,8 @@ import java.util.ArrayList;
 
 public class Main {
 	/**
-	 * Visszaad egy listát a folder könyvtárban található tesztekrõl
-	 * @param folder könyvtár, amiben a teszteket keressük 
+	 * Visszaad egy listï¿½t a folder kï¿½nyvtï¿½rban talï¿½lhatï¿½ tesztekrï¿½l
+	 * @param folder kï¿½nyvtï¿½r, amiben a teszteket keressï¿½k 
 	 **/
 	public static ArrayList<String> getTests(File folder) {
 		ArrayList<String> tests = new ArrayList<String>();
@@ -35,8 +33,8 @@ public class Main {
 	}
 	
 	/**
-	 * @param file egy fájl
-	 * @return file neve stringként, amibõl a kiterjesztés el lett távolítva 
+	 * @param file egy fï¿½jl
+	 * @return file neve stringkï¿½nt, amibï¿½l a kiterjesztï¿½s el lett tï¿½volï¿½tva 
 	 **/
 	public static String removeExtension(File file){
 		String fileName = file.getName();
@@ -50,7 +48,7 @@ public class Main {
 	}
 	
 	/**
-	 * @return paraméterként kapott fájl kiterjesztése
+	 * @return paramï¿½terkï¿½nt kapott fï¿½jl kiterjesztï¿½se
 	 **/
 	public static String getFileExtension(File file){
 		String fileName = file.getName();
@@ -64,13 +62,13 @@ public class Main {
 	}
 	
 	/**
-	 * Elvégzi a futtató mappában található teszteket.
-	 * Elõször lekéri a mappában lévõ .in kiterjesztésû teszt fájlokat, 
-	 * Majd elindítja a main függvényt, aminek a bemenetére a teszt fájlt adja
-	 * A program kimenetét egy temp.output fájlba menti.
-	 * Ha lefutott a teszt, akkor elindítja a windowsos FC, fájl komparáló programot
-	 * Így: FC <teszt>.in <teszt>.out
-	 * Ha nem egyeznek a fájlok, akkor az eltérést jelzi. 
+	 * Elvï¿½gzi a futtatï¿½ mappï¿½ban talï¿½lhatï¿½ teszteket.
+	 * Elï¿½szï¿½r lekï¿½ri a mappï¿½ban lï¿½vï¿½ .in kiterjesztï¿½sï¿½ teszt fï¿½jlokat, 
+	 * Majd elindï¿½tja a main fï¿½ggvï¿½nyt, aminek a bemenetï¿½re a teszt fï¿½jlt adja
+	 * A program kimenetï¿½t egy temp.output fï¿½jlba menti.
+	 * Ha lefutott a teszt, akkor elindï¿½tja a windowsos FC, fï¿½jl komparï¿½lï¿½ programot
+	 * ï¿½gy: FC <teszt>.in <teszt>.out
+	 * Ha nem egyeznek a fï¿½jlok, akkor az eltï¿½rï¿½st jelzi. 
 	 **/
 	public static void main(String[] args) {
 		System.out.println("Tester");
@@ -124,10 +122,10 @@ public class Main {
 	}
 	
 	/**
-	 * Az stdin-t átirányítja, hogy a paraméterként kapott fájlból olvasson.
-	 * Az stdout-ot átirányítja a temp.output fájlba
-	 * Ezután lefuttatja a szoftlab4.Game.main metódust
-	 * Végül visszaállítja az stdin-t és az stdout-ot  
+	 * Az stdin-t ï¿½tirï¿½nyï¿½tja, hogy a paramï¿½terkï¿½nt kapott fï¿½jlbï¿½l olvasson.
+	 * Az stdout-ot ï¿½tirï¿½nyï¿½tja a temp.output fï¿½jlba
+	 * Ezutï¿½n lefuttatja a szoftlab4.Game.main metï¿½dust
+	 * Vï¿½gï¿½l visszaï¿½llï¿½tja az stdin-t ï¿½s az stdout-ot  
 	 **/
 	public static String runTest(String in){
 		PrintStream ps = null;

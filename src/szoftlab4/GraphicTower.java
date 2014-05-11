@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-
+/**
+ * A tornyok kirajzolásáért felelős Drawable.
+ */
 public class GraphicTower extends Drawable {
 	
 	protected Tower t;
@@ -17,6 +19,9 @@ public class GraphicTower extends Drawable {
 		img = Resources.TowerImage;
 	}
 	
+	/**
+	 * Kirajzolja a tornyot.
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(t.getPosition()).x - img.getWidth(null) / 2,
@@ -50,6 +55,10 @@ public class GraphicTower extends Drawable {
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicTower && ((GraphicTower) other).t.equals(this.t);
 	}
+	
+	/**
+	 * Beállítja a megfelelő kirajzolandó képet, mikor a tornyon lévő varázskő megváltozik.
+	 */
 	public void setGem(){
 		if(t.getGem() != null){
 			if(t.getGem() == TowerGem.red)

@@ -7,20 +7,45 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 
+/**
+ * A játéktérre kirajzolható objektumok közös absztrakt ősosztálya.
+ */
 public abstract class Drawable implements Comparable<Drawable>{
 	protected int z_index;
 	protected Image img;
 	
+	/**
+	 * A kirajzolást végző absztrakt metódus, amelyet a leszármazottaknak felül kell definiálniuk.
+	 * 
+	 * @param g A Graphics példány, amire a leszámazottnak rajzolnia kell.
+	 */
 	public abstract void draw(Graphics g);
 
+	/**
+	 * Két Drawable példányt a hasonlít össze a z-indexük alapján.
+	 */
 	public int compareTo(Drawable other) {
 		return other.z_index - this.z_index;
 	}
 	
+	/**
+	 * Lekérdezi az objektum z-indexét.
+	 * 
+	 * @return A Drawable z-indexe.
+	 */
 	public int getZIndex(){
 		return z_index;
 	}
 	
+	/**
+	 * Statikus segédmetódus az épületek hatósugarát jelző kör kirajzolásához.
+	 * 
+	 * @param g A Graphics példány, amire rajzolunk.
+	 * @param color A rajzolandó kör színe.
+	 * @param x A kör középpontjának vízszintes koordinátája. 
+	 * @param y A kör középpontjának függőleges koordinátája.
+	 * @param radius A kör sugara.
+	 */
 	public static void drawRangeCircle(Graphics2D g, Color color, int x, int y, int radius)
 	{
 		if (Game.AA){
