@@ -16,14 +16,19 @@ import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * A játék menüjét valósítja meg.
+ */
 @SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class Menu {
 	JPanel panel = new JPanel();
 	Window window;
 	
 	JList mapList, missionList;
-	
 
+	/**
+	 * Betölti a pálya listába a pályákat.
+	 */
 	AbstractListModel mapListModel = new AbstractListModel() {
 		ArrayList<String> values = new ArrayList<String>();
 		boolean arrayFilled;
@@ -53,8 +58,10 @@ public class Menu {
 			return values.get(index);
 		}
 	};
-	
-	
+
+	/**
+	 * Betölti a misszió listába a kiválasztott pályához tartozó missziókat.
+	 */
 	private class MissionListModel extends AbstractListModel {
 		ArrayList<String> values = new ArrayList<String>();
 		
@@ -81,32 +88,46 @@ public class Menu {
 		public String getElementAt(int index) {
 			return values.get(index);
 		}
-	};
-	
-	MissionListModel missionListModel = new MissionListModel(); 
-	
+	}
+
+	MissionListModel missionListModel = new MissionListModel();
+
+	/**
+	 * Újratölti a misszió listát ha másik pálya lett kiválasztva.
+	 */
 	private void onMapSelected() {
 		missionListModel.fillArray((String)mapList.getSelectedValue());
 	}
-	
-	
+
+	/**
+	 * Elindít egy új játékot a kiválasztott pályával és misszióval.
+	 */
 	public void newGame() {
 		Game game = new Game((String)mapList.getSelectedValue(), (String)missionList.getSelectedValue());
 		window.setGame(game);
 	}
-	
+
+	/**
+	 * Kilép a programból.
+	 */
 	public void exit() {
 		window.setVisible(false);
 		window.dispose();
 		System.exit(0);
 	}
 
+	/**
+	 * Leellenőrzi, hogy pálya és misszió is ki van-e választva.
+	 */
 	private boolean everythingSelected() {
 		int mapi = mapList.getSelectedIndex();
 		int missioni = missionList.getSelectedIndex();
 		return mapi >= 0 && mapi < mapList.getModel().getSize() && missioni >= 0 && missioni < missionList.getModel().getSize();
 	}
 
+	/**
+	 * Felépíti a menüt.
+	 */
 	public Menu(Window w) {
 		window = w;
 		
