@@ -118,7 +118,7 @@ public class Menu {
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		buttonPanel.add(horizontalGlue_1);
 		
-		JButton btnNewButton = new JButton("Játék indítása");
+		final JButton btnNewButton = new JButton("Játék indítása");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newGame();
