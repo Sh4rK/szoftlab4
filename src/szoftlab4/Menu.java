@@ -32,11 +32,13 @@ public class Menu {
 			File mapsDirectory = new File("maps");
 
 			File[] mapFiles = mapsDirectory.listFiles();
-			for (File f : mapFiles) {
-				if (f.isFile() && f.getName().endsWith(".map")) {
-					String name = f.getName();
-					name = name.substring(0, name.length() - 4);
-					values.add(name);
+			if (mapFiles != null) {
+				for (File f : mapFiles) {
+					if (f.isFile() && f.getName().endsWith(".map")) {
+						String name = f.getName();
+						name = name.substring(0, name.length() - 4);
+						values.add(name);
+					}
 				}
 			}
 
@@ -67,11 +69,13 @@ public class Menu {
 			File missionDirectory = new File("missions");
 
 			File[] missionFiles = missionDirectory.listFiles();
-			for (File f : missionFiles) {
-				if (f.isFile() && f.getName().endsWith(".mission") && f.getName().startsWith(mapName + "_")) {
-					String name = f.getName();
-					name = name.substring(mapName.length() + 1, name.length() - 8);
-					values.add(name);
+			if (missionFiles != null) {
+				for (File f : missionFiles) {
+					if (f.isFile() && f.getName().endsWith(".mission") && f.getName().startsWith(mapName + "_")) {
+						String name = f.getName();
+						name = name.substring(mapName.length() + 1, name.length() - 8);
+						values.add(name);
+					}
 				}
 			}
 
