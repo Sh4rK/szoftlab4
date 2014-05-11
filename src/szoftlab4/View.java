@@ -17,6 +17,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * A játék grafikus felületének fő osztálya, a kirajzoláshoz szükséges grafikus elemeket és a kirajzolandó
+ * játékobjektumokat tartalmazza. Kezeli a modelben történő változásokat.
+ */
 @SuppressWarnings("serial")
 public class View {
 	JPanel panel;
@@ -28,8 +32,8 @@ public class View {
 	Drawable placing;
 
 	/**
-	 * Konstruktor. Létrehozza az összes a képernyőn megjelenő gombot, panelt
-	 * Beállítja ezeknek az eseménykezelőit 
+	 * Konstruktor. Létrehozza az összes a képernyőn megjelenő gombot, panelt.
+	 * Beállítja ezeknek az eseménykezelőit.
 	 */
 	public View(Game game, Map map){
 		Controller c = new Controller(game, this);
@@ -56,6 +60,10 @@ public class View {
 				d = dr;
 				return this;
 			}
+
+			/**
+			 * Kirajzolja az összes játékban lévő objektumot
+			 */
 			public void paintComponent(Graphics g) {
 				/* very thread-safe */
 				synchronized(d){
@@ -197,6 +205,9 @@ public class View {
 		return panel;
 	}
 
+	/**
+	 * Hozzáad egy ellenséget a kirajzolandó objektumokhoz.
+	 */
 	public void enemyAdded(Enemy en) {
 		synchronized(drawables){
 			drawables.add(new GraphicEnemy(en));
@@ -204,12 +215,18 @@ public class View {
 		}
 	}
 
+	/**
+	 * Kitöröl egy már célba ért lövedéket a kirajzolandó objektumok közül.
+	 */
 	public void projectileExploded(Projectile p) {
 		synchronized(drawables){
 			drawables.remove(new GraphicProjectile(p));
 		}
 	}
 
+	/**
+	 * Hozzáad egy lövedéket a kirajzolandó objektumokhoz.
+	 */
 	public void projectileAdded(Projectile p) {
 		synchronized(drawables){
 			drawables.add(new GraphicProjectile(p));
@@ -217,12 +234,18 @@ public class View {
 		}
 	}
 
+	/**
+	 * Kitöröl egy ellenséget a kirajzolandó objektumok közül.
+	 */
 	public void enemyDied(Enemy en) {
 		synchronized(drawables){
 			drawables.remove(new GraphicEnemy(en));
 		}
 	}
 
+	/**
+	 * Hozzáad egy tornyot a kirajzolandó objektumokhoz.
+	 */
 	public void towerAdded(Tower t) {
 		synchronized(drawables){
 			drawables.add(new GraphicTower(t));
@@ -230,18 +253,29 @@ public class View {
 		}
 	}
 
+	/**
+	 * Hozzáad egy akadályt a kirajzolandó objektumokhoz.
+	 */
 	public void obstacleAdded(Obstacle o) {
 		synchronized(drawables){
 			drawables.add(new GraphicObstacle(o));
 			Collections.sort(drawables, Collections.reverseOrder());
 		}
 	}
+
+	/**
+	 * Hozzáad egy gem-et egy már a kirajzolandó listában lévő toronyhoz.
+	 */
 	public void towerEnchanted(Tower t){
 		synchronized(drawables){
 			GraphicTower gt = (GraphicTower)drawables.get(drawables.indexOf(new GraphicTower(t)));
 			gt.setGem();
 		}
 	}
+
+	/**
+	 * Hozzáad egy gem-et egy már a kirajzolandó listában lévő akadályhoz.
+	 */
 	public void obstacleEnchanted(Obstacle o){
 		synchronized(drawables){
 			GraphicObstacle go = (GraphicObstacle)drawables.get(drawables.indexOf(new GraphicObstacle(o)));
@@ -249,13 +283,20 @@ public class View {
 		}
 	}
 
+	/**
+	 * Beállítja az éppen lerakásra váró kirajzolható objektumot.
+	 */
 	public void setPlacing(Drawable d) {
 		placing = d;
 	}
 
+	/**
+	 * Kirajzolja a kirajzolandó objektumokat.
+	 */
 	public void drawAll() {
 		mapPanel.repaint();
 	}
+
 	/**
 	 * Frissíti a kiírt varázserő mennyiségét.
 	 * @param magic Az új érték.
@@ -324,7 +365,7 @@ public class View {
 				}
 			}
 		}.init(lock));
-		// vár amíg meg nem nyomunk egy egérgombot
+		/* vár amíg meg nem nyomunk egy egérgombot */
 		synchronized(lock){
 			try {
 				lock.wait();
