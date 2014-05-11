@@ -146,7 +146,6 @@ public class Game {
 				gaus = new Random().nextGaussian();
 				secs = gaus * 5.0 + 10.0;
 			}
-			System.out.println("on: " + secs);
 		}
 		else {
 			secs = gaus * 13.0 + 40.0;
@@ -154,7 +153,6 @@ public class Game {
 				gaus = new Random().nextGaussian();
 				secs = gaus * 13.0 + 40.0;
 			}
-			System.out.println("off: " + secs);
 		}
 		if (time != 0 && time % (int)secs == 0){
 			Fog.toggle();

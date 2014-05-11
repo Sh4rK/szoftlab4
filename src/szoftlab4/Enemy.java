@@ -7,21 +7,12 @@ package szoftlab4;
  * @author Tallér Bátor
  */
 public class Enemy {
-	private static int num = 0;
 	private EnemyType type;
 	private double health;
 	private Vector position;
 	private Waypoint targetWaypoint;
 	private Waypoint nextWaypoint = null;
 	private double slowingFactor = 1;
-	private int ID;
-	
-	/**
-	 * A globális num változót 0-ba állítja, erre a tesztelő program miatt van szükség 
-	 **/
-	public static void resetID(){
-		num = 0;
-	}
 
 	/**
 	 * Létrehoz egy új ellenséget.
@@ -34,7 +25,6 @@ public class Enemy {
 		position = start.getPosition();
 		targetWaypoint = start.getNextWaypoint();
 		health = type.getHealth();
-		ID = num++;
 	}
 	
 	/**
@@ -45,11 +35,6 @@ public class Enemy {
 		position = new Vector(start.getPosition());
 		targetWaypoint = start.getNextWaypoint();
 		health = type.getHealth();
-		this.ID = ID;
-		
-		/* Beállítja a num-ot, hogy ne lehessen ütközés */
-		if (ID > num)
-			num = ID + 1;
 	}
 
 	/* Változás: nincs Cloneable interfész, helyette copy konstruktor */
@@ -59,12 +44,8 @@ public class Enemy {
 		position = new Vector(en.position);
 		targetWaypoint = en.targetWaypoint;
 		slowingFactor = en.slowingFactor;
-		ID = num++;
 	}
 
-	public int getID() {
-		return ID;
-	}
 	
 	public Waypoint getTarget(){
 		return targetWaypoint;
