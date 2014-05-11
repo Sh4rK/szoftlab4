@@ -258,6 +258,10 @@ public class View {
 	public void drawAll() {
 		mapPanel.repaint();
 	}
+	/**
+	 * Frissíti a kiírt varázserő mennyiségét.
+	 * @param magic Az új érték.
+	 */
 	public void magicChange(int magic){
 		JLabel magicLabel = (JLabel)magicPanel.getComponent(0);
 		magicLabel.setText("Magic: " + magic);

@@ -5,12 +5,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-
+/**
+ * Az akadályok kirajzolásáért felelős osztály.
+ * @author Adam
+ *
+ */
 public class GraphicObstacle extends Drawable {
 	
 	Image gemImage;
 	Obstacle o;
-	
+	/**
+	 * Konstruktor mely hozzárendel egy obstacle objektumot, és beállítja a háttérképeket.
+	 * @param m
+	 */
 	public GraphicObstacle(Obstacle o){
 		this.o = o;
 		z_index = 1;
@@ -18,6 +25,13 @@ public class GraphicObstacle extends Drawable {
 	}
 	
 	@Override
+	/**
+	 * Kirajzolja átszámított koordinátákkal az akadályt, 
+	 * majd ha van rajta varázskő, akkor azt is rárajzolja.
+	 * Végül varázskőtől függően rajzol egy olyan színű 
+	 * és olyan sugarú kört a torony köré, amilyen színü a varázskő,
+	 * és amekkora az akadály hatótávolsága.
+	 */
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(o.getPosition()).x - img.getWidth(null) / 2,
 				(int)Game.toMouseCoords(o.getPosition()).y - img.getHeight(null) / 2, null);
@@ -49,6 +63,9 @@ public class GraphicObstacle extends Drawable {
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicObstacle && ((GraphicObstacle) other).o.equals(this.o);
 	}
+	/**
+	 * Beállítja az akadály varázskövének megfelelően a varázskő képét.
+	 */
 	public void setGem(){
 		if(o.getGem() != null){
 			if(o.getGem() == ObstacleGem.orange)

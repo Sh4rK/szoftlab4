@@ -2,10 +2,20 @@ package szoftlab4;
 
 import java.awt.Graphics;
 
+/**
+ * Az ellenségek kirajzolásáért felelős osztály.
+ * @author Adam
+ *
+ */
 public class GraphicEnemy extends Drawable {
 	
 	protected Enemy e;
 	
+	/**
+	 * Konstruktor mely hozzárendel egy enemy objektumot, és beállítja a háttérképeket,
+	 * az ellenség típusától függően.
+	 * @param m
+	 */
 	public GraphicEnemy(Enemy e){
 		this.e = e;
 		z_index = 3;
@@ -20,6 +30,9 @@ public class GraphicEnemy extends Drawable {
 			img = Resources.HobbitImage;
 	}
 	@Override
+	/**
+	 * Az ellenség koordinátáira kirajzolja az ellegséget.
+	 */
 	public void draw(Graphics g) {
 		g.drawImage(img, (int)Game.toMouseCoords(e.getPosition()).x - img.getWidth(null) / 2, (int)Game.toMouseCoords(e.getPosition()).y - img.getHeight(null) / 2, null);
 	}
