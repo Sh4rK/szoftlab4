@@ -3,9 +3,7 @@ package szoftlab4;
 import java.awt.Graphics;
 
 /**
- * Az ellenségek kirajzolásáért felelős osztály.
- * @author Adam
- *
+ * Az ellenségek kirajzolásáért felelős Drawable.
  */
 public class GraphicEnemy extends Drawable {
 	
@@ -29,6 +27,9 @@ public class GraphicEnemy extends Drawable {
 		else if(e.getEnemyType() == EnemyType.hobbit)
 			img = Resources.HobbitImage;
 	}
+	/**
+	 * Kirajzolja az általa reprezentált ellenséget.
+	 */
 	@Override
 	/**
 	 * Az ellenség koordinátáira kirajzolja az ellegséget.

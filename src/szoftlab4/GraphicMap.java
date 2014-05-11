@@ -4,9 +4,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 /**
- * A pálya kirajzolásáért felelős osztály.
- * @author Adam
- *
+ * A pálya kirajzolásáért felelős Drawable.
  */
 public class GraphicMap extends Drawable {
 	
@@ -24,8 +22,9 @@ public class GraphicMap extends Drawable {
 		img = Resources.BackgroundImage;
 		mountains = Resources.MountainsImage;
 	}
+
 	/**
-	 * Kirajzolja a pálya hátterét, majd a Waypointokon végighaladva,
+	 * Kirajzolja a pálya hátterét, majd a Waypointokon végighaladva
 	 * kirajzolja az utakat is.
 	 */
 	public void draw(Graphics g) {
@@ -70,7 +69,8 @@ public class GraphicMap extends Drawable {
 					RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 		}
 	}
-
+	
+	@Override
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicMap && ((GraphicMap) other).m.equals(this.m);
 	}

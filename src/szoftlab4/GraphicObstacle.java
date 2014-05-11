@@ -6,9 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
- * Az akadályok kirajzolásáért felelős osztály.
- * @author Adam
- *
+ * Az akadályok kirajzolásáért felelős Drawable.
  */
 public class GraphicObstacle extends Drawable {
 	
@@ -24,6 +22,9 @@ public class GraphicObstacle extends Drawable {
 		img = Resources.ObstacleImage;
 	}
 	
+	/**
+	 * A kirajzolást végző metódus.
+	 */
 	@Override
 	/**
 	 * Kirajzolja átszámított koordinátákkal az akadályt, 
@@ -63,6 +64,7 @@ public class GraphicObstacle extends Drawable {
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicObstacle && ((GraphicObstacle) other).o.equals(this.o);
 	}
+
 	/**
 	 * Beállítja az akadály varázskövének megfelelően a varázskő képét.
 	 */

@@ -3,9 +3,7 @@ package szoftlab4;
 import java.awt.Graphics;
 
 /**
- * A lövedékek kirajzolásáért felelős osztály.
- * @author Adam
- *
+ * A lövedékek kirajzolásáért felelős Drawable.
  */
 public class GraphicProjectile extends Drawable {
 	
@@ -24,6 +22,10 @@ public class GraphicProjectile extends Drawable {
 		else
 			img = Resources.ProjectileImage;
 	}
+
+	/**
+	 * A kirajzolást végző metódus.
+	 */
 	@Override
 	/**
 	 * Kirajzolja a lövedéket az áttranszformált koordinátákra.

@@ -6,9 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
- * A tornyok kirajzolásáért felelős osztály.
- * @author Adam
- *
+ * A tornyok kirajzolásáért felelős Drawable.
  */
 public class GraphicTower extends Drawable {
 	
@@ -25,6 +23,9 @@ public class GraphicTower extends Drawable {
 		img = Resources.TowerImage;
 	}
 	
+	/**
+	 * Kirajzolja a tornyot.
+	 */
 	@Override
 	/**
 	 * Kirajzolja átszámított koordinátákkal a tornyot, 
@@ -65,8 +66,9 @@ public class GraphicTower extends Drawable {
 	public boolean equals(Object other) {
 		return other != null && other instanceof GraphicTower && ((GraphicTower) other).t.equals(this.t);
 	}
+
 	/**
-	 * Beállítja a torony varázskövének megfelelően a varázskő képét.
+	 * Beállítja a megfelelő kirajzolandó képet, mikor a tornyon lévő varázskő megváltozik.
 	 */
 	public void setGem(){
 		if(t.getGem() != null){

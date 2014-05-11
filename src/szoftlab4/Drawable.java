@@ -8,9 +8,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 
 /**
- * Minden kirajzolt objektumnak az abstrakt ősosztálya.
- * @author Adam
- *
+ * A játéktérre kirajzolható objektumok közös absztrakt ősosztálya.
  */
 public abstract class Drawable implements Comparable<Drawable>{
 	/** Megadja a kirajzolási sorrendet*/
@@ -19,29 +17,35 @@ public abstract class Drawable implements Comparable<Drawable>{
 	protected Image img;
 	
 	/**
-	 * Abstrakt kirajzoló függvény, mely a kapott Graphics objektumra rajzol.
-	 * @param g
+	 * A kirajzolást végző absztrakt metódus, amelyet a leszármazottaknak felül kell definiálniuk.
+	 * 
+	 * @param g A Graphics példány, amire a leszámazottnak rajzolnia kell.
 	 */
 	public abstract void draw(Graphics g);
+
 	/**
-	 * Összehasonlít két Drawable objektumot.
+	 * Két Drawable példányt hasonlít össze a z-indexük alapján.
 	 */
 	public int compareTo(Drawable other) {
 		return other.z_index - this.z_index;
 	}
+	
 	/**
+	 * Lekérdezi az objektum z-indexét.
 	 * 
-	 * @return Visszatér a Z-index-el.
+	 * @return A Drawable z-indexe.
 	 */
 	public int getZIndex(){
 		return z_index;
 	}
+	
 	/**
-	 * A kapott koordináták köré rajzol egy radius sugarú vékony gyűrűt.
-	 * @param g A grafikus elem amire rajzolunk.
-	 * @param color A kör színe.
-	 * @param x Az x koordináta.
-	 * @param y Az y koordináta.
+	 * Statikus segédmetódus az épületek hatósugarát jelző kör kirajzolásához.
+	 * 
+	 * @param g A Graphics példány, amire rajzolunk.
+	 * @param color A rajzolandó kör színe.
+	 * @param x A kör középpontjának vízszintes koordinátája. 
+	 * @param y A kör középpontjának függőleges koordinátája.
 	 * @param radius A kör sugara.
 	 */
 	public static void drawRangeCircle(Graphics2D g, Color color, int x, int y, int radius)
