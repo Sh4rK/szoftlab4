@@ -294,17 +294,12 @@ public class View {
 	 * Kiír a képernyőre egy szöveget és kirak egy képet
 	 * A mapPanel-re való kattintás után visszatér a metódus
 	 */
-	private void winLoseScreen(String message, Image img) {
+	private void winLoseScreen(final String msg, final Image image) {
 		synchronized (drawables) {
 			drawables.add(new Drawable() {
-				String msg;
-
-				public Drawable init(String st, Image i) {
-					msg = st;
-					img = i;
+				{
+					this.img = image;
 					z_index = 10;
-
-					return this;
 				}
 
 				public void draw(Graphics g) {
@@ -331,7 +326,7 @@ public class View {
 							RenderingHints.KEY_TEXT_ANTIALIASING,
 							RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 				}
-			}.init(message, img));
+			});
 		}
 
 		drawAll();
