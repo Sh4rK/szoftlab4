@@ -98,6 +98,7 @@ public class Menu {
 	public void exit() {
 		window.setVisible(false);
 		window.dispose();
+		System.exit(0);
 	}
 
 	private boolean everythingSelected() {
