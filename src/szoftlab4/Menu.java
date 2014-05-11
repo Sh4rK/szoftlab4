@@ -7,12 +7,7 @@ import java.awt.GridLayout;
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.swing.AbstractListModel;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
@@ -104,6 +99,11 @@ public class Menu {
 		window.setVisible(false);
 		window.dispose();
 	}
+
+	private boolean everythingSelected() {
+		return mapList.getSelectedIndex() >= 0 && mapList.getSelectedIndex() <= mapList.getLastVisibleIndex() &&
+		missionList.getSelectedIndex() >= 0 && missionList.getSelectedIndex() <= missionList.getLastVisibleIndex();
+	}
 	
 
 	public Menu(Window w) {
@@ -124,6 +124,7 @@ public class Menu {
 				newGame();
 			}
 		});
+		btnNewButton.setEnabled(false);
 		btnNewButton.setBackground(new Color(204, 204, 204));
 		buttonPanel.add(btnNewButton);
 		
@@ -159,6 +160,13 @@ public class Menu {
 		});
 		
 		mapList.setModel(mapListModel);
+
+		mapList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		mapList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				btnNewButton.setEnabled(everythingSelected());
+			}
+		});
 		
 		mapListPanel.add(mapList);
 		
@@ -171,5 +179,11 @@ public class Menu {
 		missionListPanel.add(missionList);
 		missionList.setModel(missionListModel);
 
+		missionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		missionList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				btnNewButton.setEnabled(everythingSelected());
+			}
+		});
 	}
 }
