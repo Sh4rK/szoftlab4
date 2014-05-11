@@ -36,7 +36,7 @@ public class View {
 
 		JButton buildTower = new JButton();
 		JButton buildObstacle = new JButton();
-		JButton pause = new JButton("P");
+		JButton pause = new JButton(" P ");
 		GemButton redGem = new GemButton(TowerGem.red);
 		GemButton greenGem = new GemButton(TowerGem.green);
 		GemButton blueGem = new GemButton(TowerGem.blue);
@@ -144,7 +144,7 @@ public class View {
 		
 		pause.addMouseListener(c.new pauseMouseEvent());
 		pause.setFont(magicFont);
-		setButtonLook(pause, null);
+		//setButtonLook(pause, null);
 
 		buildTower.setBackground(menuPanel.getBackground());
 		setButtonLook(buildTower, new ImageIcon("icons/tower.png"));

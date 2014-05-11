@@ -4,7 +4,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * Az összes játékban hsznált képet eltároló osztály.
+ * @author Adam
+ *
+ */
 public class Resources {
 	public static Image TowerImage;
 	public static Image ObstacleImage;
@@ -22,7 +26,11 @@ public class Resources {
 	public static Image ProjectileImage;
 	public static Image SplitterProjectileImage;
 	public static Image LZImage;
-
+	
+	/**
+	 * A képek mappából való betöltése.
+	 * @throws IOException
+	 */
 	public static void load() throws IOException {
 		TowerImage = ImageIO.read(new File("icons/tower.png"));
 		ObstacleImage = ImageIO.read(new File("icons/obstacle.png"));

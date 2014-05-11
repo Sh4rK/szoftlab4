@@ -13,7 +13,9 @@ import java.awt.RenderingHints;
  *
  */
 public abstract class Drawable implements Comparable<Drawable>{
+	/** Megadja a kirajzolási sorrendet*/
 	protected int z_index;
+	/** A kirajzolt kép*/
 	protected Image img;
 	
 	/**
