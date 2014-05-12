@@ -6,54 +6,382 @@
 \thispagestyle{fancy}
 
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
+%\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
 
-\fajl
-{Main.java} % Kezdet
-{250 byte} % Idptartam
-{2009.10.10~18:05~} % Résztvevők
-{...} % Leírás
 
 \fajl
-{...}
-{...}
-{...}
-{...}
+{icons/background.png}
+{323033 byte}
+{2014.05.03~19:15~}
+{A játéktér háttérképe.}
+
+\fajl
+{icons/blue\_gem.png}
+{2298 byte}
+{2014.05.03~17:48~}
+{A kék varázskövek ikonja.}
+
+\fajl
+{icons/dwarf.png}
+{304 byte}
+{2014.05.04~19:06~}
+{A törpök ikonja.}
+
+\fajl
+{icons/elf.png}
+{308 byte}
+{2014.05.04~19:06~}
+{A tündék ikonja.}
+
+\fajl
+{icons/green\_gem.png}
+{2311 byte}
+{2014.05.03~17:48~}
+{A zöld varázskövek ikonja.}
+
+\fajl
+{icons/hobbit.png}
+{319 byte}
+{2014.05.04~19:06~}
+{A hobbitok ikonja.}
+
+\fajl
+{icons/human.png}
+{312 byte}
+{2014.05.04~19:06~}
+{Az emberek ikonja.}
+
+\fajl
+{icons/LZF.png}
+{52032 byte}
+{2014.05.05~16:29~}
+{A játék megnyerésekor megjelenő kép.}
+
+\fajl
+{icons/obstacle.png}
+{2430 byte}
+{2014.05.03~17:48~}
+{Az akadályok ikonja.}
+
+\fajl
+{icons/orange\_gem.png}
+{2526 byte}
+{2014.05.03~17:48~}
+{A narancssárga varázskövek ikonja.}
+
+\fajl
+{icons/projectile.png}
+{1167 byte}
+{2014.05.04~19:22~}
+{A lövedékek ikonja.}
+
+\fajl
+{icons/red\_gem.png}
+{2302 byte}
+{2014.05.03~17:48~}
+{A piros varázskövek ikonja.}
+
+\fajl
+{icons/saurontower.png}
+{43961 byte}
+{2014.05.03~19:15~}
+{A Végzet Hegyét és Szauron tornyát ábrázoló kép.}
+
+\fajl
+{icons/splitter\_projectile.png}
+{905 byte}
+{2014.05.04~19:22~}
+{A kettévágó lövedékek ikonja.}
+
+\fajl
+{icons/tower.png}
+{989 byte}
+{2014.05.03~17:48~}
+{A tornyok ikonja.}
+
+\fajl
+{icons/yellow\_gem.png}
+{2443 byte}
+{2014.05.03~17:48~}
+{A sárga varázskövek ikonja.}
+
+
+\fajl
+{maps/demo.map}
+{1228 byte}
+{2014.05.04~20:42~}
+{A felületi terven is látható pályafájl.}
+
+\fajl
+{maps/test.map}
+{267 byte}
+{2014.05.04~03:54~}
+{Egy minimális pályafájl.}
+
+
+\fajl
+{missions/demo\_advanced.mission}
+{5401 byte}
+{2014.05.10~15:00~}
+{Egy összetettebb missziófájl.}
+
+\fajl
+{missions/demo\_attack.mission}
+{1251 byte}
+{2014.05.04~20:42~}
+{Egy egyszerű missziófájl.}
+
+\fajl
+{missions/demo\_delay.mission}
+{1250 byte}
+{2014.05.05~01:19~}
+{Egy egyszerű missziófájl, hosszabb felkészülési idővel.}
+
+\fajl
+{missions/test\_attack.mission}
+{139 byte}
+{2014.05.04~03:54~}
+{Egy minimális missziófájl.}
+
+
+
+\fajl
+{src/Controller.java}
+{5456 byte}
+{2014.05.03~15:20~}
+{Az MVC modell controller részét valósítja meg.}
+
+\fajl
+{src/Drawable.java}
+{2322 byte}
+{2014.05.03~18:07~}
+{A kirajzolható objektumok közös ősosztálya.}
+
+\fajl
+{src/Enemy.java}
+{3362 byte}
+{2014.03.20~20:33~}
+{Az ellenségeket megvalósító osztály.}
+
+\fajl
+{src/EnemyType.java}
+{998 byte}
+{2014.03.21~12:57~}
+{Az ellenségtípusokat leíró osztály.}
+
+\fajl
+{src/Fog.java}
+{640 byte}
+{2014.04.21~18:25~}
+{A ködöt működtető osztály.}
+
+\fajl
+{src/Game.java}
+{10064 byte}
+{2014.03.20~09:55~}
+{A játék logikáját összefogó osztály.}
+
+\fajl
+{src/Gem.java}
+{409 byte}
+{2014.03.21~12:57~}
+{A varázskövek közös ősosztálya.}
+
+\fajl
+{src/GemButton.java}
+{289 byte}
+{2014.05.03~16:09~}
+{A gombok, amelyekkel varázskövet lehet rakni az épületekre.}
+
+\fajl
+{src/GraphicEnemy.java}
+{1205 byte}
+{2014.05.03~18:07~}
+{Az ellenségek kirajzolásáért felelős osztály.}
+
+\fajl
+{src/GraphicFog.java}
+{432 byte}
+{2014.05.03~21:32~}
+{A köd kirajzolásáért felelős osztály.}
+
+\fajl
+{src/GraphicGem.java}
+{1101 byte}
+{2014.05.05~20:48~}
+{A varázskövek kirajzolásáért felelős osztály.}
+
+\fajl
+{src/GraphicMap.java}
+{2098 byte}
+{2014.05.03~19:14~}
+{A pálya kirajzolásáért felelős osztály.}
+
+\fajl
+{src/GraphicObstacle.java}
+{2290 byte}
+{2014.05.03~18:16~}
+{Az akadályok kirajzolásáért felelős osztály.}
+
+\fajl
+{src/GraphicProjectile.java}
+{1016 byte}
+{2014.05.03~18:07~}
+{A lövedékek kirajzolásáért felelős osztály.}
+
+\fajl
+{src/GraphicTower.java}
+{2401 byte}
+{2014.05.03~18:16~}
+{A tornyok kirajzolásáért felelős osztály.}
+
+\fajl
+{src/Main.java}
+{2645 byte}
+{2014.05.04~19:32~}
+{Az alkalmazást elindító osztály.}
+
+\fajl
+{src/Map.java}
+{3801 byte}
+{2014.03.20~20:33~}
+{Egy pályát megvalósító osztály.}
+
+\fajl
+{src/Menu.java}
+{6174 byte}
+{2014.05.04~03:53~}
+{A játék indító menüjét megvalósító osztály.}
+
+\fajl
+{src/Mission.java}
+{2354 byte}
+{2014.03.20~20:33~}
+{Egy küldetést leíró osztály.}
+
+\fajl
+{src/Obstacle.java}
+{2206 byte}
+{2014.03.21~12:57~}
+{Az akadályokat megvalósító osztály.}
+
+\fajl
+{src/ObstacleGem.java}
+{805 byte}
+{2014.03.20~20:33~}
+{Az akadályokra tehető varázskövek.}
+
+\fajl
+{src/Pair.java}
+{209 byte}
+{2014.04.21~13:10~}
+{Párokat tároló generikus osztály.}
+
+\fajl
+{src/Projectile.java}
+{1219 byte}
+{2014.03.20~20:33~}
+{Egy lövedék viselkedését megvalósító osztály.}
+
+\fajl
+{src/Resources.java}
+{1949 byte}
+{2014.05.05~21:58~}
+{Az összes játékban használt képet eltároló osztály.}
+
+\fajl
+{src/Spawn.java}
+{302 byte}
+{2014.04.22~00:59~}
+{Egy konkrét ellenség típusát és játékba lépésének idejét tárolja.}
+
+\fajl
+{src/SplitterProjectile.java}
+{729 byte}
+{2014.04.21~17:43~}
+{A kettévágó lövedékeket megvalósító osztály.}
+
+\fajl
+{src/Tower.java}
+{3646 byte}
+{2014.03.20~20:33~}
+{Egy tornyot megvalósító osztály.}
+
+\fajl
+{src/TowerGem.java}
+{902 byte}
+{2014.03.20~20:33~}
+{A tornyokra rakható varázskövek.}
+
+\fajl
+{src/Vector.java}
+{1397 byte}
+{2014.03.20~20:33~}
+{Egy koordináta pontot megvalósító osztály.}
+
+\fajl
+{src/View.java}
+{10510 byte}
+{2014.05.03~14:31~}
+{Az MVC modell view része.}
+
+\fajl
+{src/Waypoint.java}
+{2208 byte}
+{2014.03.21~12:57~}
+{Az utakat kijelölő pontokat magvalósító osztály.}
+
+\fajl
+{src/Window.java}
+{795 byte}
+{2014.05.04~03:53~}
+{A grafikus ablakot kezelő osztály.}
 
 \end{fajllista}
 
 \subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+%\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+A fordításhoz lépjünk be egy terminálban a projekt főkönyvtárába, majd adjuk ki a következő parancsot:
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-javac -d bin *.java
+javac -d . -encoding utf8 src/szoftlab4/*.java
 \end{lstlisting}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
-
+%\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+A futtatáshoz pedig a fordítást követően:
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-cd bin
-java Main.java
+java szoftlab4.Main
 \end{lstlisting}
 
+A fenti parancs után szóközzel elválasztva fűzhetünk még tetszés szerint kétféle parancssori argumentumot.
+Egyikkel bekapcsolhatjuk az élsimítást (antialiasingot) a kirajzolásnál, a másikkal pedig a másodpercenként kirajzolt képkockák számát jeleníttethetjük meg a grafikus ablak jobb felső sarkában. Szokás szerint mindkét paraméternek van egy hosszú és egy rövid nevű változata.\\
+
+A megszokott jelölést követve tehát a lehetséges opciók:
+
+\begin{lstlisting}
+java szoftlab4.Main [--antialiasing|-aa] [--showfps|-f]
+\end{lstlisting}
+
+\newpage
+
 \section{Értékelés}
-\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
+%\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
 
 \begin{ertekeles}
-\tag{Horváth} % Tag neve
-{23.5}        % Munka szazalekban
-\tag{Német}
-{24.5}
-\tag{Tóth}
-{25}
-\tag{Oláh}
+\tag{Nusser} % Tag neve
+{22}        % Munka szazalekban
+\tag{Szabó}
 {27}
+\tag{Tallér}
+{29}
+\tag{Török}
+{22}
 \end{ertekeles}
 
