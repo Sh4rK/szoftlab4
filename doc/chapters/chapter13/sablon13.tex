@@ -349,7 +349,7 @@
 A fordításhoz lépjünk be egy terminálban a projekt főkönyvtárába, majd adjuk ki a következő parancsot:
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-javac -d . -encoding utf8 src/szoftlab4/*.java
+javac -d bin -encoding utf8 src/szoftlab4/*.java
 \end{lstlisting}
 
 \subsection{Futtatás}
@@ -357,7 +357,7 @@ javac -d . -encoding utf8 src/szoftlab4/*.java
 A futtatáshoz pedig a fordítást követően:
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-java szoftlab4.Main
+java -cp bin szoftlab4.Main
 \end{lstlisting}
 
 A fenti parancs után szóközzel elválasztva fűzhetünk még tetszés szerint kétféle parancssori argumentumot.
@@ -366,7 +366,7 @@ Egyikkel bekapcsolhatjuk az élsimítást (antialiasingot) a kirajzolásnál, a 
 A megszokott jelölést követve tehát a lehetséges opciók:
 
 \begin{lstlisting}
-java szoftlab4.Main [--antialiasing|-aa] [--showfps|-f]
+java -cp bin szoftlab4.Main [--antialiasing|-aa] [--showfps|-f]
 \end{lstlisting}
 
 \newpage
@@ -376,9 +376,9 @@ java szoftlab4.Main [--antialiasing|-aa] [--showfps|-f]
 
 \begin{ertekeles}
 \tag{Nusser} % Tag neve
-{22}        % Munka szazalekban
+{23}        % Munka szazalekban
 \tag{Szabó}
-{27}
+{26}
 \tag{Tallér}
 {29}
 \tag{Török}
