@@ -142,14 +142,14 @@ public class Game {
 		if (Fog.isSet()){
 			secs = gaus * 5.0 + 10.0;
 			/* Valamiért néha a secs pont 0 lett és ezért div by 0 exceptiont dobott */
-			while (secs == 0){
+			while ((int)secs == 0){
 				gaus = new Random().nextGaussian();
 				secs = gaus * 5.0 + 10.0;
 			}
 		}
 		else {
 			secs = gaus * 13.0 + 40.0;
-			while (secs == 0){
+			while ((int)secs == 0){
 				gaus = new Random().nextGaussian();
 				secs = gaus * 13.0 + 40.0;
 			}
