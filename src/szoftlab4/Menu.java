@@ -175,7 +175,7 @@ public class Menu {
 		listPanel.add(mapListPanel);
 		mapListPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
-		mapList = new JList<String>();
+		mapList = new JList();
 		mapList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				onMapSelected();
@@ -199,7 +199,7 @@ public class Menu {
 		listPanel.add(missionListPanel);
 		missionListPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
-		missionList = new JList<String>();
+		missionList = new JList();
 		missionListPanel.add(missionList);
 		missionList.setModel(missionListModel);
 
