@@ -13,6 +13,7 @@ public class Waypoint {
 	private Vector position;
 	private double distance;
 	private int ID;
+	private boolean visited;
 	private List<Pair<Waypoint, Double>> nextWaypoints;
 
 	/**
@@ -23,6 +24,7 @@ public class Waypoint {
 		this.distance = -1;
 		this.nextWaypoints = new ArrayList<Pair<Waypoint, Double>>();
 		this.ID = ID;
+		this.visited = false;
 	}
 
 	/**
@@ -31,18 +33,11 @@ public class Waypoint {
 	public double getDistance() {
 		return distance;
 	}
-
-	public double setDistance() {
-		return setDistance(0);
-	}
 	
 	/**
-	 * @param d Beállítja a céltól való távolságot.
+	 * Beállítja a céltól való távolságot.
 	 */
-	public double setDistance(int depth) {
-		if (depth > 30)
-			return 1;
-		
+	public double setDistance() {
 		if (distance >= 0)
 			return distance;
 
@@ -50,14 +45,17 @@ public class Waypoint {
 			distance = 0;
 			return distance;
 		}
-		double minDis = 1000;
+		double minDis = 100000;
 		double temp;
-
+		visited = true;
 		for (Pair<Waypoint, Double> l : nextWaypoints) {
-			temp = l.a.setDistance(depth + 1) + position.getDistance(l.a.position);
-			if (temp < minDis)
-				minDis = temp;
+			if (!l.a.visited) {
+				temp = l.a.setDistance() + position.getDistance(l.a.position);
+				if (temp < minDis)
+					minDis = temp;
+			}
 		}
+		visited = false;
 		distance = minDis;
 		return distance;
 	}
