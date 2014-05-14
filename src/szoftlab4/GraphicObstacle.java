@@ -12,8 +12,6 @@ public class GraphicObstacle extends Drawable {
 
 	/**
 	 * Konstruktor mely hozzárendel egy obstacle objektumot, és beállítja a háttérképeket.
-	 *
-	 * @param m
 	 */
 	public GraphicObstacle(Obstacle o) {
 		this.o = o;
@@ -40,8 +38,8 @@ public class GraphicObstacle extends Drawable {
 			g.drawImage(gemImage,
 					(int) Game.toMouseCoords(o.getPosition()).x - gemImage.getWidth(null) / 2 + img.getWidth(null) / 2,
 					(int) Game.toMouseCoords(o.getPosition()).y - gemImage.getHeight(null) / 2,
-					(int) img.getWidth(null) / 2,
-					(int) img.getHeight(null) / 2,
+					img.getWidth(null) / 2,
+					img.getHeight(null) / 2,
 					null);
 
 

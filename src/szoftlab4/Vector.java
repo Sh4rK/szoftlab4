@@ -28,7 +28,6 @@ public class Vector {
 	}
 
 	/**
-	 * @param v
 	 * @return Visszatér a két vektor közötti távolsággal.
 	 */
 	public double getDistance(Vector v) {
@@ -69,6 +68,8 @@ public class Vector {
 
 	@Override
 	public boolean equals(Object o) {
+		if (!(o instanceof Vector))
+			return false;
 		Vector v = (Vector) o;
 		return (x == v.x) && (v.y == y);
 	}

@@ -356,13 +356,13 @@ public class View {
 	 * Kirajzolja a vesztes képernyőt
 	 */
 	public void gameLost() {
-		winLoseScreen("Sajnálom kollega, vesztett", null);
+		winLoseScreen("Sajnálom kollega, vesztett.", null);
 	}
 
 	/**
 	 * Kirajzolja a nyertes képernyőt
 	 */
 	public void gameWon() {
-		winLoseScreen("Kíváló munka, kollega!", Resources.LZImage);
+		winLoseScreen("Kiváló munka, kollega!", Resources.LZImage);
 	}
 }

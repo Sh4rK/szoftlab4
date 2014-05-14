@@ -22,16 +22,6 @@ public class Enemy {
 	 */
 	public Enemy(EnemyType type, Waypoint start) {
 		this.type = type;
-		position = start.getPosition();
-		targetWaypoint = start.getNextWaypoint();
-		health = type.getHealth();
-	}
-
-	/**
-	 * Ha explicit módon meg akarjuk adni az ellenség ID-jét.
-	 */
-	public Enemy(EnemyType type, Waypoint start, int ID) {
-		this.type = type;
 		position = new Vector(start.getPosition());
 		targetWaypoint = start.getNextWaypoint();
 		health = type.getHealth();
@@ -46,15 +36,6 @@ public class Enemy {
 		slowingFactor = en.slowingFactor;
 	}
 
-
-	public Waypoint getTarget() {
-		return targetWaypoint;
-	}
-
-	public void setNextWaypoint(Waypoint w) {
-		nextWaypoint = w;
-	}
-
 	/**
 	 * Mozgatja az ellenséget a célja felé.
 	 *
@@ -67,7 +48,7 @@ public class Enemy {
 		Vector wPos = targetWaypoint.getPosition();
 		double speed = type.getSpeed() * slowingFactor;
 
-		position.MoveDistanceToVector((double) speed / Game.FPS, wPos);
+		position.MoveDistanceToVector(speed / Game.FPS, wPos);
 
 		if (position.equals(wPos)) { // ez így jó, nem kell epszilon, mert a movethispointaspecifiedistancetowardsagivenvectorplease fgv fentebb direktbe' adja át, ha már elég közel van
 			if (nextWaypoint == null) {
@@ -112,13 +93,6 @@ public class Enemy {
 	 */
 	public Vector getPosition() {
 		return position;
-	}
-
-	/**
-	 * @return az ellenség életereje
-	 */
-	public double getHealth() {
-		return health;
 	}
 
 	public boolean isAlive() {

@@ -11,8 +11,6 @@ public class GraphicProjectile extends Drawable {
 
 	/**
 	 * Konstruktor mely hozzárendel egy projectile objektumot, és beállítja a kirajzolandó képet.
-	 *
-	 * @param m
 	 */
 	public GraphicProjectile(Projectile p) {
 		this.p = p;

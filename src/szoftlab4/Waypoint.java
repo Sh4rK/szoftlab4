@@ -12,18 +12,16 @@ public class Waypoint {
 
 	private Vector position;
 	private double distance;
-	private int ID;
 	private boolean visited;
 	private List<Pair<Waypoint, Double>> nextWaypoints;
 
 	/**
 	 * A kapott helyre létrehoz egy Waypointot.
 	 */
-	public Waypoint(Vector pos, int ID) {
+	public Waypoint(Vector pos) {
 		this.position = pos;
 		this.distance = -1;
 		this.nextWaypoints = new ArrayList<Pair<Waypoint, Double>>();
-		this.ID = ID;
 		this.visited = false;
 	}
 
@@ -104,13 +102,5 @@ public class Waypoint {
 	 */
 	public Vector getPosition() {
 		return position;
-	}
-
-	public int getID() {
-		return ID;
-	}
-
-	public void setID(int ID) {
-		this.ID = ID;
 	}
 }

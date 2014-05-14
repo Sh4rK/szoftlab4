@@ -30,15 +30,6 @@ public abstract class Drawable implements Comparable<Drawable> {
 	}
 
 	/**
-	 * Lekérdezi az objektum z-indexét.
-	 *
-	 * @return A Drawable z-indexe.
-	 */
-	public int getZIndex() {
-		return z_index;
-	}
-
-	/**
 	 * Statikus segédmetódus az épületek hatósugarát jelző kör kirajzolásához.
 	 *
 	 * @param g      A Graphics példány, amire rajzolunk.

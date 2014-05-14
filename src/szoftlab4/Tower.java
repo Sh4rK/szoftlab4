@@ -14,7 +14,6 @@ public class Tower {
 	static final int cost = 750;
 	static final int projectileSpeed = 25;
 	public static double radius = 2;
-	static boolean critical = false;
 	static HashMap<EnemyType, Double> damage = new HashMap<EnemyType, Double>();
 	private TowerGem gem;
 	private Vector position;
@@ -42,10 +41,8 @@ public class Tower {
 	 * @return a megadott pozíció ütközik-e az építménnyel
 	 */
 	public boolean doesCollide(Vector pos) {
-		if (pos.getDistance(position) <= 2)
-			return true;
+		return pos.getDistance(position) <= 2;
 
-		return false;
 	}
 
 	/**

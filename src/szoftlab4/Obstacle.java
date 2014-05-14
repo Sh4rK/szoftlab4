@@ -38,17 +38,13 @@ public class Obstacle {
 	 * @return a megadott pozíció ütközik-e az építménnyel
 	 */
 	public boolean doesCollide(Vector pos) {
-		if (pos.getDistance(position) <= getRange())
-			return true;
+		return pos.getDistance(position) <= getRange();
 
-		return false;
 	}
 
 	public boolean doesCollideWithCircle(Vector pos, double radius) {
-		if (pos.getDistance(position) <= getRange() + radius)
-			return true;
+		return pos.getDistance(position) <= getRange() + radius;
 
-		return false;
 	}
 
 	/**

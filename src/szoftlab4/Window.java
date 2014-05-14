@@ -31,7 +31,7 @@ public class Window extends JFrame {
 	public Window() {
 		setSize(500, 200);
 		this.setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		menu = new Menu(this);
 

@@ -20,10 +20,10 @@ public class Game {
 	public static final int FPS = 60;
 	private Map map = null;
 	private Mission mission = null;
-	private List<Enemy> enemies = new ArrayList<Enemy>();
+	private final List<Enemy> enemies = new ArrayList<Enemy>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
-	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
-	private List<Tower> towers = new ArrayList<Tower>();
+	private final List<Obstacle> obstacles = new ArrayList<Obstacle>();
+	private final List<Tower> towers = new ArrayList<Tower>();
 	private int magic = 4200;
 	/**
 	 * Antialiasing bekapcsolása
@@ -50,7 +50,6 @@ public class Game {
 		RUNNING, PAUSED, WIN, LOSE
 	}
 
-	;
 	State gameState = State.RUNNING;
 
 	/**
@@ -261,13 +260,6 @@ public class Game {
 				}
 			}
 		}
-	}
-
-	/**
-	 * @return A játékos rendelkezésére álló varázserő.
-	 */
-	public int getMagic() {
-		return magic;
 	}
 
 	/**

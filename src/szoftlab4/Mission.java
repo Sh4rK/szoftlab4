@@ -20,8 +20,6 @@ import java.util.List;
 public class Mission {
 
 	private List<Spawn> spawnList;
-	@SuppressWarnings("unused")
-	private String name;
 
 	/**
 	 * A kapott útvonalról betölti a Mission-t.
@@ -34,7 +32,6 @@ public class Mission {
 		d.getDocumentElement().normalize();
 
 		Element mission = (Element) d.getElementsByTagName("mission").item(0);
-		name = mission.getElementsByTagName("name").item(0).getTextContent();
 
 		spawnList = new ArrayList<Spawn>();
 
@@ -47,10 +44,10 @@ public class Mission {
 		NodeList ens = mission.getElementsByTagName("enemy");
 		for (int i = 0; i < ens.getLength(); ++i) {
 			Element en = (Element) ens.item(i);
-			EnemyType type = str2type.get(((Element) en.getElementsByTagName("type").item(0)).getTextContent());
-			int wpid = Integer.parseInt(((Element) en.getElementsByTagName("waypointID").item(0)).getTextContent());
-			double time = Double.parseDouble(((Element) en.getElementsByTagName("time").item(0)).getTextContent());
-			spawnList.add(new Spawn(new Enemy(type, map.getWaypointByID(wpid), 0), time));
+			EnemyType type = str2type.get(en.getElementsByTagName("type").item(0).getTextContent());
+			int wpid = Integer.parseInt(en.getElementsByTagName("waypointID").item(0).getTextContent());
+			double time = Double.parseDouble(en.getElementsByTagName("time").item(0).getTextContent());
+			spawnList.add(new Spawn(new Enemy(type, map.getWaypointByID(wpid)), time));
 		}
 	}
 

@@ -13,8 +13,6 @@ public class GraphicMap extends Drawable {
 
 	/**
 	 * Konstruktor mely hozzárendel egy map objektumot, és beállítja a háttérképeket.
-	 *
-	 * @param m
 	 */
 	public GraphicMap(Map m) {
 		this.m = m;

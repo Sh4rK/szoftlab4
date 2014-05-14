@@ -25,10 +25,7 @@ public class Fog {
 	}
 
 	public static void toggle() {
-		if (isSet == true)
-			isSet = false;
-		else
-			isSet = true;
+		isSet = !isSet;
 	}
 
 	public static boolean isSet() {

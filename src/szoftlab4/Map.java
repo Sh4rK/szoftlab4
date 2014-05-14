@@ -40,19 +40,19 @@ public class Map {
 		NodeList wps = map.getElementsByTagName("waypoint");
 		for (int i = 0; i < wps.getLength(); ++i) {
 			Element wp = (Element) wps.item(i);
-			int id = Integer.parseInt(((Element) wp.getElementsByTagName("id").item(0)).getTextContent());
+			int id = Integer.parseInt(wp.getElementsByTagName("id").item(0).getTextContent());
 			Element coords = (Element) wp.getElementsByTagName("coords").item(0);
-			double x = Double.parseDouble(((Element) coords.getElementsByTagName("x").item(0)).getTextContent());
-			double y = Double.parseDouble(((Element) coords.getElementsByTagName("y").item(0)).getTextContent());
-			waypoints.put(id, new Waypoint(new Vector(x, y), id));
+			double x = Double.parseDouble(coords.getElementsByTagName("x").item(0).getTextContent());
+			double y = Double.parseDouble(coords.getElementsByTagName("y").item(0).getTextContent());
+			waypoints.put(id, new Waypoint(new Vector(x, y)));
 		}
 
 		NodeList rts = map.getElementsByTagName("route");
 		for (int i = 0; i < rts.getLength(); ++i) {
 			Element rt = (Element) rts.item(i);
-			int a = Integer.parseInt(((Element) rt.getElementsByTagName("a").item(0)).getTextContent());
-			int b = Integer.parseInt(((Element) rt.getElementsByTagName("b").item(0)).getTextContent());
-			double chance = Double.parseDouble(((Element) rt.getElementsByTagName("chance").item(0)).getTextContent());
+			int a = Integer.parseInt(rt.getElementsByTagName("a").item(0).getTextContent());
+			int b = Integer.parseInt(rt.getElementsByTagName("b").item(0).getTextContent());
+			double chance = Double.parseDouble(rt.getElementsByTagName("chance").item(0).getTextContent());
 			waypoints.get(a).setNextWaypoint(waypoints.get(b), chance);
 		}
 

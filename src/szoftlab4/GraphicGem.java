@@ -12,8 +12,6 @@ public class GraphicGem extends Drawable {
 
 	/**
 	 * Beállítja a kapott varázskőtől függően a kirajzolandó képet.
-	 *
-	 * @param g
 	 */
 	public GraphicGem(Gem g) {
 		z_index = 2;

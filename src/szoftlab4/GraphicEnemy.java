@@ -12,8 +12,6 @@ public class GraphicEnemy extends Drawable {
 	/**
 	 * Konstruktor mely hozzárendel egy enemy objektumot, és beállítja a háttérképeket,
 	 * az ellenség típusától függően.
-	 *
-	 * @param m
 	 */
 	public GraphicEnemy(Enemy e) {
 		this.e = e;

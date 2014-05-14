@@ -15,8 +15,8 @@ public class ObstacleGem extends Gem {
 	}
 
 	static {
-		yellow = new ObstacleGem(1.5, 1.1);
-		orange = new ObstacleGem(1.1, 1.5);
+		yellow = new ObstacleGem(1.5, 0.6);
+		orange = new ObstacleGem(1.1, 0.56);
 	}
 
 	/**
@@ -26,6 +26,6 @@ public class ObstacleGem extends Gem {
 	 * @return Az enemyType típusú ellenség lassulásának módosulása.
 	 */
 	public double getSpeedMultiplier(EnemyType enemyType) {
-		return 0.6;
+		return speed;
 	}
 }

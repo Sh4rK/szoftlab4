@@ -57,7 +57,7 @@ public class Main {
 			}
 		}
 
-		Window window = new Window();
+		final Window window = new Window();
 		while (true) {
 			window.setResizable(false);
 			window.setVisible(true);

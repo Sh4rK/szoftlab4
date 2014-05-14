@@ -12,8 +12,6 @@ public class GraphicTower extends Drawable {
 
 	/**
 	 * Konstruktor mely hozzárendel egy tower objektumot, és beállítja a háttérképeket.
-	 *
-	 * @param m
 	 */
 	public GraphicTower(Tower t) {
 		this.t = t;
@@ -40,8 +38,8 @@ public class GraphicTower extends Drawable {
 			g.drawImage(gemImage,
 					(int) Game.toMouseCoords(t.getPosition()).x - gemImage.getWidth(null) / 2 + img.getWidth(null) / 2,
 					(int) Game.toMouseCoords(t.getPosition()).y - gemImage.getHeight(null) / 2,
-					(int) img.getWidth(null) / 2,
-					(int) img.getHeight(null) / 2,
+					img.getWidth(null) / 2,
+					img.getHeight(null) / 2,
 					null);
 
 		int range = (int) Game.toMouseCoords(new Vector(t.getRange(), 0)).x;
