@@ -81,11 +81,11 @@ public class Controller {
 		Vector pos;
 
 		public void mousePressed(MouseEvent e) {
-			if (activeButton == e.getSource()){
+			if (activeButton == e.getSource()) {
 				nullActiveButton();
 				return;
 			}
-			
+
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
@@ -116,11 +116,11 @@ public class Controller {
 		Vector pos;
 
 		public void mousePressed(MouseEvent e) {
-			if (activeButton == e.getSource()){
+			if (activeButton == e.getSource()) {
 				nullActiveButton();
 				return;
 			}
-			
+
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
@@ -151,7 +151,7 @@ public class Controller {
 		Vector pos;
 
 		public void mousePressed(MouseEvent e) {
-			if (activeButton == e.getSource()){
+			if (activeButton == e.getSource()) {
 				nullActiveButton();
 				return;
 			}
