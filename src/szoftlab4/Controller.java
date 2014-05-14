@@ -81,6 +81,11 @@ public class Controller {
 		Vector pos;
 
 		public void mousePressed(MouseEvent e) {
+			if (activeButton == e.getSource()){
+				nullActiveButton();
+				return;
+			}
+			
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
@@ -100,8 +105,7 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			if (game.buildTower(Game.toGameCoords(pos)))
-				nullActiveButton();
+			game.buildTower(Game.toGameCoords(pos));
 		}
 	}
 
@@ -112,6 +116,11 @@ public class Controller {
 		Vector pos;
 
 		public void mousePressed(MouseEvent e) {
+			if (activeButton == e.getSource()){
+				nullActiveButton();
+				return;
+			}
+			
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
@@ -131,8 +140,7 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			if (game.buildObstacle(Game.toGameCoords(pos)))
-				nullActiveButton();
+			game.buildObstacle(Game.toGameCoords(pos));
 		}
 	}
 
@@ -143,6 +151,10 @@ public class Controller {
 		Vector pos;
 
 		public void mousePressed(MouseEvent e) {
+			if (activeButton == e.getSource()){
+				nullActiveButton();
+				return;
+			}
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
@@ -170,9 +182,6 @@ public class Controller {
 				ObstacleGem tg = (ObstacleGem) g;
 				game.addGem(Game.toGameCoords(pos), tg);
 			}
-
-			nullActiveButton();
-
 		}
 	}
 
