@@ -1,28 +1,28 @@
 /**
-* ─────────▄──────────────▄
-* ────────▌▒█───────────▄▀▒▌
-* ────────▌▒▒▀▄───────▄▀▒▒▒▐
-* ───────▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐
-* ─────▄▄▀▒▒▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐
-* ───▄▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀██▀▒▌
-* ──▐▒▒▒▄▄▄▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄▒▒▌
-* ──▌▒▒▐▄█▀▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐
-* ─▐▒▒▒▒▒▒▒▒▒▒▒▌██▀▒▒▒▒▒▒▒▒▀▄▌
-* ─▌▒▀▄██▄▒▒▒▒▒▒▒▒▒▒▒░░░░▒▒▒▒▌
-* ─▌▀▐▄█▄█▌▄▒▀▒▒▒▒▒▒░░░░░░▒▒▒▐
-* ▐▒▀▐▀▐▀▒▒▄▄▒▄▒▒▒▒▒░░░░░░▒▒▒▒▌
-* ▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒░░░░░░▒▒▒▐
-* ─▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒▒▒░░░░▒▒▒▒▌
-* ─▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▐
-* ──▀▄▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▄▒▒▒▒▌
-* ────▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀
-* ───▐▀▒▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀
-* ──▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀▀
-* 
-* such team
-* very towers
-* 
-*/
+ * ─────────▄──────────────▄
+ * ────────▌▒█───────────▄▀▒▌
+ * ────────▌▒▒▀▄───────▄▀▒▒▒▐
+ * ───────▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐
+ * ─────▄▄▀▒▒▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐
+ * ───▄▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀██▀▒▌
+ * ──▐▒▒▒▄▄▄▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄▒▒▌
+ * ──▌▒▒▐▄█▀▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐
+ * ─▐▒▒▒▒▒▒▒▒▒▒▒▌██▀▒▒▒▒▒▒▒▒▀▄▌
+ * ─▌▒▀▄██▄▒▒▒▒▒▒▒▒▒▒▒░░░░▒▒▒▒▌
+ * ─▌▀▐▄█▄█▌▄▒▀▒▒▒▒▒▒░░░░░░▒▒▒▐
+ * ▐▒▀▐▀▐▀▒▒▄▄▒▄▒▒▒▒▒░░░░░░▒▒▒▒▌
+ * ▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒░░░░░░▒▒▒▐
+ * ─▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒▒▒░░░░▒▒▒▒▌
+ * ─▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▐
+ * ──▀▄▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▄▒▒▒▒▌
+ * ────▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀
+ * ───▐▀▒▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀
+ * ──▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀▀
+ *
+ * such team
+ * very towers
+ *
+ */
 
 package szoftlab4;
 
@@ -36,7 +36,7 @@ public class Main {
 
 	/**
 	 * A program fő belépési pontja. Létrehozza a grafikus ablakot, és megjeleníti azt.
-	 * 
+	 *
 	 * @param args Parancssori argumentumok.
 	 */
 	public static void main(String[] args) {
@@ -46,22 +46,22 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "I can't load the images!", "Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
-		
-		if (args != null){
-			for (String s : args){
+
+		if (args != null) {
+			for (String s : args) {
 				if (s.equalsIgnoreCase("--showfps") || s.equalsIgnoreCase("-f"))
 					Game.countFPS = true;
-				
-				if(s.equalsIgnoreCase("--antialiasing") || s.equalsIgnoreCase("-aa"))
-					Game.AA = true; 
+
+				if (s.equalsIgnoreCase("--antialiasing") || s.equalsIgnoreCase("-aa"))
+					Game.AA = true;
 			}
 		}
-		
+
 		Window window = new Window();
-		while(true){
+		while (true) {
 			window.setResizable(false);
 			window.setVisible(true);
-			synchronized(window){
+			synchronized (window) {
 				try {
 					window.wait();
 				} catch (InterruptedException e) {

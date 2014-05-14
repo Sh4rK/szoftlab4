@@ -1,47 +1,48 @@
 package szoftlab4;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 
 public class Controller {
 	private Game game;
 	private View view;
-	/** Ez tárolja mi az elvégzendő művelet a térképen történő eseményeknél */
+	/**
+	 * Ez tárolja mi az elvégzendő művelet a térképen történő eseményeknél
+	 */
 	private MapMouseDelegate mapMouseEvent = null;
-	/** A jelenleg lenyomott gomb */
+	/**
+	 * A jelenleg lenyomott gomb
+	 */
 	private JButton activeButton = null;
-	
-	public Controller(Game game, View view){
+
+	public Controller(Game game, View view) {
 		this.game = game;
 		this.view = view;
 	}
-	
+
 	/**
 	 * Kitörli a kiválasztott gombot.
-	 * Beállítja a gombnak a kinézetét. 
+	 * Beállítja a gombnak a kinézetét.
 	 */
-	private void nullActiveButton(){
-		if(activeButton != null)
+	private void nullActiveButton() {
+		if (activeButton != null)
 			activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
 		view.setPlacing(null);
 		activeButton = null;
 		mapMouseEvent = null;
 	}
-	
+
 	public class MenuPanelMouseEvent extends MouseAdapter {
-		public void mousePressed(MouseEvent e){
+		public void mousePressed(MouseEvent e) {
 			nullActiveButton();
 		}
 	}
-	
-	
+
+
 	/**
 	 * Egy interfész a térkép események kezelésére.
 	 * A térképen történő egéresemény során a térkép eseménykezelője egy ilyen objektum
@@ -50,23 +51,23 @@ public class Controller {
 	 */
 	interface MapMouseDelegate {
 		public void MapClicked(MouseEvent e);
+
 		public void MapMoved(MouseEvent e);
 	}
-	
+
 	/**
-	 * A szünet gombra történő kattintás eseménykezelője 
+	 * A szünet gombra történő kattintás eseménykezelője
 	 */
 	public class pauseMouseEvent extends MouseAdapter {
-		public void mousePressed(MouseEvent e){
-			JButton b = (JButton)e.getSource();
-			
-			if (game.gameState == szoftlab4.Game.State.RUNNING){
+		public void mousePressed(MouseEvent e) {
+			JButton b = (JButton) e.getSource();
+
+			if (game.gameState == szoftlab4.Game.State.RUNNING) {
 				game.gameState = szoftlab4.Game.State.PAUSED;
-				
+
 				nullActiveButton();
 				b.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-			}
-			else {
+			} else {
 				game.gameState = szoftlab4.Game.State.RUNNING;
 				b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 			}
@@ -74,16 +75,17 @@ public class Controller {
 	}
 
 	/**
-	 * A toronyépítés gombra történő kattintás eseménykezelője 
+	 * A toronyépítés gombra történő kattintás eseménykezelője
 	 */
 	public class BuildTowerMouseEvent extends MouseAdapter implements MapMouseDelegate {
 		Vector pos;
-		public void mousePressed(MouseEvent e){
+
+		public void mousePressed(MouseEvent e) {
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
 			mapMouseEvent = this;
-			activeButton = (JButton)e.getSource();
+			activeButton = (JButton) e.getSource();
 			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 			Tower t = new Tower(new Vector(-100, -100));
 			pos = t.getPosition();
@@ -102,18 +104,19 @@ public class Controller {
 				nullActiveButton();
 		}
 	}
-	
+
 	/**
-	 * Az akadályépítés gombra történő kattintás eseménykezelője 
+	 * Az akadályépítés gombra történő kattintás eseménykezelője
 	 */
 	public class BuildObstacleMouseEvent extends MouseAdapter implements MapMouseDelegate {
 		Vector pos;
-		public void mousePressed(MouseEvent e){
+
+		public void mousePressed(MouseEvent e) {
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			
+
 			mapMouseEvent = this;
-			activeButton = (JButton)e.getSource();
+			activeButton = (JButton) e.getSource();
 			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 			Obstacle o = new Obstacle(new Vector(-100, -100));
 			pos = o.getPosition();
@@ -132,20 +135,21 @@ public class Controller {
 				nullActiveButton();
 		}
 	}
-	
+
 	/**
-	 * A varázskő gombokra történő kattintás eseménykezelője 
+	 * A varázskő gombokra történő kattintás eseménykezelője
 	 */
 	public class EnchantMouseEvent extends MouseAdapter implements MapMouseDelegate {
 		Vector pos;
-		public void mousePressed(MouseEvent e){
+
+		public void mousePressed(MouseEvent e) {
 			if (activeButton != null)
 				activeButton.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			
+
 			mapMouseEvent = this;
-			activeButton = (JButton)e.getSource();
+			activeButton = (JButton) e.getSource();
 			activeButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-			GraphicGem g = new GraphicGem(((GemButton)activeButton).getGemType());
+			GraphicGem g = new GraphicGem(((GemButton) activeButton).getGemType());
 			pos = g.getPosition();
 			view.setPlacing(g);
 		}
@@ -158,31 +162,30 @@ public class Controller {
 
 		public void MapClicked(MouseEvent e) {
 			Vector pos = new Vector(e.getX(), e.getY());
-			Gem g = ((GemButton)activeButton).getGemType();
-			if (g instanceof TowerGem){
-				TowerGem tg = (TowerGem)g;
+			Gem g = ((GemButton) activeButton).getGemType();
+			if (g instanceof TowerGem) {
+				TowerGem tg = (TowerGem) g;
+				game.addGem(Game.toGameCoords(pos), tg);
+			} else {
+				ObstacleGem tg = (ObstacleGem) g;
 				game.addGem(Game.toGameCoords(pos), tg);
 			}
-			else {
-				ObstacleGem tg = (ObstacleGem)g;
-				game.addGem(Game.toGameCoords(pos), tg);
-			}
-			
+
 			nullActiveButton();
-				
+
 		}
 	}
-	
+
 	/**
 	 * A térképre történő egéresemények eseménykezelője
 	 * Az eseményeket átirányítja a mapMouseEvent megfelelő metódusára
 	 * Így a működését a mapMouseEvent határozza meg
 	 */
 	public class MapMouseEvent extends MouseAdapter {
-		public void mousePressed(MouseEvent e){
+		public void mousePressed(MouseEvent e) {
 			if (mapMouseEvent != null)
 				mapMouseEvent.MapClicked(e);
-			JPanel jp = (JPanel)e.getSource();
+			JPanel jp = (JPanel) e.getSource();
 			jp.requestFocus();
 			jp.requestFocusInWindow();
 		}

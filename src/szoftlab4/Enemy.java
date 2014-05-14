@@ -26,10 +26,10 @@ public class Enemy {
 		targetWaypoint = start.getNextWaypoint();
 		health = type.getHealth();
 	}
-	
+
 	/**
 	 * Ha explicit módon meg akarjuk adni az ellenség ID-jét.
-	 **/
+	 */
 	public Enemy(EnemyType type, Waypoint start, int ID) {
 		this.type = type;
 		position = new Vector(start.getPosition());
@@ -46,28 +46,28 @@ public class Enemy {
 		slowingFactor = en.slowingFactor;
 	}
 
-	
-	public Waypoint getTarget(){
+
+	public Waypoint getTarget() {
 		return targetWaypoint;
 	}
-	
+
 	public void setNextWaypoint(Waypoint w) {
 		nextWaypoint = w;
 	}
-	
+
 	/**
 	 * Mozgatja az ellenséget a célja felé.
 	 *
 	 * @return nyert-e az ellenség
 	 */
 	public boolean move() {
-		if (targetWaypoint == null){
+		if (targetWaypoint == null) {
 			return true;
 		}
 		Vector wPos = targetWaypoint.getPosition();
 		double speed = type.getSpeed() * slowingFactor;
 
-		position.MoveDistanceToVector((double)speed / Game.FPS, wPos);
+		position.MoveDistanceToVector((double) speed / Game.FPS, wPos);
 
 		if (position.equals(wPos)) { // ez így jó, nem kell epszilon, mert a movethispointaspecifiedistancetowardsagivenvectorplease fgv fentebb direktbe' adja át, ha már elég közel van
 			if (nextWaypoint == null) {
@@ -120,8 +120,8 @@ public class Enemy {
 	public double getHealth() {
 		return health;
 	}
-	
-	public boolean isAlive(){
+
+	public boolean isAlive() {
 		return health > 0;
 	}
 
@@ -133,28 +133,29 @@ public class Enemy {
 	public void setSlowingFactor(double slowingFactor) {
 		this.slowingFactor = slowingFactor;
 	}
-	
-	public double getSlowingFactor(){
+
+	public double getSlowingFactor() {
 		return slowingFactor;
 	}
 
 	/**
 	 * Megsebzi az ellenfelet, majd kettévágja
-	 * @return az új ellenség 
-	 **/
+	 *
+	 * @return az új ellenség
+	 */
 	public Enemy split(double dmg) {
-		if (isAlive()){
+		if (isAlive()) {
 			this.damage(dmg);
 			Enemy rtn = new Enemy(this);
 			rtn.health *= 0.5;
-			
+
 			final int moveNum = 10;
 			for (int i = 0; i < moveNum; ++i)
 				rtn.move();
-			
+
 			return rtn;
 		}
-		
+
 		return null;
 	}
 }

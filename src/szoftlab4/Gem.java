@@ -16,8 +16,8 @@ public abstract class Gem {
 	public double getRangeMultiplier() {
 		return range;
 	}
-	
-	public int getCost(){
+
+	public int getCost() {
 		return cost;
 	}
 }

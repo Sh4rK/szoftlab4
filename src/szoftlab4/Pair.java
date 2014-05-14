@@ -2,7 +2,7 @@ package szoftlab4;
 
 /**
  * Párokat tároló generikus osztály.
- * 
+ *
  * @author Nusser Ádám
  */
 public class Pair<K, V> {

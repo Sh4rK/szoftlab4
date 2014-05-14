@@ -21,7 +21,7 @@ public class EnemyType {
 		normalSpeed = speed;
 		this.magic = magic;
 	}
-	
+
 	/**
 	 * Statikus konstruktor, létrehozza az ellenségtípusokat.
 	 * */

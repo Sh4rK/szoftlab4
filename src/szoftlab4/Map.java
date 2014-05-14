@@ -7,7 +7,6 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
@@ -61,13 +60,13 @@ public class Map {
 			wp.setDistance();
 		}
 	}
-	
+
 	/**
 	 * Segédmetódus, amely megadja egy pontnak egy két végpontjával adott szakasztól való távolságát.
-	 * 
+	 *
 	 * @param s1 A szakasz egyik pontja.
 	 * @param s2 A szakasz másik pontja.
-	 * @param p A pont, aminek a távolsága érdekes.
+	 * @param p  A pont, aminek a távolsága érdekes.
 	 * @return A pontnak a szakasztól mért távolsága.
 	 */
 	private double segmentPointDistance(Vector s1, Vector s2, Vector p) {
@@ -109,10 +108,10 @@ public class Map {
 	public boolean canBuildTower(Vector position) {
 		return !isInRoadRange(position, roadRadius + Tower.radius);
 	}
-	
+
 	/**
 	 * Megkeres egy waypointt az azonosítója alapján.
-	 * 
+	 *
 	 * @param waypointID A keresett waypoint azonosítója.
 	 * @return A keresett waypoint, vagy null, ha nincs találat.
 	 */

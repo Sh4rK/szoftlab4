@@ -6,7 +6,6 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,11 +70,11 @@ public class Mission {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @return Van-e még ellenség
 	 */
-	public boolean hasEnemy(){
+	public boolean hasEnemy() {
 		return !spawnList.isEmpty();
 	}
 

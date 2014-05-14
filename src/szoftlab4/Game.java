@@ -1,8 +1,6 @@
 package szoftlab4;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,28 +25,39 @@ public class Game {
 	private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private List<Tower> towers = new ArrayList<Tower>();
 	private int magic = 4200;
-	/** Antialiasing bekapcsolása */
+	/**
+	 * Antialiasing bekapcsolása
+	 */
 	public static boolean AA = false;
-	/** FPS számláló megjelenítésének bekapcsolása */
+	/**
+	 * FPS számláló megjelenítésének bekapcsolása
+	 */
 	public static boolean countFPS = false;
-	/** Ez tárolja a tényleges FPS-t */
+	/**
+	 * Ez tárolja a tényleges FPS-t
+	 */
 	public double realFPS;
 	private long tick = 0;
 	/* debuggoláshoz */
 	private double speed = 1.0;
-	
+
 	private View view;
+
 	/**
-	 * A játék lehetséges állapotai 
+	 * A játék lehetséges állapotai
 	 */
-	enum State { RUNNING, PAUSED, WIN, LOSE };
+	enum State {
+		RUNNING, PAUSED, WIN, LOSE
+	}
+
+	;
 	State gameState = State.RUNNING;
 
 	/**
 	 * A játék konstruktora, betölt egy pályát és egy missziót
-	 * 
-	 *  @param mapName a map fájl neve
-	 *  @param missionName a mission fájl neve
+	 *
+	 * @param mapName     a map fájl neve
+	 * @param missionName a mission fájl neve
 	 */
 	public Game(String mapName, String missionName) {
 		try {
@@ -57,104 +66,105 @@ public class Game {
 			view = new View(this, map);
 			view.magicChange(magic);
 			view.addDrawable(new GraphicFog());
-			if (countFPS){
+			if (countFPS) {
 				initFPScounter();
 			}
 			Fog.setFog(false);
 			Tower.comeatmebro = false;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public View getView(){
+
+	public View getView() {
 		return view;
 	}
-	
+
 	/**
 	 * Inicializája a vizuális FPS számlálót
-	 * Az FPS számláló a képernyő jobb felső sarkában látható 
+	 * Az FPS számláló a képernyő jobb felső sarkában látható
 	 */
-	private void initFPScounter(){
-		view.addDrawable(new Drawable(){
+	private void initFPScounter() {
+		view.addDrawable(new Drawable() {
 			Game game;
-			public Drawable init(Game g){
+
+			public Drawable init(Game g) {
 				z_index = 10;
 				game = g;
 				return this;
 			}
+
 			public void draw(Graphics g) {
 				g.setColor(Color.white);
 				g.setFont(new Font("Consolas", Font.BOLD, 36));
-				g.drawString(""+(int)(game.realFPS), 750, 30);
+				g.drawString("" + (int) (game.realFPS), 750, 30);
 			}
 		}.init(this));
 		view.magicChange(magic);
 	}
-	
+
 	/**
-	 * A játék főciklusa, a játék állapotától függően lépteti a játékot és kirajzolja azt. 
+	 * A játék főciklusa, a játék állapotától függően lépteti a játékot és kirajzolja azt.
 	 */
-	public void run(){
+	public void run() {
 		int i = 1;
 		double stime = System.nanoTime();
-		while(gameState == State.RUNNING || gameState == State.PAUSED){
-			if (gameState != State.PAUSED){
+		while (gameState == State.RUNNING || gameState == State.PAUSED) {
+			if (gameState != State.PAUSED) {
 				step();
 				setFog();
 				++tick;
 			}
 			view.drawAll();
 			try {
-				Thread.sleep((int)(1000/(FPS * speed)));
+				Thread.sleep((int) (1000 / (FPS * speed)));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			// FPS számlálás, 15 darab minta átlagát veszi
 			if (++i % 15 == 0) {
 				double etime = System.nanoTime();
-				realFPS = (1000000000.0/((etime - stime)/15));
+				realFPS = (1000000000.0 / ((etime - stime) / 15));
 				stime = System.nanoTime();
 				i = 0;
 			}
-			
-			if (gameState != State.PAUSED && !mission.hasEnemy() && enemies.isEmpty()){
+
+			if (gameState != State.PAUSED && !mission.hasEnemy() && enemies.isEmpty()) {
 				gameState = State.WIN;
-				
+
 			}
 		}
-		
-		if (gameState == State.LOSE){
+
+		if (gameState == State.LOSE) {
 			view.gameLost();
-		}
-		else if (gameState == State.WIN){
+		} else if (gameState == State.WIN) {
 			view.gameWon();
 		}
 	}
-	
+
 	private double gaus = new Random().nextGaussian();
-	private void setFog(){
+
+	private void setFog() {
 		long time = tick / FPS;
-		
+
 		double secs;
-		if (Fog.isSet()){
+		if (Fog.isSet()) {
 			secs = gaus * 5.0 + 10.0;
 			/* Valamiért néha a secs pont 0 lett és ezért div by 0 exceptiont dobott */
-			while ((int)secs == 0){
+			while ((int) secs == 0) {
 				gaus = new Random().nextGaussian();
 				secs = gaus * 5.0 + 10.0;
 			}
-		}
-		else {
+		} else {
 			secs = gaus * 13.0 + 40.0;
-			while ((int)secs == 0){
+			while ((int) secs == 0) {
 				gaus = new Random().nextGaussian();
 				secs = gaus * 13.0 + 40.0;
 			}
 		}
-		if (time != 0 && time % (int)secs == 0){
+		if (time != 0 && time % (int) secs == 0) {
 			Fog.toggle();
 			tick = 0;
 			gaus = new Random().nextGaussian();
@@ -185,20 +195,21 @@ public class Game {
 	private void moveProjectiles() {
 		Iterator<Projectile> i = projectiles.iterator();
 		while (i.hasNext()) {
-		   Projectile p = i.next();
-		   if (p.step()){
+			Projectile p = i.next();
+			if (p.step()) {
 				i.remove();
 				view.projectileExploded(p);
-				if (!p.getTarget().isAlive() && enemies.contains(p.target)){
+				if (!p.getTarget().isAlive() && enemies.contains(p.target)) {
 					removeEnemy(p.getTarget());
 				}
-		   }
+			}
 		}
 	}
+
 	/**
-	 * Kitöröl egy ellenséget. 
+	 * Kitöröl egy ellenséget.
 	 */
-	private void removeEnemy(Enemy en){
+	private void removeEnemy(Enemy en) {
 		magic += en.getEnemyType().magic;
 		view.magicChange(magic);
 		enemies.remove(en);
@@ -209,10 +220,10 @@ public class Game {
 	 * A tornyok támadását intéző metódus.
 	 */
 	private void towersFire() {
-		synchronized(towers){
+		synchronized (towers) {
 			for (Tower t : towers) {
 				Projectile p = t.attack(enemies, this);
-				if (p != null){
+				if (p != null) {
 					projectiles.add(p);
 					view.projectileAdded(p);
 				}
@@ -224,9 +235,9 @@ public class Game {
 	 * Az ellenségek mozgását intéző metódus.
 	 */
 	private boolean moveEnemies() {
-		synchronized(enemies){
+		synchronized (enemies) {
 			for (Enemy e : enemies) {
-				if (e.move()){
+				if (e.move()) {
 					gameState = State.LOSE;
 					return true;
 				}
@@ -239,8 +250,8 @@ public class Game {
 	 * Az ellenségek lassítását beállító metódus.
 	 */
 	private void slowEnemies() {
-		synchronized(enemies){
-			synchronized(obstacles){
+		synchronized (enemies) {
+			synchronized (obstacles) {
 				for (Enemy e : enemies) {
 					e.setSlowingFactor(1);
 					for (Obstacle o : obstacles) {
@@ -299,8 +310,8 @@ public class Game {
 	 * @param en A hozzáadandó ellenség.
 	 */
 	public void addEnemy(Enemy en) {
-		if (en != null){
-			synchronized(enemies){
+		if (en != null) {
+			synchronized (enemies) {
 				enemies.add(en);
 			}
 			view.enemyAdded(en);
@@ -318,13 +329,13 @@ public class Game {
 	public boolean buildObstacle(Vector pos) {
 		if (map.canBuildObstacle(pos) && !collidesWithObstacle(pos, Obstacle.range) && magic >= Obstacle.cost) {
 			Obstacle o = new Obstacle(pos);
-			synchronized(obstacles){
+			synchronized (obstacles) {
 				obstacles.add(o);
 			}
 			view.obstacleAdded(o);
 			magic -= Obstacle.cost;
 			view.magicChange(magic);
-			
+
 			return true;
 		}
 
@@ -342,13 +353,13 @@ public class Game {
 	public boolean buildTower(Vector pos) {
 		if (map.canBuildTower(pos) && !collidesWithTower(pos) && magic >= Tower.cost) {
 			Tower t = new Tower(pos);
-			synchronized(towers){
+			synchronized (towers) {
 				towers.add(t);
 			}
 			view.towerAdded(t);
 			magic -= Tower.cost;
 			view.magicChange(magic);
-			
+
 			return true;
 		}
 
@@ -359,7 +370,7 @@ public class Game {
 	 * @return visszadja, hogy az adott kör ütközik-e egy akadállyal
 	 */
 	public boolean collidesWithObstacle(Vector pos, double radius) {
-		synchronized(obstacles){
+		synchronized (obstacles) {
 			for (Obstacle o : obstacles) {
 				if (o.doesCollideWithCircle(pos, radius))
 					return true;
@@ -373,7 +384,7 @@ public class Game {
 	 * @return visszaadja, hogy az adott pont ütközik-e egy toronnyal
 	 */
 	public boolean collidesWithTower(Vector pos) {
-		synchronized(towers){
+		synchronized (towers) {
 			for (Tower t : towers) {
 				if (t.doesCollide(pos))
 					return true;
@@ -387,7 +398,7 @@ public class Game {
 	 * @return Az akadály, amellyel az adott pont ütközik. Ha egyikkel sem, akkor null.
 	 */
 	public Obstacle getCollidingObstacle(Vector pos) {
-		synchronized(obstacles){
+		synchronized (obstacles) {
 			for (Obstacle o : obstacles) {
 				if (o.doesCollide(pos))
 					return o;
@@ -401,7 +412,7 @@ public class Game {
 	 * @return A torony, amellyel az adott pont ütközik. Ha egyikkel sem, akkor null.
 	 */
 	public Tower getCollidingTower(Vector pos) {
-		synchronized(towers){
+		synchronized (towers) {
 			for (Tower t : towers) {
 				if (t.doesCollide(pos))
 					return t;
@@ -410,24 +421,25 @@ public class Game {
 
 		return null;
 	}
-	
+
 	/**
-	 * Megmutatja, hogy 1 játékbeli méter hány pixel a képernyőn 
+	 * Megmutatja, hogy 1 játékbeli méter hány pixel a képernyőn
 	 */
 	static private int pix = 10;
+
 	/**
 	 * @param v egy Vector, ami fizikai koordinátákat tartalmaz
-	 * @return v Vector áttranszformálva játékbeli koordinákba 
-	 * */
-	static public Vector toGameCoords(Vector v){
-		return new Vector(v.x/pix, v.y/pix);
+	 * @return v Vector áttranszformálva játékbeli koordinákba
+	 */
+	static public Vector toGameCoords(Vector v) {
+		return new Vector(v.x / pix, v.y / pix);
 	}
-	
+
 	/**
 	 * @param v egy Vector, ami játékbeli koordinátákat tartalmaz
 	 * @return v Vector áttranszformálva fizikai koordinátákba
-	 * */
-	static public Vector toMouseCoords(Vector v){
-		return new Vector(v.x*pix, v.y*pix);
+	 */
+	static public Vector toMouseCoords(Vector v) {
+		return new Vector(v.x * pix, v.y * pix);
 	}
 }

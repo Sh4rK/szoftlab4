@@ -4,14 +4,15 @@ import java.awt.*;
 
 /**
  * Varázskő kirajzolásáért felelős osztály.
- * @author Adam
  *
+ * @author Adam
  */
 public class GraphicGem extends Drawable {
 	public Vector pos;
 
 	/**
 	 * Beállítja a kapott varázskőtől függően a kirajzolandó képet.
+	 *
 	 * @param g
 	 */
 	public GraphicGem(Gem g) {

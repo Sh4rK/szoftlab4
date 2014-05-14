@@ -43,7 +43,7 @@ public class Obstacle {
 
 		return false;
 	}
-	
+
 	public boolean doesCollideWithCircle(Vector pos, double radius) {
 		if (pos.getDistance(position) <= getRange() + radius)
 			return true;
@@ -93,7 +93,7 @@ public class Obstacle {
 	}
 
 	public double getRange() {
-		double rtn = range ;//* Fog.getRangeMultiplier();
+		double rtn = range;//* Fog.getRangeMultiplier();
 		if (gem != null)
 			rtn *= gem.getRangeMultiplier();
 

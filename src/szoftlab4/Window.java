@@ -1,13 +1,13 @@
 package szoftlab4;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Window extends JFrame {
 	Menu menu;
-	private volatile Game game = null; 
-	
+	private volatile Game game = null;
+
 	/**
-	 * Beállítja a játékot, majd értesít, hogy el lehet indítani a játékot 
+	 * Beállítja a játékot, majd értesít, hogy el lehet indítani a játékot
 	 */
 	public synchronized void setGame(Game game) {
 		this.setContentPane(game.getView().getPanel());
@@ -17,25 +17,25 @@ public class Window extends JFrame {
 		/* very notify */
 		this.notify();
 	}
-	
+
 	/**
-	 * Elindítja a játékot 
+	 * Elindítja a játékot
 	 */
-	public void runGame(){
+	public void runGame() {
 		game.run();
 		setSize(500, 200);
 		this.setLocationRelativeTo(null);
 		this.setContentPane(menu.panel);
 	}
-	
+
 	public Window() {
 		setSize(500, 200);
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		menu = new Menu(this);
-		
+
 		add(menu.panel);
-		
+
 	}
 }

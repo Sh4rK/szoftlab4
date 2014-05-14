@@ -33,7 +33,7 @@ public class Waypoint {
 	public double getDistance() {
 		return distance;
 	}
-	
+
 	/**
 	 * Beállítja a céltól való távolságot.
 	 */
@@ -105,12 +105,12 @@ public class Waypoint {
 	public Vector getPosition() {
 		return position;
 	}
-	
-	public int getID(){
+
+	public int getID() {
 		return ID;
 	}
-	
-	public void setID(int ID){
+
+	public void setID(int ID) {
 		this.ID = ID;
 	}
 }

@@ -86,15 +86,15 @@ public class Tower {
 
 		double tempDamage = damage.get(target.getEnemyType());
 		cooldown = Game.FPS / fireRate;
-		
-		if (gem != null){
+
+		if (gem != null) {
 			tempDamage *= gem.getDamageMultiplier(target.getEnemyType());
 			cooldown /= gem.getRateMultiplier();
 		}
-		if (comeatmebro){
+		if (comeatmebro) {
 			cooldown = (Game.FPS / fireRate) / 12.0;
 		}
-		
+
 		Projectile pro;
 
 		if (Math.random() < 0.06)
@@ -141,7 +141,7 @@ public class Tower {
 	public double getRange() {
 		if (comeatmebro)
 			return 40;
-		
-		return range * Fog.getRangeMultiplier() * ((gem == null)?1:gem.getRangeMultiplier());
+
+		return range * Fog.getRangeMultiplier() * ((gem == null) ? 1 : gem.getRangeMultiplier());
 	}
 }

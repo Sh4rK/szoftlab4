@@ -23,15 +23,15 @@ public class Fog {
 	public static void setFog(boolean fog) {
 		isSet = fog;
 	}
-	
-	public static void toggle(){
+
+	public static void toggle() {
 		if (isSet == true)
 			isSet = false;
 		else
 			isSet = true;
 	}
-	
-	public static boolean isSet(){
+
+	public static boolean isSet() {
 		return isSet;
 	}
 }
