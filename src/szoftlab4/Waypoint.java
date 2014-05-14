@@ -32,10 +32,17 @@ public class Waypoint {
 		return distance;
 	}
 
+	public double setDistance() {
+		return setDistance(0);
+	}
+	
 	/**
 	 * @param d Beállítja a céltól való távolságot.
 	 */
-	public double setDistance() {
+	public double setDistance(int depth) {
+		if (depth > 30)
+			return 1;
+		
 		if (distance >= 0)
 			return distance;
 
@@ -47,7 +54,7 @@ public class Waypoint {
 		double temp;
 
 		for (Pair<Waypoint, Double> l : nextWaypoints) {
-			temp = l.a.setDistance() + position.getDistance(l.a.position);
+			temp = l.a.setDistance(depth + 1) + position.getDistance(l.a.position);
 			if (temp < minDis)
 				minDis = temp;
 		}

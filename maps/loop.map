@@ -1,0 +1,81 @@
+<map>
+	<name>Test</name>
+	<waypoint>
+		<id>1</id>
+		<coords>
+			<x>0</x>
+			<y>40</y>
+		</coords>
+	</waypoint>
+	
+	<waypoint>
+		<id>2</id>
+		<coords>
+			<x>20</x>
+			<y>20</y>
+		</coords>
+	</waypoint>
+	
+	<waypoint>
+		<id>3</id>
+		<coords>
+			<x>60</x>
+			<y>20</y>
+		</coords>
+	</waypoint>
+	
+	<waypoint>
+		<id>4</id>
+		<coords>
+			<x>60</x>
+			<y>40</y>
+		</coords>
+	</waypoint>
+	
+	<waypoint>
+		<id>5</id>
+		<coords>
+			<x>20</x>
+			<y>40</y>
+		</coords>
+	</waypoint>
+	
+	<waypoint>
+		<id>6</id>
+		<coords>
+			<x>80</x>
+			<y>40</y>
+		</coords>
+	</waypoint>
+	
+	<route>
+		<a>1</a>
+		<b>2</b>
+		<chance>1</chance>
+	</route>
+	<route>
+		<a>2</a>
+		<b>3</b>
+		<chance>1</chance>
+	</route>
+	<route>
+		<a>3</a>
+		<b>4</b>
+		<chance>1</chance>
+	</route>
+	<route>
+		<a>4</a>
+		<b>5</b>
+		<chance>1</chance>
+	</route>
+	<route>
+		<a>5</a>
+		<b>2</b>
+		<chance>1</chance>
+	</route>
+	<route>
+		<a>4</a>
+		<b>6</b>
+		<chance>0</chance>
+	</route>
+</map>
