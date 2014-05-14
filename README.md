@@ -7,4 +7,5 @@ Szabó Antal
 Tallér Bátor  
 Török Attila  
 
-![Screenshot](https://raw.githubusercontent.com/Sh4rK/szoftlab4/master/screenshots/gameplay.png)
+![Screenshot](/screenshots/gameplay.jpg?raw=true)
+![Screenshot](/screenshots/very.jpg?raw=true)
