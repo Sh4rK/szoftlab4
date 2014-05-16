@@ -123,6 +123,36 @@ A játék futása közben a felhasználótól érkező eseményeket kezeli, és 
 \item Attribútumok
 	\begin{itemize}
 		\item - game: Game: A kontrollerhez tartozó Game onjektum.
+		\item - view: View: A kontrollerhez tartozó View onjektum.
+		\item - mapMouseEvent: MapMouseDelegate: Ez tárolja mi az elvégzendő művelet a térképen történő eseményeknél
+		\item - activeButton: JButton: A jelenleg lenyomott gomb
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item - nullActiveButton(): Kitörli a kiválasztott gombot, beállítja a gombok kinézetét
+	\end{itemize}
+\end{itemize}
+
+\subsection{+ Controller.MenuPanelMouseEvent}
+\begin{itemize}
+\item Felelősség \newline
+A menüsávon való kattintás lekezelése.
+\item Ősosztályok\newline
+MouseAdapter
+\item Metódusok
+	\begin{itemize}
+		\item + mousePressed(MouseEvent): Az egérkattintás eseménykezelője
+	\end{itemize}
+\end{itemize}
+
+\subsection{+ Controller.MapMouseDelegate <<interface>>}
+\begin{itemize}
+\item Felelősség \newline
+Egy interfész a térkép események kezelésére.
+\item Metódusok
+	\begin{itemize}
+		\item + MapClicked(MouseEvent): Az egérkattintás eseménykezelője
+		\item + MapMoved(MouseEvent): Az egérmozgatás eseménykezelője
 	\end{itemize}
 \end{itemize}
 
