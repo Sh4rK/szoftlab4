@@ -22,13 +22,11 @@ public class GraphicProjectile extends Drawable {
 			img = Resources.ProjectileImage;
 	}
 
-	/**
-	 * A kirajzolást végző metódus.
-	 */
-	@Override
+
 	/**
 	 * Kirajzolja a lövedéket az áttranszformált koordinátákra.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, (int) Game.toMouseCoords(p.getPosition()).x - img.getWidth(null) / 2, (int) Game.toMouseCoords(p.getPosition()).y - img.getHeight(null) / 2, null);
 

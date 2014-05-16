@@ -26,6 +26,7 @@ public class GraphicMap extends Drawable {
 	 * Kirajzolja a pálya hátterét, majd a Waypointokon végighaladva
 	 * kirajzolja az utakat is.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		AffineTransform originalTransform = g2.getTransform();

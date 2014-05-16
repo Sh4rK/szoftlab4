@@ -20,16 +20,13 @@ public class GraphicObstacle extends Drawable {
 	}
 
 	/**
-	 * A kirajzolást végző metódus.
-	 */
-	@Override
-	/**
 	 * Kirajzolja átszámított koordinátákkal az akadályt, 
 	 * majd ha van rajta varázskő, akkor azt is rárajzolja.
 	 * Végül varázskőtől függően rajzol egy olyan színű 
 	 * és olyan sugarú kört a torony köré, amilyen színü a varázskő,
 	 * és amekkora az akadály hatótávolsága.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, (int) Game.toMouseCoords(o.getPosition()).x - img.getWidth(null) / 2,
 				(int) Game.toMouseCoords(o.getPosition()).y - img.getHeight(null) / 2, null);

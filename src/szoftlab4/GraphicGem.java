@@ -30,10 +30,11 @@ public class GraphicGem extends Drawable {
 		pos = new Vector(-100, -100);
 	}
 
-	@Override
+
 	/**
 	 * Kirajzolja a varázskövet a pozíciójától eltolva, hogy attól jobbra fel kerüljön.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		Vector mpos = Game.toMouseCoords(pos);
 		g.drawImage(img, (int) mpos.x - img.getWidth(null) / 4,

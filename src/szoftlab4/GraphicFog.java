@@ -14,6 +14,7 @@ public class GraphicFog extends Drawable {
 	/**
 	 * Kirajzolja a ködöt, mint egy teljes képernyős szürke átfedés.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		if (Fog.isSet()) {
 			g.setColor(new Color(255, 255, 255, 128));
