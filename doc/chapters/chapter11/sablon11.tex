@@ -182,6 +182,33 @@ Közös alapot biztosít a játékban az összes kirajzolható objektumnak.
 \item Attribútumok
 	\begin{itemize}
 		\item - view: View: Egy referencia a grafikus megjelenítést végző osztályra.
+		\item + \underline{FPS: int}: Másodpercenkénti képfrissítések száma.
+		\item - gameState: State: A játék állapotát tárolja.
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item + getView: View: visszaadja a View-t
+		\item - initFPSCounter: Inicializája a vizuális FPS számlálót. Az FPS számláló a képernyő jobb felső sarkában látható
+		\item - setFog(): ki/be kapcsolja a ködöt. A kikapcsolt időtartamot egy 13 szórású 40 várhatóértékű, a bekapcsoltat egy 5 szórású 10 várhatóértékű normális eloszlás adja.
+		\item + \underline{toGameCoords(Vector): Vector}: áttranszformál egy pozíciót játékbeli koordinátákra
+		\item + \underline{toMouseCoords(Vector): Vector}: áttranszformál egy játékbeli koordinátát fizikai koordinátákra.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{GemButton}
+\begin{itemize}
+\item Felelősség \newline
+Egy olyan Gomb, ami képes egy Gem-et tárolni.
+\item Ősosztályok\newline
+JButton
+\item Attribútumok
+	\begin{itemize}
+		\item - type : Gem: az eltárolt Gem
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + getGemType: Gem: visszatért az eltárolt Gem típusával
 	\end{itemize}
 \end{itemize}
 
@@ -305,6 +332,17 @@ Drawable
 \end{itemize}
 
 
+\subsection{Main}
+\begin{itemize}
+\item Felelősség \newline
+Elindítani a játékot, a parancssori argumentumoknak megfelelően beállítani néhány statikus változót.
+\item Metódusok
+	\begin{itemize}
+		\item + \underline{main(String[])}: A program belépési pontja.
+	\end{itemize}
+\end{itemize}
+
+
 \subsection{Menu}
 \begin{itemize}
 \item Felelősség \newline
@@ -312,26 +350,45 @@ A játék főmenüjét valósítja meg, amivel új játékot lehet indítani, ez
 \item Attribútumok
 	\begin{itemize}
 		\item \# panel: JPanel: A menü kirajzolásához használt JPanel.
+		\item - mapListModel: AbstractListModel: pályákat tárolja
+		\item - missionListModel: AbstractListModel: küldetéseket tárolja
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
 		\item + exit(): Bezárja a játék ablakait, és kilép a programból.
 		\item + newGame(): Új játék indítását kezdeményezi.
 		\item + run(): Elindítja a menü futását.
+		\item - everythingSelected(): boolean: Leellenőrzi, hogy pálya és misszió is ki van-e választva.
 	\end{itemize}
 \end{itemize}
 
-\subsection{MouseEventHandler}
+\subsection{Resources}
 \begin{itemize}
 \item Felelősség  \newline
-Az egérkattintás eseményeket kezeli le.
-\item Interfészek
+Eltárolja a játék során felhasznált képeket, azért, hogy csak egyszer kelljen őket betölteni.
+\item Attribútumok
 \begin{itemize}
 	\item MouseListener
+	\item + \underline{TowerImage: Image}
+	\item + \underline{ObstacleImage: Image}
+	\item + \underline{RedGemImage: Image}
+	\item + \underline{GreenGemImage: Image}
+	\item + \underline{BlueGemImage: Image}
+	\item + \underline{YellowGemImage: Image}
+	\item + \underline{OrangeGemImage: Image}
+	\item + \underline{HumanImage: Image}
+	\item + \underline{DwarfImage: Image}
+	\item + \underline{ElfImage: Image}
+	\item + \underline{HobbitImage: Image}
+	\item + \underline{BackgroundImage: Image}
+	\item + \underline{MountainsImage: Image}
+	\item + \underline{ProjectileImage: Image}
+	\item + \underline{SplitterProjectileImage: Image}
+	\item + \underline{LZImage: Image}
 \end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item + MouseClicked(MouseEvent): Egérkattintáskor hívódik meg, kezeli az eseményt. Az egérkattintás pozíciójától függően meghívja a megfelelő metódust a Game-ben.
+		\item + \underline{load}: betölti a képeket, IOException-t dob ha valamelyik nem sikerült.
 	\end{itemize}
 \end{itemize}
 
@@ -382,7 +439,9 @@ JFrame
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
-		\item + setGame(Game): Beállítja azt a Game objektumot, amit a kezelőfelület meg fog jeleníteni. A menü fogja meghívni a pálya- és misszióválasztás után.
+		\item + setGame(Game): Beállítja azt a Game objektumot, amit a kezelőfelület meg fog jeleníteni. A menü fogja meghívni a pálya- és misszióválasztás után. 
+		Amikor a játék készen áll az elindításra, jelez az erre az objektumra váró objektumoknak.
+		\item + runGame(): elindítja a játékot
 	\end{itemize}
 \end{itemize}
 
