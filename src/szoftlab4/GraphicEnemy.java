@@ -31,9 +31,6 @@ public class GraphicEnemy extends Drawable {
 	 * Kirajzolja az általa reprezentált ellenséget.
 	 */
 	@Override
-	/**
-	 * Az ellenség koordinátáira kirajzolja az ellegséget.
-	 */
 	public void draw(Graphics g) {
 		g.drawImage(img, (int) Game.toMouseCoords(e.getPosition()).x - img.getWidth(null) / 2, (int) Game.toMouseCoords(e.getPosition()).y - img.getHeight(null) / 2, null);
 	}
