@@ -311,18 +311,31 @@ Az egérkattintás eseményeket kezeli le.
 A játék kirajzolása, azaz a Game osztály állapotának megjelenítésa a képernyőn.
 \item Attribútumok
 	\begin{itemize}
-		\item \# panel: JPanel: A játék kirajzolásához használt JPanel
-		\item \# drawables: List<Drawable>: A játékban kirajzolandó dolgok (ellenségek, tornyok, stb.) listája rendezve, hogy jó sorrenben legyen az objektumok kirajzolva.
+		\item - panel: JPanel: A játék kirajzolásához használt JPanel
+		\item - drawables: List<Drawable>: A játékban kirajzolandó dolgok (ellenségek, tornyok, stb.) listája rendezve, hogy jó sorrenben legyen az objektumok kirajzolva.
+		\item - mapPanel: JPanel: A játéknak a játékterét (pálya, ellenségek, tornyok, stb.) megjelenítő JPanel.
+		\item - magicPanel: JPanel: A játék ezköztárát megjelenítő JPanel.
+		\item - placing: Drawable: Azt az objektumot tárolja, ami épp lerakás alatt van, így ekkor is meg lehet jeleníteni.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
+		\item + addDrawable(Drawable): Berak egy Drawable-t a kirajzolandó objektumok listájába.
 		\item + drawAll(): Kirajzolja a játék jelenlegi állását.
 		\item + enemyAdded(Enemy): A Game hívja meg amikor új ellenség kerül a pályára, frissíti a View adatstruktúráit.
 		\item + enemyDied(Enemy): A Game hívja meg amikor meghal egy ellenség, frissíti a View adatstruktúráit.
+		\item + gameLost(): Kirajzolja a vesztes játék végi üzenetet.
+		\item + gameWon(): Kirajzolja a nyertes játék végi üzenetet.
+		\item + getPanel(): Visszaadja a ``panel'' tagváltozót.
+		\item + magicChange(int): Megváltoztatja a kiírt varázserő értéket a paraméterként kapottra.
 		\item + obstacleAdded(Obstacle): A Game hívja meg amikor új akadály kerül a pályára, frissíti a View adatstruktúráit.
+		\item + obstacleEnchanted(Obstacle): Frissíti egy meglévő akadály aktív varázskövét.
+		\item - setButtonLook(JButton, ImageIcon): Beállítja egy JButton kinézetét.
+		\item + setPlacing(Drawable): Beállítja az éppen lerakás alatt álló objektumot.
 		\item + towerAdded(Tower): A Game hívja meg amikor új torony kerül a pályára, frissíti a View adatstruktúráit.
+		\item + towerEnchanted(Tower): Frissíti egy meglévő torony aktív varázskövét.
 		\item + projectileAdded(Projectile): A Game hívja meg amikor új lövedék kerül a pályára, frissíti a View adatstruktúráit.
 		\item + projectileExploded(Projectile): A Game hívja meg amikor egy lövedék megsemmisül, frissíti a View adatstruktúráit.
+		\item - winLoseScreen(String, Image): Kirajzolja a játék végi üzenetet és képet (nyerés/vesztés).
 	\end{itemize}
 \end{itemize}
 
